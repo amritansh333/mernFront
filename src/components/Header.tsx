@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Menu, X, ChevronDown, Home } from "lucide-react";
-import logoImg from "@/assets/logo.jpg";
+import logoImg from "@/assets/logo-footer.png";
 
 const navItems = [
   {
@@ -47,13 +47,13 @@ const navItems = [
   {
     label: "Materials",
     children: [
-      { label: "PE / UHMW PE (POLYRIB V)", href: "/materials/polyrib-v" },
-      { label: "PP (POLYRIB P / DIPRA)", href: "/materials/polyrib-p" },
-      { label: "HDPE (POLYRIB H)", href: "/materials/polyrib-h" },
-      { label: "PC (PCCLEAR)", href: "/materials/pcclear" },
-      { label: "Nylon (KAYLON)", href: "/materials/kaylon" },
-      { label: "Acetal/POM (PAKETAL)", href: "/materials/paketal" },
-      { label: "ABS (POLYRIB A)", href: "/materials/polyrib-a" },
+      { label: "PE / UHMW PE (POLYRIB V)", href: "/materials" },
+      { label: "PP (POLYRIB P / DIPRA)", href: "/materials" },
+      { label: "HDPE (POLYRIB H)", href: "/materials" },
+      { label: "PC (PCCLEAR)", href: "/materials" },
+      { label: "Nylon (KAYLON)", href: "/materials" },
+      { label: "Acetal/POM (PAKETAL)", href: "/materials" },
+      { label: "ABS (POLYRIB A)", href: "/materials" },
       { label: "All Materials", href: "/materials" },
     ],
   },

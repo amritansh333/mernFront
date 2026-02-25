@@ -4,20 +4,20 @@ import logoImg from "@/assets/logo-footer.png";
 
 const footerLinks = {
   Products: [
-    { label: "Semi-Finished Products", href: "/products/semi-finished" },
-    { label: "Rods & Tubes", href: "/products/semi-finished/rods-tubes" },
-    { label: "Sheets & Blocks", href: "/products/semi-finished/sheets" },
-    { label: "Coils & Rolls", href: "/products/semi-finished/coils-rolls" },
-    { label: "Machine Components", href: "/products/machine-components" },
-    { label: "Strips & Profiles", href: "/products/machine-components/listing" },
+    { label: "Semi-Finished Products", href: "/products/thermoplastics-semi-finished-products" },
+    { label: "Rods & Tubes", href: "/products/thermoplastics-semi-finished-products/rods-tubes" },
+    { label: "Sheets & Blocks", href: "/products/thermoplastics-semi-finished-products/sheets-blocks" },
+    { label: "Coils & Rolls", href: "/products/thermoplastics-semi-finished-products/coils-rolls" },
+    { label: "Machine Components", href: "/products/thermoplastics-machine-components" },
+    { label: "Strips & Profiles", href: "/products/machine-components/strips-and-profiles" },
   ],
   Materials: [
-    { label: "POLYRIB V (UHMW PE)", href: "/materials/polyrib-v" },
-    { label: "POLYRIB H (HDPE)", href: "/materials/polyrib-h" },
-    { label: "POLYRIB P (PP)", href: "/materials/polyrib-p" },
-    { label: "PCCLEAR (PC)", href: "/materials/pcclear" },
-    { label: "KAYLON (Nylon)", href: "/materials/kaylon" },
-    { label: "PAKETAL (Acetal)", href: "/materials/paketal" },
+    { label: "POLYRIB V (UHMW PE)", href: "/materials" },
+    { label: "POLYRIB H (HDPE)", href: "/materials" },
+    { label: "POLYRIB P (PP)", href: "/materials" },
+    { label: "PCCLEAR (PC)", href: "/materials" },
+    { label: "KAYLON (Nylon)", href: "/materials" },
+    { label: "PAKETAL (Acetal)", href: "/materials" },
   ],
   Company: [
     { label: "About Us", href: "/about" },
