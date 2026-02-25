@@ -1,7 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Leaf, Recycle, Users, Award, Sun, Droplets } from "lucide-react";
+import {
+  ArrowRight,
+  Leaf,
+  Recycle,
+  Users,
+  Award,
+  Sun,
+  Droplets,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
 import heroImage from "@/assets/csr.jpeg";
+import csr1 from "@/assets/csr-slider1.jpeg";
+import csr2 from "@/assets/csr-slider2.jpeg";
+import csr3 from "@/assets/csr-slider3.jpeg";
 
 const pillars = [
   {
@@ -37,6 +50,27 @@ const pillars = [
 ];
 
 export default function CSRPage() {
+  const csrImages = [csr1, csr2, csr3];
+  const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % csrImages.length);
+    }, 5000); // slow auto transition
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const prevSlide = () => {
+    setCurrent((prev) =>
+      prev === 0 ? csrImages.length - 1 : prev - 1
+    );
+  };
+
+  const nextSlide = () => {
+    setCurrent((prev) => (prev + 1) % csrImages.length);
+  };
+
   return (
     <div className="pt-16 bg-white">
       {/* Header */}
@@ -62,23 +96,68 @@ export default function CSRPage() {
         </div>
       </div>
 
-      {/* Intro */}
-      <section className="py-16 border-b border-gray-200 bg-white">
-        <div className="container max-w-7xl mx-auto px-6 max-w-3xl">
-          <p className="section-label mb-3">Our Commitment</p>
-          <h2 className="font-heading text-3xl text-charcoal mb-6">
-            Manufacturing responsibly for the long term
-          </h2>
-          <div className="space-y-4 text-muted-foreground text-sm leading-relaxed">
-            <p>
-              At Polyrib, we believe that responsible manufacturing and commercial success are inseparable. Our CSR programme covers environmental stewardship, employee development, community investment, and ethical supply chain management.
-            </p>
-            <p>
-              As a manufacturer of polymer materials, we recognise our responsibility to manage our environmental impact thoughtfully — from responsible raw material sourcing through to energy-efficient processing and end-of-life material recovery.
-            </p>
-            <p>
-              This page summarises our key CSR commitments. We publish an annual sustainability update for customers, investors, and community stakeholders.
-            </p>
+      {/* Intro (MODIFIED SECTION ONLY) */}
+      <section className="py-20 border-b border-gray-200 bg-white">
+        <div className="container max-w-7xl mx-auto px-6">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            
+            {/* LEFT SIDE CONTENT */}
+            <div>
+              <p className="section-label mb-4">Our Commitment</p>
+
+              <div className="relative mb-6">
+                <div className="absolute -left-4 top-2 w-1 h-16 bg-primary"></div>
+                <h2 className="font-heading text-3xl md:text-4xl text-charcoal leading-tight">
+                  Manufacturing responsibly for the long term
+                </h2>
+              </div>
+
+              <div className="space-y-5 text-muted-foreground text-sm leading-relaxed">
+                <p>
+                  At <strong className="text-charcoal">Polyrib</strong>, we believe that responsible manufacturing and commercial success are inseparable. Our <strong className="text-charcoal">CSR</strong> programme covers environmental stewardship, employee development, community investment, and ethical supply chain management.
+                </p>
+                <p>
+                  As a manufacturer of polymer materials, we recognise our responsibility to manage our <strong className="text-charcoal">environmental impact</strong> thoughtfully — from responsible raw material sourcing to energy-efficient processing and end-of-life material recovery.
+                </p>
+                <p>
+                  This page summarises our key <strong className="text-charcoal">CSR commitments</strong>. We publish an <strong className="text-charcoal">Annual Sustainability Update</strong> for customers, investors, and community stakeholders.
+                </p>
+              </div>
+            </div>
+
+            {/* RIGHT SIDE SLIDER */}
+            <div className="relative group">
+              <div className="relative h-[380px] overflow-hidden shadow-xl">
+                
+                {csrImages.map((img, index) => (
+                  <img
+                    key={index}
+                    src={img}
+                    alt="CSR"
+                    className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+                      index === current ? "opacity-100" : "opacity-0"
+                    }`}
+                  />
+                ))}
+
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+
+                <button
+                  onClick={prevSlide}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 shadow transition opacity-0 group-hover:opacity-100"
+                >
+                  <ChevronLeft className="w-5 h-5 text-charcoal" />
+                </button>
+
+                <button
+                  onClick={nextSlide}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 shadow transition opacity-0 group-hover:opacity-100"
+                >
+                  <ChevronRight className="w-5 h-5 text-charcoal" />
+                </button>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
