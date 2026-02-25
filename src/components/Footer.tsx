@@ -79,11 +79,11 @@ export function Footer() {
           <div className="lg:col-span-2">
             {/* Logo on white pill so it reads clearly on dark footer */}
             <Link to="/" className="inline-block mb-5">
-              <div className="bg-white px-8 py-3 inline-block">
+              <div className="inline-block">
                 <img
                   src={logoImg}
                   alt="Khanna Polyrib Pvt. Ltd."
-                  className="h-10 w-auto object-contain"
+                  className="h-12 md:h-16 w-auto object-contain"
                 />
               </div>
             </Link>
