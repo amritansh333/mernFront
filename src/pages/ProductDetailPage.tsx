@@ -7,6 +7,7 @@ import {
   MapPin,
 } from "lucide-react";
 import api from "@/lib/api";
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export default function ProductDetailPage() {
   const { categorySlug, subCategorySlug, brandSlug, productSlug } =
@@ -114,7 +115,7 @@ export default function ProductDetailPage() {
 
               {product.pdfUrl && (
                 <a
-                  href={`http://localhost:5000${product.pdfUrl}`}
+                  href={`${BASE_URL}${product.pdfUrl}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="relative px-6 py-3 border border-primary text-primary font-semibold overflow-hidden group transition-all duration-300"
@@ -136,7 +137,7 @@ export default function ProductDetailPage() {
             {images.length > 0 && (
               <>
                 <img
-                  src={`http://localhost:5000${images[currentImage]}`}
+                  src={`${BASE_URL}${images[currentImage]}`}
                   alt={product.name}
                   className="w-full h-[380px] object-cover rounded-md"
                 />
