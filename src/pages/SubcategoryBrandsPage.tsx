@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
-import sheetsImage from "@/assets/sheets.jpg";
-import rodsImage from "@/assets/rods-tubes.jpg";
-import machineImage from "@/assets/machine-components.jpg";
-import rollsImage from "@/assets/rolls.jpg";
+import sheetsImage from "@/assets/sheets.jpeg";
+import rodsImage from "@/assets/semi-finished-products.jpeg";
+import machineImage from "@/assets/machine-components.jpeg";
+import rollsImage from "@/assets/rolls.jpeg";
 import { useScrollFade } from "@/hooks/useScrollFade";
 import api from "@/lib/api";
 

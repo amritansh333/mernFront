@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 import { ArrowRight, Layers, GitBranch, Link2, Minus, Wrench, Grid3X3, Package, ShoppingBag } from "lucide-react";
-import machineComponentsImage from "@/assets/machine-components.jpg";
+import machineComponentsImage from "@/assets/machine-components.jpeg";
 import { useScrollFade } from "@/hooks/useScrollFade";
 import { MACHINE_COMPONENT_SUBCATEGORIES, getBrandsBySubcategory } from "@/data/polyribProducts";
 

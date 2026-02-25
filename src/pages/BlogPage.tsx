@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Camera, Calendar } from "lucide-react";
 import heroImage from "@/assets/hero-industrial.jpg";
-import sheetsImage from "@/assets/sheets.jpg";
-import machineImage from "@/assets/machine-components.jpg";
-import rodsImage from "@/assets/rods-tubes.jpg";
+import sheetsImage from "@/assets/sheets.jpeg";
+import machineImage from "@/assets/machine-components.jpeg";
+import rodsImage from "@/assets/rods-tubes.jpeg";
 import automotiveImage from "@/assets/industry-automotive.jpg";
 import pharmaImage from "@/assets/industry-pharma.jpg";
 import foodImage from "@/assets/industry-food.jpg";

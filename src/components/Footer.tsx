@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Linkedin, ArrowRight } from "lucide-react";
-import logoImg from "@/assets/logo.jpg";
+import logoImg from "@/assets/logo-footer.png";
 
 const footerLinks = {
   Products: [
@@ -79,7 +79,7 @@ export function Footer() {
           <div className="lg:col-span-2">
             {/* Logo on white pill so it reads clearly on dark footer */}
             <Link to="/" className="inline-block mb-5">
-              <div className="bg-white px-4 py-2 inline-block">
+              <div className="bg-white px-8 py-3 inline-block">
                 <img
                   src={logoImg}
                   alt="Khanna Polyrib Pvt. Ltd."

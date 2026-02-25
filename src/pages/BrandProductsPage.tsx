@@ -6,9 +6,9 @@
 import React from "react";
 import { Link, useParams, Navigate } from "react-router-dom";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
-import sheetsImage from "@/assets/sheets.jpg";
-import rodsImage from "@/assets/rods-tubes.jpg";
-import machineImage from "@/assets/machine-components.jpg";
+import sheetsImage from "@/assets/sheets.jpeg";
+import rodsImage from "@/assets/rods-tubes.jpeg";
+import machineImage from "@/assets/machine-components.jpeg";
 import { getBrandBySlug } from "@/data/polyribProducts";
 import { useScrollFade } from "@/hooks/useScrollFade";
 

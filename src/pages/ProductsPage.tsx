@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import api from "@/lib/api";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
-import semiFinishedImage from "@/assets/semi-finished-products.jpg";
-import machineComponentsImage from "@/assets/machine-components.jpg";
+import semiFinishedImage from "@/assets/semi-finished-products.jpeg";
+import machineComponentsImage from "@/assets/machine-components.jpeg";
 import { useScrollFade } from "@/hooks/useScrollFade";
 
 /*

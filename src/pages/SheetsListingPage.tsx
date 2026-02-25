@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, ChevronDown, SlidersHorizontal, X } from "lucide-react";
-import sheetsImage from "@/assets/sheets.jpg";
+import sheetsImage from "@/assets/sheets.jpeg";
 import { useScrollFade } from "@/hooks/useScrollFade";
 
 const SHEETS_FILTER_CONFIG: Record<string, string[]> = {

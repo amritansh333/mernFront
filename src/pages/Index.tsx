@@ -6,10 +6,14 @@ import {
   CheckCircle2, Cpu, Wrench, FlaskConical, Cog, LayoutGrid,
   Send, TrendingUp, Lightbulb, PackageCheck
 } from "lucide-react";
-import heroImage from "@/assets/hero-industrial.jpg";
-import semiFinishedImage from "@/assets/semi-finished-products.jpg";
-import machineComponentsImage from "@/assets/machine-components.jpg";
-import manufacturingImage from "@/assets/manufacturing-facility.jpg";
+import heroVideo from "@/assets/hero-landingpage.mp4";
+import semiFinishedImage from "@/assets/semi-finished-products.jpeg";
+import machineComponentsImage from "@/assets/machine-components.jpeg";
+import slider1 from "@/assets/slider1-Engineered-To-Perform.jpeg";
+import slider2 from "@/assets/slider2-Engineered-To-Perform.jpeg";
+import slider3 from "@/assets/slider3-Engineered-To-Perform.jpeg";
+import slider4 from "@/assets/slider4-Engineered-To-Perform.jpeg";
+import slider5 from "@/assets/slider5-Engineered-To-Perform.jpeg";
 import { useScrollFade } from "@/hooks/useScrollFade";
 
 /* ─── Data ─────────────────────────────────────────────── */
@@ -352,23 +356,43 @@ function WhyUsSection() {
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 border border-divider overflow-hidden">
           {/* Facility photo */}
-          <div className="relative min-h-[420px] lg:min-h-0">
-            <img src={manufacturingImage} alt="Polyrib manufacturing facility" className="absolute inset-0 w-full h-full object-cover" />
-            {/* Why checklist overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-charcoal/95 via-charcoal/50 to-transparent" />
-            <div className="absolute bottom-0 left-0 right-0 p-8">
-              <p className="text-white/60 text-xs tracking-widest uppercase font-semibold mb-3">Established 1985</p>
-              <p className="font-heading text-white text-xl font-bold mb-5">40+ Years of Engineering Excellence</p>
-              <div className="space-y-2">
-                {whyChecks.map((c, i) => (
-                  <div key={i} className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-primary-light shrink-0" />
-                    <span className="text-white/80 text-xs font-medium">{c}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+<div className="relative min-h-[420px] lg:min-h-0 overflow-hidden">
+  {/* Image Slider */}
+  <div className="absolute inset-0 animate-fade-slider">
+    {[slider1, slider2, slider3, slider4, slider5].map((img, index) => (
+      <img
+        key={index}
+        src={img}
+        alt={`Engineered To Perform ${index + 1}`}
+        className="absolute inset-0 w-full h-full object-cover opacity-0 animate-slide-fade"
+        style={{
+          animationDelay: `${index * 6}s`,
+        }}
+      />
+    ))}
+  </div>
+
+  {/* Overlay */}
+  <div className="absolute inset-0 bg-gradient-to-t from-charcoal/95 via-charcoal/50 to-transparent" />
+
+  {/* Text Overlay (UNCHANGED) */}
+  <div className="absolute bottom-0 left-0 right-0 p-8">
+    <p className="text-white/60 text-xs tracking-widest uppercase font-semibold mb-3">
+      Established 1985
+    </p>
+    <p className="font-heading text-white text-xl font-bold mb-5">
+      40+ Years of Engineering Excellence
+    </p>
+    <div className="space-y-2">
+      {whyChecks.map((c, i) => (
+        <div key={i} className="flex items-center gap-2">
+          <CheckCircle2 className="w-4 h-4 text-primary-light shrink-0" />
+          <span className="text-white/80 text-xs font-medium">{c}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
           {/* Advantage points grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-divider">
             {whyPoints.map(({ icon: Icon, title, desc }) => (
@@ -454,11 +478,20 @@ const Index = () => {
     <div>
       {/* Hero */}
       <section className="relative min-h-[92vh] flex items-end overflow-hidden bg-charcoal">
-        <div className="absolute inset-0">
-          <img src={heroImage} alt="Polyrib thermoplastics manufacturing" className="w-full h-full object-cover opacity-60" />
-          <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/60 to-charcoal/20" />
-          <div className="absolute inset-0 bg-gradient-to-r from-charcoal/70 to-transparent" />
-        </div>
+        <div className="absolute inset-0 overflow-hidden">
+  <video
+    src={heroVideo}
+    autoPlay
+    loop
+    muted
+    playsInline
+    className="w-full h-full object-cover"
+  />
+  
+  {/* Overlay gradients — unchanged effect */}
+  <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/60 to-charcoal/20" />
+  <div className="absolute inset-0 bg-gradient-to-r from-charcoal/70 to-transparent" />
+</div>
         <div className="relative container max-w-7xl mx-auto px-6 pb-20 pt-32">
           <div className="max-w-2xl">
             <p className="section-label text-white/60 mb-2 animate-fade-in">Advanced Polymer Engineering Solutions</p>
@@ -522,14 +555,14 @@ const Index = () => {
             <ProductCategoryCard
               title="Thermoplastic Semi-Finished Products"
               description="Rods, tubes, sheets, blocks, welding rods, and coils in all standard and engineering-grade thermoplastics across our POLYRIB, PCCLEAR, KAYLON, and PAKETAL brand families."
-              href="/products/semi-finished"
+              href="/products/thermoplastics-semi-finished-products"
               image={semiFinishedImage}
               tag="Semi-Finished"
             />
             <ProductCategoryCard
               title="Thermoplastic Machine Components"
               description="Strips & profiles, vacuum formed parts, RIPLA cutting boards, CUTRITE chopping boards, fascia pads, and precision machined thermoplastic components."
-              href="/products/machine-components"
+              href="/products/thermoplastics-machine-components"
               image={machineComponentsImage}
               tag="Machine Components"
             />

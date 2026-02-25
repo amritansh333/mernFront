@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, ChevronDown, X } from "lucide-react";
-import machineComponentsImage from "@/assets/machine-components.jpg";
+import machineComponentsImage from "@/assets/machine-components.jpeg";
 import { useScrollFade } from "@/hooks/useScrollFade";
 
 const MC_FILTER_CONFIG: Record<string, string[]> = {

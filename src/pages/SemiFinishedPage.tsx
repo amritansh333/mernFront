@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
-import rodsImage from "@/assets/rods-tubes.jpg";
-import sheetsImage from "@/assets/sheets.jpg";
-import rollsImage from "@/assets/rolls.jpg";
+import rodsImage from "@/assets/rods-tubes.jpeg";
+import sheetsImage from "@/assets/sheets.jpeg";
+import rollsImage from "@/assets/rolls.jpeg";
 import { useScrollFade } from "@/hooks/useScrollFade";
 import { SEMI_FINISHED_SUBCATEGORIES } from "@/data/polyribProducts";
 
