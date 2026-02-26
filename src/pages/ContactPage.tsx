@@ -160,13 +160,13 @@ export default function ContactPage() {
                         className="w-full border border-border bg-background px-3 py-2.5 text-sm text-charcoal outline-none focus:border-primary transition-colors" placeholder="Company name" />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold text-charcoal mb-1.5 uppercase tracking-wider">Email *</label>
-                      <input type="email" required value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      <label className="block text-xs font-semibold text-charcoal mb-1.5 uppercase tracking-wider">Email</label>
+                      <input type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         className="w-full border border-border bg-background px-3 py-2.5 text-sm text-charcoal outline-none focus:border-primary transition-colors" placeholder="Email address" />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold text-charcoal mb-1.5 uppercase tracking-wider">Phone</label>
-                      <input type="tel" value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      <label className="block text-xs font-semibold text-charcoal mb-1.5 uppercase tracking-wider">Phone *</label>
+                      <input type="tel" required value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         className="w-full border border-border bg-background px-3 py-2.5 text-sm text-charcoal outline-none focus:border-primary transition-colors" placeholder="Mobile / Landline" />
                     </div>
                   </div>
@@ -245,13 +245,13 @@ export default function ContactPage() {
                         className="w-full border border-border bg-background px-3 py-2.5 text-sm text-charcoal outline-none focus:border-primary transition-colors" placeholder="Company name" />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold text-charcoal mb-1.5 uppercase tracking-wider">Email *</label>
-                      <input type="email" required value={drawData.email} onChange={(e) => setDrawData({ ...drawData, email: e.target.value })}
+                      <label className="block text-xs font-semibold text-charcoal mb-1.5 uppercase tracking-wider">Email</label>
+                      <input type="email" value={drawData.email} onChange={(e) => setDrawData({ ...drawData, email: e.target.value })}
                         className="w-full border border-border bg-background px-3 py-2.5 text-sm text-charcoal outline-none focus:border-primary transition-colors" placeholder="Email address" />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold text-charcoal mb-1.5 uppercase tracking-wider">Phone</label>
-                      <input type="tel" value={drawData.phone} onChange={(e) => setDrawData({ ...drawData, phone: e.target.value })}
+                      <label className="block text-xs font-semibold text-charcoal mb-1.5 uppercase tracking-wider">Phone *</label>
+                      <input type="tel" required value={drawData.phone} onChange={(e) => setDrawData({ ...drawData, phone: e.target.value })}
                         className="w-full border border-border bg-background px-3 py-2.5 text-sm text-charcoal outline-none focus:border-primary transition-colors" placeholder="Mobile / Landline" />
                     </div>
                   </div>

@@ -30,16 +30,16 @@ const categories = [
 ];
 */
 const BRAND_QUICK_LINKS = [
-  { name: "POLYRIB V", label: "UHMW PE", href: "/products/semi-finished/sheets-blocks/polyrib-v" },
-  { name: "POLYRIB H", label: "HDPE", href: "/products/semi-finished/sheets-blocks/polyrib-h" },
-  { name: "POLYRIB P", label: "Polypropylene", href: "/products/semi-finished/sheets-blocks/polyrib-p" },
-  { name: "DIPRA", label: "PP Liners", href: "/products/semi-finished/sheets-blocks/dipra" },
-  { name: "PCCLEAR", label: "Polycarbonate", href: "/products/semi-finished/sheets-blocks/pcclear" },
-  { name: "KAYLON", label: "Cast Nylon PA6", href: "/products/semi-finished/rods-tubes/kaylon" },
-  { name: "PAKETAL", label: "Acetal / POM", href: "/products/semi-finished/rods-tubes/paketal" },
-  { name: "CUTRITE", label: "Chopping Boards", href: "/products/machine-components/chopping-boards/cutrite" },
-  { name: "POLYLIMB", label: "Orthopaedic", href: "/products/machine-components/application-sheets/polylimb" },
-  { name: "ARETE", label: "FRP Composites", href: "/products/machine-components/application-sheets/arete" },
+  { name: "POLYRIB V", label: "UHMW PE", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/polyrib-v" },
+  { name: "POLYRIB H", label: "HDPE", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/polyrib-h" },
+  { name: "POLYRIB P", label: "Polypropylene", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/polyrib-p" },
+  { name: "DIPRA", label: "PP Liners", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/dipra" },
+  { name: "PCCLEAR", label: "Polycarbonate", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/pcclear" },
+  { name: "ARETE", label: "UHMW PE", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/arete" },
+  { name: "PAKETAL", label: "Acetal / POM", href: "/products/thermoplastics-semi-finished-products/rods-tubes/paketal" },
+  { name: "CUTRITE", label: "Chopping Boards", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/cutrite" },
+  { name: "POLYLIMB", label: "PP", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/polylimb" },
+  { name: "ARETE", label: "FRP Composites", href: "/products/thermoplastics-machine-components/application-sheets/arete" },
 ];
 
 

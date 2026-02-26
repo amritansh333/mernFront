@@ -36,24 +36,24 @@ const navItems = [
   {
     label: "Industries",
     children: [
-      { label: "Aerospace", href: "/industries/aerospace" },
       { label: "Automotive", href: "/industries/automotive" },
-      { label: "Food & Beverage", href: "/industries/food-beverage" },
       { label: "Chemical", href: "/industries/chemical" },
-      { label: "Medical", href: "/industries/medical" },
+      { label: "Food & Beverage", href: "/industries/food-beverage" },
+      { label: "Medical & Pharmaceutical", href: "/industries/pharmaceutical" },
+      { label: "Oil & Gas", href: "/industries/oil-gas" },
       { label: "All Industries", href: "/industries" },
     ],
   },
   {
     label: "Materials",
     children: [
-      { label: "PE / UHMW PE (POLYRIB V)", href: "/materials" },
-      { label: "PP (POLYRIB P / DIPRA)", href: "/materials" },
-      { label: "HDPE (POLYRIB H)", href: "/materials" },
-      { label: "PC (PCCLEAR)", href: "/materials" },
-      { label: "Nylon (KAYLON)", href: "/materials" },
-      { label: "Acetal/POM (PAKETAL)", href: "/materials" },
-      { label: "ABS (POLYRIB A)", href: "/materials" },
+      { label: "PE / UHMW PE (POLYRIB V)", href: "/materials/polyrib-v" },
+      { label: "PP (POLYRIB P / DIPRA)", href: "/materials/polyrib-p" },
+      { label: "HDPE (POLYRIB H)", href: "/materials/polyrib-h" },
+      { label: "PC (PCCLEAR)", href: "/materials/pcclear" },
+      { label: "Nylon (KAYLON)", href: "/materials/kaylon" },
+      { label: "Acetal/POM (PAKETAL)", href: "/materials/paketal" },
+      { label: "ABS (POLYRIB A)", href: "/materials/polyrib-a" },
       { label: "All Materials", href: "/materials" },
     ],
   },
@@ -177,19 +177,33 @@ export function Header() {
 
                 {/* Standard Dropdown */}
                 {item.children && openDropdown === item.label && (
-                  <div className="absolute top-full left-0 mt-1 w-64 bg-card border border-border shadow-card-hover z-50">
-                    {item.children.map((child) => (
-                      <Link
-                        key={child.href + child.label}
-                        to={child.href}
-                        onClick={() => setOpenDropdown(null)}
-                        className="block px-4 py-2.5 text-sm text-charcoal-light hover:text-primary hover:bg-surface-subtle border-b border-divider last:border-0 transition-colors duration-150"
-                      >
-                        {child.label}
-                      </Link>
-                    ))}
-                  </div>
-                )}
+  <div className="absolute top-full left-0 mt-1 w-64 bg-card border border-border shadow-card-hover z-50">
+    {item.children.map((child, index) => {
+      const isLast = index === item.children!.length - 1;
+
+      return isLast ? (
+        <div key={child.href + child.label} className="border-t border-divider px-4 py-2.5 bg-surface-subtle">
+          <Link
+            to={child.href}
+            onClick={() => setOpenDropdown(null)}
+            className="text-xs font-semibold text-primary hover:text-primary-dark transition-colors"
+          >
+            {child.label} →
+          </Link>
+        </div>
+      ) : (
+        <Link
+          key={child.href + child.label}
+          to={child.href}
+          onClick={() => setOpenDropdown(null)}
+          className="block px-4 py-2.5 text-sm text-charcoal-light hover:text-primary hover:bg-surface-subtle border-b border-divider transition-colors duration-150"
+        >
+          {child.label}
+        </Link>
+      );
+    })}
+  </div>
+)}
 
                 {/* Mega Menu for Products */}
                 {item.megaMenu && openDropdown === item.label && (
@@ -291,18 +305,31 @@ export function Header() {
 
                 {/* Standard children mobile */}
                 {item.children && mobileExpanded === item.label && (
-                  <div className="bg-surface-subtle">
-                    {item.children.map((child) => (
-                      <Link
-                        key={child.href + child.label}
-                        to={child.href}
-                        className="block px-5 py-2 text-xs font-medium text-muted-foreground border-b border-divider hover:text-primary"
-                      >
-                        {child.label}
-                      </Link>
-                    ))}
-                  </div>
-                )}
+  <div className="bg-surface-subtle">
+    {item.children.map((child, index) => {
+      const isLast = index === item.children!.length - 1;
+
+      return isLast ? (
+        <div key={child.href + child.label} className="border-t border-divider px-5 py-2.5">
+          <Link
+            to={child.href}
+            className="block text-xs font-semibold text-primary"
+          >
+            {child.label} →
+          </Link>
+        </div>
+      ) : (
+        <Link
+          key={child.href + child.label}
+          to={child.href}
+          className="block px-5 py-2 text-xs font-medium text-muted-foreground border-b border-divider hover:text-primary"
+        >
+          {child.label}
+        </Link>
+      );
+    })}
+  </div>
+)}
 
                 {/* Mega menu mobile — show as grouped list */}
                 {item.megaMenu && mobileExpanded === item.label && (

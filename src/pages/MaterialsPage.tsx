@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState , useEffect} from "react";
+import { Link, useParams} from "react-router-dom";
 import { ArrowRight, ChevronRight } from "lucide-react";
 import { useScrollFade } from "@/hooks/useScrollFade";
 
@@ -115,7 +115,12 @@ const MATERIAL_FAMILIES = [
 ];
 
 export default function MaterialsPage() {
-  const [selected, setSelected] = useState<string | null>(null);
+  const { slug } = useParams();
+const [selected, setSelected] = useState<string | null>(null);
+
+useEffect(() => {
+  setSelected(slug ?? null);
+}, [slug]);
   const ref = useScrollFade() as React.RefObject<HTMLElement>;
   const mat = selected ? MATERIAL_FAMILIES.find((m) => m.slug === selected) : null;
 
@@ -137,11 +142,13 @@ export default function MaterialsPage() {
 
       <div className="container max-w-7xl mx-auto px-6 py-12">
         {/* Brand grid */}
-        <div ref={ref as React.RefObject<HTMLDivElement>} className="stagger-children grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
+        <div ref={ref as React.RefObject<HTMLDivElement>} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
           {MATERIAL_FAMILIES.map((m) => (
             <button
               key={m.slug}
-              onClick={() => setSelected(selected === m.slug ? null : m.slug)}
+              onClick={() =>
+                setSelected(selected === m.slug ? null : m.slug)
+              }
               className={`text-left p-5 border-2 transition-all duration-200 ${selected === m.slug ? "border-primary bg-primary/5 shadow-card" : "border-border bg-card hover:border-primary/40"}`}
             >
               <div className="flex items-start justify-between mb-2">

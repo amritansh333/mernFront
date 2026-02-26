@@ -93,8 +93,8 @@ export default function CareersPage() {
               <p className="text-muted-foreground text-sm leading-relaxed mb-5">
                 We welcome speculative applications from talented engineers, sales professionals, and production specialists. Send us your CV and we'll keep it on file for future opportunities.
               </p>
-              <Link to="/contact" className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary-dark transition-colors duration-200">
-                Send Speculative Application <ArrowRight className="w-4 h-4" />
+              <Link to="https://wa.me/9105152970306" className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary-dark transition-colors duration-200">
+                Send Speculative Application on WhatsApp<ArrowRight className="w-4 h-4" />
               </Link>
             </div>
           </div>

@@ -36,7 +36,7 @@ function App() {
         <Route path="/csr" element={<CSRPage />} />
         <Route path="/industries" element={<IndustriesPage />} />
         <Route path="/industries/:slug" element={<IndustryDetailPage />} />
-        <Route path="/materials" element={<MaterialsPage />} />
+        <Route path="/materials/:slug?" element={<MaterialsPage />} />
         <Route path="/tools/material-selector" element={<MaterialSelectorPage />} />
         <Route path="/resources" element={<ResourcesPage />} />
 
