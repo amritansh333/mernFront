@@ -140,7 +140,7 @@ export default function SubcategoryBrandsPage() {
           </h1>
 
           <p className="text-muted-foreground max-w-2xl leading-relaxed">
-            Explore available options.
+            {category?.description}
           </p>
         </div>
       </div>
@@ -185,7 +185,7 @@ export default function SubcategoryBrandsPage() {
                       </h2>
 
                       <div className="flex items-center gap-2 cta-link text-sm">
-                        Explore
+                        View Brands
                         <ArrowRight className="w-4 h-4 explore-arrow" />
                       </div>
 

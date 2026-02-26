@@ -35,14 +35,14 @@ const allIndustries = [
 ];
 
 const brandFamilies = [
-  { abbr: "POLYRIB V",       name: "UHMW Polyethylene",          prop: "Abrasion resistance, low friction, high impact" },
-  { abbr: "POLYRIB H",       name: "High-Density Polyethylene",  prop: "Chemical resistance, toughness, outdoor use" },
-  { abbr: "POLYRIB P / DIPRA", name: "Polypropylene (PP)",       prop: "Chemical tanks, acid resistance, low density" },
-  { abbr: "PCCLEAR",         name: "Polycarbonate (PC)",         prop: "Transparency, impact strength, UV stability" },
-  { abbr: "KAYLON",          name: "Cast Nylon (PA6)",           prop: "Wear resistance, structural strength, bearings" },
-  { abbr: "PAKETAL",         name: "Acetal / POM (Delrin)",      prop: "Precision machining, dimensional stability" },
-  { abbr: "POLYRIB A",       name: "ABS / ASA",                  prop: "Automotive interiors, UV resistance, surface finish" },
-  { abbr: "PLASCON",         name: "Engineering Grades (PE/PP)", prop: "Machine components, sliding surfaces" },
+  { abbr: "POLYRIB V",  slug:"polyrib-v",     name: "UHMW Polyethylene",          prop: "Abrasion resistance, low friction, high impact" },
+  { abbr: "POLYRIB H",  slug:"polyrib-h",     name: "High-Density Polyethylene",  prop: "Chemical resistance, toughness, outdoor use" },
+  { abbr: "POLYRIB P",slug:"polyrib-p", name: "Polypropylene (PP)",       prop: "Chemical tanks, acid resistance, low density" },
+  { abbr: "ARETE",     slug:"arete",    name: "UHMW Polyethylene",         prop: "Transparency, impact strength, UV stability" },
+  { abbr: "CUTRITE",      slug:"cutrite",   name: "LDPE",           prop: "Wear resistance, structural strength, bearings" },
+  { abbr: "POLYLIMB",     slug:"polylimb",   name: "Polypropylene (PP)",      prop: "Precision machining, dimensional stability" },
+  { abbr: "DIPRA",   slug:"dipra",    name: "Polypropylene (PP)",                  prop: "Automotive interiors, UV resistance, surface finish" },
+  { abbr: "PCCLEAR",     slug:"pcclear",    name: "Engineering Grades (PE/PP)", prop: "Machine components, sliding surfaces" },
 ];
 
 const trustPoints = [
@@ -53,14 +53,14 @@ const trustPoints = [
 ];
 
 const polymers = [
-  { abbr: "PP",         name: "Polypropylene",           prop: "Lightweight, chemical-resistant, cost-effective" },
-  { abbr: "HDPE",       name: "High-Density Polyethylene",prop: "Tough, impact-resistant, moisture-proof" },
-  { abbr: "UHMWPE",     name: "Ultra-High MW Polyethylene",prop: "Extreme wear resistance, ultra-low friction" },
-  { abbr: "ABS",        name: "Acrylonitrile Butadiene Styrene", prop: "Strong, dimensionally stable, easy to machine" },
-  { abbr: "PC",         name: "Polycarbonate",           prop: "High impact strength, thermal stability" },
-  { abbr: "CAST NYLON", name: "Polyamide 6",             prop: "High impact resistance, self-lubricating, good chemical resistance" },
-  { abbr: "POM",        name: "Acetal / Delrin",         prop: "High strength, rigidity, stability" },
-  { abbr: "HIPS",       name: "High-Impact Polystyrene", prop: "Versatile, lightweight, cost-effective" },
+  { slug: "pp",  abbr: "PP",       name: "Polypropylene",           prop: "Lightweight, chemical-resistant, cost-effective" },
+  { slug: "hdpe", abbr:"HDPE"  ,    name: "High-Density Polyethylene",prop: "Tough, impact-resistant, moisture-proof" },
+  { slug: "uhmwpe", abbr: "UHMWPE",     name: "Ultra-High MW Polyethylene",prop: "Extreme wear resistance, ultra-low friction" },
+  { slug: "abs", abbr:"ABS"   ,    name: "Acrylonitrile Butadiene Styrene", prop: "Strong, dimensionally stable, easy to machine" },
+  { slug: "pc",   abbr:"PC"   ,   name: "Polycarbonate",           prop: "High impact strength, thermal stability" },
+  { slug: "pa6", abbr:"NYLON" , name: "Polyamide 6",             prop: "High impact resistance, self-lubricating, good chemical resistance" },
+  { slug: "acetal",   abbr:"ACETAL"  ,   name: "Acetal / Delrin",         prop: "High strength, rigidity, stability" },
+  { slug: "hips",  abbr:"HIPS"  ,   name: "High-Impact Polystyrene", prop: "Versatile, lightweight, cost-effective" },
 ];
 
 const infrastructure = [
@@ -192,12 +192,12 @@ function PolymersSection() {
               Manufactured as per customer drawings, samples, or application-specific requirements. Each material grade is selected for optimal performance in your environment.
             </p>
             <Link to="/materials" className="cta-link">
-              Explore all grades <ArrowRight className="w-4 h-4" />
+              View all Material families <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
           <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-3">
             {polymers.map((m) => (
-              <Link key={m.abbr} to="/materials" className="bg-card border border-border p-4 hover:border-primary/40 transition-colors duration-200 block group">
+              <Link key={m.abbr} to={`/materials/${m.slug}`} className="bg-card border border-border p-4 hover:border-primary/40 transition-colors duration-200 block group">
                 <div className="flex items-start gap-3">
                   <span className="font-heading font-bold text-primary text-sm w-28 shrink-0 group-hover:text-primary-dark transition-colors">{m.abbr}</span>
                   <div>
@@ -227,13 +227,13 @@ function MaterialsSection() {
             <p className="text-muted-foreground text-sm leading-relaxed mb-6">
               From UHMW PE to Polycarbonate, our in-house brands cover the full spectrum of engineering thermoplastic requirements — manufactured to consistent quality standards.
             </p>
-            <Link to="/materials" className="cta-link">
-              View all material families <ArrowRight className="w-4 h-4" />
+            <Link to="/products" className="cta-link">
+              Explore Brands <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
           <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-3">
             {brandFamilies.map((m) => (
-              <Link key={m.abbr} to="/materials" className="bg-card border border-border p-4 hover:border-primary/40 transition-colors duration-200 block group">
+              <Link key={m.abbr} to={`/products/thermoplastics-semi-finished-products/sheets-blocks/${m.slug}`} className="bg-card border border-border p-4 hover:border-primary/40 transition-colors duration-200 block group">
                 <div className="flex items-start gap-3">
                   <span className="font-heading font-bold text-primary text-sm w-28 shrink-0 group-hover:text-primary-dark transition-colors">{m.abbr}</span>
                   <div>

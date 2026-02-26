@@ -12,12 +12,12 @@ const footerLinks = {
     { label: "Strips & Profiles", href: "/products/machine-components/strips-and-profiles" },
   ],
   Materials: [
-    { label: "POLYRIB V (UHMW PE)", href: "/materials/polyrib-v" },
-    { label: "POLYRIB H (HDPE)", href: "/materials/polyrib-h" },
-    { label: "POLYRIB P (PP)", href: "/materials/polyrib-p" },
-    { label: "PCCLEAR (PC)", href: "/materials/pcclear" },
-    { label: "KAYLON (Nylon)", href: "/materials/kaylon" },
-    { label: "PAKETAL (Acetal)", href: "/materials/paketal" },
+    { label: "POLYRIB V (UHMW PE)", href: "/materials/uhmwpe" },
+    { label: "POLYRIB H (HDPE)", href: "/materials/hdpe" },
+    { label: "POLYRIB P (PP)", href: "/materials/pp" },
+    { label: "PCCLEAR (PC)", href: "/materials/pc" },
+    { label: "KAYLON (Nylon)", href: "/materials/pa6" },
+    { label: "PAKETAL (Acetal)", href: "/materials/acetal" },
   ],
   Company: [
     { label: "About Us", href: "/about" },

@@ -7,7 +7,7 @@ const MATERIAL_FAMILIES = [
   {
     brand: "POLYRIB V",
     base: "PE / UHMW PE",
-    slug: "polyrib-v",
+    slug: "uhmwpe",
     colour: "bg-blue-50 text-blue-700 border-blue-200",
     tagline: "Ultra-High Molecular Weight Polyethylene",
     desc: "Self-lubricating, exceptional abrasion resistance, high impact strength. Widely used in conveyor liners, wear strips, and food processing equipment.",
@@ -19,7 +19,7 @@ const MATERIAL_FAMILIES = [
   {
     brand: "POLYRIB H",
     base: "HDPE",
-    slug: "polyrib-h",
+    slug: "hdpe",
     colour: "bg-green-50 text-green-700 border-green-200",
     tagline: "High-Density Polyethylene",
     desc: "Tough, corrosion-resistant HDPE sheets for chemical tanks, crate partitions, and structural applications. Available in standard and glass-lined grades.",
@@ -31,7 +31,7 @@ const MATERIAL_FAMILIES = [
   {
     brand: "POLYRIB P / DIPRA",
     base: "PP",
-    slug: "polyrib-p",
+    slug: "pp",
     colour: "bg-orange-50 text-orange-700 border-orange-200",
     tagline: "Polypropylene",
     desc: "High-impact and chemical-resistant PP sheets for acid/chemical tanks, galvanising, anodising, and food processing. Includes UV-stabilised DIPRA speciality grades.",
@@ -43,7 +43,7 @@ const MATERIAL_FAMILIES = [
   {
     brand: "PCCLEAR",
     base: "PC",
-    slug: "pcclear",
+    slug: "pc",
     colour: "bg-sky-50 text-sky-700 border-sky-200",
     tagline: "Polycarbonate",
     desc: "High-clarity PC sheets with outstanding impact strength. Available in transparent, embossed, shaded, and opal variants — with and without UV stabilisation.",
@@ -55,7 +55,7 @@ const MATERIAL_FAMILIES = [
   {
     brand: "KAYLON",
     base: "Cast Nylon (PA6)",
-    slug: "kaylon",
+    slug: "pa6",
     colour: "bg-purple-50 text-purple-700 border-purple-200",
     tagline: "Cast Nylon / Polyamide 6",
     desc: "Oil-filled, MoS₂-filled, and heat-stabilised cast nylon for gears, bearings, wear pads, and structural components. Superior wear resistance and mechanical strength.",
@@ -67,7 +67,7 @@ const MATERIAL_FAMILIES = [
   {
     brand: "PAKETAL",
     base: "Acetal / POM",
-    slug: "paketal",
+    slug: "acetal",
     colour: "bg-red-50 text-red-700 border-red-200",
     tagline: "Acetal / Polyoxymethylene (Delrin equivalent)",
     desc: "Precision machinability, excellent dimensional stability and low friction. The industry-standard choice for precision gears, cams, bearings and food-contact components.",
@@ -79,7 +79,7 @@ const MATERIAL_FAMILIES = [
   {
     brand: "POLYRIB A",
     base: "ABS / ASA",
-    slug: "polyrib-a",
+    slug: "abs",
     colour: "bg-yellow-50 text-yellow-700 border-yellow-200",
     tagline: "ABS & ASA Sheets",
     desc: "Automotive-grade ABS and ASA sheets for interior and exterior trim, display systems, and rapid prototyping. Available embossed, dual-colour, fire-retardant, and UV-stabilised.",
@@ -91,7 +91,7 @@ const MATERIAL_FAMILIES = [
   {
     brand: "PLASCON / PLASCON-V",
     base: "PE / UHMW PE Engineering Grades",
-    slug: "plascon",
+    slug: "pe",
     colour: "bg-teal-50 text-teal-700 border-teal-200",
     tagline: "Engineering PE / Machine Component Grades",
     desc: "Stress-relieved UHMW PE and engineering PP grades designed specifically for CNC machining into precision machine components, sliders, and structural parts.",
@@ -103,7 +103,7 @@ const MATERIAL_FAMILIES = [
   {
     brand: "DIPRA",
     base: "PP Speciality",
-    slug: "dipra",
+    slug: "pps",
     colour: "bg-emerald-50 text-emerald-700 border-emerald-200",
     tagline: "UV-Stabilised Speciality PP Sheets",
     desc: "Premium UV-stabilised PP sheets for outdoor, roofing, vacuum forming, and gate liner applications. Includes embossed, cloth-lined, and dual-coloured variants.",

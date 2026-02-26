@@ -21,11 +21,10 @@ const INDUSTRY_DATA: Record<string, {
     intro: "KAYLON cast nylon gears and bearings, PAKETAL precision acetal/POM components, POLYRIB V UHMW PE conveyor wear strips, and PCCLEAR polycarbonate safety screens are used by automotive OEMs and Tier 1 suppliers across Southern Africa.",
     challenges: ["High operating temperatures near engine and exhaust systems","Exposure to oils, greases, and coolant fluids","Tight dimensional tolerances for body assembly jigs","Noise and vibration reduction in conveyor and transfer systems"],
     products: [
-      { name: "KAYLON NATURAL – Cast Nylon Rods", use: "Gears, bearings, cams, structural components", href: "/products/semi-finished/rods-tubes/kaylon" },
-      { name: "PAKETAL – Acetal/POM Rod & Sheet", use: "Precision gears, bearings, valve components", href: "/products/semi-finished/rods-tubes/paketal" },
-      { name: "POLYRIB V – UHMW PE Sheets", use: "Body-in-white conveyor wear liners", href: "/products/semi-finished/sheets-blocks/polyrib-v" },
-      { name: "POLYRIB-V SUPERSLIDE", use: "Zero-lube slide guides and wear strips", href: "/products/semi-finished/sheets-blocks/polyrib-v" },
-      { name: "PCCLEAR – PC Glazing Sheets", use: "Safety screens and instrument panels", href: "/products/semi-finished/sheets-blocks/pcclear" },
+      { name: "POLYRIB H CED – Cast Nylon Rods", use: "Gears, bearings, cams, structural components", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/polyrib-h/polyrib-h-ced" },
+      { name: "ARETE L-V SUPERSLIDE – Acetal/POM Rod & Sheet", use: "Precision gears, bearings, valve components", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/arete/arete-l-v-superslide" },
+      { name: "POLYRIB V – UHMW PE Sheets", use: "Body-in-white conveyor wear liners", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/polyrib-v/polyrib-l-v" },
+      { name: "POLYRIB-V SUPERSLIDE", use: "Zero-lube slide guides and wear strips", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/polyrib-v/polyrib-v-superslide" }
     ],
     materials: ["KAYLON", "PAKETAL", "POLYRIB V", "PCCLEAR"],
     caseStudies: [
@@ -41,10 +40,10 @@ const INDUSTRY_DATA: Record<string, {
     intro: "POLYRIB-V FG food-grade UHMW PE, PAKETAL FDA acetal/POM, and PCCLEAR polycarbonate are used in fill & finish lines, packaging equipment and cleanroom environments across the pharmaceutical sector.",
     challenges: ["Biocompatibility and FDA/USP Class VI requirements","Resistance to aggressive CIP/SIP cleaning agents","Steam autoclave sterilisation requirements","Full batch traceability from raw material to component"],
     products: [
-      { name: "POLYRIB-V FG – Food Grade UHMW PE", use: "Tablet press wear surfaces, conveyor liners", href: "/products/semi-finished/sheets-blocks/polyrib-v" },
-      { name: "PAKETAL NATURAL – FDA Acetal/POM", use: "Valve seats, seals, precision components", href: "/products/semi-finished/rods-tubes/paketal" },
-      { name: "KAYLON NATURAL – Cast Nylon", use: "Bearings and bushings in process equipment", href: "/products/semi-finished/rods-tubes/kaylon" },
-      { name: "PCCLEAR – Polycarbonate Sheet", use: "Equipment covers and inspection windows", href: "/products/semi-finished/sheets-blocks/pcclear" },
+      { name: "POLYRIB-V FG – Food Grade UHMW PE", use: "Tablet press wear surfaces, conveyor liners", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/polyrib-v" },
+      { name: "POLYRIB PPX 258 – FDA Acetal/POM", use: "Valve seats, seals, precision components", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/polyrib-p/polyrib-ppx-258" },
+      { name: "POLYRIB V – UHMW PE Sheets", use: "Body-in-white conveyor wear liners", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/polyrib-v/polyrib-l-v" },
+      { name: "POLYRIB-V SUPERSLIDE", use: "Zero-lube slide guides and wear strips", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/polyrib-v/polyrib-v-superslide" }
     ],
     materials: ["POLYRIB-V FG", "PAKETAL", "KAYLON", "PCCLEAR"],
     caseStudies: [
@@ -60,10 +59,10 @@ const INDUSTRY_DATA: Record<string, {
     intro: "POLYRIB-V FG food-grade UHMW PE, CUTRITE HACCP chopping boards, PAKETAL cutting surfaces, and POLYRIB H HDPE are trusted by food manufacturers for conveyor liners, cutting boards, and hygienic processing equipment.",
     challenges: ["FDA 21 CFR and EU 10/2011 food-contact compliance","HACCP colour-coded material requirements","Resistance to cleaning acids, caustics and sanitisers","Blue/detectable grade materials for foreign body control"],
     products: [
-      { name: "POLYRIB-V FG – Food Grade UHMW PE", use: "Conveyor wear surfaces, bottle guides", href: "/products/semi-finished/sheets-blocks/polyrib-v" },
-      { name: "CUTRITE EMB – HACCP Chopping Boards", use: "Colour-coded cutting boards for food prep", href: "/products/machine-components/chopping-boards/cutrite" },
-      { name: "PAKETAL – FDA Acetal/POM", use: "Cutting surfaces, precision food machinery", href: "/products/semi-finished/rods-tubes/paketal" },
-      { name: "POLYRIB H – HDPE Boards", use: "General food-safe panels and boards", href: "/products/semi-finished/sheets-blocks/polyrib-h" },
+      { name: "POLYRIB-V FG – Food Grade UHMW PE", use: "Conveyor wear surfaces, bottle guides", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/polyrib-v-fg" },
+      { name: "CUTRITE EMB – HACCP Chopping Boards", use: "Colour-coded cutting boards for food prep", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/cutrite/cutrite-emb" },
+      { name: "PAKETAL – FDA Acetal/POM", use: "Cutting surfaces, precision food machinery", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/paketal" },
+      { name: "POLYRIB P – HDPE Boards", use: "General food-safe panels and boards", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/polyrib-p/polyrib-ripla-hitech" },
     ],
     materials: ["POLYRIB-V FG", "CUTRITE", "PAKETAL", "POLYRIB H"],
     caseStudies: [
@@ -73,16 +72,16 @@ const INDUSTRY_DATA: Record<string, {
     standards: ["FDA 21 CFR 177", "EU 10/2011", "HACCP", "REACH Compliant", "ISO 9001:2015"],
     image1: machineImage, image2: rodsImage,
   },
-  chemical: {
+  "chemical": {
     title: "Chemical", subtitle: "PP and HDPE chemical tanks, linings, ductwork and fabricated equipment",
     image: automotiveImage,
     intro: "POLYRIB P polypropylene and POLYRIB H HDPE are the workhorses for chemical tank fabrication, scrubbers, ductwork and lining systems. DIPRA provides specialist gate liner and roof liner grades for chemical storage and processing facilities.",
     challenges: ["Resistance to strong inorganic acids and alkalis","Elevated operating temperatures to +100°C","Weldability for tank and vessel fabrication","UV resistance for outdoor chemical storage"],
     products: [
-      { name: "POLYRIB PGX-266 / PGX-226 – PP Sheets", use: "Chemical tanks, scrubbers, ductwork", href: "/products/semi-finished/sheets-blocks/polyrib-p" },
-      { name: "POLYRIB HITECH GL – Glass-lined PP", use: "FRP/GRP composite vessel construction", href: "/products/semi-finished/sheets-blocks/polyrib-p" },
-      { name: "POLYRIB H – HDPE Sheets", use: "Chemical containment, bunding, linings", href: "/products/semi-finished/sheets-blocks/polyrib-h" },
-      { name: "DIPRA – Gate & Liner Range", use: "Gate liners, sluice liners, chemical covers", href: "/products/semi-finished/sheets-blocks/dipra" },
+      { name: "POLYRIB-V FG – Food Grade UHMW PE", use: "Conveyor wear surfaces, bottle guides", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/polyrib-v-fg" },
+      { name: "CUTRITE EMB – HACCP Chopping Boards", use: "Colour-coded cutting boards for food prep", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/cutrite/cutrite-emb" },
+      { name: "PAKETAL – FDA Acetal/POM", use: "Cutting surfaces, precision food machinery", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/paketal" },
+      { name: "POLYRIB P – HDPE Boards", use: "General food-safe panels and boards", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/polyrib-p/polyrib-ripla-hitech" },
     ],
     materials: ["POLYRIB P", "POLYRIB H", "DIPRA"],
     caseStudies: [
@@ -92,17 +91,16 @@ const INDUSTRY_DATA: Record<string, {
     standards: ["REACH SVHC Compliant", "ISO 9001:2015", "SABS Standards", "SANS 1431 HDPE"],
     image1: sheetsImage, image2: machineImage,
   },
-  mining: {
+  "mining": {
     title: "Mining", subtitle: "Wear liners, chute linings, FRP composites and conveyor components for harsh mining environments",
     image: pharmaImage,
     intro: "POLYRIB V UHMW PE is the material of choice for chute linings, conveyor pan liners, and bulk handling systems. ARETE glass-lined composites provide FRP-compatible wear liners for manufactured chutes. POLYRIB-V-FR flame-retardant grade meets underground fire safety requirements.",
     challenges: ["Extreme abrasion from bulk ore and aggregate","High-impact loading from material drop zones","Flame retardancy for underground conveyor applications","Resistance to mine water and chemical attack"],
     products: [
-      { name: "POLYRIB-V005 – Standard UHMW PE", use: "Chute linings, pan liners, skirt boards", href: "/products/semi-finished/sheets-blocks/polyrib-v" },
-      { name: "POLYRIB-V-FR – Flame Retardant UHMW PE", use: "Underground conveyor liners (FR rated)", href: "/products/semi-finished/sheets-blocks/polyrib-v" },
-      { name: "POLYRIB-C – Conductive UHMW PE", use: "Coal mine liners (static dissipating)", href: "/products/semi-finished/sheets-blocks/polyrib-v" },
-      { name: "ARETE L-V005 – Glass-lined Composite", use: "FRP chute liner construction", href: "/products/machine-components/application-sheets/arete" },
-      { name: "DIPRA Gate Liner – Mining Grade", use: "Gate and sluice liners in processing plants", href: "/products/semi-finished/sheets-blocks/dipra" },
+      { name: "POLYRIB-V005 – Standard UHMW PE", use: "Chute linings, pan liners, skirt boards", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/polyrib-v/polyrib-v005" },
+      { name: "POLYRIB-V-FR – Flame Retardant UHMW PE", use: "Underground conveyor liners (FR rated)", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/polyrib-v/polyrib-v-fr" },
+      { name: "POLYRIB-C – Conductive UHMW PE", use: "Coal mine liners (static dissipating)", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/polyrib-v/polyrib-c" },
+      { name: "ARETE L-V005 – Glass-lined Composite", use: "FRP chute liner construction", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/arete/arete-l-v005" }
     ],
     materials: ["POLYRIB V", "POLYRIB-V-FR", "POLYRIB-C", "ARETE", "DIPRA"],
     caseStudies: [
@@ -118,10 +116,10 @@ const INDUSTRY_DATA: Record<string, {
     intro: "POLYRIB V UHMW PE provides wear-resistant liners for slurry pipelines and separation equipment. POLYRIB-V-AS antistatic grade meets ATEX requirements. PAKETAL and KAYLON precision components are used in valve and pump assemblies throughout oil and gas processing plants.",
     challenges: ["Resistance to hydrocarbons, crude oil, H₂S and methanol","Elevated temperature performance to +100°C","Non-sparking requirements for ATEX explosion-risk zones","Dimensional stability under sustained mechanical loading"],
     products: [
-      { name: "POLYRIB-V005 – UHMW PE Wear Liners", use: "Slurry pipeline liners, separation equipment", href: "/products/semi-finished/sheets-blocks/polyrib-v" },
-      { name: "POLYRIB-V-AS – Antistatic UHMW PE", use: "Lining in ATEX/explosion-risk environments", href: "/products/semi-finished/sheets-blocks/polyrib-v" },
-      { name: "KAYLON OILON – Oil-impregnated Nylon", use: "Bearings and bushings in pump assemblies", href: "/products/semi-finished/rods-tubes/kaylon" },
-      { name: "PAKETAL NATURAL – Acetal/POM Rod", use: "Valve seats, precision flow control parts", href: "/products/semi-finished/rods-tubes/paketal" },
+      { name: "POLYRIB-V FG – Food Grade UHMW PE", use: "Conveyor wear surfaces, bottle guides", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/polyrib-v-fg" },
+      { name: "CUTRITE EMB – HACCP Chopping Boards", use: "Colour-coded cutting boards for food prep", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/cutrite/cutrite-emb" },
+      { name: "PAKETAL – FDA Acetal/POM", use: "Cutting surfaces, precision food machinery", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/paketal" },
+      { name: "POLYRIB P – HDPE Boards", use: "General food-safe panels and boards", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/polyrib-p/polyrib-ripla-hitech" },
     ],
     materials: ["POLYRIB V", "POLYRIB-V-AS", "KAYLON", "PAKETAL"],
     caseStudies: [
@@ -131,16 +129,16 @@ const INDUSTRY_DATA: Record<string, {
     standards: ["ATEX Directive", "REACH Compliant", "ISO 9001:2015", "API Standards"],
     image1: machineImage, image2: sheetsImage,
   },
-  marine: {
+  "marine": {
     title: "Marine", subtitle: "UV-stabilised, corrosion-proof HDPE and UHMW PE for marine and offshore applications",
     image: automotiveImage,
     intro: "POLYRIB H HDPE provides the definitive marine solution — UV-stabilised, corrosion-proof, and impact-resistant for boat boards, dock fenders, pontoons and marine infrastructure. POLYRIB V UHMW PE provides ultra-low friction for boat hull liners and dock wear surfaces.",
     challenges: ["Resistance to salt water, UV radiation and biofouling","High impact resistance for wave and vessel loading","Low water absorption and dimensional stability when wet","Non-corroding alternatives to steel and aluminium"],
     products: [
-      { name: "POLYRIB-H EXT – Marine HDPE Sheets", use: "Boat boards, dock fenders, marine panels", href: "/products/semi-finished/sheets-blocks/polyrib-h" },
-      { name: "POLYRIB-H WR – Water Resistant HDPE", use: "Marine structures, water treatment plant", href: "/products/semi-finished/sheets-blocks/polyrib-h" },
-      { name: "POLYRIB-V SUPERSLIDE – UHMW PE", use: "Boat hull liners, dock wear plates", href: "/products/semi-finished/sheets-blocks/polyrib-v" },
-      { name: "POLYRIB H – HDPE Boards", use: "Pontoon decking, pier components", href: "/products/semi-finished/sheets-blocks/polyrib-h" },
+      { name: "POLYRIB-V FG – Food Grade UHMW PE", use: "Conveyor wear surfaces, bottle guides", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/polyrib-v-fg" },
+      { name: "CUTRITE EMB – HACCP Chopping Boards", use: "Colour-coded cutting boards for food prep", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/cutrite/cutrite-emb" },
+      { name: "PAKETAL – FDA Acetal/POM", use: "Cutting surfaces, precision food machinery", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/paketal" },
+      { name: "POLYRIB P – HDPE Boards", use: "General food-safe panels and boards", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/polyrib-p/polyrib-ripla-hitech" }
     ],
     materials: ["POLYRIB H", "POLYRIB-H EXT", "POLYRIB V"],
     caseStudies: [
@@ -241,44 +239,7 @@ export default function IndustryDetailPage() {
         </div>
       </section>
 
-      <section ref={ref2} className="fade-up py-14 border-b border-divider">
-        <div className="container max-w-7xl mx-auto px-6">
-          <p className="section-label mb-3">Case Studies</p>
-          <h2 className="font-heading text-2xl text-charcoal mb-8">Real-world results in {data.title}</h2>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {data.caseStudies.map((cs, i) => (
-              <div key={i} className="border border-border bg-card">
-                <div className="aspect-video overflow-hidden">
-                  <img src={i === 0 ? data.image1 : data.image2} alt={cs.title} className="w-full h-full object-cover opacity-80" />
-                </div>
-                <div className="p-6">
-                  <div className="flex items-center gap-2 mb-4">
-                    <Quote className="w-4 h-4 text-primary" />
-                    <span className="text-xs font-medium text-muted-foreground">{cs.client}</span>
-                  </div>
-                  <h3 className="font-heading font-semibold text-charcoal text-base mb-4">{cs.title}</h3>
-                  <div className="space-y-4 text-sm">
-                    <div>
-                      <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-1">Challenge</div>
-                      <p className="text-charcoal-light leading-relaxed">{cs.challenge}</p>
-                    </div>
-                    <div>
-                      <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-1">Solution</div>
-                      <p className="text-charcoal-light leading-relaxed">{cs.solution}</p>
-                    </div>
-                    <div className="pt-3 border-t border-divider">
-                      <div className="flex items-start gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-                        <p className="text-charcoal font-medium text-sm">{cs.result}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      
 
       <section ref={ref3} className="fade-up py-14 bg-primary">
         <div className="container max-w-7xl mx-auto px-6">
