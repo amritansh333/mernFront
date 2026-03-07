@@ -177,7 +177,7 @@ export default function SubcategoryBrandsPage() {
 
                     <div className="p-6">
                       <span className="section-label block mb-2">
-                        {item.name}
+                        {item.materials?.[0]?.name}
                       </span>
 
                       <h2 className="font-heading text-xl text-charcoal mb-2 group-hover:text-primary transition-colors duration-200">
