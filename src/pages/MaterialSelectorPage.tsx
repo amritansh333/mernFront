@@ -40,7 +40,7 @@ const MATERIALS_DB = [
     keyProps: "Highest abrasion resistance, self-lubricating, food grade & antistatic grades",
     maxTemp: "+80°C", minTemp: "−200°C", colour: "Natural / Black / Blue", forms: "Sheets, Blocks, Strips",
     note: "Unmatched abrasion resistance. Food grade (POLYRIB-V FG), antistatic (POLYRIB-V-AS) and FR (POLYRIB-V-FR) grades available.",
-    href: "/products/semi-finished/sheets-blocks/polyrib-v",
+    href: "/products/thermoplastics-semi-finished-products/sheets-blocks/polyrib-v",
   },
   {
     id: "polyrib-h", name: "POLYRIB H", full: "HDPE — Polyrib's chemical resistance & outdoor durability grade",
@@ -48,7 +48,7 @@ const MATERIALS_DB = [
     keyProps: "Chemical resistance, UV-stabilised, glass-lined FRP grades, marine rated",
     maxTemp: "+80°C", minTemp: "−60°C", colour: "Natural / Black / Colours", forms: "Sheets, Boards, Rolls",
     note: "14 specialist grades including UV-fast, glass-lined CED, playground and marine variants. Ideal for outdoor, marine and construction.",
-    href: "/products/semi-finished/sheets-blocks/polyrib-h",
+    href: "/products/thermoplastics-semi-finished-products/sheets-blocks/polyrib-h",
   },
   {
     id: "polyrib-p", name: "POLYRIB P", full: "Polypropylene — Polyrib's chemical tank & fabrication grade",
@@ -56,7 +56,7 @@ const MATERIALS_DB = [
     keyProps: "Outstanding acid/alkali resistance, weldable for tank fabrication, RIPLA cutting board grades",
     maxTemp: "+100°C", minTemp: "−10°C", colour: "Natural / Grey", forms: "Sheets, Blocks, Boards",
     note: "The standard for chemical tanks, acid-handling equipment and scrubbers. RIPLA sub-range is the industry standard for leather cutting machines.",
-    href: "/products/semi-finished/sheets-blocks/polyrib-p",
+    href: "/products/thermoplastics-semi-finished-products/sheets-blocks/polyrib-p",
   },
   {
     id: "pcclear", name: "PCCLEAR", full: "Polycarbonate — Polyrib's high-clarity glazing & display grade",
@@ -64,15 +64,15 @@ const MATERIALS_DB = [
     keyProps: "250× stronger than glass, high optical clarity, UV-protected & hard coat grades",
     maxTemp: "+120°C", minTemp: "−40°C", colour: "Clear / Tinted / Opal", forms: "Sheets, Rolls",
     note: "7 grades from standard clear to diamond hard-coat and UV-protected. Architectural, retail, automotive and industrial glazing applications.",
-    href: "/products/semi-finished/sheets-blocks/pcclear",
+    href: "/products/thermoplastics-semi-finished-products/sheets-blocks/pcclear",
   },
   {
-    id: "kaylon", name: "KAYLON", full: "Cast PA6 Nylon — Polyrib's wear-resistant engineering rod & block",
+    id: "pakaylon", name: "PAKAYLON", full: "Cast PA6 Nylon — Polyrib's wear-resistant engineering rod & block",
     scores: { cryo: 2, low: 3, ambient: 5, elevated: 4, high: 2, extreme: 0, none: 5, water: 2, acids: 2, alkalis: 3, solvents: 4, oils: 5, food: 4, pharma: 3, static: 4, sliding: 4, dynamic: 5, abrasive: 5, electrical: 3 },
     keyProps: "Toughness, wear resistance, oil-impregnated & MoS₂ grades, self-lubricating",
     maxTemp: "+120°C", minTemp: "−40°C", colour: "Natural / Black / Blue", forms: "Rods, Tubes, Sheets, Blocks",
     note: "Best choice for wear-resistant gears, bearings, cams and structural components. 5 grades including oil-filled and MoS₂-impregnated.",
-    href: "/products/semi-finished/rods-tubes/kaylon",
+    href: "/products/thermoplastics-semi-finished-products/sheets-blocks/pakaylon",
   },
   {
     id: "paketal", name: "PAKETAL", full: "Acetal / POM — Polyrib's precision machining grade",
@@ -80,7 +80,7 @@ const MATERIALS_DB = [
     keyProps: "Finest precision machinability, dimensional stability, low friction",
     maxTemp: "+100°C", minTemp: "−40°C", colour: "Natural / Black", forms: "Rods, Tubes, Sheets",
     note: "The benchmark for CNC-machined precision parts — gears, valve seats, bearings, cams. Natural and black grades in stock.",
-    href: "/products/semi-finished/rods-tubes/paketal",
+    href: "/products/thermoplastics-semi-finished-products/sheets-blocks/paketal",
   },
   {
     id: "dipra", name: "DIPRA", full: "PP Gate Liners & Roof Liners — Polyrib's specialist PP range",
@@ -88,7 +88,7 @@ const MATERIALS_DB = [
     keyProps: "UV-fast roof liners, gate liner grades, embossed non-slip, dual-colour for signage",
     maxTemp: "+100°C", minTemp: "−10°C", colour: "Multiple colours", forms: "Sheets, Rolls, Film",
     note: "Specialist PP range for mining gate liners, agricultural roof liners, signage, and architectural applications. UV-fast and embossed grades.",
-    href: "/products/semi-finished/sheets-blocks/dipra",
+    href: "/products/thermoplastics-semi-finished-products/sheets-blocks/dipra",
   },
 ];
 

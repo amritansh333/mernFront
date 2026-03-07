@@ -124,6 +124,7 @@ export default function IndustriesPage() {
             {ALL_INDUSTRIES.map((ind) => (
               <div key={ind} className="flex items-center gap-2 p-3 border border-border bg-card text-sm text-charcoal-light hover:border-primary hover:text-primary transition-all duration-200 cursor-default">
                 <ChevronRight className="w-3.5 h-3.5 text-primary shrink-0" />
+                
                 {ind}
               </div>
             ))}
