@@ -85,7 +85,7 @@ export default function IndustriesPage() {
         </div>
       </div>
 
-      <section ref={ref} className="fade-up py-16">
+      <section className="py-16">
         <div className="container max-w-7xl mx-auto px-6">
           <div className="space-y-6">
             {FEATURED_INDUSTRIES.map((ind) => (

@@ -15,7 +15,10 @@ import MaterialSelectorPage from "@/pages/MaterialSelectorPage";
 import ResourcesPage from "@/pages/ResourcesPage";
 
 import ProductsPage from "@/pages/ProductsPage";
-import SubcategoryBrandsPage from "@/pages/SubcategoryBrandsPage";
+
+import SubcategoriesPage from "@/pages/SubcategoriesPage";
+import BrandsPage from "@/pages/BrandsPage";
+import BrandProductsPage from "@/pages/BrandProductsPage";
 
 import ProductDetailPage from "@/pages/ProductDetailPage";
 
@@ -46,24 +49,24 @@ function App() {
 
 <Route path="/products" element={<ProductsPage />} />
 
-<Route 
-  path="/products/:categorySlug/:subCategorySlug/:brandSlug/:productSlug" 
-  element={<ProductDetailPage />} 
+<Route
+ path="/products/:categorySlug"
+ element={<SubcategoriesPage />}
 />
 
-<Route 
-  path="/products/:categorySlug/:subCategorySlug/:brandSlug" 
-  element={<SubcategoryBrandsPage />} 
+<Route
+ path="/products/:categorySlug/:subcategorySlug"
+ element={<BrandsPage />}
 />
 
-<Route 
-  path="/products/:categorySlug/:subCategorySlug" 
-  element={<SubcategoryBrandsPage />} 
+<Route
+ path="/products/:categorySlug/:subcategorySlug/:brandSlug"
+ element={<BrandProductsPage />}
 />
 
-<Route 
-  path="/products/:categorySlug" 
-  element={<SubcategoryBrandsPage />} 
+<Route
+ path="/products/:categorySlug/:subcategorySlug/:brandSlug/:productSlug"
+ element={<ProductDetailPage />}
 />
 
         {/* 404 */}

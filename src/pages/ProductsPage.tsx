@@ -82,7 +82,7 @@ useEffect(() => {
       </div>
 
       {/* Category cards */}
-      <section ref={ref} className="fade-up py-16">
+      <section className="py-16">
         <div className="container max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {categories.map((cat) => (
