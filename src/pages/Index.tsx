@@ -109,7 +109,7 @@ const whyChecks = [
 const promise = [
   { icon: TrendingUp,  title: "Rise to Challenges",      desc: "We rise to challenges and deliver beyond customer expectations, every time." },
   { icon: Lightbulb,  title: "Innovate with Technology", desc: "Innovate as per latest technology with world-class infrastructure facilities." },
-  { icon: PackageCheck,title: "Built for the World",     desc: "Build products in India for the world — reliable, precise, globally competitive." },
+  { icon: PackageCheck,title: "Build for the World",     desc: "Build products in India for the world — reliable, precise, globally competitive." },
 ];
 
 /* ─── Sub-components ────────────────────────────────────── */
@@ -496,14 +496,15 @@ const Index = () => {
           <div className="max-w-2xl">
             <p className="section-label text-white/60 mb-2 animate-fade-in">Advanced Polymer Engineering Solutions</p>
             <p className="text-white/50 text-xs font-medium mb-4 animate-fade-in" style={{ animationDelay: "50ms" }}>
-              One-stop manufacturing partner · PP · HDPE · UHMWPE · ABS · PC · POM · Cast Nylon
+              PP · HDPE · UHMWPE · ABS · PC · POM · Cast Nylon
             </p>
             <h1 className="font-heading text-5xl lg:text-6xl text-white leading-tight mb-6 animate-fade-in" style={{ animationDelay: "100ms" }}>
-              Precision Thermoplastics
-              <span className="text-primary-light block">for Every Industry</span>
+              Engineering Thermo-Plastics Solutions
+              <span className="text-primary-light block">Built For Performance</span>
             </h1>
+            <p className="section-label text-white/60 mb-2 animate-fade-in">One-stop manufacturing partner</p>
             <p className="text-white/70 text-lg leading-relaxed mb-3 max-w-xl animate-fade-in" style={{ animationDelay: "200ms" }}>
-              Semi-finished products and precision machine components across our proprietary POLYRIB, PCCLEAR, KAYLON, and PAKETAL brand families.
+              Semi-Finished Products and Precision Machine Components across our proprietary POLYRIB, PCCLEAR, KAYLON and PAKETAL brand families.
             </p>
             <p className="text-primary-light text-sm font-semibold mb-8 animate-fade-in" style={{ animationDelay: "250ms" }}>
               Engineered for performance. Manufactured for reliability.
