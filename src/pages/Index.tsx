@@ -73,9 +73,9 @@ const infrastructure = [
 ];
 
 const whyPoints = [
-  { icon: Factory,        title: "In-House Manufacturing",        desc: "Full control over quality — we manufacture our own branded thermoplastic sheets, rods, and tubes." },
-  { icon: Layers,         title: "Extensive Brand Range",         desc: "POLYRIB, PCCLEAR, KAYLON, PAKETAL, DIPRA, PLASCON and more — all under one roof." },
-  { icon: Ruler,          title: "Custom Sizes & Grades",         desc: "Standard stock plus custom-sized sheets, speciality grades, and machined-to-drawing components." },
+  { icon: Layers,         title: "Three Companies, One Group",         desc: "Khanna Group, comprising Khanna Polyrib Pvt. Ltd., KBK Plascon Pvt. Ltd., and KBK Polymer Pvt. Ltd., has been at the forefront of polymer manufacturing for over four decades." },
+  { icon: Factory,        title: "Our Locations",        desc: "With state-of-the-art manufacturing facilities in Uttar Pradesh and distribution centres in Delhi, Bhiwandi, and Ahmedabad, we ensure consistent quality and efficient nationwide supply." },
+  { icon: Ruler,          title: "Our Mission & Values",         desc: "To design superior performance polymer materials, and to have Khanna Polyrib establish standards in the quality." },
   { icon: BadgeCheck,     title: "ISO 9001 Quality",              desc: "Certified manufacturing processes with consistent material properties and full traceability." },
   { icon: Globe,          title: "Multi-Industry Expertise",      desc: "Over 20 industries served — from food processing to aerospace and oil & gas." },
   { icon: HeadphonesIcon, title: "Technical Application Support", desc: "Material selection guidance, grade recommendations, and design consultation from our engineering team." },
@@ -128,232 +128,23 @@ function StatSection() {
   );
 }
 
-function ProductCategoryCard({ title, description, href, image, tag }: {
-  title: string; description: string; href: string; image: string; tag: string;
-}) {
-  return (
-    <Link to={href} className="category-card block group">
-      <div className="card-image aspect-[4/3] overflow-hidden bg-surface-subtle">
-        <img src={image} alt={title} className="w-full h-full object-cover" loading="lazy" />
-      </div>
-      <div className="p-6">
-        <span className="section-label text-xs block mb-3">{tag}</span>
-        <h3 className="font-heading text-xl text-charcoal mb-2 group-hover:text-primary transition-colors duration-200">{title}</h3>
-        <p className="text-sm text-muted-foreground mb-5 leading-relaxed">{description}</p>
-        <div className="flex items-center gap-1.5 cta-link">
-          Explore Range
-          <ArrowRight className="w-4 h-4 explore-arrow" />
-        </div>
-        <div className="card-border-bottom mt-4" />
-      </div>
-    </Link>
-  );
-}
-
-/* Polyrib Advantage banner */
-function PolyribAdvantageSection() {
-  const ref = useScrollFade() as React.RefObject<HTMLElement>;
-  return (
-    <section ref={ref} className="fade-up py-20 bg-charcoal overflow-hidden relative">
-      {/* subtle grid pattern */}
-      <div className="absolute inset-0 opacity-5" style={{ backgroundImage: "repeating-linear-gradient(0deg,transparent,transparent 39px,hsl(197 68% 48%)  39px,hsl(197 68% 48%) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,hsl(197 68% 48%) 39px,hsl(197 68% 48%) 40px)" }} />
-      <div className="relative container max-w-7xl mx-auto px-6 text-center">
-        <p className="section-label text-primary mb-3">The Polyrib Advantage</p>
-        <h2 className="font-heading text-4xl lg:text-5xl text-white mb-5 leading-tight">
-          Where <span className="text-primary-light">Polymers</span> Meet Performance
-        </h2>
-        <p className="text-white/70 max-w-2xl mx-auto text-base leading-relaxed mb-10">
-          Polyrib delivers engineered plastic solutions for demanding industrial applications. We specialize in high-performance polymers, enabling reliable metal-replacement components with superior wear resistance, strength, and cost efficiency.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-3 justify-center">
-          <Link to="/contact" className="inline-flex items-center gap-2 px-7 py-3 bg-primary text-primary-foreground text-sm font-bold hover:bg-primary-light transition-colors duration-200">
-            Request a Quote <ArrowRight className="w-4 h-4" />
-          </Link>
-          <Link to="/contact" className="inline-flex items-center gap-2 px-6 py-3 border border-white/30 text-white text-sm font-semibold hover:bg-white/10 transition-colors duration-200">
-            <Send className="w-4 h-4" /> Send Your Drawing
-          </Link>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* Polymers We Work With */
-function PolymersSection() {
-  const ref = useScrollFade() as React.RefObject<HTMLElement>;
-  return (
-    <section ref={ref} className="fade-up py-20 border-b border-divider">
-      <div className="container max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
-          <div>
-            <p className="section-label mb-3">Material Expertise</p>
-            <h2 className="font-heading text-3xl text-charcoal mb-4">The Polymers We Work With</h2>
-            <p className="text-muted-foreground text-sm leading-relaxed mb-6">
-              Manufactured as per customer drawings, samples, or application-specific requirements. Each material grade is selected for optimal performance in your environment.
-            </p>
-            <Link to="/materials" className="cta-link">
-              View all Material families <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-          <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {polymers.map((m) => (
-              <Link key={m.abbr} to={`/materials/${m.slug}`} className="bg-card border border-border p-4 hover:border-primary/40 transition-colors duration-200 block group">
-                <div className="flex items-start gap-3">
-                  <span className="font-heading font-bold text-primary text-sm w-28 shrink-0 group-hover:text-primary-dark transition-colors">{m.abbr}</span>
-                  <div>
-                    <div className="text-xs text-charcoal font-medium mb-0.5">{m.name}</div>
-                    <div className="text-xs text-muted-foreground">{m.prop}</div>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* Materials Section (Brand Portfolio) */
-function MaterialsSection() {
-  const ref = useScrollFade() as React.RefObject<HTMLElement>;
-  return (
-    <section ref={ref} className="fade-up py-20 bg-surface-subtle border-y border-divider">
-      <div className="container max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
-          <div>
-            <p className="section-label mb-3">Brand Portfolio</p>
-            <h2 className="font-heading text-3xl text-charcoal mb-4">Our proprietary thermoplastic brands</h2>
-            <p className="text-muted-foreground text-sm leading-relaxed mb-6">
-              From UHMW PE to Polycarbonate, our in-house brands cover the full spectrum of engineering thermoplastic requirements — manufactured to consistent quality standards.
-            </p>
-            <Link to="/products" className="cta-link">
-              Explore Brands <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-          <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {brandFamilies.map((m) => (
-              <Link key={m.abbr} to={`/products/thermoplastics-semi-finished-products/sheets-blocks/${m.slug}`} className="bg-card border border-border p-4 hover:border-primary/40 transition-colors duration-200 block group">
-                <div className="flex items-start gap-3">
-                  <span className="font-heading font-bold text-primary text-sm w-28 shrink-0 group-hover:text-primary-dark transition-colors">{m.abbr}</span>
-                  <div>
-                    <div className="text-xs text-charcoal font-medium mb-0.5">{m.name}</div>
-                    <div className="text-xs text-muted-foreground">{m.prop}</div>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* About Us */
-function AboutSection() {
-  const ref = useScrollFade() as React.RefObject<HTMLElement>;
-  return (
-    <section ref={ref} className="fade-up py-20 border-b border-divider">
-      <div className="container max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          {/* Text */}
-          <div>
-            <p className="section-label mb-3">About Us</p>
-            <h2 className="font-heading text-3xl text-charcoal mb-5">Four Decades of Polymer Excellence</h2>
-            <p className="text-muted-foreground text-sm leading-relaxed mb-5">
-              Khanna Group, comprising <strong className="text-charcoal">Khanna Polyrib Pvt. Ltd.</strong>, <strong className="text-charcoal">KBK Plascon Pvt. Ltd.</strong>, and <strong className="text-charcoal">KBK Polymer Pvt. Ltd.</strong>, has been at the forefront of polymer manufacturing for over four decades.
-            </p>
-            <p className="text-muted-foreground text-sm leading-relaxed mb-8">
-              With state-of-the-art manufacturing facilities in Uttar Pradesh and distribution centres in Delhi, Bhiwandi, and Ahmedabad, we ensure consistent quality and efficient nationwide supply. An <strong className="text-charcoal">ISO 9001:2008 certified</strong> company, POLYRIB is one of the most trusted brands in thermoplastic semi-finished products.
-            </p>
-            <Link to="/about" className="cta-link">
-              Learn our story <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-          {/* How we work — process steps */}
-          <div>
-            <p className="section-label mb-4">How We Turn Polymers into Performance</p>
-            <div className="space-y-3">
-              {processBullets.map((b, i) => (
-                <div key={i} className="flex items-start gap-3 p-4 bg-surface-subtle border border-divider">
-                  <span className="w-6 h-6 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">{i + 1}</span>
-                  <p className="text-sm text-charcoal-light leading-relaxed">{b}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* What We Manufacture */
-function WhatWeManufactureSection() {
-  const ref = useScrollFade() as React.RefObject<HTMLElement>;
-  return (
-    <section ref={ref} className="fade-up py-20 bg-surface-subtle border-b border-divider">
-      <div className="container max-w-7xl mx-auto px-6">
-        <div className="text-center mb-12">
-          <p className="section-label mb-3">What We Manufacture</p>
-          <h2 className="font-heading text-3xl text-charcoal">Precision-Engineered Plastic Sheets & Components</h2>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {whatWeManufacture.map((item, i) => (
-            <div key={i} className="flex items-center gap-3 bg-card border border-border p-5 hover:border-primary/40 transition-colors duration-200">
-              <CheckCircle2 className="w-5 h-5 text-primary shrink-0" />
-              <span className="text-sm text-charcoal font-medium">{item}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* Industries */
-function IndustriesSection() {
-  const ref = useScrollFade() as React.RefObject<HTMLElement>;
-  return (
-    <section ref={ref} className="fade-up py-20">
-      <div className="container max-w-7xl mx-auto px-6">
-        <div className="text-center mb-12">
-          <p className="section-label mb-3">Industries Served</p>
-          <h2 className="font-heading text-3xl text-charcoal">Trusted across demanding sectors</h2>
-        </div>
-        <div className="flex flex-wrap justify-center gap-3">
-          {allIndustries.map((ind) => (
-            <Link
-              key={ind}
-              to="/industries"
-              className="flex items-center gap-2 px-4 py-2.5 border border-border bg-card hover:border-primary hover:text-primary text-sm font-medium text-charcoal-light transition-all duration-200"
-            >
-              <ChevronRight className="w-3.5 h-3.5 text-primary" />
-              {ind}
-            </Link>
-          ))}
-        </div>
-        <div className="text-center mt-8">
-          <Link to="/industries" className="cta-link">
-            View all industries <ArrowRight className="w-4 h-4" />
-          </Link>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 /* Why Polyrib */
 function WhyUsSection() {
   const ref = useScrollFade() as React.RefObject<HTMLElement>;
   return (
     <section ref={ref} className="fade-up py-20 bg-surface-subtle border-y border-divider overflow-hidden">
       <div className="container max-w-7xl mx-auto px-6">
-        <div className="text-center mb-14">
-          <p className="section-label mb-3">Why Polyrib</p>
-          <h2 className="font-heading text-3xl text-charcoal">Engineered to Perform. Built to Last.</h2>
-        </div>
+        
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10">
+            <div>
+              
+              <h2 className="font-heading text-3xl text-charcoal">Why Polyrib</h2>
+            </div>
+            <Link to="/about" className="cta-link mt-4 md:mt-0">
+              About Us <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 border border-divider overflow-hidden">
           {/* Facility photo */}
 <div className="relative min-h-[420px] lg:min-h-0 overflow-hidden">
@@ -413,6 +204,138 @@ function WhyUsSection() {
   );
 }
 
+function ProductCategoryCard({ title, description, href, image, tag }: {
+  title: string; description: string; href: string; image: string; tag: string;
+}) {
+  return (
+    <Link to={href} className="category-card block group">
+      <div className="card-image aspect-[4/3] overflow-hidden bg-surface-subtle">
+        <img src={image} alt={title} className="w-full h-full object-cover" loading="lazy" />
+      </div>
+      <div className="p-6">
+        <span className="section-label text-xs block mb-3">{tag}</span>
+        <h3 className="font-heading text-xl text-charcoal mb-2 group-hover:text-primary transition-colors duration-200">{title}</h3>
+        <p className="text-sm text-muted-foreground mb-5 leading-relaxed">{description}</p>
+        <div className="flex items-center gap-1.5 cta-link">
+          Explore Range
+          <ArrowRight className="w-4 h-4 explore-arrow" />
+        </div>
+        <div className="card-border-bottom mt-4" />
+      </div>
+    </Link>
+  );
+}
+
+
+
+
+/* Materials Section (Brand Portfolio) */
+function MaterialsSection() {
+  const ref = useScrollFade() as React.RefObject<HTMLElement>;
+  return (
+    <section ref={ref} className="fade-up py-20 bg-surface-subtle border-y border-divider">
+      <div className="container max-w-7xl mx-auto px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
+          <div>
+            
+            <h2 className="font-heading text-3xl text-charcoal mb-4">Our Brands</h2>
+            
+            <Link to="/products" className="cta-link">
+              Explore Brands <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+          <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {brandFamilies.map((m) => (
+              <Link key={m.abbr} to={`/products/thermoplastics-semi-finished-products/sheets-blocks/${m.slug}`} className="bg-card border border-border p-4 hover:border-primary/40 transition-colors duration-200 block group">
+                <div className="flex items-start gap-3">
+                  <span className="font-heading font-bold text-primary text-sm w-28 shrink-0 group-hover:text-primary-dark transition-colors">{m.abbr}</span>
+                  <div>
+                    <div className="text-xs text-charcoal font-medium mb-0.5">{m.name}</div>
+                    <div className="text-xs text-muted-foreground">{m.prop}</div>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+
+/* Polymers We Work With */
+function PolymersSection() {
+  const ref = useScrollFade() as React.RefObject<HTMLElement>;
+  return (
+    <section ref={ref} className="fade-up py-20 border-b border-divider">
+      <div className="container max-w-7xl mx-auto px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
+          <div>
+            
+            <h2 className="font-heading text-3xl text-charcoal mb-4">The Polymers We Work With</h2>
+            
+            <Link to="/materials" className="cta-link">
+              View all Material families <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+          <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {polymers.map((m) => (
+              <Link key={m.abbr} to={`/materials/${m.slug}`} className="bg-card border border-border p-4 hover:border-primary/40 transition-colors duration-200 block group">
+                <div className="flex items-start gap-3">
+                  <span className="font-heading font-bold text-primary text-sm w-28 shrink-0 group-hover:text-primary-dark transition-colors">{m.abbr}</span>
+                  <div>
+                    <div className="text-xs text-charcoal font-medium mb-0.5">{m.name}</div>
+                    <div className="text-xs text-muted-foreground">{m.prop}</div>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+
+
+
+
+/* Industries */
+function IndustriesSection() {
+  const ref = useScrollFade() as React.RefObject<HTMLElement>;
+  return (
+    <section ref={ref} className="fade-up py-20 bg-surface-subtle border-y border-divider">
+      <div className="container max-w-7xl mx-auto px-6">
+        <div className="text-center mb-12">
+          
+          <h2 className="font-heading text-3xl text-charcoal">Industries We Serve</h2>
+        </div>
+        <div className="flex flex-wrap justify-center gap-3">
+          {allIndustries.map((ind) => (
+            <Link
+              key={ind}
+              to="/industries"
+              className="flex items-center gap-2 px-4 py-2.5 border border-border bg-card hover:border-primary hover:text-primary text-sm font-medium text-charcoal-light transition-all duration-200"
+            >
+              <ChevronRight className="w-3.5 h-3.5 text-primary" />
+              {ind}
+            </Link>
+          ))}
+        </div>
+        <div className="text-center mt-8">
+          <Link to="/industries" className="cta-link">
+            View all industries <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+
+
 /* Infrastructure */
 function InfrastructureSection() {
   const ref = useScrollFade() as React.RefObject<HTMLElement>;
@@ -420,7 +343,7 @@ function InfrastructureSection() {
     <section ref={ref} className="fade-up py-20 border-b border-divider">
       <div className="container max-w-7xl mx-auto px-6">
         <div className="text-center mb-12">
-          <p className="section-label mb-3">Manufacturing Capabilities</p>
+          
           <h2 className="font-heading text-3xl text-charcoal">Infrastructure Built for Scale</h2>
           <p className="text-muted-foreground text-sm mt-3 max-w-xl mx-auto">
             From extrusion to precision CNC machining — fully equipped to deliver any polymer component at any volume.
@@ -443,15 +366,56 @@ function InfrastructureSection() {
   );
 }
 
+{/* COMPLIANCE */}
+function CertificationSection() {
+  const ref = useScrollFade() as React.RefObject<HTMLElement>;
+  return (
+      <section ref={ref} className="fade-up py-14 bg-surface-subtle border-b border divider">
+        <div className="container max-w-7xl mx-auto px-6">
+          <div className="text-center mb-12">
+          
+          <h2 className="font-heading text-3xl text-charcoal">Certifications & Standards</h2>
+          <p className="text-muted-foreground text-sm mt-3 max-w-xl mx-auto">
+             Khanna Polyrib Pvt. Ltd. holds ISO 9001:2008 certification — demonstrating commitment to consistent quality management, process control, and customer satisfaction across all product lines. 
+          </p>
+        </div>
+          
+          
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {[
+              "ISO 9001:2008 Certified",
+              "FDA 21 CFR Compliant",
+              "RoHS Compliant",
+              "REACH Compliant",
+              "Food Grade Certified",
+              "WRAS Approved",
+              "UV Stabilised Grades",
+              "Antistatic Grades"
+            ].map((cert) => (
+              <div key={cert} className="border border-border bg-card p-4 text-center hover:border-primary/40 transition-colors duration-200">
+                <div className="w-8 h-8 bg-primary/10 flex items-center justify-center mx-auto mb-2">
+                  <Award className="w-4 h-4 text-primary" />
+                </div>
+                <div className="text-xs font-semibold text-charcoal">
+                  {cert}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+  );
+}
+
 /* Polyrib Promise */
 function PolyribPromiseSection() {
   const ref = useScrollFade() as React.RefObject<HTMLElement>;
   return (
-    <section ref={ref} className="fade-up py-20 bg-surface-subtle border-b border-divider">
+    <section ref={ref} className="fade-up py-20 border-b border-divider">
       <div className="container max-w-7xl mx-auto px-6">
         <div className="text-center mb-12">
-          <p className="section-label mb-3">The Polyrib Promise</p>
-          <h2 className="font-heading text-3xl text-charcoal">Our Commitment to You</h2>
+          
+          <h2 className="font-heading text-3xl text-charcoal">The Polyrib Promise</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {promise.map(({ icon: Icon, title, desc }) => (
@@ -495,17 +459,13 @@ const Index = () => {
         <div className="relative container max-w-7xl mx-auto px-6 pb-20 pt-32">
           <div className="max-w-2xl">
             <p className="section-label text-white/60 mb-2 animate-fade-in">Advanced Polymer Engineering Solutions</p>
-            <p className="text-white/50 text-xs font-medium mb-4 animate-fade-in" style={{ animationDelay: "50ms" }}>
-              PP · HDPE · UHMWPE · ABS · PC · POM · Cast Nylon
-            </p>
+            
             <h1 className="font-heading text-5xl lg:text-6xl text-white leading-tight mb-6 animate-fade-in" style={{ animationDelay: "100ms" }}>
               Engineering Thermo-Plastics Solutions
               <span className="text-primary-light block">Built For Performance</span>
             </h1>
             <p className="section-label text-white/60 mb-2 animate-fade-in">One-stop manufacturing partner</p>
-            <p className="text-white/70 text-lg leading-relaxed mb-3 max-w-xl animate-fade-in" style={{ animationDelay: "200ms" }}>
-              Semi-Finished Products and Precision Machine Components across our proprietary POLYRIB, PCCLEAR, KAYLON and PAKETAL brand families.
-            </p>
+            
             <p className="text-primary-light text-sm font-semibold mb-8 animate-fade-in" style={{ animationDelay: "250ms" }}>
               Engineered for performance. Manufactured for reliability.
             </p>
@@ -540,6 +500,9 @@ const Index = () => {
         </div>
       </div>
 
+      {/* Why Polyrib */}
+      <WhyUsSection />
+
       {/* Product Categories */}
       <section className="py-20">
         <div className="container max-w-7xl mx-auto px-6">
@@ -571,29 +534,30 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Polyrib Advantage — dark banner */}
-      <PolyribAdvantageSection />
 
-      {/* Polymers We Work With */}
-      <PolymersSection />
+
+
 
       {/* Brand Portfolio */}
       <MaterialsSection />
 
-      {/* About + How We Work */}
-      <AboutSection />
+      {/* Polymers We Work With */}
+      <PolymersSection />
 
-      {/* What We Manufacture */}
-      <WhatWeManufactureSection />
+      
+
+
 
       {/* Industries */}
       <IndustriesSection />
 
-      {/* Why Polyrib */}
-      <WhyUsSection />
+      
 
       {/* Infrastructure */}
       <InfrastructureSection />
+
+      {/* COMPLIANCE */}
+      <CertificationSection />
 
       {/* Polyrib Promise */}
       <PolyribPromiseSection />
@@ -614,12 +578,7 @@ const Index = () => {
             <Link to="/contact" className="inline-flex items-center gap-2 px-7 py-3 bg-primary-foreground text-primary text-sm font-bold hover:bg-surface-subtle transition-colors duration-200">
               Request a Quote <ArrowRight className="w-4 h-4" />
             </Link>
-            <Link to="/contact" className="inline-flex items-center gap-2 px-6 py-3 border border-white/30 text-primary-foreground text-sm font-semibold hover:bg-white/10 transition-colors duration-200">
-              <Send className="w-4 h-4" /> Send Your Drawing
-            </Link>
-            <Link to="/tools/material-selector" className="inline-flex items-center gap-2 px-6 py-3 border border-white/20 text-primary-foreground/80 text-sm font-semibold hover:bg-white/10 transition-colors duration-200">
-              Use Material Selector
-            </Link>
+            
           </div>
         </div>
       </section>

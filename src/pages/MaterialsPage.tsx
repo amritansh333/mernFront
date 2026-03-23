@@ -135,7 +135,7 @@ useEffect(() => {
           <p className="section-label mb-3">Thermoplastic Brands</p>
           <h1 className="font-heading text-4xl text-charcoal mb-3">Our Material Families</h1>
           <p className="text-muted-foreground max-w-2xl leading-relaxed">
-            Polyrib manufactures a comprehensive range of thermoplastics under proprietary brand families. Click any brand to explore its grades, properties, and applications.
+            Polyrib manufactures a comprehensive range of thermoplastics under its brand families. Click any brand to explore its grades, properties, and applications.
           </p>
         </div>
       </div>

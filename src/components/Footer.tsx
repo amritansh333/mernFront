@@ -55,18 +55,13 @@ export function Footer() {
             </div>
             <div className="flex gap-3 lg:justify-end">
               <Link
-                to="/contact"
+                to="/tools/material-selector"
                 className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary-light transition-colors duration-200"
               >
-                Request a Quote
+                Material Selector
                 <ArrowRight className="w-4 h-4" />
               </Link>
-              <Link
-                to="/tools/material-selector"
-                className="inline-flex items-center gap-2 px-5 py-2.5 border border-white/20 text-white text-sm font-semibold hover:bg-white/10 transition-colors duration-200"
-              >
-                Material Selector
-              </Link>
+              
             </div>
           </div>
         </div>
