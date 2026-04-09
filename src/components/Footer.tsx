@@ -78,7 +78,7 @@ export function Footer() {
                 <img
                   src={logoImg}
                   alt="Khanna Polyrib Pvt. Ltd."
-                  className="h-12 md:h-16 w-auto object-contain"
+                  className="h-15 md:h-20 w-auto object-contain"
                 />
               </div>
             </Link>
