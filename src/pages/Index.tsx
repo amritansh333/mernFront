@@ -14,6 +14,7 @@ import slider2 from "@/assets/slider2-Engineered-To-Perform.jpeg";
 import slider3 from "@/assets/slider3-Engineered-To-Perform.jpeg";
 import slider4 from "@/assets/slider4-Engineered-To-Perform.jpeg";
 import slider5 from "@/assets/slider5-Engineered-To-Perform.jpeg";
+import badgeImg from "@/assets/TrustBadge.png"; 
 import { useScrollFade } from "@/hooks/useScrollFade";
 
 /* ─── Data ─────────────────────────────────────────────── */
@@ -132,13 +133,13 @@ function StatSection() {
 function WhyUsSection() {
   const ref = useScrollFade() as React.RefObject<HTMLElement>;
   return (
-    <section ref={ref} className="fade-up py-20 bg-surface-subtle border-y border-divider overflow-hidden">
+    <section ref={ref} className="fade-up py-8 bg-surface-subtle border-y border-divider overflow-hidden">
       <div className="container max-w-7xl mx-auto px-6">
         
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10">
             <div>
               
-              <h2 className="font-heading text-3xl text-charcoal">Why Polyrib</h2>
+              <h2 className="font-heading text-3xl text-charcoal">What sets Polyrib apart?</h2>
             </div>
             <Link to="/about" className="cta-link mt-4 md:mt-0">
               About Us <ArrowRight className="w-4 h-4" />
@@ -167,11 +168,11 @@ function WhyUsSection() {
   <div className="absolute inset-0 bg-gradient-to-t from-charcoal/95 via-charcoal/50 to-transparent" />
 
   {/* Text Overlay (UNCHANGED) */}
-  <div className="absolute bottom-0 left-0 right-0 p-8">
+  <div className="absolute top-0 left-0 right-0 p-8">
     <p className="text-white/60 text-xs tracking-widest uppercase font-semibold mb-3">
       Established 1985
     </p>
-    <p className="font-heading text-white text-xl font-bold mb-5">
+    <p className="font-heading text-3xl font-bold text-primary mb-4">
       40+ Years of Engineering Excellence
     </p>
     <div className="space-y-2">
@@ -233,7 +234,7 @@ function ProductCategoryCard({ title, description, href, image, tag }: {
 function MaterialsSection() {
   const ref = useScrollFade() as React.RefObject<HTMLElement>;
   return (
-    <section ref={ref} className="fade-up py-20 bg-surface-subtle border-y border-divider">
+    <section ref={ref} className="fade-up py-8 bg-surface-subtle border-y border-divider">
       <div className="container max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
           <div>
@@ -268,7 +269,7 @@ function MaterialsSection() {
 function PolymersSection() {
   const ref = useScrollFade() as React.RefObject<HTMLElement>;
   return (
-    <section ref={ref} className="fade-up py-20 border-b border-divider">
+    <section ref={ref} className="fade-up py-8 border-b border-divider">
       <div className="container max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
           <div>
@@ -306,7 +307,7 @@ function PolymersSection() {
 function IndustriesSection() {
   const ref = useScrollFade() as React.RefObject<HTMLElement>;
   return (
-    <section ref={ref} className="fade-up py-20 bg-surface-subtle border-y border-divider">
+    <section ref={ref} className="fade-up py-8 bg-surface-subtle border-y border-divider">
       <div className="container max-w-7xl mx-auto px-6">
         <div className="text-center mb-12">
           
@@ -340,15 +341,20 @@ function IndustriesSection() {
 function InfrastructureSection() {
   const ref = useScrollFade() as React.RefObject<HTMLElement>;
   return (
-    <section ref={ref} className="fade-up py-20 border-b border-divider">
+    <section ref={ref} className="fade-up py-8 border-b border-divider">
       <div className="container max-w-7xl mx-auto px-6">
         <div className="text-center mb-12">
-          
-          <h2 className="font-heading text-3xl text-charcoal">Infrastructure Built for Scale</h2>
-          <p className="text-muted-foreground text-sm mt-3 max-w-xl mx-auto">
-            From extrusion to precision CNC machining — fully equipped to deliver any polymer component at any volume.
-          </p>
-        </div>
+  <h2 className="font-heading text-3xl text-charcoal">
+    Infrastructure Built for Scale
+  </h2>
+
+  <p className="text-muted-foreground text-sm mt-3 max-w-xl mx-auto">
+    From extrusion to precision CNC machining —{" "}
+    <span className="font-semibold text-base text-primary">
+      Fully equipped to deliver any polymer component at any volume.
+    </span>
+  </p>
+</div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-divider border border-divider">
           {infrastructure.map((item) => (
             <div key={item.label} className="bg-card p-8 hover:bg-surface-subtle transition-colors duration-200">
@@ -370,7 +376,7 @@ function InfrastructureSection() {
 function CertificationSection() {
   const ref = useScrollFade() as React.RefObject<HTMLElement>;
   return (
-      <section ref={ref} className="fade-up py-14 bg-surface-subtle border-b border divider">
+      <section ref={ref} className="fade-up py-8 bg-surface-subtle border-b border divider">
         <div className="container max-w-7xl mx-auto px-6">
           <div className="text-center mb-12">
           
@@ -411,7 +417,7 @@ function CertificationSection() {
 function PolyribPromiseSection() {
   const ref = useScrollFade() as React.RefObject<HTMLElement>;
   return (
-    <section ref={ref} className="fade-up py-20 border-b border-divider">
+    <section ref={ref} className="fade-up py-8 border-b border-divider">
       <div className="container max-w-7xl mx-auto px-6">
         <div className="text-center mb-12">
           
@@ -458,17 +464,13 @@ const Index = () => {
 </div>
         <div className="relative container max-w-7xl mx-auto px-6 pb-20 pt-32">
           <div className="max-w-2xl">
-            <p className="section-label text-white/60 mb-2 animate-fade-in">Advanced Polymer Engineering Solutions</p>
+            
             
             <h1 className="font-heading text-5xl lg:text-6xl text-white leading-tight mb-6 animate-fade-in" style={{ animationDelay: "100ms" }}>
               Engineering Thermo-Plastics Solutions
               <span className="text-primary-light block">Built For Performance</span>
             </h1>
-            <p className="section-label text-white/60 mb-2 animate-fade-in">One-stop manufacturing partner</p>
             
-            <p className="text-primary-light text-sm font-semibold mb-8 animate-fade-in" style={{ animationDelay: "250ms" }}>
-              Engineered for performance. Manufactured for reliability.
-            </p>
             <div className="flex flex-col sm:flex-row gap-3 animate-fade-in" style={{ animationDelay: "300ms" }}>
               <Link to="/products" className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary-light transition-colors duration-200">
                 Explore Products <ArrowRight className="w-4 h-4" />
@@ -491,6 +493,16 @@ const Index = () => {
             </div>
           </div>
         </div>
+
+        {/* Badge */}
+        <div className="absolute right-14 top-1/4 -translate-y-10 z-20 hidden lg:block">
+          <img
+          src={badgeImg}
+          alt="One Stop Manufacturing Partner"
+          className="w-40 h-40 object-contain"
+          />
+        </div>
+        
       </section>
 
       {/* Stats bar */}
@@ -504,7 +516,7 @@ const Index = () => {
       <WhyUsSection />
 
       {/* Product Categories */}
-      <section className="py-20">
+      <section className="py-8">
         <div className="container max-w-7xl mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10">
             <div>
@@ -563,13 +575,11 @@ const Index = () => {
       <PolyribPromiseSection />
 
       {/* CTA Banner */}
-      <section className="bg-primary py-16">
+      <section className="bg-primary py-8">
         <div className="container max-w-7xl mx-auto px-6 text-center">
-          <p className="text-primary-foreground/60 text-sm tracking-widest uppercase font-semibold mb-3">
-            Looking for a Reliable Polymer Manufacturer?
-          </p>
+          
           <h2 className="font-heading text-3xl text-primary-foreground mb-4">
-            Partner with Polyrib for long-term performance
+            Upgrade to smarter thermoplastics. Partner with Polyrib
           </h2>
           <p className="text-primary-foreground/70 mb-8 max-w-xl mx-auto text-sm leading-relaxed">
             Precision-engineered plastic sheets and components that deliver long-term performance in demanding applications. Our engineering team responds within 24 hours.

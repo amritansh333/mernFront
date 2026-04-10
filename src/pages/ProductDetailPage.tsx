@@ -61,7 +61,7 @@ export default function ProductDetailPage() {
     <div className="pt-16">
 
       {/* ---------------- HERO SECTION ---------------- */}
-      <div className="bg-surface-subtle border-b border-divider py-14">
+      <div className="bg-surface-subtle border-b border-divider py-8">
         <div className="container max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
           {/* LEFT SIDE */}
@@ -175,7 +175,7 @@ export default function ProductDetailPage() {
       </div>
 
       {/* ---------------- TECHNICAL + DETAILS ---------------- */}
-      <section className="py-16">
+      <section className="py-8">
         <div className="container max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16">
 
           {/* TECHNICAL CHARACTERISTICS */}
@@ -234,7 +234,7 @@ export default function ProductDetailPage() {
 
       {/* ---------------- APPLICATION AREAS ---------------- */}
       {product.specifications?.applicationAreas?.length > 0 && (
-        <section className="py-12 bg-surface-subtle">
+        <section className="py-8 bg-surface-subtle">
           <div className="container max-w-7xl mx-auto px-6">
             <p className="section-label mb-2">USE CASES</p>
             <h2 className="font-heading text-2xl mb-8">
