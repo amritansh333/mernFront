@@ -14,7 +14,7 @@ import slider2 from "@/assets/slider2-Engineered-To-Perform.jpeg";
 import slider3 from "@/assets/slider3-Engineered-To-Perform.jpeg";
 import slider4 from "@/assets/slider4-Engineered-To-Perform.jpeg";
 import slider5 from "@/assets/slider5-Engineered-To-Perform.jpeg";
-import badgeImg from "@/assets/TrustBadge.png"; 
+import badge from "@/assets/badgeImage.png";
 import { useScrollFade } from "@/hooks/useScrollFade";
 
 /* ─── Data ─────────────────────────────────────────────── */
@@ -484,9 +484,21 @@ const Index = () => {
             
             
             <h1 className="font-heading text-5xl lg:text-6xl text-white leading-tight mb-6 animate-fade-in" style={{ animationDelay: "100ms" }}>
-              Engineering Thermo-Plastics Solutions
-              <span className="text-primary-light block">Built For Performance</span>
-            </h1>
+  
+  <span className="relative inline-block">
+    {/* Badge */}
+    <img
+      src="{badge}"
+      alt="badge"
+      className="absolute -top-6 left-0 w-[120px] sm:w-[140px] lg:w-[160px] z-10"
+    />
+
+    Engineering
+  </span>{" "}
+  Thermo-Plastics Solutions
+
+  <span className="text-primary-light block">Built For Performance</span>
+</h1>
             
             <div className="flex flex-col sm:flex-row gap-3 animate-fade-in" style={{ animationDelay: "300ms" }}>
               <Link to="/products" className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary-light transition-colors duration-200">
@@ -511,14 +523,7 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Badge */}
-        <div className="absolute right-14 top-1/4 -translate-y-10 z-20 hidden lg:block">
-          <img
-          src={badgeImg}
-          alt="One Stop Manufacturing Partner"
-          className="w-40 h-40 object-contain"
-          />
-        </div>
+        
         
       </section>
 
