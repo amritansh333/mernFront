@@ -27,12 +27,29 @@ const stats = [
 ];
 
 const allIndustries = [
-  "Aerospace", "Agro Processing", "Automotive", "Build & Construction",
-  "Cement", "Chemical", "Food & Beverage", "Heavy Equipment",
-  "Iron & Steel", "Leather", "Marine", "Material Handling",
-  "Medical", "Mining", "Oil & Gas", "Packaging",
-  "Pulp & Paper", "Signage", "Sports & Recreation", "Transportation",
-  "Water & Waste Water",
+
+  { abbr : "Aerospace" , slug : "aerospace" },
+  { abbr : "Agro Processing" , slug : "agro-processing" },
+  { abbr : "Automotive" , slug : "automotive" },
+  { abbr : "Build & Construction" , slug : "build-construction" },
+  { abbr : "Cement" , slug : "cement" },
+  { abbr : "Chemical" , slug : "chemical" },
+  { abbr : "Food & Beverage" , slug : "food-beverage" },
+  { abbr : "Heavy Equipment" , slug : "heavy-equipment" },
+  { abbr : "Iron & Steel" , slug : "iron-steel" },
+  { abbr : "Leather" , slug : "leather" },
+  { abbr : "Marine" , slug : "marine" },
+  { abbr : "Material Handling" , slug : "material-handling" },
+  { abbr : "Medical" , slug : "medical" },
+  { abbr : "Mining" , slug : "mining" },
+  { abbr : "Oil & Gas" , slug : "oil-gas" },
+  { abbr : "Packaging" , slug : "packaging" },
+  { abbr : "Pulp & Paper" , slug : "pulp-paper" },
+  { abbr : "Signage" , slug : "signage" },
+  { abbr : "Sports & Recreation" , slug : "sports-recreation" },
+  { abbr : "Transportaion" , slug : "transportation" },
+  { abbr : "Water & Waste Water" , slug : "water-waste-water" },
+
 ];
 
 const brandFamilies = [
@@ -316,12 +333,12 @@ function IndustriesSection() {
         <div className="flex flex-wrap justify-center gap-3">
           {allIndustries.map((ind) => (
             <Link
-              key={ind}
-              to="/industries"
+              key={ind.abbr}
+              to={`/industries/${ind.slug}`}
               className="flex items-center gap-2 px-4 py-2.5 border border-border bg-card hover:border-primary hover:text-primary text-sm font-medium text-charcoal-light transition-all duration-200"
             >
               <ChevronRight className="w-3.5 h-3.5 text-primary" />
-              {ind}
+              {ind.abbr}
             </Link>
           ))}
         </div>
