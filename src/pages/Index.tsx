@@ -485,14 +485,22 @@ const Index = () => {
             
             <h1 className="font-heading text-5xl lg:text-6xl text-white leading-tight mb-6 animate-fade-in">
   
-  <span className="relative inline-block pt-6 sm:pt-8">
+  <span className="relative inline-block pt-12 sm:pt-8">
     
     {/* Badge ABOVE text */}
     <img
-      src={badgeImg}
-      alt=""
-      className="absolute -top-6 sm:-top-16 left-0 w-full h-[120%] object-contain z-20"
-    />
+  src={badgeImg}
+  alt=""
+  className="
+    absolute 
+    -top-10 sm:-top-16 
+    left-0 
+    w-[110%] sm:w-full 
+    h-[110%] sm:h-[120%] 
+    object-contain 
+    z-10
+  "
+/>
 
     {/* Text */}
     <span className="relative z-20">
