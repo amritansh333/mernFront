@@ -14,7 +14,7 @@ import slider2 from "@/assets/slider2-Engineered-To-Perform.jpeg";
 import slider3 from "@/assets/slider3-Engineered-To-Perform.jpeg";
 import slider4 from "@/assets/slider4-Engineered-To-Perform.jpeg";
 import slider5 from "@/assets/slider5-Engineered-To-Perform.jpeg";
-import badge from "@/assets/badgeImage.png";
+import badgeImg from "@/assets/badgeImage.png";
 import { useScrollFade } from "@/hooks/useScrollFade";
 
 /* ─── Data ─────────────────────────────────────────────── */
@@ -483,18 +483,23 @@ const Index = () => {
           <div className="max-w-2xl">
             
             
-            <h1 className="font-heading text-5xl lg:text-6xl text-white leading-tight mb-6 animate-fade-in" style={{ animationDelay: "100ms" }}>
+            <h1 className="font-heading text-5xl lg:text-6xl text-white leading-tight mb-6 animate-fade-in">
   
-  <span className="relative inline-block">
-    {/* Badge */}
+  <span className="relative inline-block pt-6 sm:pt-8">
+    
+    {/* Badge ABOVE text */}
     <img
-      src="{badge}"
-      alt="badge"
-      className="absolute -top-6 left-0 w-[120px] sm:w-[140px] lg:w-[160px] z-10"
+      src={badgeImg}
+      alt=""
+      className="absolute -top-6 sm:-top-16 left-0 w-full h-[120%] object-contain z-20"
     />
 
-    Engineering
+    {/* Text */}
+    <span className="relative z-20">
+      Engineering
+    </span>
   </span>{" "}
+  
   Thermo-Plastics Solutions
 
   <span className="text-primary-light block">Built For Performance</span>
