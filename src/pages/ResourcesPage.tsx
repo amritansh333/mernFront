@@ -5,70 +5,74 @@ import { Download, FileText, Package } from "lucide-react";
 /* ─── Catalog / Brochure cards ────────────────────────── */
 const CATALOGS = [
   {
-    id: "cat1",
+    id: "Polyrib_Brochure",
     title: "Polyrib Master Product Catalogue",
-    description: "Complete overview of all thermoplastic semi-finished product ranges — sheets, rods, tubes, blocks, and profiles across all brand families.",
-    pages: "48 pages",
+    description: "Complete range of Polyrib polymer sheets and engineering plastics",
+    pages: "16 pages",
     format: "PDF",
-    size: "8.2 MB",
-    updated: "Feb 2025",
+    size: "2.5 MB",
+    updated: "Feb 2026",
     tag: "Catalogue",
-    file: "/Sheets_Document.pdf",
   },
   {
-    id: "cat2",
-    title: "POLYRIB V (UHMWPE) Product Brochure",
-    description: "Detailed specifications, grade comparison, and application guide for the full UHMWPE sheet and rod range including food-grade and coloured variants.",
+    id: "Plascon_Brochure",
+    title: "Plascon Brochure",
+    description: "High-quality plastic sheets for industrial and commercial applications.",
+    pages: "7 pages",
+    format: "PDF",
+    size: "5.3 MB",
+    updated: "Jan 2026",
+    tag: "Brochure",
+  },
+  {
+    id: "Ripla_Brochure",
+    title: "Ripla Cutting Boards Catalogue",
+    description: "High-quality cutting boards for leather, textile and soft materials cutting.",
+    pages: "4 pages",
+    format: "PDF",
+    size: "1.4 MB",
+    updated: "Dec 2025",
+    tag: "Catalogue",
+  },
+  {
+    id: "Pcclear_Brochure",
+    title: "PC Clear Sheets Catalogue",
+    description: "Polycarbonate sheets with high impact and heat resistance.",
     pages: "12 pages",
     format: "PDF",
-    size: "3.1 MB",
-    updated: "Jan 2025",
-    tag: "Brochure",
-    file: "/Sheets_Document.pdf",
-  },
-  {
-    id: "cat3",
-    title: "KAYLON Cast Nylon Brochure",
-    description: "Properties, grades, and machining guidance for KAYLON cast nylon rods, sheets, and tubes — covering natural, oil-filled, and MoS₂ grades.",
-    pages: "10 pages",
-    format: "PDF",
-    size: "2.7 MB",
-    updated: "Dec 2024",
-    tag: "Brochure",
-    file: "/Sheets_Document.pdf",
-  },
-  {
-    id: "cat4",
-    title: "Machine Components & Fabricated Parts Catalogue",
-    description: "Precision machined thermoplastic components catalogue — wear strips, RIPLA cutting boards, CUTRITE chopping boards, fascia pads, and custom parts.",
-    pages: "24 pages",
-    format: "PDF",
-    size: "5.4 MB",
-    updated: "Jan 2025",
+    size: "5.1 MB",
+    updated: "Jan 2026",
     tag: "Catalogue",
-    file: "/Sheets_Document.pdf",
   },
   {
-    id: "cat5",
-    title: "PAKETAL (POM/Acetal) Brochure",
-    description: "Grade selection and specification guide for PAKETAL acetal/POM rods and sheets — ideal for precision machined components and gears.",
+    id: "Dipra_Brochure",
+    title: "Dipra Speciality Sheets Brochure",
+    description: "UV resistant fabric backed extruded plastic sheets for roofing.",
+    pages: "4 pages",
+    format: "PDF",
+    size: "1.3 MB",
+    updated: "Nov 2025",
+    tag: "Brochure",
+  },
+  {
+    id: "Arete_Brochure",
+    title: "Arete Lining Materials Catalogue",
+    description: "High performance UHMWPE lining for bulk solids handling.",
+    pages: "16 pages",
+    format: "PDF",
+    size: "2.2 MB",
+    updated: "Feb 2026",
+    tag: "Catalogue",
+  },
+  {
+    id: "Hitech_Brochure",
+    title: "Hitech Polymer Sheets Catalogue",
+    description: "Chemical engineering polymer sheets for industrial applications.",
     pages: "8 pages",
     format: "PDF",
-    size: "1.9 MB",
-    updated: "Nov 2024",
-    tag: "Brochure",
-    file: "/Sheets_Document.pdf",
-  },
-  {
-    id: "cat6",
-    title: "Infrastructure & Capabilities Overview",
-    description: "Overview of Polyrib manufacturing capabilities — extrusion lines, compression moulding, cast nylon, and CNC machining facilities.",
-    pages: "6 pages",
-    format: "PDF",
-    size: "2.3 MB",
-    updated: "Feb 2025",
-    tag: "Brochure",
-    file: "/Sheets_Document.pdf",
+    size: "0.4 MB",
+    updated: "Feb 2026",
+    tag: "Catalogue",
   },
 ];
 
@@ -78,6 +82,50 @@ const TAG_COLORS: Record<string, string> = {
 };
 
 export default function ResourcesPage() {
+
+const [open, setOpen] = React.useState(false);
+const [selectedCatalog, setSelectedCatalog] = React.useState(null);
+
+const [formData, setFormData] = React.useState({
+  name: "",
+  phone: "",
+  email: "",
+  message: ""
+});
+
+
+  const handleDownload = async (e) => {
+  e.preventDefault();
+
+  try {
+    const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/catalogrequests`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: formData.name,
+        phone: formData.phone,
+        email: formData.email,
+        message: formData.message,
+        catalog_name: selectedCatalog.id, // ✅ IMPORTANT CHANGE
+      }),
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      window.open(data.downloadUrl, "_blank"); // ✅ download from backend
+      setOpen(false);
+    } else {
+      alert(data.message);
+    }
+
+  } catch (err) {
+    console.error(err);
+  }
+};
+
   return (
     <div className="pt-16">
       {/* Page Header */}
@@ -132,25 +180,27 @@ export default function ResourcesPage() {
                     <div className="w-10 h-10 bg-primary/10 group-hover:bg-primary/20 transition-colors flex items-center justify-center shrink-0 mt-0.5">
                       <FileText className="w-5 h-5 text-primary" />
                     </div>
-                    <h3 className="font-heading font-semibold text-charcoal text-sm leading-snug group-hover:text-primary transition-colors duration-200">
+                    <h3 className="font-heading font-semibold text-charcoal text-lg leading-snug group-hover:text-primary transition-colors duration-200">
                       {doc.title}
                     </h3>
                   </div>
 
-                  <p className="text-xs text-muted-foreground leading-relaxed mb-4 flex-1">{doc.description}</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-4 flex-1">{doc.description}</p>
                   <div className="text-[10px] text-muted-foreground">{doc.pages} · Updated {doc.updated}</div>
                 </div>
 
                 {/* Download button */}
                 <div className="border-t border-divider p-4">
-                  <a
-                    href={doc.file}
-                    download
-                    className="inline-flex items-center justify-center gap-2 w-full py-2.5 bg-surface-subtle text-charcoal text-xs font-bold border border-border hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-200 group/btn"
-                  >
-                    <Download className="w-3.5 h-3.5 group-hover/btn:translate-y-0.5 transition-transform duration-200" />
-                    Download Now
-                  </a>
+                  <button
+  onClick={() => {
+    setSelectedCatalog(doc);
+    setOpen(true);
+  }}
+  className="inline-flex items-center justify-center gap-2 w-full py-2.5 bg-surface-subtle text-charcoal text-xs font-bold border border-border hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-200 group/btn"
+>
+  <Download className="w-3.5 h-3.5 group-hover/btn:translate-y-0.5 transition-transform duration-200" />
+  Download Now
+</button>
                 </div>
               </div>
             ))}
@@ -175,6 +225,68 @@ export default function ResourcesPage() {
           </div>
         </div>
       </section>
+      {open && (
+  <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
+    <div className="bg-white rounded-2xl w-full max-w-md p-6 relative">
+
+      {/* Close */}
+      <button onClick={() => setOpen(false)} className="absolute top-3 right-3 text-gray-500">✕</button>
+
+      {/* Title */}
+      <h2 className="text-xl font-semibold text-center mb-2">Get Catalogue</h2>
+      <p className="text-sm text-center text-primary mb-6">
+        Fill in your details to access the catalog
+      </p>
+
+      {/* FORM */}
+      <form onSubmit={handleDownload} className="space-y-4">
+
+        <input
+          type="text"
+          placeholder="Enter your full name"
+          required
+          value={formData.name}
+          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+          className="w-full border p-3  text-primary rounded-lg"
+        />
+
+        <input
+          type="text"
+          placeholder="+91 XXXXX XXXXX"
+          required
+          value={formData.phone}
+          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+          className="w-full border p-3 text-primary rounded-lg"
+        />
+
+        <input
+          type="email"
+          placeholder="you@company.com"
+          required
+          value={formData.email}
+          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+          className="w-full border p-3 text-primary  rounded-lg"
+        />
+
+        <textarea
+          placeholder="Any specific requirements?"
+          value={formData.message}
+          onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+          className="w-full border p-3 text-primary  rounded-lg"
+        />
+
+        <button
+          type="submit"
+          className="w-full bg-primary text-white py-3 rounded-lg font-semibold"
+        >
+          Get Catalog Download
+        </button>
+      </form>
     </div>
+  </div>
+)}
+    </div>
+
+    
   );
 }

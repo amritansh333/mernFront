@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin, Linkedin, ArrowRight } from "lucide-react";
+import { Mail, Phone, MapPin, Globe, ArrowRight } from "lucide-react";
 import logoImg from "@/assets/logo-footer.png";
 
 const footerLinks = {
@@ -126,10 +126,11 @@ export function Footer() {
           <div className="flex items-center gap-3">
             <Phone className="w-4 h-4 text-primary-light shrink-0" />
             <span className="text-white/55 text-sm">0515-2970306</span>
-          </div>
+          </div>  
           <div className="flex items-center gap-3">
-            <Mail className="w-4 h-4 text-primary-light shrink-0" />
-            <span className="text-white/55 text-sm">info@polyrib.com</span>
+
+          <Mail className="w-4 h-4 text-primary-light shrink-0" />
+          <a href="mailto:info@polyrib.com" className="text-sm font-medium text-white/55 hover:underline">info@polyrib.com</a>
           </div>
         </div>
 
@@ -143,13 +144,15 @@ export function Footer() {
               <a href="#" className="hover:text-white/70 transition-colors">Privacy Policy</a>
               <a href="#" className="hover:text-white/70 transition-colors">Terms & Conditions</a>
             </div>
+            <Globe className="w-4 h-4 text-primary-light shrink-0" />
             <a
               href="https://www.vigyapanam.in"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white/30 hover:text-primary-light transition-colors duration-200 text-[11px] hover:underline"
+              className="inline-flex items-center gap-1 text-white/70 hover:text-primary-light transition-colors duration-200 text-sm hover:underline"
             >
               Designed &amp; Developed by Vigyapanam Digi Solutions
+              <ArrowRight className="w-4 h-4 text-primary-light" />
             </a>
           </div>
         </div>

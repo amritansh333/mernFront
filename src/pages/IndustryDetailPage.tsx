@@ -451,7 +451,7 @@ export default function IndustryDetailPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <div>
               <p className="section-label mb-3">Overview</p>
-              <p className="text-muted-foreground leading-relaxed text-sm">{data.intro}</p>
+              <p className="text-muted-foreground leading-relaxed text-lh">{data.intro}</p>
               <div className="flex flex-wrap gap-2 mt-6">
                 {data.materials.map((m) => (
                   <span key={m} className="text-xs px-3 py-1 bg-primary/10 text-primary font-bold">{m}</span>
@@ -464,7 +464,7 @@ export default function IndustryDetailPage() {
                 {data.capabilities.map((c) => (
                   <div key={c} className="flex gap-3 py-2 border-b border-divider last:border-0">
                     <div className="w-1.5 h-1.5 bg-primary mt-1.5 shrink-0" />
-                    <span className="text-sm text-charcoal-light">{c}</span>
+                    <span className="text-lh text-charcoal-light">{c}</span>
                   </div>
                 ))}
               </div>

@@ -1,10 +1,10 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   ArrowRight, ChevronRight, Shield, Award, Zap, Globe,
   Factory, Layers, Ruler, BadgeCheck, HeadphonesIcon,
   CheckCircle2, Cpu, Wrench, FlaskConical, Cog, LayoutGrid,
-  Send, TrendingUp, Lightbulb, PackageCheck
+  Send, TrendingUp, Lightbulb, PackageCheck, X
 } from "lucide-react";
 import heroVideo from "@/assets/hero-landingpage.mp4";
 import semiFinishedImage from "@/assets/semi-finished-products.jpeg";
@@ -16,6 +16,8 @@ import slider4 from "@/assets/slider4-Engineered-To-Perform.jpeg";
 import slider5 from "@/assets/slider5-Engineered-To-Perform.jpeg";
 import badgeImg from "@/assets/badgeImage.png";
 import { useScrollFade } from "@/hooks/useScrollFade";
+import certImg from "@/assets/isoCertificate2015.jpg";
+
 
 /* ─── Data ─────────────────────────────────────────────── */
 
@@ -185,18 +187,21 @@ function WhyUsSection() {
   <div className="absolute inset-0 bg-gradient-to-t from-charcoal/95 via-charcoal/50 to-transparent" />
 
   {/* Text Overlay (UNCHANGED) */}
-  <div className="absolute top-0 left-0 right-0 p-8">
+  
+  <div className="absolute top-0 left-0 right-0 p-6 bbg-black/40 backdrop-blur-md rounded-lg">
+  <p className="font-heading text-3xl font-bold text-primary mb-1 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+  40+ Years of Engineering Excellence
+</p>
+</div>
+  <div className="absolute bottom-3 left-3 right-0 p-6">
     <p className="text-white/60 text-xs tracking-widest uppercase font-semibold mb-3">
       Established 1985
-    </p>
-    <p className="font-heading text-3xl font-bold text-primary mb-4">
-      40+ Years of Engineering Excellence
     </p>
     <div className="space-y-2">
       {whyChecks.map((c, i) => (
         <div key={i} className="flex items-center gap-2">
           <CheckCircle2 className="w-4 h-4 text-primary-light shrink-0" />
-          <span className="text-white/80 text-xs font-medium">{c}</span>
+          <span className="text-white/80 text-s font-medium">{c}</span>
         </div>
       ))}
     </div>
@@ -205,13 +210,13 @@ function WhyUsSection() {
           {/* Advantage points grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-divider">
             {whyPoints.map(({ icon: Icon, title, desc }) => (
-              <div key={title} className="bg-card p-6 flex flex-col gap-3 hover:bg-surface-subtle transition-colors duration-200">
+              <div key={title} className="bg-card p-6 flex flex-col gap-4 hover:bg-surface-subtle transition-colors duration-200">
                 <div className="w-9 h-9 rounded-sm bg-primary/10 flex items-center justify-center shrink-0">
                   <Icon className="w-4 h-4 text-primary" strokeWidth={1.75} />
                 </div>
                 <div>
-                  <h4 className="font-heading font-semibold text-charcoal text-sm mb-1">{title}</h4>
-                  <p className="text-xs text-muted-foreground leading-relaxed">{desc}</p>
+                  <h4 className="font-heading font-semibold text-charcoal text-lg mb-1">{title}</h4>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{desc}</p>
                 </div>
               </div>
             ))}
@@ -266,9 +271,9 @@ function MaterialsSection() {
             {brandFamilies.map((m) => (
               <Link key={m.abbr} to={`/products/thermoplastics-semi-finished-products/sheets-blocks/${m.slug}`} className="bg-card border border-border p-4 hover:border-primary/40 transition-colors duration-200 block group">
                 <div className="flex items-start gap-3">
-                  <span className="font-heading font-bold text-primary text-sm w-28 shrink-0 group-hover:text-primary-dark transition-colors">{m.abbr}</span>
+                  <span className="font-heading font-bold text-primary text-lg w-28 shrink-0 group-hover:text-primary-dark transition-colors">{m.abbr}</span>
                   <div>
-                    <div className="text-xs text-charcoal font-medium mb-0.5">{m.name}</div>
+                    <div className="text-sm text-charcoal font-medium mb-0.5">{m.name}</div>
                     <div className="text-xs text-muted-foreground">{m.prop}</div>
                   </div>
                 </div>
@@ -301,9 +306,9 @@ function PolymersSection() {
             {polymers.map((m) => (
               <Link key={m.abbr} to={`/materials/${m.slug}`} className="bg-card border border-border p-4 hover:border-primary/40 transition-colors duration-200 block group">
                 <div className="flex items-start gap-3">
-                  <span className="font-heading font-bold text-primary text-sm w-28 shrink-0 group-hover:text-primary-dark transition-colors">{m.abbr}</span>
+                  <span className="font-heading font-bold text-primary text-lg w-28 shrink-0 group-hover:text-primary-dark transition-colors">{m.abbr}</span>
                   <div>
-                    <div className="text-xs text-charcoal font-medium mb-0.5">{m.name}</div>
+                    <div className="text-sm text-charcoal font-medium mb-0.5">{m.name}</div>
                     <div className="text-xs text-muted-foreground">{m.prop}</div>
                   </div>
                 </div>
@@ -380,7 +385,7 @@ function InfrastructureSection() {
               </div>
               <div className="font-heading text-2xl font-bold text-primary mb-1">{item.value}</div>
               <div className="font-semibold text-charcoal text-sm mb-1">{item.label}</div>
-              <div className="text-xs text-muted-foreground">{item.sub}</div>
+              <div className="text-sm text-muted-foreground">{item.sub}</div>
             </div>
           ))}
         </div>
@@ -391,42 +396,74 @@ function InfrastructureSection() {
 
 {/* COMPLIANCE */}
 function CertificationSection() {
-  const ref = useScrollFade() as React.RefObject<HTMLElement>;
+  const ref = useScrollFade();
+  const [open, setOpen] = useState(false);
+
   return (
+    <>
+      {/* SECTION */}
       <section ref={ref} className="fade-up py-8 bg-surface-subtle border-b border divider">
-        <div className="container max-w-7xl mx-auto px-6">
-          <div className="text-center mb-12">
-          
-          <h2 className="font-heading text-3xl text-charcoal">Certifications & Standards</h2>
-          <p className="text-muted-foreground text-sm mt-3 max-w-xl mx-auto">
-             Khanna Polyrib Pvt. Ltd. holds ISO 9001:2008 certification — demonstrating commitment to consistent quality management, process control, and customer satisfaction across all product lines. 
-          </p>
+  <div className="container max-w-7xl mx-auto px-6">
+    
+    {/* Heading */}
+    <div className="text-center mb-12">
+      <h2 className="font-heading text-3xl text-charcoal">Certifications & Standards</h2>
+      <p className="text-muted-foreground text-sm mt-3 max-w-xl mx-auto">
+        Khanna Polyrib Pvt. Ltd. holds
+        <span className="font-semibold text-base text-primary"> ISO 9001:2015 Certification
+    </span> — demonstrating commitment to consistent quality management, process control, and customer satisfaction across all product lines.
+      </p>
+    </div>
+
+    {/*  YOUR BUTTON / BOX (UNCHANGED) */}
+    <div className="flex justify-center">
+      <div
+        onClick={() => setOpen(true)}
+        className="border border-border bg-card p-4 text-center hover:border-primary/40 transition-colors duration-200 cursor-pointer w-full max-w-[250px]"
+      >
+        <div className="w-8 h-8 bg-primary/10 flex items-center justify-center mx-auto mb-2">
+          <Award className="w-4 h-4 text-primary" />
         </div>
+        <div className="text-sm font-semibold text-charcoal">
+          ISO 9001:2015 Certified
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+      {/*  MODAL OUTSIDE SECTION */}
+      {open && (
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center">
           
-          
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[
-              "ISO 9001:2008 Certified",
-              "FDA 21 CFR Compliant",
-              "RoHS Compliant",
-              "REACH Compliant",
-              "Food Grade Certified",
-              "WRAS Approved",
-              "UV Stabilised Grades",
-              "Antistatic Grades"
-            ].map((cert) => (
-              <div key={cert} className="border border-border bg-card p-4 text-center hover:border-primary/40 transition-colors duration-200">
-                <div className="w-8 h-8 bg-primary/10 flex items-center justify-center mx-auto mb-2">
-                  <Award className="w-4 h-4 text-primary" />
-                </div>
-                <div className="text-xs font-semibold text-charcoal">
-                  {cert}
-                </div>
-              </div>
-            ))}
+          {/* FULL PAGE BLUR */}
+          <div
+            className="absolute inset-0 bg-black/40 backdrop-blur-md"
+            onClick={() => setOpen(false)}
+          />
+
+          {/* MODAL CONTENT */}
+          <div className="relative z-[10000] flex justify-center items-center w-full h-full px-4">
+            
+            {/* CLOSE BUTTON */}
+            <button
+              onClick={() => setOpen(false)}
+              className="absolute top-6 right-6 bg-white rounded-full p-2 shadow-md hover:bg-gray-200"
+            >
+              <X className="w-5 h-5 text-black" />
+            </button>
+
+            {/* IMAGE */}
+            <img
+              src={certImg}
+              alt="certificate"
+              className="max-h-[90vh] max-w-[90vw] object-contain rounded-lg shadow-xl"
+            />
           </div>
         </div>
-      </section>
+      )}
+    </>
   );
 }
 

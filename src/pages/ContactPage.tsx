@@ -18,7 +18,7 @@ export default function ContactPage() {
   const [drawSubmitted, setDrawSubmitted] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
-  const handleQuoteSubmit = (e: React.FormEvent) => { e.preventDefault(); setQuoteSubmitted(true); };
+
   const handleDrawSubmit  = (e: React.FormEvent) => { e.preventDefault(); setDrawSubmitted(true);  };
 
   const addFiles = (newFiles: FileList | null) => {
@@ -32,9 +32,49 @@ export default function ContactPage() {
   const contactItems = [
     { icon: MapPin, label: "Address",      value: "Khanna Polyrib Pvt. Ltd.\nIndustrial Area, Kanpur\nUttar Pradesh, India" },
     { icon: Phone, label: "Phone",         value: "0515-2970306" },
-    { icon: Mail,  label: "Email",         value: "info@polyrib.com" },
+    { icon: Mail,  label: "Email",         value: <a href="mailto:info@polyrib.com" className="text-sm font-medium text-charcoal hover:underline">info@polyrib.com</a> },
     { icon: Clock, label: "Office Hours",  value: "Mon–Sat: 09:00–18:00 IST" },
   ];
+
+  const handleQuoteSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/enquiries`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        fullName: formData.name,
+        company: formData.company,
+        email: formData.email,
+        phone: formData.phone,
+        product: formData.product,
+        requirement: formData.requirement,
+      }),
+    });
+
+    if (res.ok) {
+      alert("Enquiry submitted successfully!");
+
+      setFormData({
+        name: "",
+        company: "",
+        email: "",
+        phone: "",
+        product: "",
+        requirement: ""
+      });
+    } else {
+      alert("Failed to submit enquiry");
+    }
+
+  } catch (error) {
+    console.error(error);
+    alert("Server error");
+  }
+};
 
   return (
     <div className="pt-16">
@@ -152,28 +192,28 @@ export default function ContactPage() {
                     <div>
                       <label className="block text-xs font-semibold text-charcoal mb-1.5 uppercase tracking-wider">Full Name *</label>
                       <input type="text" required value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full border border-border bg-background px-3 py-2.5 text-sm text-charcoal outline-none focus:border-primary transition-colors" placeholder="Full name" />
+                        className="w-full border border-border bg-background px-3 py-2.5 text-sm text-primary outline-none focus:border-primary transition-colors" placeholder="Full name" />
                     </div>
                     <div>
                       <label className="block text-xs font-semibold text-charcoal mb-1.5 uppercase tracking-wider">Company *</label>
                       <input type="text" required value={formData.company} onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                        className="w-full border border-border bg-background px-3 py-2.5 text-sm text-charcoal outline-none focus:border-primary transition-colors" placeholder="Company name" />
+                        className="w-full border border-border bg-background px-3 py-2.5 text-sm text-primary outline-none focus:border-primary transition-colors" placeholder="Company name" />
                     </div>
                     <div>
                       <label className="block text-xs font-semibold text-charcoal mb-1.5 uppercase tracking-wider">Email</label>
                       <input type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full border border-border bg-background px-3 py-2.5 text-sm text-charcoal outline-none focus:border-primary transition-colors" placeholder="Email address" />
+                        className="w-full border border-border bg-background px-3 py-2.5 text-sm text-primary outline-none focus:border-primary transition-colors" placeholder="Email address" />
                     </div>
                     <div>
                       <label className="block text-xs font-semibold text-charcoal mb-1.5 uppercase tracking-wider">Phone *</label>
                       <input type="tel" required value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="w-full border border-border bg-background px-3 py-2.5 text-sm text-charcoal outline-none focus:border-primary transition-colors" placeholder="Mobile / Landline" />
+                        className="w-full border border-border bg-background px-3 py-2.5 text-sm text-primary outline-none focus:border-primary transition-colors" placeholder="Mobile / Landline" />
                     </div>
                   </div>
                   <div>
                     <label className="block text-xs font-semibold text-charcoal mb-1.5 uppercase tracking-wider">Product / Material of Interest</label>
                     <select value={formData.product} onChange={(e) => setFormData({ ...formData, product: e.target.value })}
-                      className="w-full border border-border bg-background px-3 py-2.5 text-sm text-charcoal-light outline-none focus:border-primary transition-colors">
+                      className="w-full border border-border bg-background px-3 py-2.5 text-sm text-primary-light outline-none focus:border-primary transition-colors">
                       <option value="">Select a product category...</option>
                       <option>Semi-Finished Products — Rods & Tubes</option>
                       <option>Semi-Finished Products — Sheets</option>
@@ -188,7 +228,7 @@ export default function ContactPage() {
                   <div>
                     <label className="block text-xs font-semibold text-charcoal mb-1.5 uppercase tracking-wider">Your Requirement *</label>
                     <textarea required rows={5} value={formData.requirement} onChange={(e) => setFormData({ ...formData, requirement: e.target.value })}
-                      className="w-full border border-border bg-background px-3 py-2.5 text-sm text-charcoal outline-none focus:border-primary transition-colors resize-none"
+                      className="w-full border border-border bg-background px-3 py-2.5 text-sm text-primary outline-none focus:border-primary transition-colors resize-none"
                       placeholder="Please describe your requirement: material grade, dimensions (diameter, length, thickness), quantity, delivery location, and any specific standards or certifications required..." />
                   </div>
                   <div className="flex items-start gap-4 pt-2">
@@ -197,7 +237,7 @@ export default function ContactPage() {
                       Submit Enquiry
                       <ArrowRight className="w-4 h-4" />
                     </button>
-                    <p className="text-xs text-muted-foreground leading-relaxed mt-0.5">
+                    <p className="text-sm text-muted-foreground leading-relaxed mt-0.5">
                       By submitting this form you agree to our Privacy Policy.
                       Your details will only be used to respond to your enquiry.
                     </p>

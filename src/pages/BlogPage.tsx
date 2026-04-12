@@ -114,8 +114,8 @@ export default function BlogPage() {
                     <Calendar className="w-3 h-3" />{post.date}
                   </span>
                 </div>
-                <h3 className="font-heading font-semibold text-charcoal text-sm leading-snug mb-3 group-hover:text-primary transition-colors duration-200 flex-1">{post.title}</h3>
-                <p className="text-xs text-muted-foreground leading-relaxed mb-4 line-clamp-3">{post.excerpt}</p>
+                <h3 className="font-heading font-semibold text-charcoal text-lg leading-snug mb-3 group-hover:text-primary transition-colors duration-200 flex-1">{post.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-4 line-clamp-3">{post.excerpt}</p>
                 <div className="flex flex-wrap gap-1.5 mb-4">
                   {post.tags.map((t) => (
                     <span key={t} className="text-[10px] px-2 py-0.5 bg-surface-subtle border border-divider text-charcoal-light">{t}</span>

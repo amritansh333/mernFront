@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   ArrowRight,
@@ -7,12 +7,14 @@ import {
   MapPin,
   Building2,
   Award,
-  Plus
+  Plus,
+  X
 } from "lucide-react";
 import heroImage from "@/assets/hero-industrial.jpg";
 import manufacturingImage from "@/assets/csr-slider1.jpeg";
 import aboutVideo from "@/assets/about-us.mp4";
 import industriesImage from "@/assets/industriesweserve.jpeg";
+import certImg from "@/assets/isoCertificate2015.jpg";
 import { useScrollFade } from "@/hooks/useScrollFade";
 
 /* ARRAYS (UNCHANGED) */
@@ -77,7 +79,9 @@ export default function AboutPage() {
   const ref2 = useScrollFade() as React.RefObject<HTMLElement>;
   const ref3 = useScrollFade() as React.RefObject<HTMLElement>;
   const ref4 = useScrollFade() as React.RefObject<HTMLElement>;
+  const [open, setOpen] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  
 
 useEffect(() => {
   const video = videoRef.current;
@@ -120,7 +124,7 @@ useEffect(() => {
       </div>
 
       {/* OUR FOUNDATION (FROM PART B) */}
-      <section className="py-16 border-b border-divider">
+      <section className="py-8 border-b border-divider">
         <div className="container max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-start">
 
@@ -143,8 +147,8 @@ useEffect(() => {
               <h2 className="font-heading text-3xl text-charcoal mb-5">
                 Built on polymer science and precision manufacturing
               </h2>
-              <div className="space-y-4 text-muted-foreground text-sm leading-relaxed">
-                <p>The Khanna Polyrib Pvt. Ltd. is the manufacturer of superior engineering plastic solutions that can be used in the world market with ISO accreditation, which is founded on the good principles of polymer science and production best practices.</p>
+              <div className="space-y-4 text-muted-foreground text-lh leading-relaxed">
+                <p><strong className="text-primary">Khanna Polyrib Pvt. Ltd.</strong> is the manufacturer of superior engineering plastic solutions that can be used in the world market with <strong className="text-primary">ISO accredeation</strong>, which is founded on the good principles of polymer science and production best practices.</p>
                 <p>Having decades of experience in this industry, we combine technical invention, exploration of materials, and meticulousness in manufacturing into the creation of plastics that can be reliably worked within the most industrial requirements.</p>
                 <p>We are more than a manufacturing company. We also collaborate with industries to provide development-tailored materials with a precise performance that provides strength, uniformity, and sustainability in a wide range of uses that we have implemented.</p>
               </div>
@@ -155,22 +159,22 @@ useEffect(() => {
       </section>
 
       {/* WHO WE ARE (FROM PART B) */}
-      <section className="py-16 border-b border-divider">
+      <section className="py-8 border-b border-divider">
         <div className="container max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-14 items-start">
           <div>
             <p className="section-label mb-3">Who We Are</p>
             <h2 className="font-heading text-3xl text-charcoal mb-5">
               Four decades of polymer manufacturing excellence
             </h2>
-            <div className="space-y-4 text-muted-foreground text-sm leading-relaxed">
+            <div className="space-y-4 text-muted-foreground text-lh leading-relaxed">
               <p>
-                  The <strong className="text-charcoal">Khanna Group</strong>, comprising <strong className="text-charcoal">Khanna Polyrib Pvt. Ltd.</strong>, <strong className="text-charcoal">KBK Plascon Pvt. Ltd.</strong>, and <strong className="text-charcoal">KBK Polymer Pvt. Ltd.</strong>, has been at the forefront of polymer manufacturing for over four decades.
+                  The <strong className="text-primary">Khanna Group</strong>, comprising <strong className="text-primary">Khanna Polyrib Pvt. Ltd.</strong>, <strong className="text-primary">KBK Plascon Pvt. Ltd.</strong>, and <strong className="text-primary">KBK Polymer Pvt. Ltd.</strong>, has been at the forefront of polymer manufacturing for over four decades.
                 </p>
                 <p>
-                  With state-of-the-art manufacturing facilities in <strong className="text-charcoal">Kanpur, Uttar Pradesh</strong> and distribution centres in <strong className="text-charcoal">Delhi, Bhiwandi, and Ahmedabad</strong>, we ensure consistent quality and efficient nationwide supply.
+                  With state-of-the-art manufacturing facilities in <strong className="text-primary">Kanpur, Uttar Pradesh</strong> and distribution centres in <strong className="text-primary">Delhi, Bhiwandi, and Ahmedabad</strong>, we ensure consistent quality and efficient nationwide supply.
                 </p>
                 <p>
-                  An <strong className="text-charcoal">ISO 9001 certified</strong> company, POLYRIB has earned recognition as one of the most trusted brands in thermoplastic semi-finished products — offering high-performance sheets, rods, tubes, blocks, and customized plastic machinery components for diverse industrial applications.
+                  An <strong className="text-primary">ISO 9001:2015 certified</strong> company,<strong className="text-primary"> POLYRIB</strong> has earned recognition as one of the most trusted brands in thermoplastic semi-finished products — offering high-performance sheets, rods, tubes, blocks, and customized plastic machinery components for diverse industrial applications.
                 </p>
             </div>
             <Link to="/contact" className="mt-8 inline-flex items-center gap-2 px-6 py-2.5 bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary-dark transition-colors duration-200"> Get in Touch <ArrowRight className="w-4 h-4" /> </Link>
@@ -187,7 +191,7 @@ useEffect(() => {
                 ].map((s) => (
                   <div key={s.label} className="bg-card p-4 text-center">
                     <div className="font-heading text-xl font-bold text-primary">{s.value}</div>
-                    <div className="text-xs text-muted-foreground mt-0.5">{s.label}</div>
+                    <div className="text-sm text-muted-foreground mt-0.5">{s.label}</div>
                   </div>
                 ))}
               </div>
@@ -196,7 +200,7 @@ useEffect(() => {
       </section>
 
       {/* EXPLORE FEATURES (MISSION & VALUES FROM PART B) */}
-      <section ref={ref4} className="fade-up py-16 border-b border-divider bg-surface-subtle">
+      <section ref={ref4} className="fade-up py-8 border-b border-divider bg-surface-subtle">
         <div className="container max-w-7xl mx-auto px-6 text-center">
           <p className="section-label mb-3">Explore Features</p>
           <h2 className="font-heading text-3xl text-charcoal mb-10">
@@ -234,7 +238,7 @@ useEffect(() => {
       </section>
 
       {/* INDUSTRIES WE SERVE (FROM PART B) */}
-      <section className="py-16 border-b border-divider">
+      <section className="py-8 border-b border-divider">
         <div className="container max-w-7xl mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-14 items-center">
 
@@ -283,8 +287,14 @@ useEffect(() => {
       {/* ========================= */}
 
       {/* GROUP STRUCTURE */}
-      <section ref={ref1} className="fade-up py-16 border-b border-divider"> <div className="container max-w-7xl mx-auto px-6"> <p className="section-label mb-3">Group Structure</p> <h2 className="font-heading text-2xl text-charcoal mb-2">Three companies, one group</h2>
-          <p className="text-muted-foreground text-sm mb-10 max-w-2xl"> Each entity within the Khanna Group serves a distinct function — together covering manufacturing, fabrication, and distribution of engineering thermoplastics across India and beyond. </p>
+      <section ref={ref1} className="fade-up py-8 border-b border-divider"> <div className="container max-w-7xl mx-auto px-6">
+    <div className="text-center mb-12">
+      <p className="section-label mb-3">Group Structure</p>
+      <h2 className="font-heading text-3xl text-charcoal">Three Companies, One Group</h2>
+      <p className="text-muted-foreground text-sm mt-3 max-w-xl mx-auto">
+        Each entity within the Khanna Group serves a distinct function — together covering manufacturing, fabrication, and distribution of engineering thermoplastics across India and beyond.
+      </p>
+    </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {groupCompanies.map((co) => (
@@ -299,17 +309,17 @@ useEffect(() => {
                       <span className="text-[10px] font-semibold tracking-wider text-primary uppercase">
                         {co.short}
                       </span>
-                      <h3 className="font-heading font-semibold text-charcoal text-sm leading-snug">
+                      <h3 className="font-heading font-semibold text-charcoal text-lg leading-snug">
                         {co.name}
                       </h3>
                     </div>
                   </div>
-                  <p className="text-xs text-muted-foreground leading-relaxed mb-4">
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-4">
                     {co.desc}
                   </p>
                   <ul className="space-y-1.5 mt-auto">
                     {co.focus.map((f) => (
-                      <li key={f} className="flex items-start gap-2 text-xs text-charcoal-light">
+                      <li key={f} className="flex items-start gap-2 text-sm text-charcoal-light">
                         <CheckCircle2 className="w-3.5 h-3.5 text-primary mt-0.5 shrink-0" />
                         {f}
                       </li>
@@ -323,12 +333,12 @@ useEffect(() => {
       </section>
 
       {/* OUR LOCATIONS */}
-      <section className="py-16 bg-surface-subtle border-b border-divider">
+      <section className="py-8 bg-surface-subtle border-b border-divider">
         <div className="container max-w-7xl mx-auto px-6">
-          <p className="section-label mb-3">Our Locations</p>
-          <h2 className="font-heading text-2xl text-charcoal mb-10">
-            Manufacturing & Distribution Network
-          </h2>
+          <div className="text-center mb-12">
+      <p className="section-label mb-3">Our Locations</p>
+      <h2 className="font-heading text-3xl text-charcoal">Manufacturing & Distribution Network</h2>
+    </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {locations.map((loc) => (
               <div key={loc.city} className="flex gap-4 p-5 bg-card border border-border hover:border-primary/30 transition-colors duration-200">
@@ -339,10 +349,10 @@ useEffect(() => {
                   <span className="text-[10px] font-semibold tracking-wider uppercase text-primary">
                     {loc.type}
                   </span>
-                  <div className="font-heading font-semibold text-charcoal text-sm mb-1">
+                  <div className="font-heading font-semibold text-charcoal text-lg mb-1">
                     {loc.city}
                   </div>
-                  <p className="text-xs text-muted-foreground leading-relaxed">
+                  <p className="text-sm text-muted-foreground leading-relaxed">
                     {loc.detail}
                   </p>
                 </div>
@@ -353,36 +363,62 @@ useEffect(() => {
       </section>
 
       {/* COMPLIANCE */}
-      <section ref={ref3} className="fade-up py-14 bg-surface-subtle">
+
+      <section ref={ref3} className="fade-up py-8 bg-surface-subtle">
         <div className="container max-w-7xl mx-auto px-6">
-          <p className="section-label mb-3">Compliance</p>
-          <h2 className="font-heading text-2xl text-charcoal mb-4">
-            Certifications & Standards
-          </h2>
-          <p className="text-sm text-muted-foreground mb-8 max-w-2xl"> Khanna Polyrib Pvt. Ltd. holds ISO 9001:2008 certification — demonstrating commitment to consistent quality management, process control, and customer satisfaction across all product lines. </p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[
-              "ISO 9001:2008 Certified",
-              "FDA 21 CFR Compliant",
-              "RoHS Compliant",
-              "REACH Compliant",
-              "Food Grade Certified",
-              "WRAS Approved",
-              "UV Stabilised Grades",
-              "Antistatic Grades"
-            ].map((cert) => (
-              <div key={cert} className="border border-border bg-card p-4 text-center hover:border-primary/40 transition-colors duration-200">
-                <div className="w-8 h-8 bg-primary/10 flex items-center justify-center mx-auto mb-2">
-                  <Award className="w-4 h-4 text-primary" />
-                </div>
-                <div className="text-xs font-semibold text-charcoal">
-                  {cert}
-                </div>
-              </div>
-            ))}
-          </div>
+    <div className="text-center mb-12">
+      <p className="section-label mb-3">Compliance</p>
+      <h2 className="font-heading text-3xl text-charcoal">Certifications & Standards</h2>
+      <p className="text-muted-foreground text-sm mt-3 max-w-xl mx-auto">
+        Khanna Polyrib Pvt. Ltd. holds
+        <span className="font-semibold text-base text-primary"> ISO 9001:2015 Certification
+    </span> — demonstrating commitment to consistent quality management, process control, and customer satisfaction across all product lines.
+      </p>
+    </div>
+          <div className="flex justify-center">
+  <div
+    onClick={() => setOpen(true)}
+    className="border border-border bg-card p-4 text-center hover:border-primary/40 transition-colors duration-200 cursor-pointer w-full max-w-[250px]"
+  >
+    <div className="w-8 h-8 bg-primary/10 flex items-center justify-center mx-auto mb-2">
+      <Award className="w-4 h-4 text-primary" />
+    </div>
+    <div className="text-sm font-semibold text-charcoal">
+      ISO 9001:2015 Certified
+    </div>
+  </div>
+</div>
         </div>
       </section>
+      {open && (
+  <div className="fixed inset-0 z-[9999] flex items-center justify-center">
+    
+    {/* Background */}
+    <div
+      className="absolute inset-0 bg-black/40 backdrop-blur-md"
+      onClick={() => setOpen(false)}
+    />
+
+    {/* Content */}
+    <div className="relative z-[10000] flex items-center justify-center w-full h-full px-4">
+      
+      {/* Close */}
+      <button
+        onClick={() => setOpen(false)}
+        className="absolute top-6 right-6 bg-white rounded-full p-2 shadow-md hover:bg-gray-200"
+      >
+        <X className="w-5 h-5 text-black" />
+      </button>
+
+      {/* Image */}
+      <img
+        src={certImg}
+        alt="certificate"
+        className="max-h-[90vh] max-w-[90vw] object-contain rounded-lg shadow-xl"
+      />
+    </div>
+  </div>
+)}
 
     </div>
   );

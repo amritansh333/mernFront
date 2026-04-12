@@ -112,15 +112,15 @@ export default function CSRPage() {
                 </h2>
               </div>
 
-              <div className="space-y-5 text-muted-foreground text-sm leading-relaxed">
+              <div className="space-y-5 text-muted-foreground text-lh leading-relaxed">
                 <p>
-                  At <strong className="text-charcoal">Polyrib</strong>, we believe that responsible manufacturing and commercial success are inseparable. Our <strong className="text-charcoal">CSR</strong> programme covers environmental stewardship, employee development, community investment, and ethical supply chain management.
+                  At <strong className="text-primary">Polyrib</strong>, we believe that responsible manufacturing and commercial success are inseparable. Our <strong className="text-primary">CSR</strong> programme covers environmental stewardship, employee development, community investment, and ethical supply chain management.
                 </p>
                 <p>
-                  As a manufacturer of polymer materials, we recognise our responsibility to manage our <strong className="text-charcoal">environmental impact</strong> thoughtfully — from responsible raw material sourcing to energy-efficient processing and end-of-life material recovery.
+                  As a manufacturer of polymer materials, we recognise our responsibility to manage our <strong className="text-primary">environmental impact</strong> thoughtfully — from responsible raw material sourcing to energy-efficient processing and end-of-life material recovery.
                 </p>
                 <p>
-                  This page summarises our key <strong className="text-charcoal">CSR commitments</strong>. We publish an <strong className="text-charcoal">Annual Sustainability Update</strong> for customers, investors, and community stakeholders.
+                  This page summarises our key <strong className="text-primary">CSR commitments</strong>. We publish an <strong className="text-primary">Annual Sustainability Update</strong> for customers, investors, and community stakeholders.
                 </p>
               </div>
             </div>
@@ -167,7 +167,7 @@ export default function CSRPage() {
         <div className="container max-w-7xl mx-auto px-6">
           <p className="section-label mb-3">Key Pillars</p>
           <h2 className="font-heading text-2xl text-charcoal mb-10">
-            Our CSR commitments
+            Our CSR Commitments
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -180,11 +180,11 @@ export default function CSRPage() {
                   <p.icon className="w-5 h-5 text-primary" />
                 </div>
 
-                <h3 className="font-heading font-semibold text-charcoal mb-2">
+                <h3 className="text-lg font-heading font-semibold text-charcoal mb-2">
                   {p.title}
                 </h3>
 
-                <p className="text-sm text-muted-foreground leading-relaxed">
+                <p className="text-lh text-muted-foreground leading-relaxed">
                   {p.desc}
                 </p>
               </div>
@@ -215,7 +215,7 @@ export default function CSRPage() {
                 <div className="font-heading font-bold text-primary text-3xl mb-2">
                   {m.v}
                 </div>
-                <div className="text-xs text-muted-foreground">
+                <div className="text-sm text-muted-foreground">
                   {m.l}
                 </div>
               </div>
