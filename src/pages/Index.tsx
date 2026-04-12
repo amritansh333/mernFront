@@ -167,7 +167,7 @@ function WhyUsSection() {
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 border border-divider overflow-hidden">
           {/* Facility photo */}
-<div className="relative min-h-[420px] lg:min-h-0 overflow-hidden">
+<div className="relative min-h-[420px] sm:min-h-[480px] lg:min-h-0 overflow-hidden">
   {/* Image Slider */}
   <div className="absolute inset-0 animate-fade-slider">
     {[slider1, slider2, slider3, slider4, slider5].map((img, index) => (
@@ -188,20 +188,20 @@ function WhyUsSection() {
 
   {/* Text Overlay (UNCHANGED) */}
   
-  <div className="absolute top-0 left-0 right-0 p-6 bbg-black/40 backdrop-blur-md rounded-lg">
-  <p className="font-heading text-3xl font-bold text-primary mb-1 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+  <div className="absolute top-0 left-0 right-0 p-4 sm:p-6 bg-black/10 backdrop-blur-md">
+  <p className="font-heading text-xl sm:text-2xl md:text-3xl font-bold text-primary mb-1 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
   40+ Years of Engineering Excellence
 </p>
 </div>
-  <div className="absolute bottom-3 left-3 right-0 p-6">
-    <p className="text-white/60 text-xs tracking-widest uppercase font-semibold mb-3">
+  <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6">
+    <p className="text-white/60 text-sm tracking-widest uppercase font-semibold mb-3">
       Established 1985
     </p>
     <div className="space-y-2">
       {whyChecks.map((c, i) => (
         <div key={i} className="flex items-center gap-2">
           <CheckCircle2 className="w-4 h-4 text-primary-light shrink-0" />
-          <span className="text-white/80 text-s font-medium">{c}</span>
+          <span className="text-white/80 text-sm sm:text-sm font-medium leading-snug">{c}</span>
         </div>
       ))}
     </div>
