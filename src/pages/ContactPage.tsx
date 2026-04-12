@@ -30,7 +30,25 @@ export default function ContactPage() {
   const removeFile = (i: number) => setFiles(prev => prev.filter((_, idx) => idx !== i));
 
   const contactItems = [
-    { icon: MapPin, label: "Address",      value: "Khanna Polyrib Pvt. Ltd.\nIndustrial Area, Kanpur\nUttar Pradesh, India" },
+    {
+  icon: MapPin,
+  label: "Address",
+  value: (
+    <>
+      Khanna Polyrib Pvt. Ltd.<br />
+      <span className="text-sm font-medium text-primary">
+        KANPUR HEAD OFFICE
+      </span><br />
+      24/168 Birhana Road<br />
+      Kanpur-208001, India<br />
+      <span className="text-sm font-medium text-primary">
+        WORK
+      </span><br />
+      Plot. 191-193 Akrampur Industrial Estate<br />
+      Unnao-209801, Uttar Pradesh<br />
+    </>
+  )
+},
     { icon: Phone, label: "Phone",         value: "0515-2970306" },
     { icon: Mail,  label: "Email",         value: <a href="mailto:info@polyrib.com" className="text-sm font-medium text-charcoal hover:underline">info@polyrib.com</a> },
     { icon: Clock, label: "Office Hours",  value: "Mon–Sat: 09:00–18:00 IST" },

@@ -233,7 +233,7 @@ export default function ProductDetailPage() {
       </section>
 
       {/* ---------------- APPLICATION AREAS ---------------- */}
-      {product.specifications?.applicationAreas?.length > 0 && (
+      {product.applications.length > 0 && (
         <section className="py-8 bg-surface-subtle">
           <div className="container max-w-7xl mx-auto px-6">
             <p className="section-label mb-2">USE CASES</p>
@@ -242,7 +242,7 @@ export default function ProductDetailPage() {
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {product.specifications.applicationAreas.map(
+              {product.applications.map(
                 (area: string, i: number) => (
                   <div
                     key={i}

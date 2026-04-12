@@ -121,7 +121,7 @@ export function Footer() {
         <div className="mt-10 pt-8 border-t border-white/10 grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="flex items-center gap-3">
             <MapPin className="w-4 h-4 text-primary-light shrink-0" />
-            <span className="text-white/55 text-sm">Industrial Area, Kanpur, Uttar Pradesh, India</span>
+            <span className="text-white/55 text-sm">24/168 Birhana Road, Kanpur-208001, India</span>
           </div>
           <div className="flex items-center gap-3">
             <Phone className="w-4 h-4 text-primary-light shrink-0" />
