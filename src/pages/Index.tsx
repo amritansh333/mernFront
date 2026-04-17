@@ -15,11 +15,16 @@ import slider3 from "@/assets/slider3-Engineered-To-Perform.jpeg";
 import slider4 from "@/assets/slider4-Engineered-To-Perform.jpeg";
 import slider5 from "@/assets/slider5-Engineered-To-Perform.jpeg";
 import badgeImg from "@/assets/badgeImage.png";
+
+import polyribV from "@/assets/polyribV.jpeg";
+import polyribH from "@/assets/polyribH.jpeg";
+
 import { useScrollFade } from "@/hooks/useScrollFade";
 import certImg from "@/assets/isoCertificate2015.jpg";
 
 
 /* ─── Data ─────────────────────────────────────────────── */
+
 
 const stats = [
   { value: "40+",     label: "Years of Manufacturing" },
@@ -55,14 +60,14 @@ const allIndustries = [
 ];
 
 const brandFamilies = [
-  { abbr: "POLYRIB V",  slug:"polyrib-v",     name: "UHMW Polyethylene",          prop: "Abrasion resistance, low friction, high impact" },
-  { abbr: "POLYRIB H",  slug:"polyrib-h",     name: "High-Density Polyethylene",  prop: "Chemical resistance, toughness, outdoor use" },
+  { abbr: "POLYRIB V",  slug:"polyrib-v",     name: "UHMW Polyethylene",          prop: "Abrasion resistance, low friction, high impact" ,  image: polyribV,},
+  { abbr: "POLYRIB H",  slug:"polyrib-h",     name: "High-Density Polyethylene",  prop: "Chemical resistance, toughness, outdoor use" ,  image: polyribH,},
   { abbr: "POLYRIB P",slug:"polyrib-p", name: "Polypropylene (PP)",       prop: "Chemical tanks, acid resistance, low density" },
   { abbr: "ARETE",     slug:"arete",    name: "UHMW Polyethylene",         prop: "Transparency, impact strength, UV stability" },
   { abbr: "CUTRITE",      slug:"cutrite",   name: "LDPE",           prop: "Wear resistance, structural strength, bearings" },
   { abbr: "POLYLIMB",     slug:"polylimb",   name: "Polypropylene (PP)",      prop: "Precision machining, dimensional stability" },
   { abbr: "DIPRA",   slug:"dipra",    name: "Polypropylene (PP)",                  prop: "Automotive interiors, UV resistance, surface finish" },
-  { abbr: "PCCLEAR",     slug:"pcclear",    name: "Engineering Grades (PE/PP)", prop: "Machine components, sliding surfaces" },
+  { abbr: "PCCLEAR",     slug:"pcclear",    name: "Engineering Grades (PC)", prop: "Machine components, sliding surfaces" },
 ];
 
 const trustPoints = [
@@ -188,12 +193,10 @@ function WhyUsSection() {
 
   {/* Text Overlay (UNCHANGED) */}
   
-  <div className="absolute top-0 left-0 right-0 p-4 sm:p-6 bg-black/10 backdrop-blur-md">
-  <p className="font-heading text-xl sm:text-2xl md:text-3xl font-bold text-primary mb-1 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+  <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 bg-black/10 ">
+    <p className="font-heading text-xl sm:text-2xl md:text-3xl font-bold text-primary mb-3 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
   40+ Years of Engineering Excellence
 </p>
-</div>
-  <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6">
     <p className="text-white/60 text-sm tracking-widest uppercase font-semibold mb-3">
       Established 1985
     </p>
@@ -255,31 +258,57 @@ function ProductCategoryCard({ title, description, href, image, tag }: {
 /* Materials Section (Brand Portfolio) */
 function MaterialsSection() {
   const ref = useScrollFade() as React.RefObject<HTMLElement>;
+
   return (
-    <section ref={ref} className="fade-up py-8 bg-surface-subtle border-y border-divider">
+    <section
+      ref={ref}
+      className="fade-up py-12 bg-surface-subtle border-y border-divider"
+    >
       <div className="container max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
-          <div>
-            
-            <h2 className="font-heading text-3xl text-charcoal mb-4">Our Brands</h2>
-            
-            <Link to="/products" className="cta-link">
-              Explore Brands <ArrowRight className="w-4 h-4" />
+        {/* Heading */}
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-10">
+          <h2 className="font-heading text-3xl text-charcoal">
+            Our Brands
+          </h2>
+
+          <Link to="/products" className="cta-link mt-3 md:mt-0">
+            Explore Brands <ArrowRight className="w-4 h-4 inline ml-1" />
+          </Link>
+        </div>
+
+        {/* Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {brandFamilies.map((m) => (
+            <Link
+              key={m.abbr}
+              to={`/products/thermoplastics-semi-finished-products/sheets-blocks/${m.slug}`}
+              className="group bg-card border border-border rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300"
+            >
+              {/* Image */}
+              <div className="w-full h-40 overflow-hidden">
+                <img
+                  src={m.image} // <-- add image field in your data
+                  alt={m.name}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+
+              {/* Content */}
+              <div className="p-4">
+                <h3 className="font-heading text-lg text-primary group-hover:text-primary-dark transition-colors">
+                  {m.abbr}
+                </h3>
+
+                <p className="text-sm text-charcoal font-medium mt-1">
+                  {m.name}
+                </p>
+
+                <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
+                  {m.prop}
+                </p>
+              </div>
             </Link>
-          </div>
-          <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {brandFamilies.map((m) => (
-              <Link key={m.abbr} to={`/products/thermoplastics-semi-finished-products/sheets-blocks/${m.slug}`} className="bg-card border border-border p-4 hover:border-primary/40 transition-colors duration-200 block group">
-                <div className="flex items-start gap-3">
-                  <span className="font-heading font-bold text-primary text-lg w-28 shrink-0 group-hover:text-primary-dark transition-colors">{m.abbr}</span>
-                  <div>
-                    <div className="text-sm text-charcoal font-medium mb-0.5">{m.name}</div>
-                    <div className="text-xs text-muted-foreground">{m.prop}</div>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
+          ))}
         </div>
       </div>
     </section>
@@ -524,28 +553,15 @@ const Index = () => {
   
   <span className="relative inline-block pt-12 sm:pt-8">
     
-    {/* Badge ABOVE text */}
-    <img
-  src={badgeImg}
-  alt=""
-  className="
-    absolute 
-    -top-10 sm:-top-16 
-    left-0 
-    w-[110%] sm:w-full 
-    h-[110%] sm:h-[120%] 
-    object-contain 
-    z-10
-  "
-/>
+    
 
     {/* Text */}
     <span className="relative z-20">
-      Engineering
+      Best Engineering
     </span>
   </span>{" "}
   
-  Thermo-Plastics Solutions
+  Thermoplastics Solutions
 
   <span className="text-primary-light block">Built For Performance</span>
 </h1>
