@@ -18,7 +18,12 @@ import badgeImg from "@/assets/badgeImage.png";
 
 import polyribV from "@/assets/polyribV.jpeg";
 import polyribH from "@/assets/polyribH.jpeg";
-
+import arete from "@/assets/arete.jpeg";
+import cutrite from "@/assets/cutrite.jpeg";
+import dipra from "@/assets/dipra.jpeg";
+import pcclear from "@/assets/pcclear.jpeg";
+import polylimb from "@/assets/polylimb.jpeg";
+import polyribP from "@/assets/polyribP.jpeg";
 import { useScrollFade } from "@/hooks/useScrollFade";
 import certImg from "@/assets/isoCertificate2015.jpg";
 
@@ -62,12 +67,12 @@ const allIndustries = [
 const brandFamilies = [
   { abbr: "POLYRIB V",  slug:"polyrib-v",     name: "UHMW Polyethylene",          prop: "Abrasion resistance, low friction, high impact" ,  image: polyribV,},
   { abbr: "POLYRIB H",  slug:"polyrib-h",     name: "High-Density Polyethylene",  prop: "Chemical resistance, toughness, outdoor use" ,  image: polyribH,},
-  { abbr: "POLYRIB P",slug:"polyrib-p", name: "Polypropylene (PP)",       prop: "Chemical tanks, acid resistance, low density" },
-  { abbr: "ARETE",     slug:"arete",    name: "UHMW Polyethylene",         prop: "Transparency, impact strength, UV stability" },
-  { abbr: "CUTRITE",      slug:"cutrite",   name: "LDPE",           prop: "Wear resistance, structural strength, bearings" },
-  { abbr: "POLYLIMB",     slug:"polylimb",   name: "Polypropylene (PP)",      prop: "Precision machining, dimensional stability" },
-  { abbr: "DIPRA",   slug:"dipra",    name: "Polypropylene (PP)",                  prop: "Automotive interiors, UV resistance, surface finish" },
-  { abbr: "PCCLEAR",     slug:"pcclear",    name: "Engineering Grades (PC)", prop: "Machine components, sliding surfaces" },
+  { abbr: "POLYRIB P",slug:"polyrib-p", name: "Polypropylene (PP)",       prop: "Chemical tanks, acid resistance, low density"  ,  image: polyribP,},
+  { abbr: "ARETE",     slug:"arete",    name: "UHMW Polyethylene",         prop: "Transparency, impact strength, UV stability" ,  image: arete, },
+  { abbr: "CUTRITE",      slug:"cutrite",   name: "LDPE",           prop: "Wear resistance, structural strength, bearings"  ,  image: cutrite,},
+  { abbr: "POLYLIMB",     slug:"polylimb",   name: "Polypropylene (PP)",      prop: "Precision machining, dimensional stability"  ,  image: polylimb,},
+  { abbr: "DIPRA",   slug:"dipra",    name: "Polypropylene (PP)",                  prop: "Automotive interiors, UV resistance, surface finish"  ,  image: dipra,},
+  { abbr: "PCCLEAR",     slug:"pcclear",    name: "Engineering Grades (PC)", prop: "Machine components, sliding surfaces"  ,  image: pcclear,},
 ];
 
 const trustPoints = [
@@ -194,7 +199,7 @@ function WhyUsSection() {
   {/* Text Overlay (UNCHANGED) */}
   
   <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 bg-black/10 ">
-    <p className="font-heading text-xl sm:text-2xl md:text-3xl font-bold text-primary mb-3 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+    <p className="font-heading text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
   40+ Years of Engineering Excellence
 </p>
     <p className="text-white/60 text-sm tracking-widest uppercase font-semibold mb-3">
@@ -262,7 +267,7 @@ function MaterialsSection() {
   return (
     <section
       ref={ref}
-      className="fade-up py-12 bg-surface-subtle border-y border-divider"
+      className="fade-up py-12 bg-surface-subtle border-y border-divider "
     >
       <div className="container max-w-7xl mx-auto px-6">
         {/* Heading */}
@@ -273,6 +278,7 @@ function MaterialsSection() {
 
           <Link to="/products" className="cta-link mt-3 md:mt-0">
             Explore Brands <ArrowRight className="w-4 h-4 inline ml-1" />
+            
           </Link>
         </div>
 
@@ -295,9 +301,12 @@ function MaterialsSection() {
 
               {/* Content */}
               <div className="p-4">
-                <h3 className="font-heading text-lg text-primary group-hover:text-primary-dark transition-colors">
+                
+                <h3 className="font-heading text-lg text-primary group-hover:text-primary-dark transition-colors cta-link">
                   {m.abbr}
+                  <ArrowRight className="w-4 h-4 explore-arrow" />
                 </h3>
+                
 
                 <p className="text-sm text-charcoal font-medium mt-1">
                   {m.name}
@@ -306,7 +315,10 @@ function MaterialsSection() {
                 <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
                   {m.prop}
                 </p>
+                <div className="card-border-bottom mt-4" />
               </div>
+              
+      
             </Link>
           ))}
         </div>
