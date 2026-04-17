@@ -39,7 +39,7 @@ const BRAND_QUICK_LINKS = [
   { name: "PAKETAL", label: "Acetal / POM", href: "/products/thermoplastics-semi-finished-products/rods-tubes/paketal" },
   { name: "CUTRITE", label: "Chopping Boards", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/cutrite" },
   { name: "POLYLIMB", label: "PP", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/polylimb" },
-  { name: "ARETE", label: "FRP Composites", href: "/products/thermoplastics-machine-components/application-sheets/arete" },
+  { name: "HIPS", label: "FRP Composites", href: "/products/thermoplastics-machine-components/application-sheets/polyrib-h" },
 ];
 
 
