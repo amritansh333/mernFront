@@ -240,18 +240,18 @@ function ProductCategoryCard({ title, description, href, image, tag }: {
 }) {
   return (
     <Link to={href} className="category-card block group">
-      <div className="card-image aspect-[4/3] overflow-hidden bg-surface-subtle">
+      <div className="card-image aspect-[2/1] overflow-hidden bg-surface-subtle">
         <img src={image} alt={title} className="w-full h-full object-cover" loading="lazy" />
       </div>
-      <div className="p-6">
-        <span className="section-label text-xs block mb-3">{tag}</span>
+      <div className="p-4">
+        <span className="section-label text-xs block mb-2">{tag}</span>
         <h3 className="font-heading text-xl text-charcoal mb-2 group-hover:text-primary transition-colors duration-200">{title}</h3>
-        <p className="text-sm text-muted-foreground mb-5 leading-relaxed">{description}</p>
+        <p className="text-sm text-muted-foreground mb-2 leading-relaxed">{description}</p>
         <div className="flex items-center gap-1.5 cta-link">
           Explore Range
           <ArrowRight className="w-4 h-4 explore-arrow" />
         </div>
-        <div className="card-border-bottom mt-4" />
+        <div className="card-border-bottom mt-1" />
       </div>
     </Link>
   );
@@ -267,7 +267,7 @@ function MaterialsSection() {
   return (
     <section
       ref={ref}
-      className="fade-up py-12 bg-surface-subtle border-y border-divider "
+      className="fade-up py-8 bg-surface-subtle border-y border-divider "
     >
       <div className="container max-w-7xl mx-auto px-6">
         {/* Heading */}
@@ -283,7 +283,7 @@ function MaterialsSection() {
         </div>
 
         {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {brandFamilies.map((m) => (
             <Link
               key={m.abbr}
@@ -297,6 +297,7 @@ function MaterialsSection() {
                   alt={m.name}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
+
               </div>
 
               {/* Content */}
@@ -630,7 +631,7 @@ const Index = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <ProductCategoryCard
               title="Thermoplastic Semi-Finished Products"
-              description="Rods, tubes, sheets, blocks, welding rods, and coils in all standard and engineering-grade thermoplastics across our POLYRIB, PCCLEAR, KAYLON, and PAKETAL brand families."
+              description="Rods, tubes, sheets, blocks, welding rods, and coils in all standard and engineering-grade thermoplastics across our POLYRIB, PCCLEAR, and KAYLON brand families."
               href="/products/thermoplastics-semi-finished-products"
               image={semiFinishedImage}
               tag="Semi-Finished"
