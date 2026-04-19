@@ -117,7 +117,7 @@ useEffect(() => {
         {cat.description || "Explore our full product range."}
       </p>
 
-      <div className="flex items-center gap-2 cta-link">
+      <div className="cta-link pt-2 border-t border-divider">
         Explore Category
         <ArrowRight className="w-4 h-4 explore-arrow" />
       </div>

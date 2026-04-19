@@ -6,6 +6,7 @@ import {
   CheckCircle2, Cpu, Wrench, FlaskConical, Cog, LayoutGrid,
   Send, TrendingUp, Lightbulb, PackageCheck, X
 } from "lucide-react";
+import { useScrollFade } from "@/hooks/useScrollFade";
 import heroVideo from "@/assets/hero-landingpage.mp4";
 import semiFinishedImage from "@/assets/semi-finished-products.jpeg";
 import machineComponentsImage from "@/assets/machine-components.jpeg";
@@ -14,17 +15,20 @@ import slider2 from "@/assets/slider2-Engineered-To-Perform.jpeg";
 import slider3 from "@/assets/slider3-Engineered-To-Perform.jpeg";
 import slider4 from "@/assets/slider4-Engineered-To-Perform.jpeg";
 import slider5 from "@/assets/slider5-Engineered-To-Perform.jpeg";
-import badgeImg from "@/assets/badgeImage.png";
 
-import polyribV from "@/assets/polyribV.jpeg";
-import polyribH from "@/assets/polyribH.jpeg";
-import arete from "@/assets/arete.jpeg";
-import cutrite from "@/assets/cutrite.jpeg";
-import dipra from "@/assets/dipra.jpeg";
-import pcclear from "@/assets/pcclear.jpeg";
-import polylimb from "@/assets/polylimb.jpeg";
-import polyribP from "@/assets/polyribP.jpeg";
-import { useScrollFade } from "@/hooks/useScrollFade";
+import polyribV from "@/assets/polyribV.png";
+import polyribP from "@/assets/polyribP.png";
+import polyribH from "@/assets/polyribH.png";
+import hitech from "@/assets/hitech.png";
+import pcclear from "@/assets/pcclear.png";
+import cutrite from "@/assets/cutrite.png";
+import dipra from "@/assets/dipra.png";
+import arete from "@/assets/arete.png";
+import ripla from "@/assets/ripla.png";
+import polylimb from "@/assets/polylimb.png";
+import kaylon from "@/assets/kaylon.png";
+import plasconV from "@/assets/plasconV.png";
+
 import certImg from "@/assets/isoCertificate2015.jpg";
 
 
@@ -65,14 +69,20 @@ const allIndustries = [
 ];
 
 const brandFamilies = [
-  { abbr: "POLYRIB V",  slug:"polyrib-v",     name: "UHMW Polyethylene",          prop: "Abrasion resistance, low friction, high impact" ,  image: polyribV,},
-  { abbr: "POLYRIB H",  slug:"polyrib-h",     name: "High-Density Polyethylene",  prop: "Chemical resistance, toughness, outdoor use" ,  image: polyribH,},
-  { abbr: "POLYRIB P",slug:"polyrib-p", name: "Polypropylene (PP)",       prop: "Chemical tanks, acid resistance, low density"  ,  image: polyribP,},
-  { abbr: "ARETE",     slug:"arete",    name: "UHMW Polyethylene",         prop: "Transparency, impact strength, UV stability" ,  image: arete, },
-  { abbr: "CUTRITE",      slug:"cutrite",   name: "LDPE",           prop: "Wear resistance, structural strength, bearings"  ,  image: cutrite,},
-  { abbr: "POLYLIMB",     slug:"polylimb",   name: "Polypropylene (PP)",      prop: "Precision machining, dimensional stability"  ,  image: polylimb,},
-  { abbr: "DIPRA",   slug:"dipra",    name: "Polypropylene (PP)",                  prop: "Automotive interiors, UV resistance, surface finish"  ,  image: dipra,},
+  { abbr: "POLYRIB-V",  slug:"polyrib-v",     name: "UHMW Polyethylene",          prop: "Abrasion resistance, low friction, high impact" ,  image: polyribV,},
+  { abbr: "POLYRIB-P",slug:"polyrib-p", name: "Polypropylene (PP)",       prop: "Chemical tanks, acid resistance, low density"  ,  image: polyribP,},
+  { abbr: "POLYRIB-H",  slug:"polyrib-h",     name: "High-Density Polyethylene",  prop: "Chemical resistance, toughness, outdoor use" ,  image: polyribH,},
+  { abbr: "HITECH",  slug:"hitech",     name: "High-Density Polyethylene",  prop: "Chemical resistance, toughness, outdoor use" ,  image: hitech,},
   { abbr: "PCCLEAR",     slug:"pcclear",    name: "Engineering Grades (PC)", prop: "Machine components, sliding surfaces"  ,  image: pcclear,},
+  { abbr: "CUTRITE",      slug:"cutrite",   name: "LDPE",           prop: "Wear resistance, structural strength, bearings"  ,  image: cutrite,},
+  { abbr: "DIPRA",   slug:"dipra",    name: "Polypropylene (PP)",                  prop: "Automotive interiors, UV resistance, surface finish"  ,  image: dipra,},
+  { abbr: "ARETE",     slug:"arete",    name: "UHMW Polyethylene",         prop: "Transparency, impact strength, UV stability" ,  image: arete, },
+  { abbr: "RIPLA",     slug:"ripla",    name: "UHMW Polyethylene",         prop: "Transparency, impact strength, UV stability" ,  image: ripla, },
+  { abbr: "POLYLIMB",     slug:"polylimb",   name: "Polypropylene (PP)",      prop: "Precision machining, dimensional stability"  ,  image: polylimb,},
+  { abbr: "KAYLON",     slug:"pakaylon",   name: "Polypropylene (PP)",      prop: "Precision machining, dimensional stability"  ,  image: kaylon,},
+  { abbr: "PLASCON-V",     slug:"plascon-v",   name: "Polypropylene (PP)",      prop: "Precision machining, dimensional stability"  ,  image: plasconV,},
+
+
 ];
 
 const trustPoints = [
@@ -129,7 +139,7 @@ const whatWeManufacture = [
 ];
 
 const whyChecks = [
-  "One-stop polymer engineering solutions",
+  "40+ Years of Engineering Excellence",
   "Application-driven material selection",
   "Consistent quality with tight tolerances",
   "Custom and batch manufacturing capability",
@@ -165,10 +175,10 @@ function WhyUsSection() {
     <section ref={ref} className="fade-up py-8 bg-surface-subtle border-y border-divider overflow-hidden">
       <div className="container max-w-7xl mx-auto px-6">
         
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8">
             <div>
               
-              <h2 className="font-heading text-3xl text-charcoal">What sets Polyrib apart?</h2>
+              <h2 className="font-heading text-3xl text-charcoal">One-Stop Polymer Engineering Solutions</h2>
             </div>
             <Link to="/about" className="cta-link mt-4 md:mt-0">
               About Us <ArrowRight className="w-4 h-4" />
@@ -199,9 +209,7 @@ function WhyUsSection() {
   {/* Text Overlay (UNCHANGED) */}
   
   <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 bg-black/10 ">
-    <p className="font-heading text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
-  40+ Years of Engineering Excellence
-</p>
+    
     <p className="text-white/60 text-sm tracking-widest uppercase font-semibold mb-3">
       Established 1985
     </p>
@@ -218,13 +226,13 @@ function WhyUsSection() {
           {/* Advantage points grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-divider">
             {whyPoints.map(({ icon: Icon, title, desc }) => (
-              <div key={title} className="bg-card p-6 flex flex-col gap-4 hover:bg-surface-subtle transition-colors duration-200">
+              <div key={title} className="bg-card p-4 flex flex-col gap-1 hover:bg-surface-subtle transition-colors duration-200">
                 <div className="w-9 h-9 rounded-sm bg-primary/10 flex items-center justify-center shrink-0">
                   <Icon className="w-4 h-4 text-primary" strokeWidth={1.75} />
                 </div>
                 <div>
-                  <h4 className="font-heading font-semibold text-charcoal text-lg mb-1">{title}</h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{desc}</p>
+                  <h4 className="font-heading font-semibold text-charcoal text-lg mb-0">{title}</h4>
+                  <p className="text-sm text-muted-foreground ">{desc}</p>
                 </div>
               </div>
             ))}
@@ -247,7 +255,7 @@ function ProductCategoryCard({ title, description, href, image, tag }: {
         <span className="section-label text-xs block mb-2">{tag}</span>
         <h3 className="font-heading text-xl text-charcoal mb-2 group-hover:text-primary transition-colors duration-200">{title}</h3>
         <p className="text-sm text-muted-foreground mb-2 leading-relaxed">{description}</p>
-        <div className="flex items-center gap-1.5 cta-link">
+        <div className="cta-link pt-2 border-t border-divider">
           Explore Range
           <ArrowRight className="w-4 h-4 explore-arrow" />
         </div>
@@ -271,8 +279,8 @@ function MaterialsSection() {
     >
       <div className="container max-w-7xl mx-auto px-6">
         {/* Heading */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-10">
-          <h2 className="font-heading text-3xl text-charcoal">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
+          <h2 className="font-heading text-3xl text-charcoal ">
             Our Brands
           </h2>
 
@@ -283,12 +291,12 @@ function MaterialsSection() {
         </div>
 
         {/* Grid */}
-        <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className=" grid grid-cols-1 sm:grid-cols-4 lg:grid-cols-4 gap-6">
           {brandFamilies.map((m) => (
             <Link
               key={m.abbr}
               to={`/products/thermoplastics-semi-finished-products/sheets-blocks/${m.slug}`}
-              className="group bg-card border border-border rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300"
+              className="category-card block group border border-border  overflow-hidden hover:shadow-lg transition-all duration-300"
             >
               {/* Image */}
               <div className="w-full h-40 overflow-hidden">
@@ -297,7 +305,6 @@ function MaterialsSection() {
                   alt={m.name}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
-
               </div>
 
               {/* Content */}
@@ -309,14 +316,16 @@ function MaterialsSection() {
                 </h3>
                 
 
-                <p className="text-sm text-charcoal font-medium mt-1">
+                <p className="text-sm text-charcoal font-medium mt-1 group-hover:text-primary">
                   {m.name}
                 </p>
 
                 <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
                   {m.prop}
                 </p>
-                <div className="card-border-bottom mt-4" />
+
+                <div className="card-border-bottom mt-1" />
+                
               </div>
               
       
@@ -344,13 +353,13 @@ function PolymersSection() {
               View all Material families <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
-          <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div className="  lg:col-span-2 grid grid-cols-1 sm:grid-cols-2  gap-3 ">
             {polymers.map((m) => (
-              <Link key={m.abbr} to={`/materials/${m.slug}`} className="bg-card border border-border p-4 hover:border-primary/40 transition-colors duration-200 block group">
-                <div className="flex items-start gap-3">
+              <Link key={m.abbr} to={`/materials/${m.slug}`} className="bg-card border border-border p-4 hover:border-primary/40 transition-colors duration-200 block group overflow-hidden hover:shadow-lg transition-all duration-300">
+                <div className="flex items-start gap-3 ">
                   <span className="font-heading font-bold text-primary text-lg w-28 shrink-0 group-hover:text-primary-dark transition-colors">{m.abbr}</span>
                   <div>
-                    <div className="text-sm text-charcoal font-medium mb-0.5">{m.name}</div>
+                    <div className="text-sm text-charcoal font-medium mb-0.5 group-hover:text-primary">{m.name}</div>
                     <div className="text-xs text-muted-foreground">{m.prop}</div>
                   </div>
                 </div>
@@ -373,7 +382,7 @@ function IndustriesSection() {
   return (
     <section ref={ref} className="fade-up py-8 bg-surface-subtle border-y border-divider">
       <div className="container max-w-7xl mx-auto px-6">
-        <div className="text-center mb-12">
+        <div className="text-center mb-8">
           
           <h2 className="font-heading text-3xl text-charcoal">Industries We Serve</h2>
         </div>
@@ -407,7 +416,7 @@ function InfrastructureSection() {
   return (
     <section ref={ref} className="fade-up py-8 border-b border-divider">
       <div className="container max-w-7xl mx-auto px-6">
-        <div className="text-center mb-12">
+        <div className="text-center mb-8">
   <h2 className="font-heading text-3xl text-charcoal">
     Infrastructure Built for Scale
   </h2>
@@ -448,7 +457,7 @@ function CertificationSection() {
   <div className="container max-w-7xl mx-auto px-6">
     
     {/* Heading */}
-    <div className="text-center mb-12">
+    <div className="text-center mb-8">
       <h2 className="font-heading text-3xl text-charcoal">Certifications & Standards</h2>
       <p className="text-muted-foreground text-sm mt-3 max-w-xl mx-auto">
         Khanna Polyrib Pvt. Ltd. holds
@@ -461,7 +470,7 @@ function CertificationSection() {
     <div className="flex justify-center">
       <div
         onClick={() => setOpen(true)}
-        className="border border-border bg-card p-4 text-center hover:border-primary/40 transition-colors duration-200 cursor-pointer w-full max-w-[250px]"
+        className="border border-border bg-card p-4 text-center hover:border-primary/40 transition-colors duration-200 cursor-pointer w-full max-w-[250px] overflow-hidden hover:shadow-lg transition-all duration-300"
       >
         <div className="w-8 h-8 bg-primary/10 flex items-center justify-center mx-auto mb-2">
           <Award className="w-4 h-4 text-primary" />
@@ -515,13 +524,13 @@ function PolyribPromiseSection() {
   return (
     <section ref={ref} className="fade-up py-8 border-b border-divider">
       <div className="container max-w-7xl mx-auto px-6">
-        <div className="text-center mb-12">
+        <div className="text-center mb-8">
           
           <h2 className="font-heading text-3xl text-charcoal">The Polyrib Promise</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {promise.map(({ icon: Icon, title, desc }) => (
-            <div key={title} className="bg-card border border-border p-8 text-center hover:border-primary/40 transition-colors duration-200 group">
+            <div key={title} className="bg-card border border-border p-8 text-center hover:border-primary/40 transition-colors duration-200 group overflow-hidden hover:shadow-lg transition-all duration-300 ">
               <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-5 group-hover:bg-primary/20 transition-colors duration-200">
                 <Icon className="w-6 h-6 text-primary" strokeWidth={1.5} />
               </div>
@@ -562,7 +571,7 @@ const Index = () => {
           <div className="max-w-2xl">
             
             
-            <h1 className="font-heading text-5xl lg:text-6xl text-white leading-tight mb-6 animate-fade-in">
+            <h1 className="font-heading text-5xl lg:text-5xl text-white leading-tight mb-6 animate-fade-in">
   
   <span className="relative inline-block pt-12 sm:pt-8">
     

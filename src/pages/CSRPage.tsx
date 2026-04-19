@@ -97,9 +97,9 @@ export default function CSRPage() {
       </div>
 
       {/* Intro (MODIFIED SECTION ONLY) */}
-      <section className="py-20 border-b border-gray-200 bg-white">
+      <section className="py-8 border-b border-gray-200 bg-white">
         <div className="container max-w-7xl mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="grid md:grid-cols-2 gap-8 items-center">
             
             {/* LEFT SIDE CONTENT */}
             <div>
@@ -163,10 +163,10 @@ export default function CSRPage() {
       </section>
 
       {/* Pillars */}
-      <section className="py-16 bg-gray-50 border-b border-gray-200">
+      <section className="py-8 bg-gray-50 border-b border-gray-200">
         <div className="container max-w-7xl mx-auto px-6">
           <p className="section-label mb-3">Key Pillars</p>
-          <h2 className="font-heading text-2xl text-charcoal mb-10">
+          <h2 className="font-heading text-2xl text-charcoal mb-8">
             Our CSR Commitments
           </h2>
 
@@ -194,7 +194,7 @@ export default function CSRPage() {
       </section>
 
       {/* Metrics */}
-      <section className="py-14 border-b border-gray-200 bg-white">
+      <section className="py-8 border-b border-gray-200 bg-white">
         <div className="container max-w-7xl mx-auto px-6">
           <p className="section-label mb-3">Progress</p>
           <h2 className="font-heading text-2xl text-charcoal mb-8">

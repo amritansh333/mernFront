@@ -115,10 +115,11 @@ export default function BrandsPage() {
                     {brand.name}
                   </h2>
 
-                  <div className="flex items-center gap-2 cta-link text-sm">
+                  <div className="cta-link text-sm  pt-2 border-t border-divider">
                     View Products
                     <ArrowRight className="w-4 h-4"/>
                   </div>
+                  <div className="card-border-bottom mt-1" />
 
                 </div>
 

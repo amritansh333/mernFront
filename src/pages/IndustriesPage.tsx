@@ -171,7 +171,7 @@ export default function IndustriesPage() {
 
   return (
     <div className="pt-16">
-      <div className="bg-surface-subtle border-b border-divider py-12">
+      <div className="bg-surface-subtle border-b border-divider py-8">
         <div className="container max-w-7xl mx-auto px-6">
           <nav className="text-xs text-muted-foreground mb-4 flex items-center gap-1.5">
             <Link to="/" className="hover:text-primary">Home</Link><span>/</span>
@@ -185,7 +185,7 @@ export default function IndustriesPage() {
         </div>
       </div>
 
-      <section className="py-16">
+      <section className="py-8">
         <div className="container max-w-7xl mx-auto px-6">
           <div className="space-y-6">
             {FEATURED_INDUSTRIES.map((ind) => (
@@ -204,7 +204,7 @@ export default function IndustriesPage() {
                       </div>
                     ))}
                   </div>
-                  <div className="flex items-center gap-1.5 cta-link">
+                  <div className="cta-link">
                     Explore {ind.title} Solutions <ArrowRight className="w-4 h-4 explore-arrow" />
                   </div>
                   <div className="card-border-bottom mt-5" />
