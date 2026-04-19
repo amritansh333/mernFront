@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
+import ScrollToTopButton from "@/components/ScrollToTopButton";
 
 import Index from "@/pages/Index";
 import AboutPage from "@/pages/AboutPage";
@@ -74,6 +75,7 @@ function App() {
         {/* 404 */}
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <ScrollToTopButton /> 
 
       <Footer />
     </Router>

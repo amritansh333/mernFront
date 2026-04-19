@@ -42,7 +42,7 @@ export function Footer() {
     <footer className="bg-charcoal text-primary-foreground">
       {/* Top bar */}
       <div className="border-b border-white/10">
-        <div className="container max-w-7xl mx-auto px-6 py-10">
+        <div className="container max-w-7xl mx-auto px-6 py-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             <div>
               <p className="section-label text-white/50 mb-2">Trusted Since 1985</p>
@@ -68,7 +68,7 @@ export function Footer() {
       </div>
 
       {/* Main footer */}
-      <div className="container max-w-7xl mx-auto px-6 py-12">
+      <div className="container max-w-7xl mx-auto px-6 py-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
           {/* Brand */}
           <div className="lg:col-span-2">
@@ -118,7 +118,7 @@ export function Footer() {
         </div>
 
         {/* Contact info */}
-        <div className="mt-10 pt-8 border-t border-white/10 grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="mt-4 pt-4 border-t border-white/10 grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="flex items-center gap-3">
             <MapPin className="w-4 h-4 text-primary-light shrink-0" />
             <span className="text-white/55 text-sm">24/168 Birhana Road, Kanpur-208001, India</span>
@@ -135,7 +135,7 @@ export function Footer() {
         </div>
 
         {/* Bottom */}
-        <div className="mt-8 pt-6 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="mt-4 pt-4 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-white/35 text-xs">
             © {new Date().getFullYear()} Khanna Polyrib Pvt. Ltd. All rights reserved.
           </p>
