@@ -142,36 +142,65 @@ useEffect(() => {
 
       <div className="container max-w-7xl mx-auto px-6 py-12">
         {/* Brand grid */}
-        <div ref={ref as React.RefObject<HTMLDivElement>} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
-          {MATERIAL_FAMILIES.map((m) => (
-            <button
-              key={m.slug}
-              onClick={() =>
-                setSelected(selected === m.slug ? null : m.slug)
-              }
-              className={`text-left p-5 border-2 transition-all duration-200 ${selected === m.slug ? "border-primary bg-primary/5 shadow-card" : "border-border bg-card hover:border-primary/40"}`}
-            >
-              <div className="flex items-start justify-between mb-2">
-                <span className={`text-[10px] px-2.5 py-1 font-bold border ${m.colour}`}>{m.base}</span>
-                <ChevronRight className={`w-4 h-4 transition-transform duration-200 ${selected === m.slug ? "rotate-90 text-primary" : "text-muted-foreground"}`} />
-              </div>
-              <h3 className="font-heading font-bold text-charcoal text-lg mb-1">{m.brand}</h3>
-              <p className="text-xs text-primary font-semibold mb-2">{m.tagline}</p>
-              <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">{m.desc}</p>
-            </button>
-          ))}
-        </div>
+        <div
+  ref={ref as React.RefObject<HTMLDivElement>}
+  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10"
+>
+  {MATERIAL_FAMILIES.map((m, index) => {
+    const isSelected = selected === m.slug;
 
-        {/* Expanded detail */}
-        {mat && (
-          <div className="border border-primary/20 bg-primary/3 p-8 animate-fade-in">
+    return (
+      <React.Fragment key={m.slug}>
+        {/* CARD */}
+        <button
+          onClick={() =>
+            setSelected(isSelected ? null : m.slug)
+          }
+          className={`text-left p-5 border-2 transition-all duration-200 ${
+            isSelected
+              ? "border-primary bg-primary/5 shadow-card"
+              : "border-border bg-card hover:border-primary/40"
+          }`}
+        >
+          <div className="flex items-start justify-between mb-2">
+            <span className={`text-[10px] px-2.5 py-1 font-bold border ${m.colour}`}>
+              {m.base}
+            </span>
+            <ChevronRight
+              className={`w-4 h-4 transition-transform duration-200 ${
+                isSelected ? "rotate-90 text-primary" : "text-muted-foreground"
+              }`}
+            />
+          </div>
+          <h3 className="font-heading font-bold text-charcoal text-lg mb-1">
+            {m.brand}
+          </h3>
+          <p className="text-xs text-primary font-semibold mb-2">
+            {m.tagline}
+          </p>
+          <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">
+            {m.desc}
+          </p>
+        </button>
+
+        {/* INLINE EXPANDED SECTION */}
+        {isSelected && (
+          <div className="col-span-1 sm:col-span-2 lg:col-span-3 border border-primary/20 bg-primary/3 p-8 animate-fade-in">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               <div className="lg:col-span-2">
                 <div className="flex items-center gap-3 mb-4 flex-wrap">
-                  <h2 className="font-heading text-2xl text-charcoal">{mat.brand}</h2>
-                  <span className={`text-xs px-2.5 py-1 border font-bold ${mat.colour}`}>{mat.base}</span>
+                  <h2 className="font-heading text-2xl text-charcoal">
+                    {m.brand}
+                  </h2>
+                  <span className={`text-xs px-2.5 py-1 border font-bold ${m.colour}`}>
+                    {m.base}
+                  </span>
                 </div>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-6">{mat.desc}</p>
+
+                <p className="text-sm text-muted-foreground mb-6">
+                  {m.desc}
+                </p>
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">Grades Available</p>
@@ -197,6 +226,7 @@ useEffect(() => {
                   </div>
                 </div>
               </div>
+
               <div className="space-y-4">
                 <div className="bg-card border border-border p-4">
                   <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">Temperature Range</p>
@@ -225,6 +255,12 @@ useEffect(() => {
             </div>
           </div>
         )}
+      </React.Fragment>
+    );
+  })}
+</div>
+
+        
 
         {/* CTA */}
         <div className="mt-12 border border-border p-6 flex flex-col md:flex-row items-center justify-between gap-5 bg-surface-subtle">
