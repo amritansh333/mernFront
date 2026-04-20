@@ -30,7 +30,7 @@ const FEATURED_INDUSTRIES = [
     slug: "aerospace",
     title: "Aerospace",
     subtitle: "Precision materials for flight-critical performance.",
-    image: automotiveImage,
+    image: aerospaceImage,
     stats: [{ v: "POLYRIB-H EXT", l: "Marine HDPE" }, { v: "POLYRIB V", l: "Dock Wear Plates" }, { v: "POLYRIB H", l: "Pontoon Decking" }],
   },
   {
