@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
@@ -78,6 +79,7 @@ function App() {
       <ScrollToTopButton /> 
 
       <Footer />
+      <SpeedInsights />
     </Router>
   );
 }
