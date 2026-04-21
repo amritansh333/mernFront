@@ -132,7 +132,7 @@ export function Header() {
             <img
               src={logoImg}
               alt="Khanna Polyrib Pvt. Ltd."
-              className="h-12 sm:h-14 md:h-16 w-auto object-contain"
+              className="h-14 sm:h-15 md:h-16 w-auto object-contain scale-110 origin-left"
             />
           </Link>
 

@@ -231,8 +231,8 @@ useEffect(() => {
                 <div className="bg-card border border-border p-4">
                   <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">Temperature Range</p>
                   <div className="flex gap-6">
-                    <div><div className="font-mono font-bold text-primary">{mat.minTemp}</div><div className="text-xs text-muted-foreground">Min Service</div></div>
-                    <div><div className="font-mono font-bold text-primary">{mat.maxTemp}</div><div className="text-xs text-muted-foreground">Max Service</div></div>
+                    <div><div className="font-mono font-bold text-primary">{mat.minTemp}</div><div className="text-xs text-muted-foreground">Min Temperature</div></div>
+                    <div><div className="font-mono font-bold text-primary">{mat.maxTemp}</div><div className="text-xs text-muted-foreground">Max Temperature</div></div>
                   </div>
                 </div>
                 <div className="bg-card border border-border p-4">

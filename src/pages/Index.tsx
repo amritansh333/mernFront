@@ -139,7 +139,7 @@ const whatWeManufacture = [
 ];
 
 const whyChecks = [
-  "40+ Years of Engineering Excellence",
+  "Pioneering in Engineering Excellence",
   "Application-driven material selection",
   "Consistent quality with tight tolerances",
   "Custom and batch manufacturing capability",
@@ -571,7 +571,7 @@ const Index = () => {
           <div className="max-w-2xl">
             
             
-            <h1 className="font-heading text-5xl lg:text-5xl text-white leading-tight mb-6 animate-fade-in">
+            <h1 className="font-normal text-5xl lg:text-5xl text-white leading-tight mb-6 animate-fade-in">
   
   <span className="relative inline-block pt-12 sm:pt-8">
     
@@ -589,13 +589,13 @@ const Index = () => {
 </h1>
             
             <div className="flex flex-col sm:flex-row gap-3 animate-fade-in" style={{ animationDelay: "300ms" }}>
-              <Link to="/products" className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary-light transition-colors duration-200">
+              <Link to="/products" className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground text-sm font-normal hover:bg-primary-light transition-colors duration-200">
                 Explore Products <ArrowRight className="w-4 h-4" />
               </Link>
-              <Link to="/contact" className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 border border-white/30 text-white text-sm font-semibold hover:bg-white/20 transition-colors duration-200">
+              <Link to="/contact" className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 border border-white/30 text-white text-sm font-normal hover:bg-white/20 transition-colors duration-200">
                 <Send className="w-4 h-4" /> Send Your Drawing
               </Link>
-              <Link to="/tools/material-selector" className="inline-flex items-center gap-2 px-6 py-3 border border-white/20 text-white/80 text-sm font-semibold hover:bg-white/10 transition-colors duration-200">
+              <Link to="/tools/material-selector" className="inline-flex items-center gap-2 px-6 py-3 border border-white/20 text-white/80 text-sm font-normal hover:bg-white/10 transition-colors duration-200">
                 Material Selector
               </Link>
             </div>

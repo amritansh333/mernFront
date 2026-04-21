@@ -71,29 +71,34 @@ export function Footer() {
       <div className="container max-w-7xl mx-auto px-6 py-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
           {/* Brand */}
-          <div className="lg:col-span-2">
-            {/* Logo on white pill so it reads clearly on dark footer */}
-            <Link to="/" className="inline-block mb-5">
-              <div className="inline-block">
-                <img
-                  src={logoImg}
-                  alt="Khanna Polyrib Pvt. Ltd."
-                  className="h-15 md:h-20 w-auto object-contain"
-                />
-              </div>
-            </Link>
-            <p className="text-white/55 text-sm leading-relaxed mb-6 max-w-xs">
-              India's leading manufacturer of engineering thermoplastic semi-finished products and machine components. Trusted across 20+ industries worldwide.
-            </p>
-            {/* Brands */}
-            <div className="flex flex-wrap gap-1.5">
-              {brands.map((b) => (
-                <span key={b} className="text-[10px] font-semibold px-2 py-0.5 bg-white/10 text-white/60 tracking-wider">
-                  {b}
-                </span>
-              ))}
-            </div>
-          </div>
+          <div className="lg:col-span-2 flex flex-col items-center">
+  {/* Logo */}
+<Link to="/" className="block w-full mb-5 ">
+  <img
+    src={logoImg}
+    alt="Khanna Polyrib Pvt. Ltd."
+    className="mx-auto w-[140px] sm:w-[160px] md:w-[180px] h-auto object-contain"
+  />
+</Link>
+
+  {/* Text */}
+  <p className="text-white/60 text-sm leading-relaxed mb-6 max-w-md lg:max-w-lg">
+    India's leading manufacturer of engineering thermoplastic semi-finished
+    products and machine components. Trusted across 20+ industries worldwide.
+  </p>
+
+  {/* Brands */}
+  <div className="flex flex-wrap gap-1.5">
+    {brands.map((b) => (
+      <span
+        key={b}
+        className="text-[10px] font-semibold px-2 py-0.5 bg-white/10 text-white/60 tracking-wider"
+      >
+        {b}
+      </span>
+    ))}
+  </div>
+</div>
 
           {/* Links */}
           {Object.entries(footerLinks).map(([title, links]) => (
