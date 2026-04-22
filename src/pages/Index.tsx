@@ -29,6 +29,8 @@ import polylimb from "@/assets/polylimb.png";
 import kaylon from "@/assets/kaylon.png";
 import plasconV from "@/assets/plasconV.png";
 
+import polymerImg from "@/assets/polymer-materials.jpeg";
+
 import certImg from "@/assets/isoCertificate2015.jpg";
 
 
@@ -344,15 +346,29 @@ function PolymersSection() {
   return (
     <section ref={ref} className="fade-up py-8 border-b border-divider">
       <div className="container max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
-          <div>
-            
-            <h2 className="font-heading text-3xl text-charcoal mb-4">The Polymers We Work With</h2>
-            
-            <Link to="/materials" className="cta-link">
-              View all Material families <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-stretch">
+          <div className="flex flex-col gap-6">
+  
+  {/* Heading */}
+  <div>
+    <h2 className="font-heading text-3xl text-charcoal mb-4">
+      The Polymers We Work With
+    </h2>
+
+    <Link to="/materials" className="cta-link">
+      View all Material families <ArrowRight className="w-4 h-4" />
+    </Link>
+  </div>
+
+  <div className="w-full">
+    <img
+      src={polymerImg}  
+      alt="Polymers"
+      className="w-full h-[180px] sm:h-[220px] lg:h-[260px] object-cover bg-card border border-border p-4 hover:border-primary/40 transition-colors duration-200 block group overflow-hidden hover:shadow-lg transition-all duration-300"
+    />
+  </div>
+
+</div>
           <div className="  lg:col-span-2 grid grid-cols-1 sm:grid-cols-2  gap-3 ">
             {polymers.map((m) => (
               <Link key={m.abbr} to={`/materials/${m.slug}`} className="bg-card border border-border p-4 hover:border-primary/40 transition-colors duration-200 block group overflow-hidden hover:shadow-lg transition-all duration-300">
