@@ -126,13 +126,13 @@ export function Header() {
       }`}
     >
       <div className="container max-w-7xl mx-auto px-6">
-        <div className="flex items-center justify-between h-16 lg:h-18">
+        <div className="flex items-center justify-between h-16 sm:h-19 lg:h-22">
           {/* Logo — also acts as Home link */}
-          <Link to="/" className="flex items-center shrink-0">
+          <Link to="/" className="flex items-center h-full">
             <img
               src={logoImg}
               alt="Khanna Polyrib Pvt. Ltd."
-              className="h-14 sm:h-15 md:h-16 w-auto object-contain scale-110 origin-left"
+              className="h-[70%] sm:h-[75%] lg:h-[80%] w-auto object-containt"
             />
           </Link>
 

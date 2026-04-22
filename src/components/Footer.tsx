@@ -71,15 +71,17 @@ export function Footer() {
       <div className="container max-w-7xl mx-auto px-6 py-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
           {/* Brand */}
-          <div className="lg:col-span-2 flex flex-col items-center">
+          <div className="lg:col-span-2 flex flex-col items-start">
   {/* Logo */}
-<Link to="/" className="block w-full mb-5 ">
-  <img
-    src={logoImg}
-    alt="Khanna Polyrib Pvt. Ltd."
-    className="mx-auto w-[140px] sm:w-[160px] md:w-[180px] h-auto object-contain"
-  />
-</Link>
+<Link to="/" className="block mb-5">
+    <div className="w-full max-w-[160px] sm:max-w-[180px] md:max-w-[200px]">
+      <img
+        src={logoImg}
+        alt="Khanna Polyrib Pvt. Ltd."
+        className="w-full h-auto object-contain"
+      />
+    </div>
+  </Link>
 
   {/* Text */}
   <p className="text-white/60 text-sm leading-relaxed mb-6 max-w-md lg:max-w-lg">

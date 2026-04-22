@@ -34,7 +34,7 @@ const milestones = [
 const groupCompanies = [
   {
     name: "Khanna Polyrib Pvt. Ltd.",
-    short: "KPPL",
+    short: "POLYRIB",
     desc: "The flagship manufacturing entity — responsible for producing the full range of POLYRIB, PCCLEAR, KAYLON, PAKETAL, DIPRA, and PLASCON thermoplastic semi-finished products. Houses the primary extrusion, compression moulding, and CNC machining facilities in Kanpur.",
     focus: [
       "Semi-finished thermoplastic sheets, rods & tubes",
@@ -45,7 +45,7 @@ const groupCompanies = [
   },
   {
     name: "KBK Plascon Pvt. Ltd.",
-    short: "KBK Plascon",
+    short: "PLASCON",
     desc: "Specialised in engineering plastic machine components and fabricated parts. Manufactures wear strips, guide rails, conveyor components, cutting boards, fascia pads, and custom-designed parts for OEM and replacement markets.",
     focus: [
       "Thermoplastic machine components & wear parts",
@@ -56,7 +56,7 @@ const groupCompanies = [
   },
   {
     name: "KBK Polymer Pvt. Ltd.",
-    short: "KBK Polymer",
+    short: "POLYMER",
     desc: "Trading and distribution arm of the Khanna Group — responsible for nationwide supply logistics, bulk raw material sourcing, and distribution partnerships. Manages the Delhi, Bhiwandi, and Ahmedabad distribution centres.",
     focus: [
       "Nationwide distribution & logistics",

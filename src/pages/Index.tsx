@@ -571,34 +571,45 @@ const Index = () => {
           <div className="max-w-2xl">
             
             
-            <h1 className="font-normal text-5xl lg:text-5xl text-white leading-tight mb-6 animate-fade-in">
-  
-  <span className="relative inline-block pt-12 sm:pt-8">
-    
-    
+            <h1 className="font-normal text-3xl sm:text-4xl lg:text-4xl text-white leading-tight mb-6 animate-fade-in">
+            <span className="block pt-12 sm:pt-8">
+              Best Engineering
+            </span>
 
-    {/* Text */}
-    <span className="relative z-20">
-      Best Engineering
-    </span>
-  </span>{" "}
-  
-  Thermoplastics Solutions
+            <span className="block">
+              Thermoplastics Solutions
+            </span>
 
-  <span className="text-primary-light block">Built For Performance</span>
-</h1>
+            <span className="block text-primary-light">
+              Built For Performance
+            </span>
+
+            </h1>
             
             <div className="flex flex-col sm:flex-row gap-3 animate-fade-in" style={{ animationDelay: "300ms" }}>
-              <Link to="/products" className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground text-sm font-normal hover:bg-primary-light transition-colors duration-200">
-                Explore Products <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link to="/contact" className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 border border-white/30 text-white text-sm font-normal hover:bg-white/20 transition-colors duration-200">
-                <Send className="w-4 h-4" /> Send Your Drawing
-              </Link>
-              <Link to="/tools/material-selector" className="inline-flex items-center gap-2 px-6 py-3 border border-white/20 text-white/80 text-sm font-normal hover:bg-white/10 transition-colors duration-200">
-                Material Selector
-              </Link>
-            </div>
+  
+  <Link
+    to="/products"
+    className="inline-flex items-center gap-2 px-4 py-2 text-xs sm:text-sm bg-primary text-primary-foreground font-normal hover:bg-primary-light transition-colors duration-200"
+  >
+    Explore Products <ArrowRight className="w-3.5 h-3.5" />
+  </Link>
+
+  <Link
+    to="/contact"
+    className="inline-flex items-center gap-2 px-4 py-2 text-xs sm:text-sm bg-white/10 border border-white/30 text-white font-normal hover:bg-white/20 transition-colors duration-200"
+  >
+    <Send className="w-3.5 h-3.5" /> Send Your Drawing
+  </Link>
+
+  <Link
+    to="/tools/material-selector"
+    className="inline-flex items-center gap-2 px-4 py-2 text-xs sm:text-sm border border-white/20 text-white/80 font-normal hover:bg-white/10 transition-colors duration-200"
+  >
+    Material Selector
+  </Link>
+
+</div>
             {/* Trust badges */}
             <div className="flex flex-wrap gap-4 mt-10 animate-fade-in" style={{ animationDelay: "400ms" }}>
               {trustPoints.map(({ icon: Icon, label }) => (
