@@ -31,15 +31,17 @@ const categories = [
 */
 const BRAND_QUICK_LINKS = [
   { name: "POLYRIB V", label: "UHMW PE", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/polyrib-v" },
-  { name: "POLYRIB H", label: "HDPE", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/polyrib-h" },
-  { name: "POLYRIB P", label: "Polypropylene", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/polyrib-p" },
-  { name: "DIPRA", label: "PP Liners", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/dipra" },
   { name: "PCCLEAR", label: "Polycarbonate", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/pcclear" },
+  { name: "POLYRIB P", label: "Polypropylene", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/polyrib-p" },
+  { name: "POLYRIB H", label: "HDPE", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/polyrib-h" },
+  { name: "HITECH", label: "PP, HDPE", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/hitech" },
   { name: "ARETE", label: "UHMW PE", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/arete" },
-  { name: "PAKETAL", label: "Acetal / POM", href: "/products/thermoplastics-semi-finished-products/rods-tubes/paketal" },
-  { name: "CUTRITE", label: "Chopping Boards", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/cutrite" },
+  
+  { name: "DIPRA", label: "PP Liners", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/dipra" },
   { name: "POLYLIMB", label: "PP", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/polylimb" },
-  { name: "HIPS", label: "FRP Composites", href: "/products/thermoplastics-machine-components/application-sheets/polyrib-h" },
+  { name: "CUTRITE", label: "Chopping Boards", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/cutrite" },
+  { name: "PLASCON V", label: "UHMWPE", href: "/products/thermoplastics-semi-finished-products/rods-tubes/plascon-v" },
+  { name: "KAYLON", label: "CAST NYLON", href: "/products/thermoplastics-semi-finished-products/rods-tubes/pakaylon" },
 ];
 
 
