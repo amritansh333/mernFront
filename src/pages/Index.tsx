@@ -71,20 +71,18 @@ const allIndustries = [
 ];
 
 const brandFamilies = [
-  { abbr: "POLYRIB-V",  slug:"polyrib-v",     name: "UHMW Polyethylene",          prop: "Abrasion resistance, low friction, high impact" ,  image: polyribV,},
-  { abbr: "POLYRIB-P",slug:"polyrib-p", name: "Polypropylene (PP)",       prop: "Chemical tanks, acid resistance, low density"  ,  image: polyribP,},
-  { abbr: "POLYRIB-H",  slug:"polyrib-h",     name: "High-Density Polyethylene",  prop: "Chemical resistance, toughness, outdoor use" ,  image: polyribH,},
-  { abbr: "HITECH",  slug:"hitech",     name: "High-Density Polyethylene",  prop: "Chemical resistance, toughness, outdoor use" ,  image: hitech,},
-  { abbr: "PCCLEAR",     slug:"pcclear",    name: "Engineering Grades (PC)", prop: "Machine components, sliding surfaces"  ,  image: pcclear,},
-  { abbr: "CUTRITE",      slug:"cutrite",   name: "LDPE",           prop: "Wear resistance, structural strength, bearings"  ,  image: cutrite,},
-  { abbr: "DIPRA",   slug:"dipra",    name: "Polypropylene (PP)",                  prop: "Automotive interiors, UV resistance, surface finish"  ,  image: dipra,},
-  { abbr: "ARETE",     slug:"arete",    name: "UHMW Polyethylene",         prop: "Transparency, impact strength, UV stability" ,  image: arete, },
-  { abbr: "RIPLA",     slug:"ripla",    name: "UHMW Polyethylene",         prop: "Transparency, impact strength, UV stability" ,  image: ripla, },
-  { abbr: "POLYLIMB",     slug:"polylimb",   name: "Polypropylene (PP)",      prop: "Precision machining, dimensional stability"  ,  image: polylimb,},
-  { abbr: "KAYLON",     slug:"pakaylon",   name: "Polypropylene (PP)",      prop: "Precision machining, dimensional stability"  ,  image: kaylon,},
-  { abbr: "PLASCON-V",     slug:"plascon-v",   name: "Polypropylene (PP)",      prop: "Precision machining, dimensional stability"  ,  image: plasconV,},
-
-
+  { abbr: "POLYRIB V",  slug:"polyrib-v",     name: "UltraHigh Molecular Weight Polyethylene (UHMWPE)",          prop: "High Performance Thermoplastic Sheets for Industrial Applications" ,  image: polyribV,},
+  { abbr: "PCCLEAR",     slug:"pcclear",    name: "Polycarbonate (PC)", prop: "Superior Sheets for Roofing, Glazing, Fabrication"  ,  image: pcclear,},
+  { abbr: "POLYRIB P",slug:"polyrib-p", name: "Polypropylene (PP)",       prop: "High Quality Crystalline Polymer for Chemical, Electroplating, Galvanizing Industry"  ,  image: polyribP,},
+  { abbr: "POLYRIB H",  slug:"polyrib-h",     name: "High Density Polyethylene (HDPE)",  prop: "Most widely used Thermoplastic for Commercial, Industrial and Food Contact Industry" ,  image: polyribH,},
+  { abbr: "HITECH",  slug:"hitech",     name: "Polypropylene (PP), High Density Polyethylene (HDPE)",  prop: "High Temperature and Chemical Resistant Polymer Sheets" ,  image: hitech,},
+  { abbr: "ARETE",     slug:"arete",    name: "UltraHigh Molecular Weight Polyethylene (UHMWPE)",         prop: "High Performance Thermoplastic Sheets for Lining Material for bulk solids" ,  image: arete, },
+  { abbr: "RIPLA",     slug:"ripla",    name: "Polypropylene (PP)",         prop: "Impact Resistant Thermoplastics for High Quality Cutting Boards" ,  image: ripla, },
+  { abbr: "DIPRA ADD CLEAR",   slug:"dipra",    name: "Polymer UV Sheets",                  prop: "High Quality Polymer UV sheets for Outdoor Applications"  ,  image: dipra,},
+  { abbr: "POLYLIMB",     slug:"polylimb",   name: "Speciality Thermoplastic Sheets",      prop: "Speciality Polymer Sheets for Orthotic and Prosthetic Applications"  ,  image: polylimb,},
+  { abbr: "CUTRITE",      slug:"cutrite",   name: "Low Density Polyethylene (LDPE)",           prop: "Durable and Flexible Thermoplastic for high impact chopping boards"  ,  image: cutrite,},
+  { abbr: "PLASCON V",     slug:"plascon-v",   name: "UltraHigh Molecular Weight Polyethylene (UHMWPE) Components",      prop: "Thermoplastics with low coefficient friction and high abrasion resistance for Engineering Solutions"  ,  image: plasconV,},
+  { abbr: "KAYLON",     slug:"pakaylon",   name: "Cast Nylon",      prop: "Partially Crystalline Polyamide for Precision Machining and Exceptional Wear Ressistance"  ,  image: kaylon,},
 ];
 
 const trustPoints = [
@@ -95,14 +93,14 @@ const trustPoints = [
 ];
 
 const polymers = [
-  { slug: "pp",  abbr: "PP",       name: "Polypropylene",           prop: "Lightweight, chemical-resistant, cost-effective" },
-  { slug: "hdpe", abbr:"HDPE"  ,    name: "High-Density Polyethylene",prop: "Tough, impact-resistant, moisture-proof" },
-  { slug: "uhmwpe", abbr: "UHMWPE",     name: "Ultra-High MW Polyethylene",prop: "Extreme wear resistance, ultra-low friction" },
-  { slug: "abs", abbr:"ABS"   ,    name: "Acrylonitrile Butadiene Styrene", prop: "Strong, dimensionally stable, easy to machine" },
-  { slug: "pc",   abbr:"PC"   ,   name: "Polycarbonate",           prop: "High impact strength, thermal stability" },
-  { slug: "pa6", abbr:"NYLON" , name: "Polyamide 6",             prop: "High impact resistance, self-lubricating, good chemical resistance" },
-  { slug: "acetal",   abbr:"ACETAL"  ,   name: "Acetal / Delrin",         prop: "High strength, rigidity, stability" },
-  { slug: "hips",  abbr:"HIPS"  ,   name: "High-Impact Polystyrene", prop: "Versatile, lightweight, cost-effective" },
+  { slug: "uhmwpe", abbr: "UHMWPE",     name: "Ideal for High Performance Industrial Applications",prop: "• Exceptional Wear Resistance • Low Friction~Outstanding Impact Strength" },
+  { slug: "pc",   abbr:"PC"   ,   name: "Ideal for Architectural & Industrial Use",           prop: "• Optical Clarity • High Impact • UV Resistance" },
+  { slug: "pp",  abbr: "PP",       name: "Wide Range of Applications",           prop: "• Versatile Lightweight Polymer • Excellent Chemical Resistance " },
+  { slug: "hdpe", abbr:"HDPE"  ,    name: "Ideal for demanding Environments",prop: "• Superior Toughness • Chemical Resistance • Long Term Durability" },
+  { slug: "ldpe", abbr:"LDPE" , name: "Ideal for Durable low-load Applications",             prop: "• Flexible Lightweight" },
+  { slug: "cast-nylon", abbr:"CAST NYLON" , name: "Ideal For Load Bearoing and Precision Components",             prop: "• Excellent Mechanical Strength • Wear Resistance • Dimensional Stability" },
+  { slug: "pom", abbr:"POM" , name: "Ideal for moving parts and components",             prop: "Low Friction • Excellent Dimensional Stability • Tight Tolerance" },
+  { slug: "abs", abbr:"ABS"   ,    name: "Durable Consumer and Industrial Components", prop: "Good Surface finish • Impact Resistance • Excellent for Vacuum Forming & Electroplating" },
 ];
 
 const infrastructure = [

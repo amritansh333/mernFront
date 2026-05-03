@@ -172,7 +172,7 @@ useEffect(() => {
             {[
               {
                 title: "Our Mission",
-                desc: "To design superior performance polymer materials that address actual engineering issues. Our products are designed to provide reliability, accuracy, and long-term usefulness."
+                desc: "To deliver innovative, high-quality polymer solutions that empower modern infrastructure, driven by integrity, customer focus, sustainability, and continuous innovation—building lasting partnerships through reliability, performance, and responsible growth."
               },
               {
                 title: "Our Vision",
