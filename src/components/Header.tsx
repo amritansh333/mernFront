@@ -25,8 +25,8 @@ const navItems = [
         items: [
           { label: "Strips & Profiles", href: "/products/thermoplastics-machine-components/strips-and-profiles" },
           { label: "Vacuum Formed Parts", href: "/products/thermoplastics-machine-components/vacuum-formed-plastic-parts" },
-          { label: "RIPLA Cutting Boards", href: "/products/thermoplastics-machine-components/ripla-cutting-board" },
-          { label: "CUTRITE Chopping Boards", href: "/products/thermoplastics-machine-components/cutrite-chopping-board" },
+          { label: "RIPLA Cutting Boards", href: "/products/thermoplastics-machine-components/cutting-board" },
+          { label: "CUTRITE Chopping Boards", href: "/products/thermoplastics-machine-components/chopping-board" },
           { label: "Application Sheets", href: "/products/thermoplastics-machine-components/application-ready-sheets" },
           { label: "Machined Parts", href: "/products/thermoplastics-machine-components/machined-plastic-parts" },
         ],

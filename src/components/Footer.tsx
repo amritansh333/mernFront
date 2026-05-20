@@ -42,7 +42,7 @@ export function Footer() {
     <footer className="bg-charcoal text-primary-foreground">
       {/* Top bar */}
       <div className="border-b border-white/10">
-        <div className="container max-w-7xl mx-auto px-6 py-8">
+        <div className="container max-w-7xl mx-auto px-6 py-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             <div>
               <p className="section-label text-white/50 mb-2">Trusted Since 1985</p>
