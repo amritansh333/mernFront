@@ -43,39 +43,39 @@ function App() {
         <Route path="/industries" element={<IndustriesPage />} />
         <Route path="/industries/:slug" element={<IndustryDetailPage />} />
         <Route path="/materials/:slug?" element={<MaterialsPage />} />
-        <Route path="/tools/material-selector" element={<MaterialSelectorPage />} />
+        <Route
+          path="/tools/material-selector"
+          element={<MaterialSelectorPage />}
+        />
         <Route path="/resources" element={<ResourcesPage />} />
 
         {/* PRODUCT FLOW */}
 
-{/* PRODUCT FLOW */}
+        {/* PRODUCT FLOW */}
 
-<Route path="/products" element={<ProductsPage />} />
+        <Route path="/products" element={<ProductsPage />} />
 
-<Route
- path="/products/:categorySlug"
- element={<SubcategoriesPage />}
-/>
+        <Route path="/products/:categorySlug" element={<SubcategoriesPage />} />
 
-<Route
- path="/products/:categorySlug/:subcategorySlug"
- element={<BrandsPage />}
-/>
+        <Route
+          path="/products/:categorySlug/:subcategorySlug"
+          element={<BrandsPage />}
+        />
 
-<Route
- path="/products/:categorySlug/:subcategorySlug/:brandSlug"
- element={<BrandProductsPage />}
-/>
+        <Route
+          path="/products/:categorySlug/:subcategorySlug/:brandSlug"
+          element={<BrandProductsPage />}
+        />
 
-<Route
- path="/products/:categorySlug/:subcategorySlug/:brandSlug/:productSlug"
- element={<ProductDetailPage />}
-/>
+        <Route
+          path="/products/:categorySlug/:subcategorySlug/:brandSlug/:productSlug"
+          element={<ProductDetailPage />}
+        />
 
         {/* 404 */}
         <Route path="*" element={<NotFound />} />
       </Routes>
-      <ScrollToTopButton /> 
+      <ScrollToTopButton />
 
       <Footer />
     </Router>

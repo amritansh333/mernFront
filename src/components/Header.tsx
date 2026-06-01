@@ -14,9 +14,9 @@ const navItems = [
         items: [
           { label: "Sheets & Blocks", href: "/products/thermoplastics-semi-finished-products/sheets-blocks" },
           { label: "Rods & Tubes", href: "/products/thermoplastics-semi-finished-products/rods-tubes" },
-          { label: "Welding Rods", href: "/products/thermoplastics-semi-finished-products/welding-rod" },
-          { label: "Custom Sheets", href: "/products/thermoplastics-semi-finished-products/custom-sized-plastic-sheets" },
           { label: "Coils & Rolls", href: "/products/thermoplastics-semi-finished-products/coils-rolls" },
+          { label: "Welding Rods", href: "/products/thermoplastics-semi-finished-products/welding-rod" },
+          { label: "Custom Sheets", href: "/products/thermoplastics-semi-finished-products/custom-sized-plastic-sheets" }
         ],
       },
       {
