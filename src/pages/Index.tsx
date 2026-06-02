@@ -901,14 +901,14 @@ const Index = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <ProductCategoryCard
               title="Thermoplastic Semi-Finished Products"
-              description="Rods, tubes, sheets, blocks, welding rods, and coils in all standard and engineering-grade thermoplastics across our POLYRIB, PCCLEAR, and KAYLON brand families."
+              description="Extruded and Compression-moulded Sheets, Blocks, Rods, Tubes, Welding Rods and Rolls across our full brand portfolio — POLYRIB V, H, P; DIPRA, PCCLEAR, KAYLON, PAKETAL, HITECH, ARETE, POLYLIMB and more. Available ex-stock in standard dimensions — Custom Sizes on request."
               href="/products/thermoplastics-semi-finished-products"
               image={semiFinishedImage}
               tag="Semi-Finished"
             />
             <ProductCategoryCard
               title="Thermoplastic Machine Components"
-              description="Strips & profiles, vacuum formed parts, RIPLA cutting boards, CUTRITE chopping boards, fascia pads, and precision machined thermoplastic components."
+              description="RIPLA cutting boards, CUTRITE chopping boards, ARETE composite liners, POLYLIMB Orthopaedic Sheets, Strips & Profiles, Vacuum Formed Parts and Precision Machined Plastic Components — all manufactured in Polyrib's proprietary grades."
               href="/products/thermoplastics-machine-components"
               image={machineComponentsImage}
               tag="Machine Components"
