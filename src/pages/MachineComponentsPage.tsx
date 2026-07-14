@@ -21,6 +21,30 @@ export default function MachineComponentsPage() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   useEffect(() => {
+    const seo = selectedProduct?.seo ?? machineData?.seo;
+    const title = seo?.title || selectedProduct?.name;
+    const description = seo?.description;
+
+    if (title) {
+      document.title = title;
+    }
+
+    if (description) {
+      let metaDescription = document.querySelector<HTMLMetaElement>(
+        'meta[name="description"]',
+      );
+
+      if (!metaDescription) {
+        metaDescription = document.createElement("meta");
+        metaDescription.name = "description";
+        document.head.appendChild(metaDescription);
+      }
+
+      metaDescription.content = description;
+    }
+  }, [machineData?.seo, selectedProduct?.name, selectedProduct?.seo]);
+
+  useEffect(() => {
     if (!selectedSlug) return;
     contentRef.current?.scrollTo({ top: 0, behavior: "smooth" });
     if (window.innerWidth < 1024) window.scrollTo({ top: 0, behavior: "smooth" });
