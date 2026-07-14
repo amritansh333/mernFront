@@ -155,7 +155,7 @@ function collectSidebarPaths(nodes: MachineSidebarNode[]) {
   return paths;
 }
 
-function normalizeMachineComponentsResponse(
+export function normalizeMachineComponentsResponse(
   response: MachineComponentsData | MachineComponentsResponse | unknown,
 ): MachineComponentsData {
   const payload =
