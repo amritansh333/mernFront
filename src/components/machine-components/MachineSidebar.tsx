@@ -53,9 +53,6 @@ function filterNodes(
       return {
         ...node,
         children: filteredChildren,
-        subCategories: [],
-        brands: [],
-        products: [],
       };
     })
     .filter((node): node is MachineSidebarNode => Boolean(node));

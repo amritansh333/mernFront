@@ -2,71 +2,80 @@ import { describe, expect, it } from "vitest";
 import { normalizeMachineComponentsResponse } from "@/lib/machineComponentApi";
 
 describe("normalizeMachineComponentsResponse", () => {
-  it("normalizes wrapped backend responses without rebuilding sidebar data", () => {
+  it("normalizes the frozen backend response shape for UI consumption", () => {
     const data = normalizeMachineComponentsResponse({
       success: true,
       data: {
-        navigation: [
+        experience: "machine_components",
+        sidebar: [
           {
-            title: "Strips",
-            products: [
+            name: "Strips",
+            children: [
               {
                 slug: "wear-strip",
-                label: "Wear Strip",
-                href: "/products/thermoplastics-machine-components/wear-strip",
+                name: "Wear Strip",
+                path: "/products/thermoplastics-machine-components/wear-strip",
               },
             ],
           },
         ],
-        products: [
-          {
-            id: "wear-strip",
-            title: "Wear Strip",
-            imageUrl: "/uploads/wear-strip.jpg",
-            features: ["Low friction"],
-            downloads: [{ title: "Datasheet", href: "/downloads/wear-strip.pdf" }],
+        products: {
+          "wear-strip": {
+            slug: "wear-strip",
+            name: "Wear Strip",
+            image: "/uploads/wear-strip.jpg",
+            keyFeatures: ["Low friction"],
+            machineComponentData: {
+              downloads: [{ label: "Datasheet", url: "/downloads/wear-strip.pdf" }],
+            },
           },
-        ],
-        defaultSlug: "wear-strip",
+        },
+        defaultProduct: "wear-strip",
+        paths: {
+          "wear-strip": "/products/thermoplastics-machine-components/wear-strip",
+        },
+        seo: {
+          title: "Machine Components",
+          description: "Thermoplastics machine components.",
+          keywords: ["machine components", "thermoplastics"],
+          canonical: "/products/thermoplastics-machine-components",
+        },
       },
     });
 
     expect(data.experience).toBe("machine_components");
-    expect(data.sidebar?.[0]?.title).toBe("Strips");
-    expect(data.sidebar?.[0]?.children?.[0]?.label).toBe("Wear Strip");
+    expect(data.sidebar?.[0]?.children?.[0]?.path).toBe(
+      "/products/thermoplastics-machine-components/wear-strip",
+    );
     expect(data.products?.["wear-strip"]?.name).toBe("Wear Strip");
-    expect(data.products?.["wear-strip"]?.image).toBe("/uploads/wear-strip.jpg");
     expect(data.products?.["wear-strip"]?.keyFeatures).toEqual(["Low friction"]);
     expect(data.products?.["wear-strip"]?.machineComponentData?.downloads).toEqual([
-      { title: "Datasheet", href: "/downloads/wear-strip.pdf" },
+      { label: "Datasheet", url: "/downloads/wear-strip.pdf" },
     ]);
     expect(data.paths?.["wear-strip"]).toBe(
       "/products/thermoplastics-machine-components/wear-strip",
     );
     expect(data.defaultProduct).toBe("wear-strip");
+    expect(data.seo?.canonical).toBe("/products/thermoplastics-machine-components");
   });
 
-  it("keeps backend path maps as the canonical path source", () => {
+  it("requires backend-provided product slug values", () => {
     const data = normalizeMachineComponentsResponse({
-      sidebar: [
-        {
-          slug: "machined-part",
-          path: "/products/thermoplastics-machine-components/sidebar-path",
-        },
-      ],
-      paths: {
-        "machined-part": "/products/thermoplastics-machine-components/api-path",
-      },
-      products: {
-        "machined-part": {
-          name: "Machined Part",
+      success: true,
+      data: {
+        products: {
+          "map-key-only": {
+            name: "Missing Slug Product",
+          },
+          "backend-key": {
+            slug: "canonical-slug",
+            name: "Canonical Product",
+          },
         },
       },
     });
 
-    expect(data.paths?.["machined-part"]).toBe(
-      "/products/thermoplastics-machine-components/api-path",
-    );
-    expect(data.products?.["machined-part"]?.slug).toBe("machined-part");
+    expect(data.products?.["canonical-slug"]?.name).toBe("Canonical Product");
+    expect(data.products?.["map-key-only"]).toBeUndefined();
   });
 });

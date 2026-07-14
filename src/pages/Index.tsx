@@ -25,6 +25,7 @@ import {
   X,
 } from "lucide-react";
 import { useScrollFade } from "@/hooks/useScrollFade";
+import { useMachineComponentRouting } from "@/lib/product-experience/useMachineComponentRouting";
 import heroVideo from "@/assets/hero-landingpage.mp4";
 import semiFinishedImage from "@/assets/semi-finished-products.jpeg";
 import machineComponentsImage from "@/assets/machine-components.jpeg";
@@ -800,6 +801,7 @@ function PolyribPromiseSection() {
 
 const Index = () => {
   const _heroRef = useRef(null);
+  const machineComponents = useMachineComponentRouting();
 
   return (
     <div>
@@ -909,7 +911,7 @@ const Index = () => {
             <ProductCategoryCard
               title="Thermoplastic Machine Components"
               description="RIPLA cutting boards, CUTRITE chopping boards, ARETE composite liners, POLYLIMB Orthopaedic Sheets, Strips & Profiles, Vacuum Formed Parts and Precision Machined Plastic Components — all manufactured in Polyrib's proprietary grades."
-              href="/products/thermoplastics-machine-components"
+              href={machineComponents.rootPath}
               image={machineComponentsImage}
               tag="Machine Components"
             />

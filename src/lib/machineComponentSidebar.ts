@@ -1,12 +1,7 @@
 import type { MachineComponentProduct, MachineSidebarNode } from "@/types/machineComponent";
 
 export function getNodeChildren(node: MachineSidebarNode) {
-  return [
-    ...(node.children ?? []),
-    ...(node.subCategories ?? []),
-    ...(node.brands ?? []),
-    ...(node.products ?? []),
-  ];
+  return node.children ?? [];
 }
 
 function getProductOrder(node: MachineSidebarNode, products?: Record<string, MachineComponentProduct>) {

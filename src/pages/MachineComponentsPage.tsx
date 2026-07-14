@@ -24,24 +24,91 @@ export default function MachineComponentsPage() {
     const seo = selectedProduct?.seo ?? machineData?.seo;
     const title = seo?.title || selectedProduct?.name;
     const description = seo?.description;
+    const keywords = Array.isArray(seo?.keywords)
+      ? seo.keywords.filter(Boolean).join(", ")
+      : seo?.keywords;
+    const canonical = seo?.canonical;
+    const previousTitle = document.title;
+    const previousDescription = document.querySelector<HTMLMetaElement>(
+      'meta[name="description"]',
+    );
+    const previousDescriptionContent = previousDescription?.content;
+    const previousKeywords = document.querySelector<HTMLMetaElement>(
+      'meta[name="keywords"]',
+    );
+    const previousKeywordsContent = previousKeywords?.content;
+    const previousCanonical = document.querySelector<HTMLLinkElement>(
+      'link[rel="canonical"]',
+    );
+    const previousCanonicalHref = previousCanonical?.href;
+    let createdDescription = false;
+    let createdKeywords = false;
+    let createdCanonical = false;
 
     if (title) {
       document.title = title;
     }
 
     if (description) {
-      let metaDescription = document.querySelector<HTMLMetaElement>(
-        'meta[name="description"]',
-      );
+      let metaDescription = previousDescription;
 
       if (!metaDescription) {
         metaDescription = document.createElement("meta");
         metaDescription.name = "description";
         document.head.appendChild(metaDescription);
+        createdDescription = true;
       }
 
       metaDescription.content = description;
     }
+
+    if (keywords) {
+      let metaKeywords = previousKeywords;
+
+      if (!metaKeywords) {
+        metaKeywords = document.createElement("meta");
+        metaKeywords.name = "keywords";
+        document.head.appendChild(metaKeywords);
+        createdKeywords = true;
+      }
+
+      metaKeywords.content = keywords;
+    }
+
+    if (canonical) {
+      let canonicalLink = previousCanonical;
+
+      if (!canonicalLink) {
+        canonicalLink = document.createElement("link");
+        canonicalLink.rel = "canonical";
+        document.head.appendChild(canonicalLink);
+        createdCanonical = true;
+      }
+
+      canonicalLink.href = canonical;
+    }
+
+    return () => {
+      document.title = previousTitle;
+
+      if (createdDescription) {
+        document.querySelector<HTMLMetaElement>('meta[name="description"]')?.remove();
+      } else if (previousDescription && previousDescriptionContent !== undefined) {
+        previousDescription.content = previousDescriptionContent;
+      }
+
+      if (createdKeywords) {
+        document.querySelector<HTMLMetaElement>('meta[name="keywords"]')?.remove();
+      } else if (previousKeywords && previousKeywordsContent !== undefined) {
+        previousKeywords.content = previousKeywordsContent;
+      }
+
+      if (createdCanonical) {
+        document.querySelector<HTMLLinkElement>('link[rel="canonical"]')?.remove();
+      } else if (previousCanonical && previousCanonicalHref !== undefined) {
+        previousCanonical.href = previousCanonicalHref;
+      }
+    };
   }, [machineData?.seo, selectedProduct?.name, selectedProduct?.seo]);
 
   useEffect(() => {

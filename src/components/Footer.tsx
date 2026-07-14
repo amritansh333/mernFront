@@ -1,15 +1,17 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Globe, ArrowRight } from "lucide-react";
 import logoImg from "@/assets/logo-footer.png";
+import { useMachineComponentRouting } from "@/lib/product-experience/useMachineComponentRouting";
 
-const footerLinks = {
+function getFooterLinks(machineComponents: ReturnType<typeof useMachineComponentRouting>) {
+  return {
   Products: [
     { label: "Semi-Finished Products", href: "/products/thermoplastics-semi-finished-products" },
     { label: "Rods & Tubes", href: "/products/thermoplastics-semi-finished-products/rods-tubes" },
     { label: "Sheets & Blocks", href: "/products/thermoplastics-semi-finished-products/sheets-blocks" },
     { label: "Coils & Rolls", href: "/products/thermoplastics-semi-finished-products/coils-rolls" },
-    { label: "Machine Components", href: "/products/thermoplastics-machine-components" },
-    { label: "Strips & Profiles", href: "/products/machine-components/strips-and-profiles" },
+    { label: "Machine Components", href: machineComponents.rootPath },
+    { label: "Strips & Profiles", href: machineComponents.getPathByLabel("Strips & Profiles") },
   ],
   Materials: [
     { label: "POLYRIB V (UHMW PE)", href: "/materials/uhmwpe" },
@@ -33,11 +35,15 @@ const footerLinks = {
     { label: "Material Selector", href: "/tools/material-selector" },
     { label: "Technical Downloads", href: "/resources" },
   ],
-};
+  };
+}
 
 const brands = ["POLYRIB V", "POLYRIB H", "POLYRIB P", "PCCLEAR", "KAYLON", "PAKETAL", "POLYRIB A", "DIPRA", "PLASCON"];
 
 export function Footer() {
+  const machineComponents = useMachineComponentRouting();
+  const footerLinks = getFooterLinks(machineComponents);
+
   return (
     <footer className="bg-charcoal text-primary-foreground">
       {/* Top bar */}

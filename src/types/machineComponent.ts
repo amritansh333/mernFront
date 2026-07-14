@@ -9,22 +9,12 @@ export type MachineComponentValue =
 
 export interface MachineComponentProduct {
   _id?: string;
-  id?: string;
   slug?: string;
   name?: string;
-  title?: string;
-  label?: string;
   description?: string | string[];
-  image?: string;
-  imageUrl?: string;
   path?: string;
-  href?: string;
-  url?: string;
-  paths?: string[] | Record<string, string>;
-  pdfUrl?: string;
-  downloads?: MachineComponentDownload[];
+  image?: string;
   keyFeatures?: string[];
-  features?: string[];
   specifications?: Record<string, MachineComponentValue>;
   applications?: string[];
   machineComponentData?: MachineComponentDataDetails;
@@ -42,9 +32,7 @@ export interface MachineComponentDataDetails {
 
 export interface MachineComponentDownload {
   label?: string;
-  title?: string;
   url?: string;
-  href?: string;
 }
 
 export interface MachineSidebarNode {
@@ -56,18 +44,12 @@ export interface MachineSidebarNode {
   label?: string;
   type?: string;
   path?: string;
-  href?: string;
-  url?: string;
   children?: MachineSidebarNode[];
-  subCategories?: MachineSidebarNode[];
-  brands?: MachineSidebarNode[];
-  products?: MachineSidebarNode[];
 }
 
 export interface MachineComponentsData {
   experience?: string;
   sidebar?: MachineSidebarNode[];
-  navigation?: MachineSidebarNode[];
   defaultProduct?: string;
   products?: Record<string, MachineComponentProduct>;
   paths?: Record<string, string>;
@@ -77,7 +59,7 @@ export interface MachineComponentsData {
 
 export interface MachineComponentsResponse {
   success?: boolean;
-  data?: MachineComponentsData;
+  data: MachineComponentsData;
 }
 
 export interface MachineComponentSeo {

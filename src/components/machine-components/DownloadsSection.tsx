@@ -7,7 +7,7 @@ interface DownloadsSectionProps {
 }
 
 export default function DownloadsSection({ downloads }: DownloadsSectionProps) {
-  const visibleDownloads = downloads.filter((download) => resolveApiAssetUrl(download?.url || download?.href));
+  const visibleDownloads = downloads.filter((download) => resolveApiAssetUrl(download?.url));
 
   if (visibleDownloads.length === 0) return null;
 
@@ -17,8 +17,8 @@ export default function DownloadsSection({ downloads }: DownloadsSectionProps) {
       <h2 className="font-heading text-2xl mb-5">Product Resources</h2>
       <div className="grid gap-3 sm:grid-cols-2">
         {visibleDownloads.map((download, index) => {
-          const href = resolveApiAssetUrl(download?.url || download?.href);
-          const label = download.label || download.title || "Download";
+          const href = resolveApiAssetUrl(download?.url);
+          const label = download.label || "Download";
 
           return (
             <a

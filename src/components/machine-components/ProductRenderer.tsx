@@ -35,9 +35,7 @@ function hasSpecifications(specifications?: Record<string, MachineComponentValue
 }
 
 function getDownloads(product?: MachineComponentProduct): MachineComponentDownload[] {
-  const machineDownloads = product?.machineComponentData?.downloads ?? [];
-  if (machineDownloads.length > 0) return machineDownloads;
-  return product?.pdfUrl ? [{ label: "Download PDF", url: product.pdfUrl }] : [];
+  return product?.machineComponentData?.downloads ?? [];
 }
 
 export default function ProductRenderer({ product }: ProductRendererProps) {

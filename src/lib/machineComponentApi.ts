@@ -17,16 +17,6 @@ function getString(value: unknown) {
   return typeof value === "string" && value.trim() ? value.trim() : undefined;
 }
 
-function getStringArray(value: unknown) {
-  if (!Array.isArray(value)) return undefined;
-
-  const strings = value
-    .map((item) => getString(item))
-    .filter((item): item is string => Boolean(item));
-
-  return strings.length ? strings : undefined;
-}
-
 function normalizeSidebarNode(node: unknown): MachineSidebarNode | null {
   if (!isRecord(node)) return null;
 
@@ -39,56 +29,27 @@ function normalizeSidebarNode(node: unknown): MachineSidebarNode | null {
     .map(normalizeSidebarNode)
     .filter((item): item is MachineSidebarNode => Boolean(item));
 
-  const normalized: MachineSidebarNode = {
-    ...(node as MachineSidebarNode),
-    _id: getString(node._id),
-    id: getString(node.id),
+  return {
     slug: getString(node.slug),
     name: getString(node.name),
-    title: getString(node.title),
-    label: getString(node.label),
-    type: getString(node.type),
     path: getString(node.path),
-    href: getString(node.href),
-    url: getString(node.url),
     children,
-    subCategories: [],
-    brands: [],
-    products: [],
   };
-
-  return normalized;
 }
 
 function normalizeSidebar(value: unknown) {
-  if (Array.isArray(value)) {
-    return value
-      .map(normalizeSidebarNode)
-      .filter((item): item is MachineSidebarNode => Boolean(item));
-  }
+  if (!Array.isArray(value)) return [];
 
-  if (!isRecord(value)) return [];
-
-  return Object.values(value)
+  return value
     .map(normalizeSidebarNode)
     .filter((item): item is MachineSidebarNode => Boolean(item));
 }
 
-function getProductSlug(product: MachineComponentProduct, fallback?: string) {
-  return (
-    getString(product.slug) ||
-    getString(product.id) ||
-    getString(product._id) ||
-    getString(fallback) ||
-    ""
-  );
-}
-
-function normalizeProduct(product: unknown, fallbackSlug?: string): MachineComponentProduct | null {
+function normalizeProduct(product: unknown): MachineComponentProduct | null {
   if (!isRecord(product)) return null;
 
   const normalized = product as MachineComponentProduct;
-  const slug = getProductSlug(normalized, fallbackSlug);
+  const slug = getString(normalized.slug);
   if (!slug) return null;
 
   const machineComponentData = isRecord(normalized.machineComponentData)
@@ -98,15 +59,11 @@ function normalizeProduct(product: unknown, fallbackSlug?: string): MachineCompo
   return {
     ...normalized,
     slug,
-    name: getString(normalized.name) || getString(normalized.title) || getString(normalized.label),
-    image: getString(normalized.image) || getString(normalized.imageUrl),
-    keyFeatures: getStringArray(normalized.keyFeatures) || getStringArray(normalized.features),
+    name: getString(normalized.name),
+    path: getString(normalized.path),
+    image: getString(normalized.image),
     machineComponentData: {
       ...machineComponentData,
-      downloads:
-        normalized.machineComponentData?.downloads ??
-        normalized.downloads ??
-        machineComponentData.downloads,
     },
   };
 }
@@ -114,17 +71,9 @@ function normalizeProduct(product: unknown, fallbackSlug?: string): MachineCompo
 function normalizeProducts(value: unknown) {
   const products: Record<string, MachineComponentProduct> = {};
 
-  if (Array.isArray(value)) {
-    value.forEach((item) => {
-      const product = normalizeProduct(item);
-      if (product?.slug) products[product.slug] = product;
-    });
-    return products;
-  }
-
   if (isRecord(value)) {
-    Object.entries(value).forEach(([key, item]) => {
-      const product = normalizeProduct(item, key);
+    Object.values(value).forEach((item) => {
+      const product = normalizeProduct(item);
       if (product?.slug) products[product.slug] = product;
     });
   }
@@ -133,7 +82,7 @@ function normalizeProducts(value: unknown) {
 }
 
 function normalizePaths(value: unknown) {
-  if (!isRecord(value)) return undefined;
+  if (!isRecord(value)) return {};
 
   return Object.entries(value).reduce<Record<string, string>>((paths, [key, path]) => {
     const normalizedPath = getString(path);
@@ -142,42 +91,20 @@ function normalizePaths(value: unknown) {
   }, {});
 }
 
-function collectSidebarPaths(nodes: MachineSidebarNode[]) {
-  const paths: Record<string, string> = {};
-
-  nodes.forEach((node) => {
-    const path = getString(node.path) || getString(node.href) || getString(node.url);
-    if (node.slug && path) paths[node.slug] = path;
-
-    Object.assign(paths, collectSidebarPaths(node.children ?? []));
-  });
-
-  return paths;
-}
-
 export function normalizeMachineComponentsResponse(
-  response: MachineComponentsData | MachineComponentsResponse | unknown,
+  response: MachineComponentsResponse,
 ): MachineComponentsData {
-  const payload =
-    isRecord(response) && isRecord(response.data)
-      ? response.data
-      : isRecord(response)
-        ? response
-        : {};
+  const payload = response.data ?? {};
 
   const products = normalizeProducts(payload.products);
-  const sidebar = normalizeSidebar(payload.sidebar ?? payload.navigation);
-  const paths = {
-    ...collectSidebarPaths(sidebar),
-    ...(normalizePaths(payload.paths) ?? {}),
-  };
-  const defaultProduct = getString(payload.defaultProduct) || getString(payload.defaultSlug);
+  const sidebar = normalizeSidebar(payload.sidebar);
+  const paths = normalizePaths(payload.paths);
+  const defaultProduct = getString(payload.defaultProduct);
 
   return {
-    ...(payload as MachineComponentsData),
-    experience: getString(payload.experience) || "machine_components",
+    ...payload,
+    experience: getString(payload.experience),
     sidebar,
-    navigation: sidebar,
     defaultProduct,
     products,
     paths,
@@ -189,9 +116,9 @@ export async function getMachineComponents(): Promise<MachineComponentsData> {
   if (pendingRequest) return pendingRequest;
 
   pendingRequest = api
-    .get<MachineComponentsData | MachineComponentsResponse>("/machine-components")
+    .get<MachineComponentsResponse>("/machine-components")
     .then((response) => {
-      cache = normalizeMachineComponentsResponse(response.data ?? {});
+      cache = normalizeMachineComponentsResponse(response.data);
       return cache;
     })
     .finally(() => {

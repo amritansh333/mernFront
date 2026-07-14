@@ -2,8 +2,10 @@ import { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Menu, X, ChevronDown, Home } from "lucide-react";
 import logoImg from "@/assets/logo-footer.png";
+import { useMachineComponentRouting } from "@/lib/product-experience/useMachineComponentRouting";
 
-const navItems = [
+function getNavItems(machineComponents: ReturnType<typeof useMachineComponentRouting>) {
+  return [
   {
     label: "Products",
     megaMenu: true,
@@ -21,14 +23,14 @@ const navItems = [
       },
       {
         heading: "Machine Components",
-        headingHref: "/products/thermoplastics-machine-components",
+        headingHref: machineComponents.rootPath,
         items: [
-          { label: "Strips & Profiles", href: "/products/thermoplastics-machine-components/strips-and-profiles" },
-          { label: "Vacuum Formed Parts", href: "/products/thermoplastics-machine-components/vacuum-formed-plastic-parts" },
-          { label: "RIPLA Cutting Boards", href: "/products/thermoplastics-machine-components/cutting-board" },
-          { label: "CUTRITE Chopping Boards", href: "/products/thermoplastics-machine-components/chopping-board" },
-          { label: "Application Sheets", href: "/products/thermoplastics-machine-components/application-ready-sheets" },
-          { label: "Machined Parts", href: "/products/thermoplastics-machine-components/machined-plastic-parts" },
+          { label: "Strips & Profiles", href: machineComponents.getPathByLabel("Strips & Profiles") },
+          { label: "Vacuum Formed Parts", href: machineComponents.getPathByLabel("Vacuum Formed Parts") },
+          { label: "RIPLA Cutting Boards", href: machineComponents.getPathByLabel("RIPLA Cutting Boards") },
+          { label: "CUTRITE Chopping Boards", href: machineComponents.getPathByLabel("CUTRITE Chopping Boards") },
+          { label: "Application Sheets", href: machineComponents.getPathByLabel("Application Sheets") },
+          { label: "Machined Parts", href: machineComponents.getPathByLabel("Machined Parts") },
         ],
       },
     ],
@@ -74,9 +76,12 @@ const navItems = [
       { label: "Contact", href: "/contact" },
     ],
   },
-];
+  ];
+}
 
 export function Header() {
+  const machineComponents = useMachineComponentRouting();
+  const navItems = getNavItems(machineComponents);
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
