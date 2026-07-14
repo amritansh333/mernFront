@@ -23,6 +23,7 @@ export default function MachineComponentsPage() {
   useEffect(() => {
     if (!selectedSlug) return;
     contentRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+    if (window.innerWidth < 1024) window.scrollTo({ top: 0, behavior: "smooth" });
     setIsDrawerOpen(false);
   }, [selectedSlug]);
 
@@ -54,6 +55,7 @@ export default function MachineComponentsPage() {
           <div className="sticky top-16 h-[calc(100vh-4rem)]">
             <MachineSidebar
               sidebar={machineData?.sidebar}
+              products={machineData?.products}
               selectedSlug={selectedSlug}
               setSelectedSlug={setSelectedSlug}
             />
@@ -76,6 +78,7 @@ export default function MachineComponentsPage() {
                 </SheetHeader>
                 <MachineSidebar
                   sidebar={machineData?.sidebar}
+                  products={machineData?.products}
                   selectedSlug={selectedSlug}
                   setSelectedSlug={setSelectedSlug}
                 />

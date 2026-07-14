@@ -1,24 +1,51 @@
-import { CheckCircle } from "lucide-react";
-import type { MachineComponentProduct } from "@/types/machineComponent";
+import { CircleCheck } from "lucide-react";
 
-interface ProductSectionProps {
-  product?: MachineComponentProduct;
+interface FeaturesSectionProps {
+  features: string[];
 }
 
-export default function FeaturesSection({ product }: ProductSectionProps) {
-  const features = product?.features?.length ? product.features : product?.keyFeatures ?? [];
-
-  if (features.length === 0) return null;
+export default function FeaturesSection({
+  features,
+}: FeaturesSectionProps) {
+  if (!features.length) return null;
 
   return (
     <section className="px-6 py-8 lg:px-10">
-      <p className="section-label mb-2">Features</p>
-      <h2 className="font-heading text-2xl mb-5">Key Highlights</h2>
-      <div className="grid gap-3 sm:grid-cols-2">
-        {features.filter(Boolean).map((feature) => (
-          <div key={feature} className="flex gap-3 border border-divider bg-card p-4">
-            <CheckCircle className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-            <span className="text-sm text-charcoal-light">{feature}</span>
+      {/* Section Badge */}
+      <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.18em] text-[#276A96]">
+        Technical Characteristics
+      </p>
+
+      {/* Features Grid */}
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+        {features.map((feature, index) => (
+          <div
+            key={`${feature}-${index}`}
+            className="
+              flex items-center gap-3
+              border border-[#276A96]/10
+              bg-white
+              p-3
+              transition-all
+              duration-200
+              hover:border-[#279ECE]/40
+              hover:shadow-md
+            "
+          >
+            {/* Icon */}
+            <span
+              className="
+                flex h-6 w-6 shrink-0 items-center justify-center
+                bg-[#279ECE]
+              "
+            >
+              <CircleCheck className="h-3.5 w-3.5 text-white" />
+            </span>
+
+            {/* Text */}
+            <span className="text-sm font-medium leading-snug text-[#1E293B]">
+              {feature}
+            </span>
           </div>
         ))}
       </div>

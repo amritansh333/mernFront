@@ -52,3 +52,28 @@
   transform: translateY(0);
 }
 
+.sidebar-marquee {
+  animation: sidebarMarquee 8s linear infinite;
+}
+
+.sidebarMarquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  20% {
+    transform: translateX(0);
+  }
+
+  70% {
+    transform: translateX(var(--marquee-distance));
+  }
+
+  90% {
+    transform: translateX(var(--marquee-distance));
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}

@@ -17,6 +17,7 @@ import MaterialSelectorPage from "@/pages/MaterialSelectorPage";
 import ResourcesPage from "@/pages/ResourcesPage";
 
 import ProductsPage from "@/pages/ProductsPage";
+import MachineComponentsPage from "@/pages/MachineComponentsPage";
 
 import SubcategoriesPage from "@/pages/SubcategoriesPage";
 import BrandsPage from "@/pages/BrandsPage";
@@ -54,6 +55,16 @@ function App() {
         {/* PRODUCT FLOW */}
 
         <Route path="/products" element={<ProductsPage />} />
+
+        <Route
+          path="/products/thermoplastics-machine-components/*"
+          element={<MachineComponentsPage />}
+        />
+
+        <Route
+          path="/products/machine-components/*"
+          element={<MachineComponentsPage />}
+        />
 
         <Route path="/products/:categorySlug" element={<SubcategoriesPage />} />
 

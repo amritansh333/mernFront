@@ -2,6 +2,12 @@ import { useEffect, useState } from "react";
 import { getMachineComponents } from "@/lib/machineComponentApi";
 import type { MachineComponentsData } from "@/types/machineComponent";
 
+function getDefaultSlug(data: MachineComponentsData) {
+  const products = data?.products ?? {};
+  if (data?.defaultProduct && products[data.defaultProduct]) return data.defaultProduct;
+  return Object.keys(products)[0] || "";
+}
+
 export function useMachineComponents() {
   const [machineData, setMachineData] = useState<MachineComponentsData | null>(null);
   const [selectedSlug, setSelectedSlug] = useState("");
@@ -16,7 +22,7 @@ export function useMachineComponents() {
         if (!isMounted) return;
 
         setMachineData(data);
-        setSelectedSlug(data?.defaultProduct || Object.keys(data?.products ?? {})[0] || "");
+        setSelectedSlug(getDefaultSlug(data));
         setError(null);
       })
       .catch(() => {

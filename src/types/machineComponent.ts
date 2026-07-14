@@ -1,21 +1,32 @@
-export type MachineComponentValue = string | number | boolean | string[] | number[] | null | undefined;
+export type MachineComponentValue =
+  | string
+  | number
+  | boolean
+  | string[]
+  | number[]
+  | null
+  | undefined;
 
 export interface MachineComponentProduct {
   _id?: string;
   slug?: string;
   name?: string;
-  title?: string;
-  subtitle?: string;
   description?: string | string[];
   image?: string;
-  imageUrl?: string;
   pdfUrl?: string;
-  brochureUrl?: string;
-  features?: string[];
   keyFeatures?: string[];
   specifications?: Record<string, MachineComponentValue>;
   applications?: string[];
+  machineComponentData?: MachineComponentDataDetails;
+}
+
+export interface MachineComponentDataDetails {
+  summary?: string | string[];
+  applications?: string[];
+  specifications?: Record<string, MachineComponentValue>;
   downloads?: MachineComponentDownload[];
+  order?: number;
+  isVisible?: boolean;
 }
 
 export interface MachineComponentDownload {
@@ -34,6 +45,8 @@ export interface MachineSidebarNode {
   label?: string;
   type?: string;
   children?: MachineSidebarNode[];
+  subCategories?: MachineSidebarNode[];
+  brands?: MachineSidebarNode[];
   products?: MachineSidebarNode[];
 }
 
@@ -42,4 +55,9 @@ export interface MachineComponentsData {
   sidebar?: MachineSidebarNode[];
   defaultProduct?: string;
   products?: Record<string, MachineComponentProduct>;
+}
+
+export interface MachineComponentsResponse {
+  success?: boolean;
+  data?: MachineComponentsData;
 }

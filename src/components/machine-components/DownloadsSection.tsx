@@ -1,33 +1,23 @@
 import { Download } from "lucide-react";
-import type { MachineComponentDownload, MachineComponentProduct } from "@/types/machineComponent";
+import { resolveApiAssetUrl } from "@/lib/assetUrl";
+import type { MachineComponentDownload } from "@/types/machineComponent";
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL;
-
-interface ProductSectionProps {
-  product?: MachineComponentProduct;
+interface DownloadsSectionProps {
+  downloads: MachineComponentDownload[];
 }
 
-function normalizeUrl(url?: string) {
-  if (!url) return "";
-  return url.startsWith("http") ? url : `${BASE_URL}${url}`;
-}
+export default function DownloadsSection({ downloads }: DownloadsSectionProps) {
+  const visibleDownloads = downloads.filter((download) => resolveApiAssetUrl(download?.url || download?.href));
 
-export default function DownloadsSection({ product }: ProductSectionProps) {
-  const downloads: MachineComponentDownload[] = [
-    ...(product?.downloads ?? []),
-    ...(product?.pdfUrl ? [{ label: "Datasheet", url: product.pdfUrl }] : []),
-    ...(product?.brochureUrl ? [{ label: "Brochure", url: product.brochureUrl }] : []),
-  ].filter((download) => normalizeUrl(download.url || download.href));
-
-  if (downloads.length === 0) return null;
+  if (visibleDownloads.length === 0) return null;
 
   return (
     <section className="border-t border-divider px-6 py-8 lg:px-10">
       <p className="section-label mb-2">Downloads</p>
       <h2 className="font-heading text-2xl mb-5">Product Resources</h2>
       <div className="grid gap-3 sm:grid-cols-2">
-        {downloads.map((download, index) => {
-          const href = normalizeUrl(download.url || download.href);
+        {visibleDownloads.map((download, index) => {
+          const href = resolveApiAssetUrl(download?.url || download?.href);
           const label = download.label || download.title || "Download";
 
           return (
