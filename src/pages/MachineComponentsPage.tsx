@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu } from "lucide-react";
 import MachineSidebar from "@/components/machine-components/MachineSidebar";
 import ProductRenderer from "@/components/machine-components/ProductRenderer";
@@ -17,7 +17,6 @@ import { useMachineComponents } from "@/hooks/useMachineComponents";
 export default function MachineComponentsPage() {
   const { machineData, selectedSlug, selectedProduct, setSelectedSlug, loading, error } =
     useMachineComponents();
-  const contentRef = useRef<HTMLDivElement>(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   useEffect(() => {
@@ -113,8 +112,7 @@ export default function MachineComponentsPage() {
 
   useEffect(() => {
     if (!selectedSlug) return;
-    contentRef.current?.scrollTo({ top: 0, behavior: "smooth" });
-    if (window.innerWidth < 1024) window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: "smooth" });
     setIsDrawerOpen(false);
   }, [selectedSlug]);
 
@@ -141,7 +139,7 @@ export default function MachineComponentsPage() {
 
   return (
     <main className="pt-16 bg-background">
-      <div className="flex min-h-[calc(100vh-4rem)] overflow-x-hidden">
+      <div className="flex min-h-[calc(100vh-4rem)]">
         <div className="hidden w-72 shrink-0 lg:block xl:w-80">
           <div className="sticky top-16 h-[calc(100vh-4rem)]">
             <MachineSidebar
@@ -177,7 +175,7 @@ export default function MachineComponentsPage() {
             </Sheet>
           </div>
 
-          <div ref={contentRef} className="h-auto overflow-y-visible lg:h-[calc(100vh-4rem)] lg:overflow-y-auto">
+          <div>
             <ProductRenderer product={selectedProduct} />
           </div>
         </section>

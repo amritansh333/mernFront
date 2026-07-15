@@ -55,7 +55,10 @@ function filterNodes(
         children: filteredChildren,
       };
     })
-    .filter((node): node is MachineSidebarNode => Boolean(node));
+    .filter(
+  (node): node is NonNullable<typeof node> =>
+    node !== null
+);
 
   return sortNodesByProductOrder(filteredNodes, products);
 }
@@ -164,13 +167,12 @@ export default function MachineSidebar({
 
             <div className="min-w-0 flex-1">
 
-              <h2 className="text-[22px] text-white/90 font-bold leading-none tracking-tight">
-                Machine Components
+              <h2 className="text-[22px] text-white/100 font-bold leading-none tracking-tight">
+               Thermoplastics Machine Components
               </h2>
 
-              <p className="mt-2 max-w-[240px] text-sm leading-6 text-white/90">
-                Browse our complete range of industrial engineering plastic
-                components.
+              <p className="mt-2 max-w-[240px] text-sm leading-6 text-white/70">
+                Browse our complete range of thermoplastics machine components.
               </p>
 
             </div>

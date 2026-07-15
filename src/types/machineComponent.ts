@@ -19,6 +19,7 @@ export interface MachineComponentProduct {
   applications?: string[];
   machineComponentData?: MachineComponentDataDetails;
   seo?: MachineComponentSeo;
+  downloads?: MachineComponentDownload[];
 }
 
 export interface MachineComponentDataDetails {

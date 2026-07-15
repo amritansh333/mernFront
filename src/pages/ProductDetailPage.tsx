@@ -5,15 +5,19 @@ import {
   ChevronRight,
   CheckCircle,
   MapPin,
+  ArrowRight,
+  Download
 } from "lucide-react";
+import type { Product } from "@/types/product";
 import api from "@/lib/api";
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 
 export default function ProductDetailPage() {
   const { categorySlug, subcategorySlug, brandSlug, productSlug } =
     useParams();
 
-  const [product, setProduct] = useState<any>(null);
+  const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
   const [currentImage, setCurrentImage] = useState(0);
 
@@ -154,7 +158,7 @@ export default function ProductDetailPage() {
                 </div>
               </>
             ) : (
-              <>
+              <div>
                 <h1 className="font-heading text-4xl text-charcoal mb-5">
                   {product.name}
                 </h1>
@@ -171,31 +175,28 @@ export default function ProductDetailPage() {
                 </div>
 
                 {/* BUTTONS */}
-                <div className="flex gap-4">
-                  <Link
-                    to="/contact"
-                    className="px-6 py-3 bg-primary text-white font-semibold transition hover:bg-primary-dark"
-                  >
-                    Request Quote
-                  </Link>
+                <div className="flex flex-wrap items-center gap-3">
+  <Link
+    to="/contact"
+    className="inline-flex h-11 w-full sm:w-[190px] items-center justify-center gap-2 bg-gradient-to-r from-[#279ECE] to-[#1F7FA8] text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#279ECE]/30"
+  >
+    <span>Request Quote</span>
+    <ArrowRight className="h-4 w-4" />
+  </Link>
 
-                  {product.pdfUrl && (
-                    <a
-                      href={`${BASE_URL}${product.pdfUrl}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="relative px-6 py-3 border border-primary text-primary font-semibold overflow-hidden group transition-all duration-300"
-                    >
-                      <span className="relative z-10 group-hover:text-white transition">
-                        Download Datasheet
-                      </span>
-
-                      {/* Glow Background */}
-                      <span className="absolute inset-0 bg-primary translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-                    </a>
-                  )}
-                </div>
-              </>
+  {product.pdfUrl && (
+    <a
+      href={`${BASE_URL}${product.pdfUrl}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex h-11 w-full sm:w-[190px] items-center justify-center gap-2 border border-[#C7D9E6] bg-white text-sm font-semibold text-[#276A96] transition-all duration-200 hover:border-[#279ECE] hover:bg-[#F5FBFE] hover:text-[#279ECE]"
+    >
+      <span>Download Datasheet</span>
+      <Download className="h-4 w-4" />
+    </a>
+  )}
+</div>
+              </div>
             )}
           </div>
 
@@ -239,7 +240,7 @@ export default function ProductDetailPage() {
                   </button>
 
                   <div className="flex justify-center gap-2 mt-4">
-                    {images.map((_: any, i: number) => (
+                    {images.map((_: string, i: number) => (
                       <span
                         key={i}
                         className={`h-2 w-2 rounded-full ${
@@ -334,7 +335,10 @@ export default function ProductDetailPage() {
 
                 <div className="border border-divider">
                   {Object.entries(product.specifications).map(
-                    ([key, value]: any) => (
+                    ([key, value]: [
+  string,
+  string | string[]
+]) => (
                       <div
                         key={key}
                         className="grid grid-cols-2 border-b border-divider text-sm"
@@ -343,10 +347,52 @@ export default function ProductDetailPage() {
                           {key.replace(/([A-Z])/g, " $1")}
                         </div>
                         <div className="p-4 font-medium text-charcoal">
-                          {Array.isArray(value)
-                            ? value.join(", ")
-                            : value}
-                        </div>
+  {key === "colorOptions" || key === "colourOptions" ? (
+    <div className="flex flex-wrap gap-3">
+      {(Array.isArray(value) ? value : String(value).split(",")).map(
+        (color: string) => {
+          const name = color.trim();
+
+          const colorMap: Record<string, string> = {
+            Black: "#1F2937",
+            White: "#FFFFFF",
+            Blue: "#279ECE",
+            Red: "#DC2626",
+            Green: "#16A34A",
+            Yellow: "#FACC15",
+            Orange: "#F97316",
+            Grey: "#9CA3AF",
+            Gray: "#9CA3AF",
+            Brown: "#8B5A2B",
+            Natural: "#D6C6A8",
+            Ivory: "#F8F4E3",
+            Beige: "#E8D8B5",
+          };
+
+          return (
+            <div
+              key={name}
+              className="flex items-center gap-2 rounded-full border border-divider bg-[#F8FAFC] px-3 py-1"
+            >
+              <span
+                className="h-3 w-3 rounded-full border border-gray-300"
+                style={{
+                  backgroundColor: colorMap[name] || "#CBD5E1",
+                }}
+              />
+
+              <span>{name}</span>
+            </div>
+          );
+        }
+      )}
+    </div>
+  ) : Array.isArray(value) ? (
+    value.join(", ")
+  ) : (
+    value
+  )}
+</div>
                       </div>
                     )
                   )}
