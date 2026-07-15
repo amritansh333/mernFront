@@ -6,6 +6,7 @@ import { ArrowRight } from "lucide-react";
 import semiFinishedImage from "@/assets/semi-finished-products.jpeg";
 import machineComponentsImage from "@/assets/machine-components.jpeg";
 import { useScrollFade } from "@/hooks/useScrollFade";
+import { useMachineComponentRouting } from "@/lib/product-experience/useMachineComponentRouting";
 
 /*
 const categories = [
@@ -23,7 +24,7 @@ const categories = [
     title: "Thermoplastic Machine Components",
     description:
       "RIPLA cutting boards, CUTRITE chopping boards, ARETE composite liners, POLYLIMB orthopaedic sheets, strips & profiles, vacuum formed parts and precision machined plastic components — all manufactured in Polyrib's proprietary grades.",
-    href: "/products/machine-components",
+    href: "",
     image: machineComponentsImage,
     brands: ["RIPLA", "CUTRITE", "ARETE", "POLYLIMB", "Strips & Profiles", "Machined Parts"],
   },
@@ -47,6 +48,7 @@ const BRAND_QUICK_LINKS = [
 
 export default function ProductsPage() {
   const ref = useScrollFade() as React.RefObject<HTMLElement>;
+  const machineComponents = useMachineComponentRouting();
   const [categories, setCategories] = useState<any[]>([]);
 const [loading, setLoading] = useState(true);
 const [error, setError] = useState<string | null>(null);
@@ -90,7 +92,7 @@ useEffect(() => {
             {categories.map((cat) => (
   <Link
     key={cat._id}
-    to={`/products/${cat.slug}`}
+    to={machineComponents.resolveCategoryPath(cat)}
     className="category-card block group"
   >
     <div className="card-image aspect-video overflow-hidden">

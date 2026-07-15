@@ -1,34 +1,36 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Menu, X, ChevronDown, Home } from "lucide-react";
+import { Menu, X, ChevronDown, Home, ArrowRight } from "lucide-react";
 import logoImg from "@/assets/logo-footer.png";
+import { useMachineComponentRouting } from "@/lib/product-experience/useMachineComponentRouting";
 
-const navItems = [
+function getNavItems(machineComponents: ReturnType<typeof useMachineComponentRouting>) {
+  return [
   {
     label: "Products",
     megaMenu: true,
     columns: [
       {
-        heading: "Semi-Finished Products",
+        heading: "Thermoplastics Semi Finished Products",
         headingHref: "/products/thermoplastics-semi-finished-products",
         items: [
           { label: "Sheets & Blocks", href: "/products/thermoplastics-semi-finished-products/sheets-blocks" },
           { label: "Rods & Tubes", href: "/products/thermoplastics-semi-finished-products/rods-tubes" },
           { label: "Coils & Rolls", href: "/products/thermoplastics-semi-finished-products/coils-rolls" },
           { label: "Welding Rods", href: "/products/thermoplastics-semi-finished-products/welding-rod" },
-          { label: "Custom Sheets", href: "/products/thermoplastics-semi-finished-products/custom-sized-plastic-sheets" }
+          { label: "Custom-Sized Plastic Sheets", href: "/products/thermoplastics-semi-finished-products/custom-sized-plastic-sheets" }
         ],
       },
       {
-        heading: "Machine Components",
+        heading: "Thermoplastics Machine Components",
         headingHref: "/products/thermoplastics-machine-components",
         items: [
-          { label: "Strips & Profiles", href: "/products/thermoplastics-machine-components/strips-and-profiles" },
-          { label: "Vacuum Formed Parts", href: "/products/thermoplastics-machine-components/vacuum-formed-plastic-parts" },
-          { label: "RIPLA Cutting Boards", href: "/products/thermoplastics-machine-components/cutting-board" },
-          { label: "CUTRITE Chopping Boards", href: "/products/thermoplastics-machine-components/chopping-board" },
-          { label: "Application Sheets", href: "/products/thermoplastics-machine-components/application-ready-sheets" },
-          { label: "Machined Parts", href: "/products/thermoplastics-machine-components/machined-plastic-parts" },
+          { label: "Strips & Profiles", href: "/products/thermoplastics-machine-components/strips-and-profiles/polyrib-strips-and-profiles" },
+          { label: "Vacuum Formed Plastic Parts", href: "/products/thermoplastics-machine-components/vacuum-formed-plastic-parts/pcclear-base-plate" },
+          { label: "Cutting Boards", href: "/products/thermoplastics-machine-components/cutting-board/polyrib-ripla" },
+          { label: "Chopping Boards", href: "/products/thermoplastics-machine-components/chopping-board/polyrib-cutrite" },
+          { label: "Application Sheets", href: "/products/thermoplastics-machine-components/application-ready-sheets/arete-liners" },
+          { label: "Machined Plastic Parts", href: "/products/thermoplastics-machine-components/machined-plastic-parts/ccn" },
         ],
       },
     ],
@@ -74,9 +76,12 @@ const navItems = [
       { label: "Contact", href: "/contact" },
     ],
   },
-];
+  ];
+}
 
 export function Header() {
+  const machineComponents = useMachineComponentRouting();
+  const navItems = getNavItems(machineComponents);
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
@@ -252,13 +257,14 @@ export function Header() {
 
           {/* CTA */}
           <div className="hidden lg:flex items-center gap-3">
-            <Link
-              to="/contact"
-              className="px-5 py-2 bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary-dark transition-colors duration-200"
-            >
-              Request Quote
-            </Link>
-          </div>
+  <Link
+    to="/contact"
+    className="inline-flex items-center justify-center gap-2 px-5 py-2 bg-gradient-to-r from-[#279ECE] to-[#1F7FA8] text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#279ECE]/30"
+  >
+    <span>Request Quote</span>
+    <ArrowRight className="h-4 w-4" />
+  </Link>
+</div>
 
           {/* Mobile Toggle */}
           <button
@@ -366,13 +372,14 @@ export function Header() {
               </div>
             ))}
             <div className="pt-4">
-              <Link
-                to="/contact"
-                className="block w-full text-center px-5 py-2.5 bg-primary text-primary-foreground text-sm font-semibold"
-              >
-                Request Quote
-              </Link>
-            </div>
+  <Link
+    to="/contact"
+    className="inline-flex w-full items-center justify-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#279ECE] to-[#1F7FA8] text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#279ECE]/30"
+  >
+    <span>Request Quote</span>
+    <ArrowRight className="h-4 w-4" />
+  </Link>
+</div>
           </nav>
         </div>
       )}
