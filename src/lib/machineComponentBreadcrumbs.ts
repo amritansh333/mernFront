@@ -46,34 +46,47 @@ export function buildMachineComponentBreadcrumbs(
   if (!data || !selectedSlug) return [];
 
   const trail = findTrail(data.sidebar, selectedSlug);
-  const breadcrumbs = trail
+
+  let breadcrumbs = trail
     .map((node) => ({
       label: getNodeLabel(node),
       path: getNodePath(data, node),
     }))
     .filter((breadcrumb) => breadcrumb.label);
 
-  if (!currentPath) return breadcrumbs;
+  if (currentPath) {
+    const normalizedCurrentPath = normalizeProductPath(currentPath);
 
-  const normalizedCurrentPath = normalizeProductPath(currentPath);
-  const currentPathIndex = breadcrumbs.findIndex(
-    (breadcrumb) =>
-      breadcrumb.path &&
-      normalizeProductPath(breadcrumb.path) === normalizedCurrentPath,
-  );
+    const currentPathIndex = breadcrumbs.findIndex(
+      (breadcrumb) =>
+        breadcrumb.path &&
+        normalizeProductPath(breadcrumb.path) === normalizedCurrentPath,
+    );
 
-  if (currentPathIndex >= 0) {
-    return breadcrumbs.slice(0, currentPathIndex + 1);
+    if (currentPathIndex >= 0) {
+      breadcrumbs = breadcrumbs.slice(0, currentPathIndex + 1);
+    } else {
+      const rootPath = getMachineComponentsRootPath(data);
+
+      if (
+        rootPath &&
+        normalizeProductPath(rootPath) === normalizedCurrentPath &&
+        breadcrumbs.length > 0
+      ) {
+        breadcrumbs = breadcrumbs.slice(0, 1);
+      }
+    }
   }
 
-  const rootPath = getMachineComponentsRootPath(data);
-  if (
-    rootPath &&
-    normalizeProductPath(rootPath) === normalizedCurrentPath &&
-    breadcrumbs.length > 0
-  ) {
-    return breadcrumbs.slice(0, 1);
-  }
-
-  return breadcrumbs;
+  return [
+    {
+      label: "Home",
+      path: "/",
+    },
+    {
+      label: "Products",
+      path: "/products",
+    },
+    ...breadcrumbs,
+  ];
 }

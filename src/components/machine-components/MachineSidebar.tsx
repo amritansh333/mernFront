@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import SidebarNode from "@/components/machine-components/SidebarNode";
 import SidebarSearch from "@/components/machine-components/SidebarSearch";
 import {
@@ -19,6 +19,9 @@ interface MachineSidebarProps {
   products?: Record<string, MachineComponentProduct>;
   selectedSlug: string;
   setSelectedSlug: (slug: string) => void;
+
+  search: string;
+  setSearch: (value: string) => void;
 }
 
 function getNodeLabel(node: MachineSidebarNode) {
@@ -80,13 +83,23 @@ export default function MachineSidebar({
   products,
   selectedSlug,
   setSelectedSlug,
-}: MachineSidebarProps) {
-  const [search, setSearch] = useState("");
+  search,
+  setSearch,
+}: MachineSidebarProps) {  
 
   const filteredSidebar = useMemo(
     () => filterNodes(sidebar, search, products),
     [sidebar, search, products],
   );
+
+const visibleSidebar = useMemo(() => {
+  return filteredSidebar.map((node) => ({
+    ...node,
+    children: getNodeChildren(node).filter(
+      (child) => getNodeLabel(child) !== "overview"
+    ),
+  }));
+}, [filteredSidebar]);
 
   const hasSearch = search.trim().length > 0;
 
@@ -110,34 +123,115 @@ export default function MachineSidebar({
           text-white
         "
       >
-        {/* Decorative Pattern 1 */}
+{/* ================= BACKGROUND DESIGN ================= */}
 
-        <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-white/10 blur-2xl" />
+{/* Top Right Soft Circle */}
+<div
+  className="
+    absolute
+    -top-32
+    -right-28
+    h-[360px]
+    w-[360px]
+    rounded-full
+    bg-[#0B7CC0]/25
+    blur-[90px]
+  "
+/>
 
-        {/* Decorative Pattern 2 */}
+{/* Bottom Left Soft Circle */}
+<div
+  className="
+    absolute
+    -bottom-28
+    -left-24
+    h-[320px]
+    w-[320px]
+    rounded-full
+    bg-[#0A6FAF]/22
+    blur-[85px]
+  "
+/>
 
-        <div className="absolute -bottom-10 left-[-50px] h-28 w-28 rounded-full bg-white/10 blur-xl" />
+{/* Small Highlight near top-right */}
+<div
+  className="
+    absolute
+    top-10
+    right-20
+    h-28
+    w-28
+    rounded-full
+    bg-white/10
+    blur-[40px]
+  "
+/>
 
-        {/* Decorative Pattern 3 */}
+{/* White Engineering Dots */}
+<div
+  className="absolute inset-0 opacity-[0.18]"
+  style={{
+    backgroundImage:
+      "radial-gradient(circle, rgba(255,255,255,.95) 2px, transparent 2px)",
+    backgroundSize: "42px 42px",
+  }}
+/>
 
-        <div
-          className="absolute inset-0 opacity-[0.08]"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at 1px 1px, white 1.2px, transparent 0)",
-            backgroundSize: "24px 24px",
-          }}
-        />
+{/* Top Light */}
+<div
+  className="
+    absolute
+    inset-x-0
+    top-0
+    h-24
+    bg-gradient-to-b
+    from-white/10
+    via-white/4
+    to-transparent
+  "
+/>
+
+{/* Bottom Light */}
+<div
+  className="
+    absolute
+    inset-x-0
+    bottom-0
+    h-20
+    bg-gradient-to-t
+    from-white/8
+    to-transparent
+  "
+/>
+
+{/* Soft Edge Blend */}
+<div
+  className="absolute inset-0 opacity-70"
+  style={{
+    background: `
+      radial-gradient(circle at top right,
+        rgba(255,255,255,.08) 0%,
+        rgba(255,255,255,.03) 22%,
+        transparent 55%
+      ),
+      radial-gradient(circle at bottom left,
+        rgba(255,255,255,.08) 0%,
+        rgba(255,255,255,.03) 22%,
+        transparent 55%
+      )
+    `,
+  }}
+/>
 
         <div className="relative z-10">
 
           {/* EXPLORE OUR RANGE */}
 
-          <div className="mb-4 inline-flex items-center gap-2 rounded-md border border-white/15 bg-white/15 px-3 py-1.5 backdrop-blur-md">
+          <div className="mb-4 inline-flex items-center gap-2 rounded-md border border-white/15 bg-white/20 px-3 py-1.5 backdrop-blur-md">
 
             <Sparkles className="h-3.5 w-3.5" />
 
-            <span className="text-[9px] font-bold uppercase tracking-[0.18em]">
+            <span className="text-[9px] font-bold uppercase tracking-[0.18em] ">
               Explore Our Range
             </span>
 
@@ -156,7 +250,7 @@ export default function MachineSidebar({
                 items-center
                 justify-center
                 rounded-md
-                bg-white/10
+                bg-white/15
                 backdrop-blur-md
                 ring-1
                 ring-white/10
@@ -167,12 +261,13 @@ export default function MachineSidebar({
 
             <div className="min-w-0 flex-1">
 
-              <h2 className="text-[22px] text-white/100 font-bold leading-none tracking-tight">
-               Thermoplastics Machine Components
+              <h2 className="text-[22px] text-white/90 font-bold leading-none tracking-tight">
+               Precision That Powers Industry.
               </h2>
+              
 
-              <p className="mt-2 max-w-[240px] text-sm leading-6 text-white/70">
-                Browse our complete range of thermoplastics machine components.
+              <p className="mt-2 max-w-[240px] text-sm leading-6 text-white/80 font-bold tracking-tight">
+                Where engineering precision meets dependable industrial performance.
               </p>
 
             </div>
@@ -209,7 +304,7 @@ export default function MachineSidebar({
       >
                 {filteredSidebar.length > 0 ? (
           <ul className="space-y-2">
-            {filteredSidebar.map((node, index) => (
+            {visibleSidebar.map((node, index) => (
               <SidebarNode
                 key={
                   node.id ||

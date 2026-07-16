@@ -4,6 +4,8 @@ import { Footer } from "@/components/Footer";
 import { MachineComponentsDataProvider } from "@/contexts/MachineComponentsDataContext";
 import ScrollToTop from "@/components/ScrollToTop";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
+import CallButton from "@/components/CallButton";
+import { CookieConsentManager } from "@/components/cookie-consent";
 
 import Index from "@/pages/Index";
 import AboutPage from "@/pages/AboutPage";
@@ -24,6 +26,7 @@ import NotFound from "@/pages/NotFound";
 function App() {
   return (
     <Router>
+       
       <MachineComponentsDataProvider>
         <ScrollToTop />
         <Header />
@@ -51,11 +54,15 @@ function App() {
           {/* 404 */}
           <Route path="*" element={<NotFound />} />
         </Routes>
+        <CallButton />
         <ScrollToTopButton />
+        <CookieConsentManager />
 
         <Footer />
+
       </MachineComponentsDataProvider>
     </Router>
+    
   );
 }
 
