@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { PhoneCall } from "lucide-react";
 
-const PHONE_NUMBER = "9876543210";
+const PHONE_NUMBER = "+919936794816";
 
 export default function CallButton() {
   const [moveUp, setMoveUp] = useState(false);
