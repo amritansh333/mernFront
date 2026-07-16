@@ -1,4 +1,4 @@
-import { CircleCheck } from "lucide-react";
+import { CircleCheck, ShieldCheck } from "lucide-react";
 
 interface FeaturesSectionProps {
   features: string[];

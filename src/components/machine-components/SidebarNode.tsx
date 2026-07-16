@@ -1,5 +1,6 @@
 import { memo, useEffect, useRef, useState } from "react";
 import type { KeyboardEvent } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   ChevronRight,
   CircleCheck,
@@ -46,6 +47,9 @@ function SidebarNode({
   forceOpen = false,
   products,
 }: SidebarNodeProps) {
+
+  const navigate = useNavigate();
+  
   const children = sortNodesByProductOrder(
     getNodeChildren(node),
     products,
@@ -58,8 +62,10 @@ function SidebarNode({
     hasChildren && hasSelectedDescendant(node, selectedSlug);
 
   const [isOpen, setIsOpen] = useState(
-    depth < 1 || isSelected || containsSelected,
-  );
+  depth === 0 || isSelected || containsSelected,
+);
+
+const actuallyOpen = depth === 0 || forceOpen || isOpen;
 
   const textContainerRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLSpanElement>(null);
@@ -91,15 +97,25 @@ function SidebarNode({
   }, [node.name, node.title, node.label, node.slug]);
 
   const handleClick = () => {
-    if (isProduct && node.slug) {
-      setSelectedSlug(node.slug);
-      return;
-    }
+  if (isProduct && node.slug) {
+    setSelectedSlug(node.slug);
+    return;
+  }
 
-    if (hasChildren) {
-      setIsOpen((value) => !value);
+  // Root node: keep expanded and navigate to overview page.
+  if (depth === 0) {
+    if (node.path) {
+      navigate(node.path);
+    } else if (node.slug) {
+      navigate(`/products/${node.slug}`);
     }
-  };
+    return;
+  }
+
+  if (hasChildren) {
+    setIsOpen((value) => !value);
+  }
+};
 
   const handleKeyDown = (
     event: KeyboardEvent<HTMLButtonElement>,
@@ -112,13 +128,13 @@ function SidebarNode({
       handleClick();
     }
 
-    if (event.key === "ArrowRight" && hasChildren) {
-      setIsOpen(true);
-    }
+    if (event.key === "ArrowRight" && hasChildren && depth !== 0) {
+  setIsOpen(true);
+}
 
-    if (event.key === "ArrowLeft" && hasChildren) {
-      setIsOpen(false);
-    }
+    if (event.key === "ArrowLeft" && hasChildren && depth !== 0) {
+  setIsOpen(false);
+}
   };
 
   return (
@@ -127,7 +143,7 @@ function SidebarNode({
         type="button"
         onClick={handleClick}
         onKeyDown={handleKeyDown}
-        aria-expanded={hasChildren ? forceOpen || isOpen : undefined}
+        aria-expanded={hasChildren ? actuallyOpen : undefined}
         aria-current={isSelected ? "page" : undefined}
         style={{ paddingLeft: `${depth * 16}px` }}
         className="group w-full text-left"
@@ -193,7 +209,7 @@ function SidebarNode({
             <ChevronRight
               className={cn(
                 "h-4 w-4 shrink-0 text-[#279ECE] transition-transform",
-                isOpen && "rotate-90",
+                actuallyOpen && "rotate-90",
               )}
             />
 
@@ -204,7 +220,7 @@ function SidebarNode({
         )}
       </button>
 
-      {hasChildren && (forceOpen || isOpen) && (
+      {hasChildren && actuallyOpen && (
         <ul className="mt-1 space-y-1">
           {children.map((child, index) => (
             <SidebarNode

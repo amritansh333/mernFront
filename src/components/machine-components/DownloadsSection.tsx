@@ -1,4 +1,4 @@
-import { Download } from "lucide-react";
+import { Download, FolderDown } from "lucide-react";
 import { resolveApiAssetUrl } from "@/lib/assetUrl";
 import type { MachineComponentDownload } from "@/types/machineComponent";
 
@@ -13,7 +13,14 @@ export default function DownloadsSection({ downloads }: DownloadsSectionProps) {
 
   return (
     <section className="border-t border-divider px-6 py-8 lg:px-10">
-      <p className="section-label mb-2">Downloads</p>
+      {/* Badge */}
+<div className="mb-3 inline-flex items-center gap-2 rounded-sm border border-[#279ECE]/20 bg-[#279ECE]/10 px-3 py-1.5">
+  <FolderDown className="h-3.5 w-3.5 text-[#276A96]" />
+
+  <span className="text-[10px] font-bold uppercase tracking-widest text-[#276A96]">
+    Downloads
+  </span>
+</div>
       <h2 className="font-heading text-2xl mb-5">Product Resources</h2>
       <div className="flex flex-wrap gap-3">
   {visibleDownloads.map((download, index) => {
