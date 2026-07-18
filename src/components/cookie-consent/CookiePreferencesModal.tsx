@@ -40,7 +40,7 @@ export default function CookiePreferencesModal({
 
       {/* Modal */}
 
-      <div className="fixed left-1/2 top-1/2 z-[9999] w-[95%] max-w-2xl -translate-x-1/2 -translate-y-1/2 rounded-3xl bg-white/10 backdrop-blur-md shadow-2xl">
+      <div className="fixed left-1/2 top-1/2 z-[9999] w-[95%] max-w-2xl -translate-x-1/2 -translate-y-1/2 rounded-3xl bg-white shadow-2xl">
 
         {/* Header */}
 
@@ -114,7 +114,7 @@ export default function CookiePreferencesModal({
 
           <CookieCategory
             title="Marketing"
-            description="Used for advertising and remarketing. (Currently not used by Polyrib.)"
+            description="Used for advertising and remarketing. (Currently not used.)"
             checked={preferences.marketing}
             onCheckedChange={(value) =>
               setPreferences({
@@ -139,7 +139,7 @@ export default function CookiePreferencesModal({
 
           <button
             onClick={() => onSave(preferences)}
-            className="rounded-xl bg-[#276A96] px-6 py-3 font-semibold text-white transition hover:bg-[#1F5678]"
+            className="rounded-xl bg-[#4BB3DD] px-6 py-3 font-semibold text-white transition hover:bg-[#1F5678]"
           >
             Save Preferences
           </button>

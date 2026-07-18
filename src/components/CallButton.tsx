@@ -5,6 +5,7 @@ const PHONE_NUMBER = "+919936794816";
 
 export default function CallButton() {
   const [moveUp, setMoveUp] = useState(false);
+  const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,32 +17,64 @@ export default function CallButton() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+  const collapse = () => {
+    setExpanded(false);
+  };
+
+  const handleVisibilityChange = () => {
+    if (document.visibilityState === "hidden") {
+      collapse();
+    }
+  };
+
+  window.addEventListener("blur", collapse);
+  window.addEventListener("focus", collapse);
+  document.addEventListener("visibilitychange", handleVisibilityChange);
+
+  return () => {
+    window.removeEventListener("blur", collapse);
+    window.removeEventListener("focus", collapse);
+    document.removeEventListener(
+      "visibilitychange",
+      handleVisibilityChange
+    );
+  };
+}, []);
+
+  const handleClick = () => {
+    if (window.innerWidth < 768) {
+      setExpanded(true);
+    }
+  };
+
   return (
     <>
       <div
-  className={`
-    fixed
-    right-6
-    z-[9999]
+        className={`
+          fixed
+          right-6
+          z-[9999]
 
-    transition-all
-    duration-300
-    ease-out
+          transition-all
+          duration-300
+          ease-out
 
-    ${
-      moveUp
-        ? "bottom-[6.4rem]"
-        : "bottom-6"
-    }
-  `}
-  style={{
-    paddingBottom: "env(safe-area-inset-bottom)",
-  }}
->
+          ${
+            moveUp
+              ? "bottom-[6.4rem]"
+              : "bottom-6"
+          }
+        `}
+        style={{
+          paddingBottom: "env(safe-area-inset-bottom)",
+        }}
+      >
         <a
           href={`tel:${PHONE_NUMBER}`}
+          onClick={handleClick}
           aria-label="Call Us"
-          className="
+          className={`
             group
             relative
 
@@ -50,11 +83,12 @@ export default function CallButton() {
             justify-start
 
             h-14
-            w-14
 
-hover:w-[270px]
-sm:hover:w-[270px]
-md:hover:w-[270px]
+            ${
+              expanded
+                ? "w-[270px]"
+                : "w-14 hover:w-[270px] sm:hover:w-[270px] md:hover:w-[270px]"
+            }
 
             origin-right
 
@@ -82,7 +116,7 @@ md:hover:w-[270px]
             hover:shadow-[0_0_55px_rgba(34,197,94,.85)]
 
             animate-callPulse
-          "
+          `}
         >
           {/* Halo */}
 
@@ -99,46 +133,47 @@ md:hover:w-[270px]
 
           {/* Text */}
 
-<div
-  className="
-    overflow-hidden
-    transition-all
-    duration-500
+          <div
+            className={`
+              overflow-hidden
+              transition-all
+              duration-500
 
-    w-0
-    group-hover:w-[185px]
+              flex
+              items-center
+              justify-end
 
-    flex
-    items-center
-    justify-end
-  "
->
-  <span
-    className="
-      flex
-      items-center
-      gap-2
+              ${
+                expanded
+                  ? "w-[185px]"
+                  : "w-0 group-hover:w-[185px]"
+              }
+            `}
+          >
+            <span
+              className={`
+                flex
+                items-center
+                gap-2
 
-      whitespace-nowrap
+                whitespace-nowrap
 
-      text-sm
-      font-semibold
+                text-sm
+                font-semibold
 
-      opacity-0
-      translate-x-2
+                transition-all
+                duration-300
 
-      transition-all
-      duration-300
-
-      group-hover:opacity-100
-      group-hover:translate-x-0
-    "
-  >
-    Stuck? We've got you!
-
-  </span>
-</div>
-          
+                ${
+                  expanded
+                    ? "opacity-100 translate-x-0"
+                    : "opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0"
+                }
+              `}
+            >
+              Stuck? We've got you!
+            </span>
+          </div>
 
           {/* Icon */}
 
@@ -174,8 +209,7 @@ md:hover:w-[270px]
       </div>
 
       <style>{`
-
-@keyframes callPulse{
+      @keyframes callPulse{
 
   0%,100%{
 

@@ -42,7 +42,7 @@ export default function CookieBanner() {
           rounded-3xl
           border
           border-white/40
-          bg-white/40 backdrop-blur-md
+          bg-white
           shadow-[0_20px_60px_rgba(0,0,0,0.18)]
           backdrop-blur-xl
           animate-in
@@ -56,7 +56,7 @@ export default function CookieBanner() {
 
           <div className="flex flex-1 gap-4">
 
-            <div className="hidden h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl bg-[#916b44] lg:flex">
+            <div className="hidden h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl bg-[#4BB3DD] lg:flex">
 
               <Cookie className="h-7 w-7 text-[#EAF8FC]" />
 
@@ -103,12 +103,11 @@ export default function CookieBanner() {
                 gap-2
                 rounded-xl
                 border
-                border-[#29C4EA]
+                border-[#276A96]
                 px-5
                 py-3
                 text-sm
                 font-medium
-                text-[#276A96]
                 transition-all
                 hover:bg-[#EAF8FC]
               "

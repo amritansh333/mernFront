@@ -109,20 +109,27 @@ const visibleSidebar = useMemo(() => {
       {/* ================= PREMIUM HEADER ================= */}
 
       <div
-        className="
-          relative
-          overflow-hidden
-          border-b
-          border-[#279ECE]/15
-          bg-gradient-to-br
-          from-[#7FD2F3]
-          via-[#53BCE8]
-          to-[#2E92D2]
-          px-5
-          py-6
-          text-white
-        "
-      >
+  className="
+    relative
+    overflow-hidden
+    border-b
+    border-[#279ECE]/15
+    px-5
+    py-6
+    text-white
+  "
+  style={{
+  background: `
+    linear-gradient(
+      165deg,
+      #6BC5EB 0%,
+      #4BB3DD 22%,
+      #279CCB 55%,
+      #266792 100%
+    )
+  `,
+}}
+>
 {/* ================= BACKGROUND DESIGN ================= */}
 
 {/* Top Right Soft Circle */}
@@ -178,46 +185,54 @@ const visibleSidebar = useMemo(() => {
 />
 
 {/* Top Light */}
+{/* Top Light */}
 <div
-  className="
-    absolute
-    inset-x-0
-    top-0
-    h-24
-    bg-gradient-to-b
-    from-white/10
-    via-white/4
-    to-transparent
-  "
+  className="absolute inset-x-0 top-0 h-40"
+  style={{
+    background:
+      "linear-gradient(to bottom, rgba(255,255,255,.14) 0%, rgba(255,255,255,.07) 18%, rgba(255,255,255,.03) 42%, rgba(255,255,255,0) 100%)",
+  }}
 />
 
 {/* Bottom Light */}
+{/* Bottom Light */}
+{/* Bottom Light */}
 <div
-  className="
-    absolute
-    inset-x-0
-    bottom-0
-    h-20
-    bg-gradient-to-t
-    from-white/8
-    to-transparent
-  "
+  className="absolute inset-x-0 bottom-0 h-52"
+  style={{
+    background: `
+      linear-gradient(
+        to top,
+        #266792 0%,
+        rgba(38,103,146,.92) 12%,
+        rgba(38,103,146,.72) 28%,
+        rgba(38,103,146,.42) 52%,
+        rgba(38,103,146,.18) 74%,
+        rgba(38,103,146,0) 100%
+      )
+    `,
+  }}
 />
 
 {/* Soft Edge Blend */}
+{/* Soft Edge Blend */}
 <div
-  className="absolute inset-0 opacity-70"
+  className="absolute inset-0"
   style={{
     background: `
       radial-gradient(circle at top right,
-        rgba(255,255,255,.08) 0%,
-        rgba(255,255,255,.03) 22%,
-        transparent 55%
+        rgba(255,255,255,.12) 0%,
+        rgba(255,255,255,.05) 25%,
+        rgba(255,255,255,0) 68%
       ),
       radial-gradient(circle at bottom left,
-        rgba(255,255,255,.08) 0%,
-        rgba(255,255,255,.03) 22%,
-        transparent 55%
+        rgba(75,179,221,.18) 0%,
+        rgba(75,179,221,.08) 28%,
+        rgba(75,179,221,0) 70%
+      ),
+      radial-gradient(circle at center,
+        rgba(255,255,255,.03) 0%,
+        rgba(255,255,255,0) 75%
       )
     `,
   }}
