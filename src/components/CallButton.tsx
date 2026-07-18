@@ -18,23 +18,26 @@ export default function CallButton() {
   }, []);
 
   useEffect(() => {
-  const collapse = () => {
-    setExpanded(false);
-  };
+  const collapse = () => setExpanded(false);
+
+  window.addEventListener("pagehide", collapse);
+  window.addEventListener("pageshow", collapse);
+  window.addEventListener("focus", collapse);
+  window.addEventListener("blur", collapse);
 
   const handleVisibilityChange = () => {
-    if (document.visibilityState === "hidden") {
+    if (document.visibilityState !== "visible") {
       collapse();
     }
   };
 
-  window.addEventListener("blur", collapse);
-  window.addEventListener("focus", collapse);
   document.addEventListener("visibilitychange", handleVisibilityChange);
 
   return () => {
-    window.removeEventListener("blur", collapse);
+    window.removeEventListener("pagehide", collapse);
+    window.removeEventListener("pageshow", collapse);
     window.removeEventListener("focus", collapse);
+    window.removeEventListener("blur", collapse);
     document.removeEventListener(
       "visibilitychange",
       handleVisibilityChange
@@ -43,10 +46,17 @@ export default function CallButton() {
 }, []);
 
   const handleClick = () => {
-    if (window.innerWidth < 768) {
-      setExpanded(true);
-    }
-  };
+  if (window.innerWidth < 768) {
+    setExpanded(true);
+
+    // Collapse immediately after the dialer is launched.
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        setExpanded(false);
+      }, 150);
+    });
+  }
+};
 
   return (
     <>
