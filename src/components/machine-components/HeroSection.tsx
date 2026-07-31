@@ -40,7 +40,7 @@ export default function HeroSection({
     {/* Main Content */}
     <div className="mx-auto flex max-w-7xl flex-col items-start gap-6 px-6 pb-6 lg:flex-row lg:items-center lg:gap-16 lg:px-10 lg:pb-10">
 
-      <div className="w-full lg:basis-[60%]">
+      <div className="w-full lg:basis-[68%]">
 
         {title && (
           <h1 className="mb-4 text-4xl font-bold leading-tight text-[#0F2A3D] lg:text-4xl">
