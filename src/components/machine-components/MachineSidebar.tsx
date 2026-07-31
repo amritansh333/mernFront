@@ -110,6 +110,7 @@ const visibleSidebar = useMemo(() => {
 
       <div
   className="
+    hidden
     relative
     overflow-hidden
     border-b
