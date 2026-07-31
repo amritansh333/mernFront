@@ -96,24 +96,30 @@ const actuallyOpen = depth === 0 || forceOpen || isOpen;
     };
   }, [node.name, node.title, node.label, node.slug]);
 
-  const handleClick = () => {
-  if (isProduct && node.slug) {
-    setSelectedSlug(node.slug);
-    return;
-  }
+const handleClick = () => {
 
-  // Root node: keep expanded and navigate to overview page.
-  if (depth === 0) {
+  // Product node
+  if (isProduct) {
     if (node.path) {
       navigate(node.path);
-    } else if (node.slug) {
-      navigate(`/products/${node.slug}`);
+      return;
     }
-    return;
+
+    if (node.slug) {
+      setSelectedSlug(node.slug);
+      return;
+    }
   }
 
+  // Category / Subcategory
   if (hasChildren) {
-    setIsOpen((value) => !value);
+
+    if (node.path) {
+      navigate(node.path);
+      return;
+    }
+
+    setIsOpen((prev) => !prev);
   }
 };
 
@@ -140,85 +146,92 @@ const actuallyOpen = depth === 0 || forceOpen || isOpen;
   return (
     <li className="select-none">
       <button
-        type="button"
-        onClick={handleClick}
-        onKeyDown={handleKeyDown}
-        aria-expanded={hasChildren ? actuallyOpen : undefined}
-        aria-current={isSelected ? "page" : undefined}
-        style={{ paddingLeft: `${depth * 16}px` }}
-        className="group w-full text-left"
-      >
-        {isProduct ? (
-          <div
-            className={cn(
-              "relative flex items-center gap-3 overflow-hidden border border-l-[3px] rounded-[2px] px-4 py-2 transition-all duration-200",
-              isSelected
-                ? "border-l-[#279ECE] border-[#279ECE]/25 bg-[#E3F1F7] shadow-sm"
-                : "border-l-[#279ECE] bg-white hover:-translate-y-0.5 hover:border-[#279ECE]/40 hover:shadow-md",
-            )}
-          >
-            <div
-              className={cn(
-                "flex h-7 w-7 shrink-0 items-center justify-center rounded-[2px] transition-all",
-                isSelected
-                  ? "bg-[#279ECE]"
-                  : "bg-[#279ECE]/10 group-hover:bg-[#279ECE]",
-              )}
-            >
-              {isSelected ? (
-                <CircleCheck className="h-[15px] w-[15px] text-white" />
-              ) : (
-                <FolderTree className="h-[15px] w-[15px] text-[#279ECE] transition-colors group-hover:text-white" />
-              )}
-            </div>
-                        <div
-              ref={textContainerRef}
-              className="relative flex-1 overflow-hidden"
-            >
-              <span
-                ref={textRef}
-                className={cn(
-                  "inline-block whitespace-nowrap text-[13.5px] font-semibold leading-snug",
-                  isSelected
-                    ? "text-[#276A96]"
-                    : "text-[#1E293B]",
-                  shouldMarquee &&
-                    "animate-[sidebarMarquee_10s_ease-in-out_infinite]",
-                )}
-              >
-                {getNodeLabel(node)}
-              </span>
-            </div>
-
-            <ChevronRight
-              className={cn(
-                "h-[15px] w-[15px] shrink-0 transition-all",
-                isSelected
-                  ? "text-[#276A96]"
-                  : "text-[#279ECE] group-hover:translate-x-1",
-              )}
-            />
-          </div>
-        ) : (
-          <div
-            className={cn(
-              "flex items-center gap-2 rounded-md px-3 py-2 transition-all duration-200",
-              "hover:bg-[#279ECE]/8",
-            )}
-          >
-            <ChevronRight
-              className={cn(
-                "h-4 w-4 shrink-0 text-[#279ECE] transition-transform",
-                actuallyOpen && "rotate-90",
-              )}
-            />
-
-            <span className="text-[15px] font-semibold text-[#0F2A3D]">
-              {getNodeLabel(node)}
-            </span>
-          </div>
+  type="button"
+  onClick={handleClick}
+  onKeyDown={handleKeyDown}
+  aria-expanded={hasChildren ? actuallyOpen : undefined}
+  aria-current={isSelected ? "page" : undefined}
+  style={{ paddingLeft: `${depth * 16}px` }}
+  className="group w-full text-left"
+>
+  {isProduct ? (
+    <div
+      className={cn(
+        "relative flex items-center gap-3 overflow-hidden border border-l-[3px] rounded-[2px] px-4 py-2 transition-all duration-200",
+        isSelected
+          ? "border-l-[#279ECE] border-[#279ECE]/25 bg-[#E3F1F7] shadow-sm"
+          : "border-l-[#279ECE] bg-white hover:-translate-y-0.5 hover:border-[#279ECE]/40 hover:shadow-md",
+      )}
+    >
+      <div
+        className={cn(
+          "flex h-7 w-7 shrink-0 items-center justify-center rounded-[2px] transition-all",
+          isSelected
+            ? "bg-[#279ECE]"
+            : "bg-[#279ECE]/10 group-hover:bg-[#279ECE]",
         )}
-      </button>
+      >
+        {isSelected ? (
+          <CircleCheck className="h-[15px] w-[15px] text-white" />
+        ) : (
+          <FolderTree className="h-[15px] w-[15px] text-[#279ECE] transition-colors group-hover:text-white" />
+        )}
+      </div>
+
+      <div
+        ref={textContainerRef}
+        className="relative flex-1 overflow-hidden"
+      >
+        <span
+          ref={textRef}
+          className={cn(
+            "inline-block whitespace-nowrap text-[13.5px] font-semibold leading-snug",
+            isSelected
+              ? "text-[#276A96]"
+              : "text-[#1E293B]",
+            shouldMarquee &&
+              "animate-[sidebarMarquee_10s_ease-in-out_infinite]",
+          )}
+        >
+          {getNodeLabel(node)}
+        </span>
+      </div>
+
+      <ChevronRight
+        className={cn(
+          "h-[15px] w-[15px] shrink-0 transition-all",
+          isSelected
+            ? "text-[#276A96]"
+            : "text-[#279ECE] group-hover:translate-x-1",
+        )}
+      />
+    </div>
+  ) : (
+    <div
+      className={cn(
+        "flex items-center gap-2 rounded-md px-3 py-2 transition-all duration-200 hover:bg-[#279ECE]/8",
+      )}
+    >
+      <ChevronRight
+        onClick={(e) => {
+          e.stopPropagation();
+
+          if (hasChildren) {
+            setIsOpen((prev) => !prev);
+          }
+        }}
+        className={cn(
+          "h-4 w-4 shrink-0 cursor-pointer text-[#279ECE] transition-transform",
+          actuallyOpen && "rotate-90",
+        )}
+      />
+
+      <span className="flex-1 text-[15px] font-semibold text-[#0F2A3D]">
+        {getNodeLabel(node)}
+      </span>
+    </div>
+  )}
+</button>
 
       {hasChildren && actuallyOpen && (
         <ul className="mt-1 space-y-1">

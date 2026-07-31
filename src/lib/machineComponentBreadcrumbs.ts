@@ -43,16 +43,55 @@ export function buildMachineComponentBreadcrumbs(
   selectedSlug: string,
   currentPath?: string,
 ): MachineComponentBreadcrumb[] {
-  if (!data || !selectedSlug) return [];
+  if (!data) return [];
 
-  const trail = findTrail(data.sidebar, selectedSlug);
+  let breadcrumbs: MachineComponentBreadcrumb[] = [];
 
-  let breadcrumbs = trail
-    .map((node) => ({
-      label: getNodeLabel(node),
-      path: getNodePath(data, node),
-    }))
-    .filter((breadcrumb) => breadcrumb.label);
+  if (selectedSlug) {
+    // PRODUCT PAGE
+    const trail = findTrail(data.sidebar, selectedSlug);
+
+    breadcrumbs = trail
+      .map((node) => ({
+        label: getNodeLabel(node),
+        path: getNodePath(data, node),
+      }))
+      .filter((breadcrumb) => breadcrumb.label);
+  } else if (currentPath) {
+    // SUBCATEGORY PAGE
+    const normalizedCurrentPath = normalizeProductPath(currentPath);
+
+    const findByPath = (
+      nodes?: MachineSidebarNode[],
+      trail: MachineSidebarNode[] = [],
+    ): MachineSidebarNode[] => {
+      for (const node of nodes ?? []) {
+        const nodePath = getNodePath(data, node);
+
+        if (
+          nodePath &&
+          normalizeProductPath(nodePath) === normalizedCurrentPath
+        ) {
+          return [...trail, node];
+        }
+
+        const child = findByPath(node.children, [...trail, node]);
+
+        if (child.length) return child;
+      }
+
+      return [];
+    };
+
+    const trail = findByPath(data.sidebar);
+
+    breadcrumbs = trail
+      .map((node) => ({
+        label: getNodeLabel(node),
+        path: getNodePath(data, node),
+      }))
+      .filter((breadcrumb) => breadcrumb.label);
+  }
 
   if (currentPath) {
     const normalizedCurrentPath = normalizeProductPath(currentPath);

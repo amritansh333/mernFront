@@ -127,3 +127,11 @@ export async function getMachineComponents(): Promise<MachineComponentsData> {
 
   return pendingRequest;
 }
+
+export async function getMachineComponentSubcategory(slug: string) {
+  const response = await api.get(
+    `/machine-components/subcategory/${slug}`
+  );
+
+  return response.data.data;
+}
