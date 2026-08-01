@@ -96,5 +96,6 @@ export default function ProductCardsSection({
         </div>
       </div>
     </section>
+    
   );
 }

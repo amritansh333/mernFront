@@ -5,6 +5,7 @@ import {
   ChevronRight,
   CircleCheck,
   FolderTree,
+  CornerDownRight,
 } from "lucide-react";
 import {
   getNodeChildren,
@@ -154,7 +155,28 @@ const handleClick = () => {
   style={{ paddingLeft: `${depth * 16}px` }}
   className="group w-full text-left"
 >
-  {isProduct ? (
+  <div className="relative flex items-stretch gap-2">
+    {/* Vertical Tree Line */}
+    {depth > 0 && (
+      <div className="relative flex w-4 shrink-0 justify-center">
+        <div className="absolute inset-y-0 w-px bg-[#279ECE]/25" />
+      </div>
+    )}
+
+    {/* Branch + Card */}
+    <div className="flex flex-1 items-center gap-2">
+      {depth > 0 && (
+        <CornerDownRight
+          className="
+            h-4
+            w-4
+            shrink-0
+            text-[#279ECE]/70
+          "
+        />
+      )}
+
+      {isProduct ? (
     <div
       className={cn(
         "relative flex items-center gap-3 overflow-hidden border border-l-[3px] rounded-[2px] px-4 py-2 transition-all duration-200",
@@ -207,34 +229,37 @@ const handleClick = () => {
       />
     </div>
   ) : (
-    <div
-      className={cn(
-        "flex items-center gap-2 rounded-md px-3 py-2 transition-all duration-200 hover:bg-[#279ECE]/8",
-      )}
-    >
-      <ChevronRight
-        onClick={(e) => {
-          e.stopPropagation();
-
-          if (hasChildren) {
-            setIsOpen((prev) => !prev);
-          }
-        }}
-        className={cn(
-          "h-4 w-4 shrink-0 cursor-pointer text-[#279ECE] transition-transform",
-          actuallyOpen && "rotate-90",
-        )}
-      />
-
-      <span className="flex-1 text-[15px] font-semibold text-[#0F2A3D]">
-        {getNodeLabel(node)}
-      </span>
-    </div>
+   <div
+  className={cn(
+    "relative flex items-center gap-3 overflow-hidden border border-l-[3px] rounded-[2px] px-4 py-2 transition-all duration-200",
+    "border-l-[#279ECE] bg-white hover:-translate-y-0.5 hover:border-[#279ECE]/40 hover:shadow-md"
   )}
+>
+  <div
+    className="
+      flex h-7 w-7 shrink-0 items-center justify-center
+      rounded-[2px]
+      bg-[#279ECE]/10
+      group-hover:bg-[#279ECE]
+      transition-all
+    "
+  >
+    <FolderTree className="h-[15px] w-[15px] text-[#279ECE] group-hover:text-white" />
+  </div>
+
+  <span className="flex-1 text-[13.5px] font-semibold text-[#1E293B]">
+    {getNodeLabel(node)}
+  </span>
+
+  <ChevronRight className="h-[15px] w-[15px] text-[#279ECE]" />
+</div>
+        )}
+    </div>
+  </div>
 </button>
 
       {hasChildren && actuallyOpen && (
-        <ul className="mt-1 space-y-1">
+        <ul className="mt-1 space-y-1 relative">
           {children.map((child, index) => (
             <SidebarNode
               key={

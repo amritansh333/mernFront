@@ -445,6 +445,7 @@ setSearch={setSearch}
 
           <ProductCardsSection
     products={subcategoryData.products}
+    
 />
 
           <SpecificationsSection
