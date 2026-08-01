@@ -231,7 +231,7 @@ const handleClick = () => {
   ) : (
    <div
   className={cn(
-    "relative flex items-center gap-3 overflow-hidden border border-l-[3px] rounded-[2px] px-4 py-2 transition-all duration-200",
+    "relative flex w-full items-center gap-3 overflow-hidden border border-l-[3px] rounded-[2px] px-4 py-2 transition-all duration-200",
     "border-l-[#279ECE] bg-white hover:-translate-y-0.5 hover:border-[#279ECE]/40 hover:shadow-md"
   )}
 >
@@ -247,11 +247,11 @@ const handleClick = () => {
     <FolderTree className="h-[15px] w-[15px] text-[#279ECE] group-hover:text-white" />
   </div>
 
-  <span className="flex-1 text-[13.5px] font-semibold text-[#1E293B]">
+  <span className="flex-1 pr-2 text-[13.5px] font-semibold leading-5 text-[#1E293B]">
     {getNodeLabel(node)}
   </span>
 
-  <ChevronRight className="h-[15px] w-[15px] text-[#279ECE]" />
+  <ChevronRight className="h-[15px] w-[15px] shrink-0 text-[#279ECE]" />
 </div>
         )}
     </div>
