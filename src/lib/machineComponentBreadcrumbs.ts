@@ -11,7 +11,18 @@ export interface MachineComponentBreadcrumb {
 }
 
 function getNodeLabel(node: MachineSidebarNode) {
-  return node.name || node.title || node.label || node.slug || "";
+  const label =
+    node.name ||
+    node.title ||
+    node.label ||
+    node.slug ||
+    "";
+
+  if (label === "Thermoplastics Machine Components") {
+    return "Machine Components";
+  }
+
+  return label;
 }
 
 function getNodePath(

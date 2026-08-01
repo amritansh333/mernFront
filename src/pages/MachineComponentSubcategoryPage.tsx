@@ -7,6 +7,7 @@ import HeroSection from "@/components/machine-components/HeroSection";
 import ApplicationsSection from "@/components/machine-components/ApplicationsSection";
 import SpecificationsSection from "@/components/machine-components/SpecificationsSection";
 import DownloadsSection from "@/components/machine-components/DownloadsSection";
+import ProductCardsSection from "@/components/machine-components/ProductCardsSection";
 import LoadingState from "@/components/machine-components/LoadingState";
 import EmptyState from "@/components/machine-components/EmptyState";
 
@@ -30,6 +31,15 @@ import type {
   MachineComponentValue,
 } from "@/types/machineComponent";
 
+interface SubcategoryProduct {
+  name: string;
+  slug: string;
+  path: string;
+  image: string;
+  description: string[];
+  keyFeatures: string[];
+}
+
 interface SubcategoryPageData {
   name: string;
   slug: string;
@@ -48,6 +58,8 @@ interface SubcategoryPageData {
   specifications: Record<string, MachineComponentValue>;
 
   downloads: MachineComponentDownload[];
+
+  products: SubcategoryProduct[];
 }
 
 export default function MachineComponentSubcategoryPage() {
@@ -430,6 +442,10 @@ setSearch={setSearch}
             features={subcategoryData.technicalCharacteristics}
             downloads={subcategoryData.downloads}
           />
+
+          <ProductCardsSection
+    products={subcategoryData.products}
+/>
 
           <SpecificationsSection
             specifications={subcategoryData.specifications}
