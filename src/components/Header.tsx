@@ -4,78 +4,116 @@ import { Menu, X, ChevronDown, Home, ArrowRight } from "lucide-react";
 import logoImg from "@/assets/logo-footer.png";
 import { useMachineComponentRouting } from "@/lib/product-experience/useMachineComponentRouting";
 
-function getNavItems(machineComponents: ReturnType<typeof useMachineComponentRouting>) {
+function getNavItems(
+  machineComponents: ReturnType<typeof useMachineComponentRouting>,
+) {
   return [
-  {
-    label: "Products",
-    megaMenu: true,
-    columns: [
-      {
-        heading: "Thermoplastics Semi Finished Products",
-        headingHref: "/products/thermoplastics-semi-finished-products",
-        items: [
-          { label: "Sheets & Blocks", href: "/products/thermoplastics-semi-finished-products/sheets-blocks" },
-          { label: "Rods & Tubes", href: "/products/thermoplastics-semi-finished-products/rods-tubes" },
-          { label: "Coils & Rolls", href: "/products/thermoplastics-semi-finished-products/coils-rolls" },
-          { label: "Welding Rods", href: "/products/thermoplastics-semi-finished-products/welding-rod" },
-          { label: "Custom-Sized Plastic Sheets", href: "/products/thermoplastics-semi-finished-products/custom-sized-plastic-sheets" }
-        ],
-      },
-      {
-        heading: "Thermoplastics Machine Components",
-        headingHref: "/products/thermoplastics-machine-components",
-        items: [
-          { label: "Strips & Profiles", href: "/products/thermoplastics-machine-components/strips-and-profiles" },
-          { label: "Vacuum Formed Plastic Parts", href: "/products/thermoplastics-machine-components/vacuum-formed-plastic-parts" },
-          { label: "Cutting Boards", href: "/products/thermoplastics-machine-components/cutting-board" },
-          { label: "Chopping Boards", href: "/products/thermoplastics-machine-components/chopping-board" },
-          { label: "Application Ready Sheets", href: "/products/thermoplastics-machine-components/application-ready-sheets" },
-          { label: "Machined Plastic Parts", href: "/products/thermoplastics-machine-components/machined-plastic-parts" },
-        ],
-      },
-    ],
-  },
-  {
-    label: "Industries",
-    children: [
-      { label: "Automotive", href: "/industries/automotive" },
-      { label: "Chemical", href: "/industries/chemical" },
-      { label: "Food & Beverage", href: "/industries/food-beverage" },
-      { label: "Medical & Pharmaceutical", href: "/industries/pharmaceutical" },
-      { label: "Oil & Gas", href: "/industries/oil-gas" },
-      { label: "All Industries", href: "/industries" },
-    ],
-  },
-  {
-    label: "Materials",
-    children: [
-      { label: "PE / UHMW PE (POLYRIB V)", href: "/materials/uhmwpe" },
-      { label: "PP (POLYRIB P / DIPRA)", href: "/materials/pp" },
-      { label: "HDPE (POLYRIB H)", href: "/materials/hdpe" },
-      { label: "PC (PCCLEAR)", href: "/materials/pc" },
-      { label: "Nylon (KAYLON)", href: "/materials/pa6" },
-      { label: "Acetal/POM (PAKETAL)", href: "/materials/acetal" },
-      { label: "ABS (POLYRIB A)", href: "/materials/abs" },
-      { label: "PE (PLASCON V)", href: "/materials/pe" },
-      { label: "PPS (DIPRA)", href: "/materials/pps" },
-      { label: "All Materials", href: "/materials" },
-    ],
-  },
-  {
-    label: "Material Selector",
-    href: "/tools/material-selector",
-  },
-  {
-    label: "Company",
-    children: [
-      { label: "About Us", href: "/about" },
-      { label: "CSR & Sustainability", href: "/csr" },
-      { label: "Careers", href: "/careers" },
-      { label: "Blog & Gallery", href: "/blog" },
-      { label: "Resources & Downloads", href: "/resources" },
-      { label: "Contact", href: "/contact" },
-    ],
-  },
+    {
+      label: "Products",
+      megaMenu: true,
+      columns: [
+        {
+          heading: "Thermoplastics Semi Finished Products",
+          headingHref: "/products/thermoplastics-semi-finished-products",
+          items: [
+            {
+              label: "Sheets & Blocks",
+              href: "/products/thermoplastics-semi-finished-products/sheets-blocks",
+            },
+            {
+              label: "Rods & Tubes",
+              href: "/products/thermoplastics-semi-finished-products/rods-tubes",
+            },
+            {
+              label: "Coils & Rolls",
+              href: "/products/thermoplastics-semi-finished-products/coils-rolls",
+            },
+            {
+              label: "Welding Rods",
+              href: "/products/thermoplastics-semi-finished-products/welding-rod",
+            },
+            {
+              label: "Custom-Sized Plastic Sheets",
+              href: "/products/thermoplastics-semi-finished-products/custom-sized-plastic-sheets",
+            },
+          ],
+        },
+        {
+          heading: "Thermoplastics Machine Components",
+          headingHref: "/products/thermoplastics-machine-components",
+          items: [
+            {
+              label: "Strips & Profiles",
+              href: "/products/thermoplastics-machine-components/strips-and-profiles",
+            },
+            {
+              label: "Vacuum Formed Plastic Parts",
+              href: "/products/thermoplastics-machine-components/vacuum-formed-plastic-parts",
+            },
+            {
+              label: "Cutting Boards",
+              href: "/products/thermoplastics-machine-components/cutting-board",
+            },
+            {
+              label: "Chopping Boards",
+              href: "/products/thermoplastics-machine-components/chopping-board",
+            },
+            {
+              label: "Application Ready Sheets",
+              href: "/products/thermoplastics-machine-components/application-ready-sheets",
+            },
+            {
+              label: "Machined Plastic Parts",
+              href: "/products/thermoplastics-machine-components/machined-plastic-parts",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      label: "Industries",
+      children: [
+        { label: "Automotive", href: "/industries/automotive" },
+        { label: "Chemical", href: "/industries/chemical" },
+        { label: "Food & Beverage", href: "/industries/food-beverage" },
+        {
+          label: "Medical & Pharmaceutical",
+          href: "/industries/pharmaceutical",
+        },
+        { label: "Oil & Gas", href: "/industries/oil-gas" },
+        { label: "All Industries", href: "/industries" },
+      ],
+    },
+    {
+      label: "Materials",
+      children: [
+        { label: "PE / UHMW PE (POLYRIB V)", href: "/materials/uhmwpe" },
+        { label: "PP (POLYRIB P / DIPRA)", href: "/materials/pp" },
+        { label: "HDPE (POLYRIB H)", href: "/materials/hdpe" },
+        { label: "PC (PCCLEAR)", href: "/materials/pc" },
+        { label: "Nylon (KAYLON)", href: "/materials/pa6" },
+        { label: "Acetal/POM (PAKETAL)", href: "/materials/acetal" },
+        { label: "ABS (POLYRIB A)", href: "/materials/abs" },
+        { label: "PE (PLASCON V)", href: "/materials/pe" },
+        { label: "PPS (DIPRA)", href: "/materials/pps" },
+        { label: "All Materials", href: "/materials" },
+      ],
+    },
+    {
+      label: "Material Selector",
+      href: "/tools/material-selector",
+    },
+    {
+      label: "Company",
+      children: [
+        { label: "About Us", href: "/about" },
+        { label: "CSR & Sustainability", href: "/csr" },
+        { label: "Careers", href: "/careers" },
+        { label: "Blog & Gallery", href: "/blog" },
+        { label: "Resources & Downloads", href: "/resources" },
+        { label: "Contact", href: "/contact" },
+      ],
+    },
   ];
 }
 
@@ -127,7 +165,9 @@ export function Header() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-card shadow-header" : "bg-card/95 backdrop-blur-sm border-b border-divider"
+        scrolled
+          ? "bg-card shadow-header"
+          : "bg-card/95 backdrop-blur-sm border-b border-divider"
       }`}
     >
       <div className="container max-w-7xl mx-auto px-6">
@@ -147,7 +187,9 @@ export function Header() {
             <Link
               to="/"
               className={`flex items-center px-3 py-2 text-sm font-medium transition-colors duration-200 hover:text-primary rounded-sm ${
-                location.pathname === "/" ? "text-primary" : "text-charcoal-light"
+                location.pathname === "/"
+                  ? "text-primary"
+                  : "text-charcoal-light"
               }`}
               aria-label="Home"
             >
@@ -158,18 +200,32 @@ export function Header() {
               <div
                 key={item.label}
                 className="relative"
-                ref={(el) => { dropdownRefs.current[item.label] = el; }}
+                ref={(el) => {
+                  dropdownRefs.current[item.label] = el;
+                }}
               >
                 <button
-                  onClick={() => handleCategoryClick(item.label, item.children || item.megaMenu ? undefined : item.href)}
+                  onClick={() =>
+                    handleCategoryClick(
+                      item.label,
+                      item.children || item.megaMenu ? undefined : item.href,
+                    )
+                  }
                   className={`flex items-center gap-1 px-3 py-2 text-sm font-medium transition-colors duration-200 hover:text-primary rounded-sm ${
                     openDropdown === item.label
                       ? "text-primary"
                       : location.pathname.startsWith(item.href || "__") ||
-                        (item.children?.some(c => location.pathname.startsWith(c.href))) ||
-                        (item.megaMenu && item.columns?.some(col => col.items.some(i => location.pathname.startsWith(i.href))))
-                      ? "text-primary"
-                      : "text-charcoal-light"
+                          item.children?.some((c) =>
+                            location.pathname.startsWith(c.href),
+                          ) ||
+                          (item.megaMenu &&
+                            item.columns?.some((col) =>
+                              col.items.some((i) =>
+                                location.pathname.startsWith(i.href),
+                              ),
+                            ))
+                        ? "text-primary"
+                        : "text-charcoal-light"
                   }`}
                 >
                   {item.label}
@@ -184,33 +240,36 @@ export function Header() {
 
                 {/* Standard Dropdown */}
                 {item.children && openDropdown === item.label && (
-  <div className="absolute top-full left-0 mt-1 w-64 bg-card border border-border shadow-card-hover z-50">
-    {item.children.map((child, index) => {
-      const isLast = index === item.children!.length - 1;
+                  <div className="absolute top-full left-0 mt-1 w-64 bg-card border border-border shadow-card-hover z-50">
+                    {item.children.map((child, index) => {
+                      const isLast = index === item.children!.length - 1;
 
-      return isLast ? (
-        <div key={child.href + child.label} className="border-t border-divider px-4 py-2.5 bg-surface-subtle">
-          <Link
-            to={child.href}
-            onClick={() => setOpenDropdown(null)}
-            className="text-xs font-semibold text-primary hover:text-primary-dark transition-colors"
-          >
-            {child.label} →
-          </Link>
-        </div>
-      ) : (
-        <Link
-          key={child.href + child.label}
-          to={child.href}
-          onClick={() => setOpenDropdown(null)}
-          className="block px-4 py-2.5 text-sm text-charcoal-light hover:text-primary hover:bg-surface-subtle border-b border-divider transition-colors duration-150"
-        >
-          {child.label}
-        </Link>
-      );
-    })}
-  </div>
-)}
+                      return isLast ? (
+                        <div
+                          key={child.href + child.label}
+                          className="border-t border-divider px-4 py-2.5 bg-surface-subtle"
+                        >
+                          <Link
+                            to={child.href}
+                            onClick={() => setOpenDropdown(null)}
+                            className="text-xs font-semibold text-primary hover:text-primary-dark transition-colors"
+                          >
+                            {child.label} →
+                          </Link>
+                        </div>
+                      ) : (
+                        <Link
+                          key={child.href + child.label}
+                          to={child.href}
+                          onClick={() => setOpenDropdown(null)}
+                          className="block px-4 py-2.5 text-sm text-charcoal-light hover:text-primary hover:bg-surface-subtle border-b border-divider transition-colors duration-150"
+                        >
+                          {child.label}
+                        </Link>
+                      );
+                    })}
+                  </div>
+                )}
 
                 {/* Mega Menu for Products */}
                 {item.megaMenu && openDropdown === item.label && (
@@ -257,14 +316,14 @@ export function Header() {
 
           {/* CTA */}
           <div className="hidden lg:flex items-center gap-3">
-  <Link
-    to="/contact?tab=quote"
-    className="inline-flex items-center justify-center gap-2 px-5 py-2 bg-gradient-to-r from-[#279ECE] to-[#1F7FA8] text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#279ECE]/30"
-  >
-    <span>Request Quote</span>
-    <ArrowRight className="h-4 w-4" />
-  </Link>
-</div>
+            <Link
+              to="/contact?tab=quote"
+              className="inline-flex items-center justify-center gap-2 px-5 py-2 bg-gradient-to-r from-[#279ECE] to-[#1F7FA8] text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#279ECE]/30"
+            >
+              <span>Request Quote</span>
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
 
           {/* Mobile Toggle */}
           <button
@@ -272,7 +331,11 @@ export function Header() {
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
           >
-            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {mobileOpen ? (
+              <X className="w-5 h-5" />
+            ) : (
+              <Menu className="w-5 h-5" />
+            )}
           </button>
         </div>
       </div>
@@ -294,11 +357,15 @@ export function Header() {
                 <button
                   onClick={() =>
                     item.children || item.megaMenu
-                      ? setMobileExpanded(mobileExpanded === item.label ? null : item.label)
+                      ? setMobileExpanded(
+                          mobileExpanded === item.label ? null : item.label,
+                        )
                       : navigate(item.href || "/")
                   }
                   className={`w-full flex items-center justify-between px-3 py-2.5 text-sm font-medium border-b border-divider text-left ${
-                    location.pathname.startsWith(item.href || "__") ? "text-primary" : "text-charcoal-light"
+                    location.pathname.startsWith(item.href || "__")
+                      ? "text-primary"
+                      : "text-charcoal-light"
                   }`}
                 >
                   {item.label}
@@ -313,31 +380,34 @@ export function Header() {
 
                 {/* Standard children mobile */}
                 {item.children && mobileExpanded === item.label && (
-  <div className="bg-surface-subtle">
-    {item.children.map((child, index) => {
-      const isLast = index === item.children!.length - 1;
+                  <div className="bg-surface-subtle">
+                    {item.children.map((child, index) => {
+                      const isLast = index === item.children!.length - 1;
 
-      return isLast ? (
-        <div key={child.href + child.label} className="border-t border-divider px-5 py-2.5">
-          <Link
-            to={child.href}
-            className="block text-xs font-semibold text-primary"
-          >
-            {child.label} →
-          </Link>
-        </div>
-      ) : (
-        <Link
-          key={child.href + child.label}
-          to={child.href}
-          className="block px-5 py-2 text-xs font-medium text-muted-foreground border-b border-divider hover:text-primary"
-        >
-          {child.label}
-        </Link>
-      );
-    })}
-  </div>
-)}
+                      return isLast ? (
+                        <div
+                          key={child.href + child.label}
+                          className="border-t border-divider px-5 py-2.5"
+                        >
+                          <Link
+                            to={child.href}
+                            className="block text-xs font-semibold text-primary"
+                          >
+                            {child.label} →
+                          </Link>
+                        </div>
+                      ) : (
+                        <Link
+                          key={child.href + child.label}
+                          to={child.href}
+                          className="block px-5 py-2 text-xs font-medium text-muted-foreground border-b border-divider hover:text-primary"
+                        >
+                          {child.label}
+                        </Link>
+                      );
+                    })}
+                  </div>
+                )}
 
                 {/* Mega menu mobile — show as grouped list */}
                 {item.megaMenu && mobileExpanded === item.label && (
@@ -372,14 +442,14 @@ export function Header() {
               </div>
             ))}
             <div className="pt-4">
-  <Link
-    to="/contact"
-    className="inline-flex w-full items-center justify-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#279ECE] to-[#1F7FA8] text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#279ECE]/30"
-  >
-    <span>Request Quote</span>
-    <ArrowRight className="h-4 w-4" />
-  </Link>
-</div>
+              <Link
+                to="/contact"
+                className="inline-flex w-full items-center justify-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#279ECE] to-[#1F7FA8] text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#279ECE]/30"
+              >
+                <span>Request Quote</span>
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
           </nav>
         </div>
       )}

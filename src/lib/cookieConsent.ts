@@ -32,9 +32,7 @@ export function getCookieConsent(): CookieConsentState {
   }
 }
 
-export function saveCookieConsent(
-  consent: CookieConsentState
-): void {
+export function saveCookieConsent(consent: CookieConsentState): void {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(consent));
 }
 
@@ -69,7 +67,7 @@ export function declineAllConsent(): CookieConsentState {
 }
 
 export function customConsent(
-  preferences: CookiePreferences
+  preferences: CookiePreferences,
 ): CookieConsentState {
   return {
     status: "custom",

@@ -38,8 +38,7 @@ export function getMachineComponentsRootPath(
   data: MachineComponentsData | null,
 ) {
   return (
-    normalizeProductPath(data?.seo?.canonical) ||
-    getRootFromBackendPaths(data)
+    normalizeProductPath(data?.seo?.canonical) || getRootFromBackendPaths(data)
   );
 }
 
@@ -66,7 +65,9 @@ export function getMachineComponentPathByLabel(
   label: string,
 ) {
   return (
-    buildMachineComponentRouteMaps(data).labelToPath.get(normalizeLabel(label)) ||
+    buildMachineComponentRouteMaps(data).labelToPath.get(
+      normalizeLabel(label),
+    ) ||
     getMachineComponentsRootPath(data) ||
     PRODUCTS_ROOT_PATH
   );

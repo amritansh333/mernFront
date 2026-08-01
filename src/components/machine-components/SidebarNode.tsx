@@ -8,7 +8,6 @@ import {
   LogIn,
   Layers3,
   CircleChevronRight,
-  
 } from "lucide-react";
 import {
   getNodeChildren,
@@ -51,13 +50,9 @@ function SidebarNode({
   forceOpen = false,
   products,
 }: SidebarNodeProps) {
-
   const navigate = useNavigate();
-  
-  const children = sortNodesByProductOrder(
-    getNodeChildren(node),
-    products,
-  );
+
+  const children = sortNodesByProductOrder(getNodeChildren(node), products);
 
   const hasChildren = children.length > 0;
   const isProduct = Boolean(node.slug) && !hasChildren;
@@ -66,25 +61,24 @@ function SidebarNode({
 
   const [isOpen, setIsOpen] = useState(depth === 0);
 
-const actuallyOpen = depth === 0 || forceOpen || isOpen;
+  const actuallyOpen = depth === 0 || forceOpen || isOpen;
 
   const textContainerRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLSpanElement>(null);
   const [shouldMarquee, setShouldMarquee] = useState(false);
 
   useEffect(() => {
-  if (forceOpen) {
-    setIsOpen(true);
-  }
-}, [forceOpen]);
+    if (forceOpen) {
+      setIsOpen(true);
+    }
+  }, [forceOpen]);
 
   useEffect(() => {
     const checkOverflow = () => {
       if (!textContainerRef.current || !textRef.current) return;
 
       setShouldMarquee(
-        textRef.current.scrollWidth >
-          textContainerRef.current.clientWidth + 4,
+        textRef.current.scrollWidth > textContainerRef.current.clientWidth + 4,
       );
     };
 
@@ -97,38 +91,35 @@ const actuallyOpen = depth === 0 || forceOpen || isOpen;
     };
   }, [node.name, node.title, node.label, node.slug]);
 
-const handleClick = () => {
+  const handleClick = () => {
+    // Product node
+    if (isProduct) {
+      if (node.path) {
+        navigate(node.path);
+        return;
+      }
 
-  // Product node
-  if (isProduct) {
-    if (node.path) {
-      navigate(node.path);
-      return;
+      if (node.slug) {
+        setSelectedSlug(node.slug);
+        return;
+      }
     }
 
-    if (node.slug) {
-      setSelectedSlug(node.slug);
-      return;
+    // Category / Subcategory
+    if (hasChildren) {
+      if (node.path) {
+        navigate(node.path);
+        return;
+      }
+
+      // Only root categories can expand/collapse
+      if (depth === 0) {
+        setIsOpen((prev) => !prev);
+      }
     }
-  }
+  };
 
-  // Category / Subcategory
-  if (hasChildren) {
-  if (node.path) {
-    navigate(node.path);
-    return;
-  }
-
-  // Only root categories can expand/collapse
-  if (depth === 0) {
-    setIsOpen((prev) => !prev);
-  }
-}
-};
-
-  const handleKeyDown = (
-    event: KeyboardEvent<HTMLButtonElement>,
-  ) => {
+  const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
     if (
       (event.key === "Enter" || event.key === " ") &&
       (isProduct || hasChildren)
@@ -138,117 +129,106 @@ const handleClick = () => {
     }
 
     if (event.key === "ArrowRight" && hasChildren && depth !== 0) {
-  setIsOpen(true);
-}
+      setIsOpen(true);
+    }
 
     if (event.key === "ArrowLeft" && hasChildren && depth !== 0) {
-  setIsOpen(false);
-}
+      setIsOpen(false);
+    }
   };
 
   return (
     <li className="select-none">
       <button
-  type="button"
-  onClick={handleClick}
-  onKeyDown={handleKeyDown}
-  aria-expanded={hasChildren ? actuallyOpen : undefined}
-  aria-current={isSelected ? "page" : undefined}
-  style={{ paddingLeft: `${depth * 16}px` }}
-  className="group w-full text-left"
->
-  <div className="relative flex items-stretch gap-2">
-    {/* Vertical Tree Line */}
-    {depth > 0 && (
-      <div className="relative flex w-4 shrink-0 justify-center">
-        <div className="absolute inset-y-0 w-px bg-[#279ECE]/25" />
-      </div>
-    )}
-
-    {/* Branch + Card */}
-    <div className="flex flex-1 items-center gap-2">
-      {depth > 0 && (
-        <LogIn
-          className="
+        type="button"
+        onClick={handleClick}
+        onKeyDown={handleKeyDown}
+        aria-expanded={hasChildren ? actuallyOpen : undefined}
+        aria-current={isSelected ? "page" : undefined}
+        style={{ paddingLeft: `${depth * 16}px` }}
+        className="group w-full text-left"
+      >
+        <div className="relative flex items-stretch gap-2">
+          {/* Branch + Card */}
+          <div className="flex flex-1 items-center gap-2">
+            {depth > 0 && (
+              <LogIn
+                className="
             h-4
             w-4
             shrink-0
             text-[#279ECE]/70
           "
-        />
-      )}
+              />
+            )}
 
-      {isProduct ? (
-    <div
-      className={cn(
-        "relative flex items-center gap-3 overflow-hidden border border-l-[3px] rounded-[2px] px-4 py-2 transition-all duration-200",
-        isSelected
-          ? "border-l-[#279ECE] border-[#279ECE]/25 bg-[#E3F1F7] shadow-sm"
-          : "border-l-[#279ECE] bg-white hover:-translate-y-0.5 hover:border-[#279ECE]/40 hover:shadow-md",
-      )}
-    >
-      <div
-        className={cn(
-          "flex h-7 w-7 shrink-0 items-center justify-center rounded-[2px] transition-all",
-          isSelected
-            ? "bg-[#279ECE]"
-            : "bg-[#279ECE]/10 group-hover:bg-[#279ECE]",
-        )}
-      >
-        {isSelected ? (
-          <CircleCheck className="h-[15px] w-[15px] text-white" />
-        ) : (
-          <Layers3 className="h-[15px] w-[15px] text-[#279ECE] transition-colors group-hover:text-white" />
-        )}
-      </div>
+            {isProduct ? (
+              <div
+                className={cn(
+                  "relative flex items-center gap-3 overflow-hidden border border-l-[3px] rounded-[2px] px-4 py-2 transition-all duration-200",
+                  isSelected
+                    ? "border-l-[#279ECE] border-[#279ECE]/25 bg-[#E3F1F7] shadow-sm"
+                    : "border-l-[#279ECE] bg-white hover:-translate-y-0.5 hover:border-[#279ECE]/40 hover:shadow-md",
+                )}
+              >
+                <div
+                  className={cn(
+                    "flex h-7 w-7 shrink-0 items-center justify-center rounded-[2px] transition-all",
+                    isSelected
+                      ? "bg-[#279ECE]"
+                      : "bg-[#279ECE]/10 group-hover:bg-[#279ECE]",
+                  )}
+                >
+                  {isSelected ? (
+                    <CircleCheck className="h-[15px] w-[15px] text-white" />
+                  ) : (
+                    <Layers3 className="h-[15px] w-[15px] text-[#279ECE] transition-colors group-hover:text-white" />
+                  )}
+                </div>
 
-      <div
-        ref={textContainerRef}
-        className="relative flex-1 overflow-hidden"
-      >
-        <span
-          ref={textRef}
-          className={cn(
-            "inline-block whitespace-nowrap text-[13.5px] font-semibold leading-snug",
-            isSelected
-              ? "text-[#276A96]"
-              : "text-[#1E293B]",
-            shouldMarquee &&
-              "animate-[sidebarMarquee_10s_ease-in-out_infinite]",
-          )}
-        >
-          {getNodeLabel(node)}
-        </span>
-      </div>
+                <div
+                  ref={textContainerRef}
+                  className="relative flex-1 overflow-hidden"
+                >
+                  <span
+                    ref={textRef}
+                    className={cn(
+                      "inline-block whitespace-nowrap text-[13.5px] font-semibold leading-snug",
+                      isSelected ? "text-[#276A96]" : "text-[#1E293B]",
+                      shouldMarquee &&
+                        "animate-[sidebarMarquee_10s_ease-in-out_infinite]",
+                    )}
+                  >
+                    {getNodeLabel(node)}
+                  </span>
+                </div>
 
-      <ChevronRight
-        className={cn(
-          "h-[15px] w-[15px] shrink-0 transition-all",
-          isSelected
-            ? "text-[#276A96]"
-            : "text-[#279ECE] group-hover:translate-x-1",
-        )}
-      />
-    </div>
-  ) : (
-   <div
-  className={cn(
-    "relative flex w-full items-center gap-3 overflow-hidden border border-l-[3px] rounded-[2px] px-4 py-2 transition-all duration-200",
-    "border-l-[#279ECE] bg-white hover:-translate-y-0.5 hover:border-[#279ECE]/40 hover:shadow-md"
-  )}
->
-  
+                <ChevronRight
+                  className={cn(
+                    "h-[15px] w-[15px] shrink-0 transition-all",
+                    isSelected
+                      ? "text-[#276A96]"
+                      : "text-[#279ECE] group-hover:translate-x-1",
+                  )}
+                />
+              </div>
+            ) : (
+              <div
+                className={cn(
+                  "relative flex w-full items-center gap-3 overflow-hidden border border-l-[3px] rounded-[2px] px-4 py-2 transition-all duration-200",
+                  "border-l-[#279ECE] bg-white hover:-translate-y-0.5 hover:border-[#279ECE]/40 hover:shadow-md",
+                )}
+              >
+                <span className="flex-1 pr-2 text-[13.5px] font-semibold leading-5 text-[#1E293B]">
+                  {getNodeLabel(node)}
+                </span>
 
-  <span className="flex-1 pr-2 text-[13.5px] font-semibold leading-5 text-[#1E293B]">
-    {getNodeLabel(node)}
-  </span>
-
-  <CircleChevronRight className="h-[15px] w-[15px] shrink-0 text-[#279ECE]" />
-</div>
-        )}
-    </div>
-  </div>
-</button>
+                <CircleChevronRight className="h-[15px] w-[15px] shrink-0 text-[#279ECE]" />
+              </div>
+            )}
+          </div>
+        </div>
+      </button>
 
       {hasChildren && actuallyOpen && (
         <ul className="mt-1 space-y-1 relative">

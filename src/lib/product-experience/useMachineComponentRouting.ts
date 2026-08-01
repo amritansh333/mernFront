@@ -17,8 +17,9 @@ export function useMachineComponentRouting() {
       rootPath,
       getPathByLabel: (label: string) =>
         getMachineComponentPathByLabel(data, label),
-      resolveCategoryPath: (category: Parameters<typeof resolveProductCategoryPath>[0]) =>
-        resolveProductCategoryPath(category, rootPath),
+      resolveCategoryPath: (
+        category: Parameters<typeof resolveProductCategoryPath>[0],
+      ) => resolveProductCategoryPath(category, rootPath),
     };
   }, [data]);
 }

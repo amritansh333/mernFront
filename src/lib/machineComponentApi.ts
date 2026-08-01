@@ -84,11 +84,14 @@ function normalizeProducts(value: unknown) {
 function normalizePaths(value: unknown) {
   if (!isRecord(value)) return {};
 
-  return Object.entries(value).reduce<Record<string, string>>((paths, [key, path]) => {
-    const normalizedPath = getString(path);
-    if (normalizedPath) paths[key] = normalizedPath;
-    return paths;
-  }, {});
+  return Object.entries(value).reduce<Record<string, string>>(
+    (paths, [key, path]) => {
+      const normalizedPath = getString(path);
+      if (normalizedPath) paths[key] = normalizedPath;
+      return paths;
+    },
+    {},
+  );
 }
 
 export function normalizeMachineComponentsResponse(
@@ -129,9 +132,7 @@ export async function getMachineComponents(): Promise<MachineComponentsData> {
 }
 
 export async function getMachineComponentSubcategory(slug: string) {
-  const response = await api.get(
-    `/machine-components/subcategory/${slug}`
-  );
+  const response = await api.get(`/machine-components/subcategory/${slug}`);
 
   return response.data.data;
 }

@@ -17,7 +17,10 @@ export function resolveProductCategoryPath(
   const slug = category.slug?.toLowerCase() || "";
   const name = category.name?.toLowerCase() || "";
 
-  if (slug.includes("machine-components") || name.includes("machine components")) {
+  if (
+    slug.includes("machine-components") ||
+    name.includes("machine components")
+  ) {
     return machineComponentsRootPath || PRODUCTS_ROOT_PATH;
   }
 

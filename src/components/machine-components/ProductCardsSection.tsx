@@ -23,26 +23,26 @@ export default function ProductCardsSection({
 
   return (
     <section className="px-4 py-4 lg:px-8">
-  <div className="mb-4 inline-flex items-center gap-2 rounded-sm border border-[#279ECE]/20 bg-[#279ECE]/10 px-3 py-1.5">
-    <Save className="h-3.5 w-3.5 text-[#276A96]" />
+      <div className="mb-4 inline-flex items-center gap-2 rounded-sm border border-[#279ECE]/20 bg-[#279ECE]/10 px-3 py-1.5">
+        <Save className="h-3.5 w-3.5 text-[#276A96]" />
 
-    <span className="text-[10px] font-bold uppercase tracking-widest text-[#276A96]">
-      Our Products
-    </span>
-  </div>
+        <span className="text-[10px] font-bold uppercase tracking-widest text-[#276A96]">
+          Our Products
+        </span>
+      </div>
 
-  <div className="mx-auto max-w-7xl">
-    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4">
-      {products.map((product) => {
-        const imageUrl = product.image
-          ? `${API_BASE_URL}${product.image}`
-          : "/placeholder-product.jpg";
+      <div className="mx-auto max-w-7xl">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4">
+          {products.map((product) => {
+            const imageUrl = product.image
+              ? `${API_BASE_URL}${product.image}`
+              : "/placeholder-product.jpg";
 
-        return (
-          <Link
-            key={product.slug}
-            to={product.path}
-            className="
+            return (
+              <Link
+                key={product.slug}
+                to={product.path}
+                className="
               group
               flex
               flex-col
@@ -57,26 +57,25 @@ export default function ProductCardsSection({
               hover:border-[#2BA6D9]
               hover:shadow-[0_5px_10px_rgba(39,158,206,0.22)]
             "
-          >
-            {/* Product Image */}
+              >
+                {/* Product Image */}
 
-            <div className="aspect-[4/3] overflow-hidden bg-slate-50">
-              <img
-  src={imageUrl}
-  alt={product.name}
-  loading="lazy"
-  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-  onError={(e) => {
-    e.currentTarget.style.display = "none";
-  }}
-/>
-            </div>
+                <div className="aspect-[4/3] overflow-hidden bg-slate-50">
+                  <img
+                    src={imageUrl}
+                    alt={product.name}
+                    loading="lazy"
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    onError={(e) => {
+                      e.currentTarget.style.display = "none";
+                    }}
+                  />
+                </div>
 
-            {/* Product Content */}
+                {/* Product Content */}
 
-            <div className="flex flex-1 flex-col p-4">
-
-              <h3 className="flex items-center gap-2 text-lg font-semibold text-[#2BA6D9] transition-colors group-hover:text-primary-dark transition-colors">
+                <div className="flex flex-1 flex-col p-4">
+                  <h3 className="flex items-center gap-2 text-lg font-semibold text-[#2BA6D9] transition-colors group-hover:text-primary-dark transition-colors">
                     <span className="line-clamp-2">{product.name}</span>
 
                     <ArrowRight className="h-4 w-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
@@ -84,23 +83,19 @@ export default function ProductCardsSection({
 
                   <p className="mt-2 text-sm leading-5 text-slate-600 line-clamp-3">
                     {Array.isArray(product.description)
-  ? product.description[0]
-  : product.description}
+                      ? product.description[0]
+                      : product.description}
                   </p>
 
-              <div className="mt-auto pt-6">
-
-                <div className="h-[2px] w-12 bg-[#2BA6D9] transition-all duration-300 group-hover:w-full" />
-
-              </div>
-
-            </div>
-          </Link>
-        );
-      })}
-    </div>
-  </div>
-</section>
-    
+                  <div className="mt-auto pt-6">
+                    <div className="h-[2px] w-12 bg-[#2BA6D9] transition-all duration-300 group-hover:w-full" />
+                  </div>
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+      </div>
+    </section>
   );
 }

@@ -56,15 +56,24 @@ export default function CareersPage() {
   return (
     <div className="pt-16">
       <div className="relative min-h-[40vh] flex items-end overflow-hidden bg-charcoal">
-        <img src={heroImage} alt="Careers at Polyrib" className="absolute inset-0 w-full h-full object-cover opacity-40" />
+        <img
+          src={heroImage}
+          alt="Careers at Polyrib"
+          className="absolute inset-0 w-full h-full object-cover opacity-40"
+        />
         <div className="absolute inset-0 bg-gradient-to-t from-charcoal/90 to-transparent" />
         <div className="relative container max-w-7xl mx-auto px-6 py-14">
           <nav className="text-xs text-white/50 mb-4 flex items-center gap-1.5">
-            <Link to="/" className="hover:text-white/80">Home</Link><span>/</span>
+            <Link to="/" className="hover:text-white/80">
+              Home
+            </Link>
+            <span>/</span>
             <span className="text-white/80">Careers</span>
           </nav>
           <p className="section-label text-white/50 mb-3">Join Our Team</p>
-          <h1 className="font-heading text-4xl text-white">Careers at Polyrib</h1>
+          <h1 className="font-heading text-4xl text-white">
+            Careers at Polyrib
+          </h1>
         </div>
       </div>
 
@@ -74,13 +83,21 @@ export default function CareersPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <div>
               <p className="section-label mb-3">Why Join Us</p>
-              <h2 className="font-heading text-3xl text-charcoal mb-5">Build your career in engineering thermoplastics</h2>
+              <h2 className="font-heading text-3xl text-charcoal mb-5">
+                Build your career in engineering thermoplastics
+              </h2>
               <p className="text-muted-foreground text-sm leading-relaxed mb-5">
-                Polyrib is one of India's leading thermoplastic manufacturers, with a growing export presence across 50+ countries. We're a technically-driven business that invests in our people and values expertise, innovation, and a commitment to quality.
+                Polyrib is one of India's leading thermoplastic manufacturers,
+                with a growing export presence across 50+ countries. We're a
+                technically-driven business that invests in our people and
+                values expertise, innovation, and a commitment to quality.
               </p>
               <div className="space-y-2.5">
                 {perks.map((p) => (
-                  <div key={p} className="flex gap-3 text-sm text-charcoal-light">
+                  <div
+                    key={p}
+                    className="flex gap-3 text-sm text-charcoal-light"
+                  >
                     <div className="w-1.5 h-1.5 bg-primary mt-1.5 shrink-0" />
                     {p}
                   </div>
@@ -89,12 +106,20 @@ export default function CareersPage() {
             </div>
             <div className="bg-surface-subtle border border-border p-8">
               <p className="section-label mb-3">Open Applications</p>
-              <h3 className="font-heading text-xl text-charcoal mb-3">Don't see a suitable role?</h3>
+              <h3 className="font-heading text-xl text-charcoal mb-3">
+                Don't see a suitable role?
+              </h3>
               <p className="text-muted-foreground text-sm leading-relaxed mb-5">
-                We welcome speculative applications from talented engineers, sales professionals, and production specialists. Send us your CV and we'll keep it on file for future opportunities.
+                We welcome speculative applications from talented engineers,
+                sales professionals, and production specialists. Send us your CV
+                and we'll keep it on file for future opportunities.
               </p>
-              <Link to="https://wa.me/919936794816" className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary-dark transition-colors duration-200">
-                Send Speculative Application on WhatsApp<ArrowRight className="w-4 h-4" />
+              <Link
+                to="https://wa.me/919936794816"
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary-dark transition-colors duration-200"
+              >
+                Send Speculative Application on WhatsApp
+                <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
           </div>
@@ -105,24 +130,47 @@ export default function CareersPage() {
       <section ref={ref} className="fade-up py-14 bg-surface-subtle">
         <div className="container max-w-7xl mx-auto px-6">
           <p className="section-label mb-3">Open Positions</p>
-          <h2 className="font-heading text-2xl text-charcoal mb-8">Current Vacancies</h2>
+          <h2 className="font-heading text-2xl text-charcoal mb-8">
+            Current Vacancies
+          </h2>
           <div className="space-y-4">
             {openRoles.map((role) => (
-              <div key={role.title} className="bg-card border border-border p-6 hover:border-primary/40 transition-colors duration-200 group">
+              <div
+                key={role.title}
+                className="bg-card border border-border p-6 hover:border-primary/40 transition-colors duration-200 group"
+              >
                 <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
                   <div className="flex-1">
                     <div className="flex flex-wrap gap-2 mb-3">
-                      <span className="text-[10px] px-2.5 py-1 bg-primary/10 text-primary font-bold uppercase tracking-wider">{role.dept}</span>
+                      <span className="text-[10px] px-2.5 py-1 bg-primary/10 text-primary font-bold uppercase tracking-wider">
+                        {role.dept}
+                      </span>
                     </div>
-                    <h3 className="font-heading font-semibold text-charcoal text-lg mb-2 group-hover:text-primary transition-colors duration-200">{role.title}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed mb-3">{role.desc}</p>
+                    <h3 className="font-heading font-semibold text-charcoal text-lg mb-2 group-hover:text-primary transition-colors duration-200">
+                      {role.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed mb-3">
+                      {role.desc}
+                    </p>
                     <div className="flex flex-wrap gap-4 text-xs text-muted-foreground">
-                      <span className="flex items-center gap-1.5"><MapPin className="w-3.5 h-3.5" />{role.location}</span>
-                      <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5" />{role.type}</span>
-                      <span className="flex items-center gap-1.5"><Briefcase className="w-3.5 h-3.5" />{role.dept}</span>
+                      <span className="flex items-center gap-1.5">
+                        <MapPin className="w-3.5 h-3.5" />
+                        {role.location}
+                      </span>
+                      <span className="flex items-center gap-1.5">
+                        <Clock className="w-3.5 h-3.5" />
+                        {role.type}
+                      </span>
+                      <span className="flex items-center gap-1.5">
+                        <Briefcase className="w-3.5 h-3.5" />
+                        {role.dept}
+                      </span>
                     </div>
                   </div>
-                  <Link to="/contact" className="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary-dark transition-colors duration-200">
+                  <Link
+                    to="/contact"
+                    className="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary-dark transition-colors duration-200"
+                  >
                     Apply <ArrowRight className="w-4 h-4" />
                   </Link>
                 </div>

@@ -18,45 +18,42 @@ export default function CallButton() {
   }, []);
 
   useEffect(() => {
-  const collapse = () => setExpanded(false);
+    const collapse = () => setExpanded(false);
 
-  window.addEventListener("pagehide", collapse);
-  window.addEventListener("pageshow", collapse);
-  window.addEventListener("focus", collapse);
-  window.addEventListener("blur", collapse);
+    window.addEventListener("pagehide", collapse);
+    window.addEventListener("pageshow", collapse);
+    window.addEventListener("focus", collapse);
+    window.addEventListener("blur", collapse);
 
-  const handleVisibilityChange = () => {
-    if (document.visibilityState !== "visible") {
-      collapse();
-    }
-  };
+    const handleVisibilityChange = () => {
+      if (document.visibilityState !== "visible") {
+        collapse();
+      }
+    };
 
-  document.addEventListener("visibilitychange", handleVisibilityChange);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
 
-  return () => {
-    window.removeEventListener("pagehide", collapse);
-    window.removeEventListener("pageshow", collapse);
-    window.removeEventListener("focus", collapse);
-    window.removeEventListener("blur", collapse);
-    document.removeEventListener(
-      "visibilitychange",
-      handleVisibilityChange
-    );
-  };
-}, []);
+    return () => {
+      window.removeEventListener("pagehide", collapse);
+      window.removeEventListener("pageshow", collapse);
+      window.removeEventListener("focus", collapse);
+      window.removeEventListener("blur", collapse);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, []);
 
   const handleClick = () => {
-  if (window.innerWidth < 768) {
-    setExpanded(true);
+    if (window.innerWidth < 768) {
+      setExpanded(true);
 
-    // Collapse immediately after the dialer is launched.
-    requestAnimationFrame(() => {
-      setTimeout(() => {
-        setExpanded(false);
-      }, 150);
-    });
-  }
-};
+      // Collapse immediately after the dialer is launched.
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+          setExpanded(false);
+        }, 150);
+      });
+    }
+  };
 
   return (
     <>
@@ -70,11 +67,7 @@ export default function CallButton() {
           duration-300
           ease-out
 
-          ${
-            moveUp
-              ? "bottom-[6.4rem]"
-              : "bottom-6"
-          }
+          ${moveUp ? "bottom-[6.4rem]" : "bottom-6"}
         `}
         style={{
           paddingBottom: "env(safe-area-inset-bottom)",
@@ -153,11 +146,7 @@ export default function CallButton() {
               items-center
               justify-end
 
-              ${
-                expanded
-                  ? "w-[185px]"
-                  : "w-0 group-hover:w-[185px]"
-              }
+              ${expanded ? "w-[185px]" : "w-0 group-hover:w-[185px]"}
             `}
           >
             <span

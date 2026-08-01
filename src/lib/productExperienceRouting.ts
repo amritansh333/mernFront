@@ -1,4 +1,7 @@
-export { PRODUCTS_ROOT_PATH, normalizeProductPath } from "@/lib/product-experience/paths";
+export {
+  PRODUCTS_ROOT_PATH,
+  normalizeProductPath,
+} from "@/lib/product-experience/paths";
 export { buildMachineComponentRouteMaps } from "@/lib/product-experience/routeMaps";
 export {
   getDefaultMachineComponentSlug,

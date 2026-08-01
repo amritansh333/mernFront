@@ -32,9 +32,7 @@ interface CookieConsentContextValue {
 
   declineAll: () => void;
 
-  savePreferences: (
-    preferences: CookiePreferences
-  ) => void;
+  savePreferences: (preferences: CookiePreferences) => void;
 
   resetConsent: () => void;
 
@@ -43,35 +41,30 @@ interface CookieConsentContextValue {
   closePreferences: () => void;
 }
 
-
-
-const CookieConsentContext =
-  createContext<CookieConsentContextValue | null>(null);
+const CookieConsentContext = createContext<CookieConsentContextValue | null>(
+  null,
+);
 
 interface ProviderProps {
   children: ReactNode;
 }
 
-export function CookieConsentProvider({
-  children,
-}: ProviderProps) {
-  const [consent, setConsent] =
-    useState<CookieConsentState>(getCookieConsent);
+export function CookieConsentProvider({ children }: ProviderProps) {
+  const [consent, setConsent] = useState<CookieConsentState>(getCookieConsent);
 
-    const [isPreferencesOpen, setIsPreferencesOpen] =
-  useState(false);
+  const [isPreferencesOpen, setIsPreferencesOpen] = useState(false);
 
   useEffect(() => {
     saveCookieConsent(consent);
   }, [consent]);
 
-    const openPreferences = useCallback(() => {
-  setIsPreferencesOpen(true);
-}, []);
+  const openPreferences = useCallback(() => {
+    setIsPreferencesOpen(true);
+  }, []);
 
-const closePreferences = useCallback(() => {
-  setIsPreferencesOpen(false);
-}, []);
+  const closePreferences = useCallback(() => {
+    setIsPreferencesOpen(false);
+  }, []);
 
   const acceptAll = useCallback(() => {
     setConsent(acceptAllConsent());
@@ -81,12 +74,9 @@ const closePreferences = useCallback(() => {
     setConsent(declineAllConsent());
   }, []);
 
-  const savePreferences = useCallback(
-    (preferences: CookiePreferences) => {
-      setConsent(customConsent(preferences));
-    },
-    []
-  );
+  const savePreferences = useCallback((preferences: CookiePreferences) => {
+    setConsent(customConsent(preferences));
+  }, []);
 
   const resetConsent = useCallback(() => {
     setConsent({
@@ -101,58 +91,51 @@ const closePreferences = useCallback(() => {
     });
   }, []);
 
-
-
   const value = useMemo(
-  () => ({
-    consent,
+    () => ({
+      consent,
 
-    hasAnswered:
-      consent.status !== "unknown",
+      hasAnswered: consent.status !== "unknown",
 
-    isPreferencesOpen,
+      isPreferencesOpen,
 
-    acceptAll,
+      acceptAll,
 
-    declineAll,
+      declineAll,
 
-    savePreferences,
+      savePreferences,
 
-    resetConsent,
+      resetConsent,
 
-    openPreferences,
+      openPreferences,
 
-    closePreferences,
-  }),
-  [
-    consent,
-    isPreferencesOpen,
-    acceptAll,
-    declineAll,
-    savePreferences,
-    resetConsent,
-    openPreferences,
-    closePreferences,
-  ]
-);
+      closePreferences,
+    }),
+    [
+      consent,
+      isPreferencesOpen,
+      acceptAll,
+      declineAll,
+      savePreferences,
+      resetConsent,
+      openPreferences,
+      closePreferences,
+    ],
+  );
 
   return (
-    <CookieConsentContext.Provider
-      value={value}
-    >
+    <CookieConsentContext.Provider value={value}>
       {children}
     </CookieConsentContext.Provider>
   );
 }
 
 export function useCookieConsentContext() {
-  const context = useContext(
-    CookieConsentContext
-  );
+  const context = useContext(CookieConsentContext);
 
   if (!context) {
     throw new Error(
-      "useCookieConsentContext must be used inside CookieConsentProvider."
+      "useCookieConsentContext must be used inside CookieConsentProvider.",
     );
   }
 

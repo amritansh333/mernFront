@@ -8,10 +8,7 @@ export interface ProductExperienceContext {
 
 export interface ProductExperienceDefinition {
   id: string;
-  matcher: (
-    pathname: string,
-    context: ProductExperienceContext,
-  ) => boolean;
+  matcher: (pathname: string, context: ProductExperienceContext) => boolean;
   component: ComponentType;
 }
 

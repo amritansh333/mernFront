@@ -1,25 +1,19 @@
 import { useState } from "react";
-import {
-  Cookie,
-  ChevronRight,
-  ShieldCheck,
-} from "lucide-react";
+import { Cookie, ChevronRight, ShieldCheck } from "lucide-react";
 
 import { useCookieConsent } from "@/hooks/useCookieConsent";
 
-
 export default function CookieBanner() {
-
   const {
-  consent,
-  hasAnswered,
-  acceptAll,
-  declineAll,
-  savePreferences,
-  isPreferencesOpen,
-  openPreferences,
-  closePreferences,
-} = useCookieConsent();
+    consent,
+    hasAnswered,
+    acceptAll,
+    declineAll,
+    savePreferences,
+    isPreferencesOpen,
+    openPreferences,
+    closePreferences,
+  } = useCookieConsent();
 
   if (hasAnswered) {
     return null;
@@ -27,8 +21,6 @@ export default function CookieBanner() {
 
   return (
     <>
-      
-
       <div
         className="
           fixed
@@ -51,48 +43,34 @@ export default function CookieBanner() {
         "
       >
         <div className="flex flex-col gap-6 p-6 lg:flex-row lg:items-center lg:justify-between">
-
           {/* Left */}
 
           <div className="flex flex-1 gap-4">
-
             <div className="hidden h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl bg-[#4BB3DD] lg:flex">
-
               <Cookie className="h-7 w-7 text-[#EAF8FC]" />
-
             </div>
 
             <div>
-
               <div className="flex items-center gap-2">
-
                 <ShieldCheck className="h-5 w-5 text-[#276A96]" />
 
                 <h2 className="text-lg font-bold text-slate-900">
                   We value your privacy
                 </h2>
-
               </div>
 
               <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600">
-
-                We use essential cookies to ensure this website
-                functions properly. With your permission, we
-                also use optional cookies to remember your
-                preferences and understand how visitors use our
-                website so we can continue improving the
-                experience.
-
+                We use essential cookies to ensure this website functions
+                properly. With your permission, we also use optional cookies to
+                remember your preferences and understand how visitors use our
+                website so we can continue improving the experience.
               </p>
-
             </div>
-
           </div>
 
           {/* Right */}
 
           <div className="flex flex-col gap-3 sm:flex-row">
-
             <button
               type="button"
               onClick={openPreferences}
@@ -113,7 +91,6 @@ export default function CookieBanner() {
               "
             >
               Customize
-
               <ChevronRight className="h-4 w-4" />
             </button>
 
@@ -152,9 +129,7 @@ export default function CookieBanner() {
             >
               Accept All
             </button>
-
           </div>
-
         </div>
       </div>
     </>

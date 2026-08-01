@@ -4,12 +4,8 @@ import CookiePreferencesModal from "./CookiePreferencesModal";
 import { useCookieConsent } from "@/hooks/useCookieConsent";
 
 export default function CookieConsentManager() {
-  const {
-    consent,
-    isPreferencesOpen,
-    closePreferences,
-    savePreferences,
-  } = useCookieConsent();
+  const { consent, isPreferencesOpen, closePreferences, savePreferences } =
+    useCookieConsent();
 
   return (
     <>

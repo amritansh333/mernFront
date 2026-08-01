@@ -1,10 +1,7 @@
 import { useMemo } from "react";
 import SidebarNode from "@/components/machine-components/SidebarNode";
 import SidebarSearch from "@/components/machine-components/SidebarSearch";
-import {
-  Package2,
-  Sparkles,
-} from "lucide-react";
+import { Package2, Sparkles } from "lucide-react";
 import {
   getNodeChildren,
   sortNodesByProductOrder,
@@ -58,10 +55,7 @@ function filterNodes(
         children: filteredChildren,
       };
     })
-    .filter(
-  (node): node is NonNullable<typeof node> =>
-    node !== null
-);
+    .filter((node): node is NonNullable<typeof node> => node !== null);
 
   return sortNodesByProductOrder(filteredNodes, products);
 }
@@ -85,31 +79,29 @@ export default function MachineSidebar({
   setSelectedSlug,
   search,
   setSearch,
-}: MachineSidebarProps) {  
-
+}: MachineSidebarProps) {
   const filteredSidebar = useMemo(
     () => filterNodes(sidebar, search, products),
     [sidebar, search, products],
   );
 
-const visibleSidebar = useMemo(() => {
-  return filteredSidebar.map((node) => ({
-    ...node,
-    children: getNodeChildren(node).filter(
-      (child) => getNodeLabel(child) !== "overview"
-    ),
-  }));
-}, [filteredSidebar]);
+  const visibleSidebar = useMemo(() => {
+    return filteredSidebar.map((node) => ({
+      ...node,
+      children: getNodeChildren(node).filter(
+        (child) => getNodeLabel(child) !== "overview",
+      ),
+    }));
+  }, [filteredSidebar]);
 
   const hasSearch = search.trim().length > 0;
 
   return (
     <aside className="flex h-full flex-col overflow-hidden border-r border-[#279ECE]/15 bg-[#F7FBFE]">
-
       {/* ================= PREMIUM HEADER ================= */}
 
       <div
-  className="
+        className="
     hidden
     relative
     overflow-hidden
@@ -119,8 +111,8 @@ const visibleSidebar = useMemo(() => {
     py-6
     text-white
   "
-  style={{
-  background: `
+        style={{
+          background: `
     linear-gradient(
       165deg,
       #6BC5EB 0%,
@@ -129,13 +121,13 @@ const visibleSidebar = useMemo(() => {
       #266792 100%
     )
   `,
-}}
->
-{/* ================= BACKGROUND DESIGN ================= */}
+        }}
+      >
+        {/* ================= BACKGROUND DESIGN ================= */}
 
-{/* Top Right Soft Circle */}
-<div
-  className="
+        {/* Top Right Soft Circle */}
+        <div
+          className="
     absolute
     -top-32
     -right-28
@@ -145,11 +137,11 @@ const visibleSidebar = useMemo(() => {
     bg-[#0B7CC0]/25
     blur-[90px]
   "
-/>
+        />
 
-{/* Bottom Left Soft Circle */}
-<div
-  className="
+        {/* Bottom Left Soft Circle */}
+        <div
+          className="
     absolute
     -bottom-28
     -left-24
@@ -159,11 +151,11 @@ const visibleSidebar = useMemo(() => {
     bg-[#0A6FAF]/22
     blur-[85px]
   "
-/>
+        />
 
-{/* Small Highlight near top-right */}
-<div
-  className="
+        {/* Small Highlight near top-right */}
+        <div
+          className="
     absolute
     top-10
     right-20
@@ -173,35 +165,35 @@ const visibleSidebar = useMemo(() => {
     bg-white/10
     blur-[40px]
   "
-/>
+        />
 
-{/* White Engineering Dots */}
-<div
-  className="absolute inset-0 opacity-[0.18]"
-  style={{
-    backgroundImage:
-      "radial-gradient(circle, rgba(255,255,255,.95) 2px, transparent 2px)",
-    backgroundSize: "42px 42px",
-  }}
-/>
+        {/* White Engineering Dots */}
+        <div
+          className="absolute inset-0 opacity-[0.18]"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle, rgba(255,255,255,.95) 2px, transparent 2px)",
+            backgroundSize: "42px 42px",
+          }}
+        />
 
-{/* Top Light */}
-{/* Top Light */}
-<div
-  className="absolute inset-x-0 top-0 h-40"
-  style={{
-    background:
-      "linear-gradient(to bottom, rgba(255,255,255,.14) 0%, rgba(255,255,255,.07) 18%, rgba(255,255,255,.03) 42%, rgba(255,255,255,0) 100%)",
-  }}
-/>
+        {/* Top Light */}
+        {/* Top Light */}
+        <div
+          className="absolute inset-x-0 top-0 h-40"
+          style={{
+            background:
+              "linear-gradient(to bottom, rgba(255,255,255,.14) 0%, rgba(255,255,255,.07) 18%, rgba(255,255,255,.03) 42%, rgba(255,255,255,0) 100%)",
+          }}
+        />
 
-{/* Bottom Light */}
-{/* Bottom Light */}
-{/* Bottom Light */}
-<div
-  className="absolute inset-x-0 bottom-0 h-52"
-  style={{
-    background: `
+        {/* Bottom Light */}
+        {/* Bottom Light */}
+        {/* Bottom Light */}
+        <div
+          className="absolute inset-x-0 bottom-0 h-52"
+          style={{
+            background: `
       linear-gradient(
         to top,
         #266792 0%,
@@ -212,15 +204,15 @@ const visibleSidebar = useMemo(() => {
         rgba(38,103,146,0) 100%
       )
     `,
-  }}
-/>
+          }}
+        />
 
-{/* Soft Edge Blend */}
-{/* Soft Edge Blend */}
-<div
-  className="absolute inset-0"
-  style={{
-    background: `
+        {/* Soft Edge Blend */}
+        {/* Soft Edge Blend */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: `
       radial-gradient(circle at top right,
         rgba(255,255,255,.12) 0%,
         rgba(255,255,255,.05) 25%,
@@ -236,27 +228,23 @@ const visibleSidebar = useMemo(() => {
         rgba(255,255,255,0) 75%
       )
     `,
-  }}
-/>
+          }}
+        />
 
         <div className="relative z-10">
-
           {/* EXPLORE OUR RANGE */}
 
           <div className="mb-4 inline-flex items-center gap-2 rounded-md border border-white/15 bg-white/20 px-3 py-1.5 backdrop-blur-md">
-
             <Sparkles className="h-3.5 w-3.5" />
 
             <span className="text-[9px] font-bold uppercase tracking-[0.18em] ">
               Explore Our Range
             </span>
-
           </div>
 
           {/* HEADER CONTENT */}
 
           <div className="flex items-center gap-4">
-
             <div
               className="
                 flex
@@ -276,34 +264,27 @@ const visibleSidebar = useMemo(() => {
             </div>
 
             <div className="min-w-0 flex-1">
-
               <h2 className="text-[22px] text-white/90 font-bold leading-none tracking-tight">
-               Precision That Powers Industry.
+                Precision That Powers Industry.
               </h2>
-              
 
               <p className="mt-2 max-w-[240px] text-sm leading-6 text-white/80 font-bold tracking-tight">
-                Where engineering precision meets dependable industrial performance.
+                Where engineering precision meets dependable industrial
+                performance.
               </p>
-
             </div>
-
           </div>
-
         </div>
-
       </div>
 
       {/* ================= SEARCH ================= */}
 
       <div className="border-b border-[#279ECE]/10 bg-white px-4 py-4">
-
         <SidebarSearch
           value={search}
           onChange={setSearch}
           totalProducts={countProducts(filteredSidebar)}
         />
-
       </div>
 
       {/* ================= TREE ================= */}
@@ -318,7 +299,7 @@ const visibleSidebar = useMemo(() => {
         "
         aria-label="Machine Components"
       >
-                {filteredSidebar.length > 0 ? (
+        {filteredSidebar.length > 0 ? (
           <ul className="space-y-2">
             {visibleSidebar.map((node, index) => (
               <SidebarNode

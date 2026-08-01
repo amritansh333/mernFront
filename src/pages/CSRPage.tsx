@@ -62,9 +62,7 @@ export default function CSRPage() {
   }, []);
 
   const prevSlide = () => {
-    setCurrent((prev) =>
-      prev === 0 ? csrImages.length - 1 : prev - 1
-    );
+    setCurrent((prev) => (prev === 0 ? csrImages.length - 1 : prev - 1));
   };
 
   const nextSlide = () => {
@@ -100,7 +98,6 @@ export default function CSRPage() {
       <section className="py-8 border-b border-gray-200 bg-white">
         <div className="container max-w-7xl mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-8 items-center">
-            
             {/* LEFT SIDE CONTENT */}
             <div>
               <p className="section-label mb-4">Our Commitment</p>
@@ -114,13 +111,28 @@ export default function CSRPage() {
 
               <div className="space-y-5 text-muted-foreground text-lh leading-relaxed">
                 <p>
-                  At <strong className="text-primary">Polyrib</strong>, we believe that responsible manufacturing and commercial success are inseparable. Our <strong className="text-primary">CSR</strong> programme covers environmental stewardship, employee development, community investment, and ethical supply chain management.
+                  At <strong className="text-primary">Polyrib</strong>, we
+                  believe that responsible manufacturing and commercial success
+                  are inseparable. Our{" "}
+                  <strong className="text-primary">CSR</strong> programme covers
+                  environmental stewardship, employee development, community
+                  investment, and ethical supply chain management.
                 </p>
                 <p>
-                  As a manufacturer of polymer materials, we recognise our responsibility to manage our <strong className="text-primary">environmental impact</strong> thoughtfully — from responsible raw material sourcing to energy-efficient processing and end-of-life material recovery.
+                  As a manufacturer of polymer materials, we recognise our
+                  responsibility to manage our{" "}
+                  <strong className="text-primary">environmental impact</strong>{" "}
+                  thoughtfully — from responsible raw material sourcing to
+                  energy-efficient processing and end-of-life material recovery.
                 </p>
                 <p>
-                  This page summarises our key <strong className="text-primary">CSR commitments</strong>. We publish an <strong className="text-primary">Annual Sustainability Update</strong> for customers, investors, and community stakeholders.
+                  This page summarises our key{" "}
+                  <strong className="text-primary">CSR commitments</strong>. We
+                  publish an{" "}
+                  <strong className="text-primary">
+                    Annual Sustainability Update
+                  </strong>{" "}
+                  for customers, investors, and community stakeholders.
                 </p>
               </div>
             </div>
@@ -128,7 +140,6 @@ export default function CSRPage() {
             {/* RIGHT SIDE SLIDER */}
             <div className="relative group">
               <div className="relative h-[380px] overflow-hidden shadow-xl">
-                
                 {csrImages.map((img, index) => (
                   <img
                     key={index}
@@ -157,7 +168,6 @@ export default function CSRPage() {
                 </button>
               </div>
             </div>
-
           </div>
         </div>
       </section>
@@ -215,9 +225,7 @@ export default function CSRPage() {
                 <div className="font-heading font-bold text-primary text-3xl mb-2">
                   {m.v}
                 </div>
-                <div className="text-sm text-muted-foreground">
-                  {m.l}
-                </div>
+                <div className="text-sm text-muted-foreground">{m.l}</div>
               </div>
             ))}
           </div>

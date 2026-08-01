@@ -12,17 +12,18 @@ import type { MachineComponentProduct } from "@/types/machineComponent";
 export function useMachineComponents() {
   const location = useLocation();
   const navigate = useNavigate();
-  const {
-    data: machineData,
-    loading,
-    error,
-  } = useMachineComponentsData();
+  const { data: machineData, loading, error } = useMachineComponentsData();
 
-  const routeMaps = useMemo(() => buildMachineComponentRouteMaps(machineData), [machineData]);
+  const routeMaps = useMemo(
+    () => buildMachineComponentRouteMaps(machineData),
+    [machineData],
+  );
   const selectedSlug = useMemo(() => {
     if (!machineData) return "";
 
-    const slugFromPath = routeMaps.pathToSlug.get(normalizeProductPath(location.pathname));
+    const slugFromPath = routeMaps.pathToSlug.get(
+      normalizeProductPath(location.pathname),
+    );
     if (slugFromPath) return slugFromPath;
     if (shouldUseDefaultMachineComponent(machineData, location.pathname)) {
       return getDefaultMachineComponentSlug(machineData);
@@ -38,7 +39,8 @@ export function useMachineComponents() {
       const productPath = routeMaps.slugToPath.get(slug);
       if (
         productPath &&
-        normalizeProductPath(productPath) !== normalizeProductPath(location.pathname)
+        normalizeProductPath(productPath) !==
+          normalizeProductPath(location.pathname)
       ) {
         navigate(productPath);
       }

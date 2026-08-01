@@ -4,9 +4,7 @@ interface FeaturesSectionProps {
   features: string[];
 }
 
-export default function FeaturesSection({
-  features,
-}: FeaturesSectionProps) {
+export default function FeaturesSection({ features }: FeaturesSectionProps) {
   if (!features.length) return null;
 
   return (

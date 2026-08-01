@@ -32,23 +32,20 @@ export default function HeroSection({
   const pdf = downloads[0];
 
   if (!title && !imageUrl) return null;
-  
+
   return (
-  <section className="border-b border-divider bg-[#F8FAFC]">
+    <section className="border-b border-divider bg-[#F8FAFC]">
+      {/* Breadcrumb - Full Width */}
+      <div className="mx-auto max-w-7xl px-6 pt-2 pb-1 lg:px-10 lg:pt-6">
+        <MachineBreadcrumbs />
+      </div>
 
-    {/* Breadcrumb - Full Width */}
-    <div className="mx-auto max-w-7xl px-6 pt-2 pb-1 lg:px-10 lg:pt-6">
-      <MachineBreadcrumbs />
-    </div>
-
-    {/* Main Content */}
-    <div className="mx-auto flex max-w-7xl flex-col gap-4 px-5 pb-6 lg:flex-row lg:items-center lg:gap-16 lg:px-10 lg:pb-10">
-
-      <div className="order-2 w-full text-center lg:order-1 lg:basis-[68%] lg:text-left">
-
-        {title && (
-          <h1
-  className="
+      {/* Main Content */}
+      <div className="mx-auto flex max-w-7xl flex-col gap-4 px-5 pb-6 lg:flex-row lg:items-center lg:gap-16 lg:px-10 lg:pb-10">
+        <div className="order-2 w-full text-center lg:order-1 lg:basis-[68%] lg:text-left">
+          {title && (
+            <h1
+              className="
 mb-4
 text-[24px]
 leading-[1.1]
@@ -58,14 +55,14 @@ text-[#0F2A3D]
 sm:text-[34px]
 lg:text-4xl
 "
->
-            {title}
-          </h1>
-        )}
+            >
+              {title}
+            </h1>
+          )}
 
           {description.length > 0 && (
-  <div
-    className="
+            <div
+              className="
       mb-3
       w-full
       max-w-md
@@ -76,12 +73,12 @@ lg:text-4xl
       lg:mx-0
       lg:text-left
     "
-  >
-    <div className="space-y-1">
-      {description.map((text, index) => (
-        <div
-          key={index}
-          className="
+            >
+              <div className="space-y-1">
+                {description.map((text, index) => (
+                  <div
+                    key={index}
+                    className="
             flex
             justify-center
 
@@ -89,12 +86,12 @@ lg:text-4xl
             lg:items-start
             lg:gap-2
           "
-        >
-          {/* Desktop only */}
-          <CircleCheck className="hidden lg:block mt-1 h-4 w-4 shrink-0 text-[#279ECE]" />
+                  >
+                    {/* Desktop only */}
+                    <CircleCheck className="hidden lg:block mt-1 h-4 w-4 shrink-0 text-[#279ECE]" />
 
-          <p
-            className="
+                    <p
+                      className="
               text-[14px]
               leading-7
               text-[#5C7696]
@@ -106,27 +103,26 @@ lg:text-4xl
               lg:leading-6
               lg:text-left
             "
-          >
-            {text}
-          </p>
-        </div>
-      ))}
-    </div>
-  </div>
-)}
+                    >
+                      {text}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
 
           {!!features.length && (
             <>
               <div className="mb-4 text-left">
-  <div className="inline-flex items-center gap-2 rounded-sm border border-[#279ECE]/20 bg-[#279ECE]/10 px-3 py-1.5">
-    <ShieldCheck className="h-3.5 w-3.5 text-[#276A96]" />
+                <div className="inline-flex items-center gap-2 rounded-sm border border-[#279ECE]/20 bg-[#279ECE]/10 px-3 py-1.5">
+                  <ShieldCheck className="h-3.5 w-3.5 text-[#276A96]" />
 
-    <span className="text-[10px] font-bold uppercase tracking-widest text-[#276A96]">
-      Technical Characteristics
-    </span>
-  </div>
-  
-</div>
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-[#276A96]">
+                    Technical Characteristics
+                  </span>
+                </div>
+              </div>
 
               <div className="mb-4 grid grid-cols-1 gap-1 sm:grid-cols-2">
                 {features.map((feature, index) => (
@@ -145,10 +141,10 @@ lg:text-4xl
                 ))}
               </div>
               {showActionButtons && (
-              <div className="mt-5 flex flex-wrap items-center gap-3">
-  <Link
-    to="/contact?tab=quote"
-    className="
+                <div className="mt-5 flex flex-wrap items-center gap-3">
+                  <Link
+                    to="/contact?tab=quote"
+                    className="
       inline-flex
       h-9
       items-center
@@ -168,14 +164,14 @@ lg:text-4xl
       hover:shadow-md
       hover:shadow-[#279ECE]/20
     "
-  >
-    <PenLine className="h-3.5 w-3.5" />
-    <span>Request a Quote</span>
-  </Link>
+                  >
+                    <PenLine className="h-3.5 w-3.5" />
+                    <span>Request a Quote</span>
+                  </Link>
 
-  <Link
-    to="/contact?tab=drawing"
-    className="
+                  <Link
+                    to="/contact?tab=drawing"
+                    className="
       inline-flex
       h-9
       items-center
@@ -195,23 +191,19 @@ lg:text-4xl
       hover:bg-[#F5FBFE]
       hover:text-[#279ECE]
     "
-  >
-    <Upload className="h-3.5 w-3.5" />
-    <span>Send Your Drawing</span>
-  </Link>
-</div>
-          )}
+                  >
+                    <Upload className="h-3.5 w-3.5" />
+                    <span>Send Your Drawing</span>
+                  </Link>
+                </div>
+              )}
             </>
           )}
-
-        
         </div>
 
         <div className="order-1 w-full lg:order-2 lg:basis-[40%]">
           <div className="relative mx-auto w-full max-w-[210px] sm:max-w-xs lg:max-w-md">
             <div className="relative z-10 overflow-hidden border border-[#276A96]/15 bg-white p-3 shadow-2xl">
-              
-
               <div className="relative aspect-[4/3] overflow-hidden bg-[#F8FAFC]">
                 {imageUrl && (
                   <img

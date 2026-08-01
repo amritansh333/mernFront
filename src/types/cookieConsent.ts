@@ -1,8 +1,5 @@
 export type CookieCategory =
-  | "necessary"
-  | "preferences"
-  | "analytics"
-  | "marketing";
+  "necessary" | "preferences" | "analytics" | "marketing";
 
 export interface CookiePreferences {
   necessary: true;
@@ -11,11 +8,7 @@ export interface CookiePreferences {
   marketing: boolean;
 }
 
-export type ConsentStatus =
-  | "accepted"
-  | "declined"
-  | "custom"
-  | "unknown";
+export type ConsentStatus = "accepted" | "declined" | "custom" | "unknown";
 
 export interface CookieConsentState {
   status: ConsentStatus;

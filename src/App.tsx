@@ -26,7 +26,6 @@ import NotFound from "@/pages/NotFound";
 function App() {
   return (
     <Router>
-       
       <MachineComponentsDataProvider>
         <ScrollToTop />
         <Header />
@@ -59,10 +58,8 @@ function App() {
         <CookieConsentManager />
 
         <Footer />
-
       </MachineComponentsDataProvider>
     </Router>
-    
   );
 }
 

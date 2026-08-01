@@ -11,12 +11,7 @@ export interface MachineComponentBreadcrumb {
 }
 
 function getNodeLabel(node: MachineSidebarNode) {
-  const label =
-    node.name ||
-    node.title ||
-    node.label ||
-    node.slug ||
-    "";
+  const label = node.name || node.title || node.label || node.slug || "";
 
   if (label === "Thermoplastics Machine Components") {
     return "Machine Components";
@@ -25,10 +20,7 @@ function getNodeLabel(node: MachineSidebarNode) {
   return label;
 }
 
-function getNodePath(
-  data: MachineComponentsData,
-  node: MachineSidebarNode,
-) {
+function getNodePath(data: MachineComponentsData, node: MachineSidebarNode) {
   if (node.path) return node.path;
   if (!node.slug) return undefined;
 

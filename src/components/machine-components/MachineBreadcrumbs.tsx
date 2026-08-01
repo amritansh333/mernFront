@@ -22,10 +22,7 @@ export default function MachineBreadcrumbs() {
   if (!breadcrumbs.length) return null;
 
   return (
-    <nav
-      aria-label="Breadcrumb"
-      className="mb-3 flex w-full"
-    >
+    <nav aria-label="Breadcrumb" className="mb-3 flex w-full">
       <div
         className="
           flex
@@ -56,9 +53,7 @@ export default function MachineBreadcrumbs() {
               )}
 
               {isLast || !breadcrumb.path ? (
-                <span className="text-[#276A96]">
-                  {breadcrumb.label}
-                </span>
+                <span className="text-[#276A96]">{breadcrumb.label}</span>
               ) : (
                 <Link
                   to={breadcrumb.path}

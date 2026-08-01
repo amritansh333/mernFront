@@ -31,56 +31,105 @@ const categories = [
 ];
 */
 const BRAND_QUICK_LINKS = [
-  { name: "POLYRIB V", label: "UHMW PE", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/polyrib-v" },
-  { name: "PCCLEAR", label: "Polycarbonate", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/pcclear" },
-  { name: "POLYRIB P", label: "Polypropylene", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/polyrib-p" },
-  { name: "POLYRIB H", label: "HDPE", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/polyrib-h" },
-  { name: "HITECH", label: "PP, HDPE", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/hitech" },
-  { name: "ARETE", label: "UHMW PE", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/arete" },
-  
-  { name: "DIPRA", label: "PP Liners", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/dipra" },
-  { name: "POLYLIMB", label: "PP", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/polylimb" },
-  { name: "CUTRITE", label: "Chopping Boards", href: "/products/thermoplastics-semi-finished-products/sheets-blocks/cutrite" },
-  { name: "PLASCON V", label: "UHMWPE", href: "/products/thermoplastics-semi-finished-products/rods-tubes/plascon-v" },
-  { name: "KAYLON", label: "CAST NYLON", href: "/products/thermoplastics-semi-finished-products/rods-tubes/pakaylon" },
-];
+  {
+    name: "POLYRIB V",
+    label: "UHMW PE",
+    href: "/products/thermoplastics-semi-finished-products/sheets-blocks/polyrib-v",
+  },
+  {
+    name: "PCCLEAR",
+    label: "Polycarbonate",
+    href: "/products/thermoplastics-semi-finished-products/sheets-blocks/pcclear",
+  },
+  {
+    name: "POLYRIB P",
+    label: "Polypropylene",
+    href: "/products/thermoplastics-semi-finished-products/sheets-blocks/polyrib-p",
+  },
+  {
+    name: "POLYRIB H",
+    label: "HDPE",
+    href: "/products/thermoplastics-semi-finished-products/sheets-blocks/polyrib-h",
+  },
+  {
+    name: "HITECH",
+    label: "PP, HDPE",
+    href: "/products/thermoplastics-semi-finished-products/sheets-blocks/hitech",
+  },
+  {
+    name: "ARETE",
+    label: "UHMW PE",
+    href: "/products/thermoplastics-semi-finished-products/sheets-blocks/arete",
+  },
 
+  {
+    name: "DIPRA",
+    label: "PP Liners",
+    href: "/products/thermoplastics-semi-finished-products/sheets-blocks/dipra",
+  },
+  {
+    name: "POLYLIMB",
+    label: "PP",
+    href: "/products/thermoplastics-semi-finished-products/sheets-blocks/polylimb",
+  },
+  {
+    name: "CUTRITE",
+    label: "Chopping Boards",
+    href: "/products/thermoplastics-semi-finished-products/sheets-blocks/cutrite",
+  },
+  {
+    name: "PLASCON V",
+    label: "UHMWPE",
+    href: "/products/thermoplastics-semi-finished-products/rods-tubes/plascon-v",
+  },
+  {
+    name: "KAYLON",
+    label: "CAST NYLON",
+    href: "/products/thermoplastics-semi-finished-products/rods-tubes/pakaylon",
+  },
+];
 
 export default function ProductsPage() {
   const ref = useScrollFade() as React.RefObject<HTMLElement>;
   const machineComponents = useMachineComponentRouting();
   const [categories, setCategories] = useState<any[]>([]);
-const [loading, setLoading] = useState(true);
-const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-useEffect(() => {
-  const fetchCategories = async () => {
-    try {
-      const res = await api.get("/categories");
-      setCategories(res.data);
-    } catch (err) {
-      setError("Failed to load categories");
-    } finally {
-      setLoading(false);
-    }
-  };
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await api.get("/categories");
+        setCategories(res.data);
+      } catch (err) {
+        setError("Failed to load categories");
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  fetchCategories();
-}, []);
+    fetchCategories();
+  }, []);
   return (
     <div className="pt-16">
       {/* Page header */}
       <div className="bg-surface-subtle border-b border-divider py-12">
         <div className="container max-w-7xl mx-auto px-6">
           <nav className="text-xs text-muted-foreground mb-4 flex items-center gap-1.5">
-            <Link to="/" className="hover:text-primary">Home</Link>
+            <Link to="/" className="hover:text-primary">
+              Home
+            </Link>
             <span>/</span>
             <span className="text-charcoal">Products</span>
           </nav>
           <p className="section-label mb-3">Product Portfolio</p>
-          <h1 className="font-heading text-4xl text-charcoal mb-3">Polyrib Products</h1>
+          <h1 className="font-heading text-4xl text-charcoal mb-3">
+            Polyrib Products
+          </h1>
           <p className="text-muted-foreground max-w-2xl leading-relaxed">
-            Two comprehensive product divisions — Semi-Finished thermoplastic materials across all Polyrib brand families, and precision Machine Components for industrial applications.
+            Two comprehensive product divisions — Semi-Finished thermoplastic
+            materials across all Polyrib brand families, and precision Machine
+            Components for industrial applications.
           </p>
         </div>
       </div>
@@ -90,46 +139,44 @@ useEffect(() => {
         <div className="container max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {categories.map((cat) => (
-  <Link
-    key={cat._id}
-    to={machineComponents.resolveCategoryPath(cat)}
-    className="category-card block group"
-  >
-    <div className="card-image aspect-video overflow-hidden">
-      <img
-        src={
-          cat.slug.includes("semi")
-            ? semiFinishedImage
-            : machineComponentsImage
-        }
-        alt={cat.name}
-        className="w-full h-full object-cover"
-        loading="lazy"
-      />
-    </div>
+              <Link
+                key={cat._id}
+                to={machineComponents.resolveCategoryPath(cat)}
+                className="category-card block group"
+              >
+                <div className="card-image aspect-video overflow-hidden">
+                  <img
+                    src={
+                      cat.slug.includes("semi")
+                        ? semiFinishedImage
+                        : machineComponentsImage
+                    }
+                    alt={cat.name}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
 
-    <div className="p-8">
-      <span className="section-label block mb-3">
-        {cat.name}
-      </span>
+                <div className="p-8">
+                  <span className="section-label block mb-3">{cat.name}</span>
 
-      <h2 className="font-heading text-2xl text-charcoal mb-3 group-hover:text-primary transition-colors duration-200">
-        {cat.name}
-      </h2>
+                  <h2 className="font-heading text-2xl text-charcoal mb-3 group-hover:text-primary transition-colors duration-200">
+                    {cat.name}
+                  </h2>
 
-      <p className="text-muted-foreground text-sm leading-relaxed mb-5">
-        {cat.description || "Explore our full product range."}
-      </p>
+                  <p className="text-muted-foreground text-sm leading-relaxed mb-5">
+                    {cat.description || "Explore our full product range."}
+                  </p>
 
-      <div className="cta-link pt-2 border-t border-divider">
-        Explore Category
-        <ArrowRight className="w-4 h-4 explore-arrow" />
-      </div>
+                  <div className="cta-link pt-2 border-t border-divider">
+                    Explore Category
+                    <ArrowRight className="w-4 h-4 explore-arrow" />
+                  </div>
 
-      <div className="card-border-bottom mt-5" />
-    </div>
-  </Link>
-))}
+                  <div className="card-border-bottom mt-5" />
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
@@ -139,7 +186,9 @@ useEffect(() => {
         <div className="container max-w-7xl mx-auto px-6">
           <div className="text-center mb-8">
             <p className="section-label mb-2">Browse by Brand</p>
-            <h2 className="font-heading text-2xl text-charcoal">Jump directly to a Polyrib brand</h2>
+            <h2 className="font-heading text-2xl text-charcoal">
+              Jump directly to a Polyrib brand
+            </h2>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
             {BRAND_QUICK_LINKS.map((b) => (
@@ -151,7 +200,9 @@ useEffect(() => {
                 <div className="font-heading font-bold text-charcoal group-hover:text-primary text-sm transition-colors duration-200">
                   {b.name}
                 </div>
-                <div className="text-xs text-muted-foreground mt-1">{b.label}</div>
+                <div className="text-xs text-muted-foreground mt-1">
+                  {b.label}
+                </div>
               </Link>
             ))}
           </div>
@@ -166,14 +217,21 @@ useEffect(() => {
               Need a custom specification?
             </h3>
             <p className="text-muted-foreground text-sm">
-              Our technical team can advise on material selection and provide custom machined solutions.
+              Our technical team can advise on material selection and provide
+              custom machined solutions.
             </p>
           </div>
           <div className="flex gap-3 shrink-0">
-            <Link to="/contact" className="px-5 py-2.5 bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary-dark transition-colors duration-200 inline-flex items-center gap-2">
+            <Link
+              to="/contact"
+              className="px-5 py-2.5 bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary-dark transition-colors duration-200 inline-flex items-center gap-2"
+            >
               Request Quote <ArrowRight className="w-4 h-4" />
             </Link>
-            <Link to="/tools/material-selector" className="px-5 py-2.5 border border-border text-charcoal-light text-sm font-semibold hover:border-primary hover:text-primary transition-colors duration-200">
+            <Link
+              to="/tools/material-selector"
+              className="px-5 py-2.5 border border-border text-charcoal-light text-sm font-semibold hover:border-primary hover:text-primary transition-colors duration-200"
+            >
               Material Selector
             </Link>
           </div>

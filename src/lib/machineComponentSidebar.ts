@@ -1,10 +1,16 @@
-import type { MachineComponentProduct, MachineSidebarNode } from "@/types/machineComponent";
+import type {
+  MachineComponentProduct,
+  MachineSidebarNode,
+} from "@/types/machineComponent";
 
 export function getNodeChildren(node: MachineSidebarNode) {
   return node.children ?? [];
 }
 
-function getProductOrder(node: MachineSidebarNode, products?: Record<string, MachineComponentProduct>) {
+function getProductOrder(
+  node: MachineSidebarNode,
+  products?: Record<string, MachineComponentProduct>,
+) {
   if (!node.slug) return undefined;
   const order = products?.[node.slug]?.machineComponentData?.order;
   return typeof order === "number" ? order : undefined;
@@ -15,9 +21,14 @@ export function sortNodesByProductOrder(
   products?: Record<string, MachineComponentProduct>,
 ) {
   return nodes
-    .map((node, index) => ({ node, index, order: getProductOrder(node, products) }))
+    .map((node, index) => ({
+      node,
+      index,
+      order: getProductOrder(node, products),
+    }))
     .sort((left, right) => {
-      if (left.order !== undefined && right.order !== undefined) return left.order - right.order;
+      if (left.order !== undefined && right.order !== undefined)
+        return left.order - right.order;
       if (left.order !== undefined) return -1;
       if (right.order !== undefined) return 1;
       return left.index - right.index;

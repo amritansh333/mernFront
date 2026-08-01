@@ -27,9 +27,9 @@ export default function SidebarSearch({
       <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#64748B]" />
 
       <Input
-  id="machine-component-search"
-  name="machine-component-search"
-  value={value}
+        id="machine-component-search"
+        name="machine-component-search"
+        value={value}
         onChange={(event) => onChange(event.target.value)}
         placeholder="Search products"
         className={cn(
@@ -42,12 +42,11 @@ export default function SidebarSearch({
 
       {/* Right Controls */}
       <div className="absolute right-3 top-1/2 flex -translate-y-1/2 items-center gap-2">
-
-  {value.trim().length > 0 && (
-    <button
-      type="button"
-      onClick={onSearch}
-      className="
+        {value.trim().length > 0 && (
+          <button
+            type="button"
+            onClick={onSearch}
+            className="
         h-8
         rounded-md
         bg-[#279ECE]
@@ -58,26 +57,25 @@ export default function SidebarSearch({
         transition-colors
         hover:bg-[#207FA7]
       "
-    >
-      Search
-    </button>
-  )}
+          >
+            Search
+          </button>
+        )}
 
-  <div className="flex h-8 min-w-[34px] items-center justify-center rounded-md bg-[#279ECE] px-2 text-xs font-bold text-white shadow-sm">
-    {totalProducts}
-  </div>
+        <div className="flex h-8 min-w-[34px] items-center justify-center rounded-md bg-[#279ECE] px-2 text-xs font-bold text-white shadow-sm">
+          {totalProducts}
+        </div>
 
-  {value && (
-    <button
-      type="button"
-      onClick={clearSearch}
-      className="flex h-7 w-7 items-center justify-center rounded-full text-[#64748B] transition-colors hover:bg-[#E3F1F7] hover:text-[#276A96]"
-    >
-      <X className="h-4 w-4" />
-    </button>
-  )}
-
-</div>
+        {value && (
+          <button
+            type="button"
+            onClick={clearSearch}
+            className="flex h-7 w-7 items-center justify-center rounded-full text-[#64748B] transition-colors hover:bg-[#E3F1F7] hover:text-[#276A96]"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        )}
+      </div>
     </label>
   );
 }

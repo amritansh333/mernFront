@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -72,13 +72,19 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'DM Sans', system-ui, sans-serif;
-    font-feature-settings: 'kern' 1, 'liga' 1;
+    font-family: "DM Sans", system-ui, sans-serif;
+    font-feature-settings:
+      "kern" 1,
+      "liga" 1;
     -webkit-font-smoothing: antialiased;
   }
 
-  h1, h2, h3, h4, h5 {
-    font-family: 'Barlow', system-ui, sans-serif;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-family: "Barlow", system-ui, sans-serif;
     font-weight: 700;
     letter-spacing: -0.02em;
     color: hsl(var(--charcoal));
@@ -90,7 +96,9 @@
   .fade-up {
     opacity: 0;
     transform: translateY(28px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
+    transition:
+      opacity 0.6s ease,
+      transform 0.6s ease;
   }
   .fade-up.visible {
     opacity: 1;
@@ -101,13 +109,35 @@
   .stagger-children > * {
     opacity: 0;
     transform: translateY(20px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
+    transition:
+      opacity 0.5s ease,
+      transform 0.5s ease;
   }
-  .stagger-children.visible > *:nth-child(1) { opacity:1; transform:translateY(0); transition-delay:0ms; }
-  .stagger-children.visible > *:nth-child(2) { opacity:1; transform:translateY(0); transition-delay:100ms; }
-  .stagger-children.visible > *:nth-child(3) { opacity:1; transform:translateY(0); transition-delay:200ms; }
-  .stagger-children.visible > *:nth-child(4) { opacity:1; transform:translateY(0); transition-delay:300ms; }
-  .stagger-children.visible > *:nth-child(5) { opacity:1; transform:translateY(0); transition-delay:400ms; }
+  .stagger-children.visible > *:nth-child(1) {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0ms;
+  }
+  .stagger-children.visible > *:nth-child(2) {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 100ms;
+  }
+  .stagger-children.visible > *:nth-child(3) {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 200ms;
+  }
+  .stagger-children.visible > *:nth-child(4) {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 300ms;
+  }
+  .stagger-children.visible > *:nth-child(5) {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 400ms;
+  }
 
   /* Product card hover lift */
   .product-card {
@@ -172,7 +202,7 @@
     @apply relative inline-flex items-center gap-1.5 text-primary font-medium text-sm;
   }
   .cta-link::after {
-    content: '';
+    content: "";
     @apply absolute bottom-0 left-0 w-0 h-px bg-primary transition-all duration-300;
   }
   .cta-link:hover::after {
@@ -201,11 +231,21 @@
 }
 
 @keyframes slideFade {
-  0% { opacity: 0; }
-  5% { opacity: 1; }
-  20% { opacity: 1; }
-  25% { opacity: 0; }
-  100% { opacity: 0; }
+  0% {
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  20% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
 .animate-slide-fade {

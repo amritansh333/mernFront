@@ -4,9 +4,7 @@ import { useMachineComponentsData } from "@/contexts/MachineComponentsDataContex
 
 import { PRODUCT_EXPERIENCES } from "@/lib/product-experience/experienceRegistry";
 import { normalizeProductPath } from "@/lib/product-experience/paths";
-import {
-  buildMachineComponentRouteMaps,
-} from "@/lib/product-experience/routeMaps";
+import { buildMachineComponentRouteMaps } from "@/lib/product-experience/routeMaps";
 import {
   isMachineComponentsPath,
   getMachineComponentsRootPath,
@@ -19,10 +17,7 @@ import SemiFinishedProductRoutes from "@/pages/SemiFinishedProductRoutes";
 export default function ProductExperienceRouter() {
   const location = useLocation();
 
-  const {
-    data: machineComponentsData,
-    loading,
-  } = useMachineComponentsData();
+  const { data: machineComponentsData, loading } = useMachineComponentsData();
 
   const pathname = normalizeProductPath(location.pathname);
 
@@ -44,8 +39,9 @@ export default function ProductExperienceRouter() {
     }
 
     // Product pages are already registered in the route map
-    const { pathToSlug } =
-      buildMachineComponentRouteMaps(machineComponentsData);
+    const { pathToSlug } = buildMachineComponentRouteMaps(
+      machineComponentsData,
+    );
 
     if (pathToSlug.has(pathname)) {
       return <MachineComponentsPage />;

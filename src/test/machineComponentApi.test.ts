@@ -26,13 +26,16 @@ describe("normalizeMachineComponentsResponse", () => {
             image: "/uploads/wear-strip.jpg",
             keyFeatures: ["Low friction"],
             machineComponentData: {
-              downloads: [{ label: "Datasheet", url: "/downloads/wear-strip.pdf" }],
+              downloads: [
+                { label: "Datasheet", url: "/downloads/wear-strip.pdf" },
+              ],
             },
           },
         },
         defaultProduct: "wear-strip",
         paths: {
-          "wear-strip": "/products/thermoplastics-machine-components/wear-strip",
+          "wear-strip":
+            "/products/thermoplastics-machine-components/wear-strip",
         },
         seo: {
           title: "Machine Components",
@@ -48,15 +51,19 @@ describe("normalizeMachineComponentsResponse", () => {
       "/products/thermoplastics-machine-components/wear-strip",
     );
     expect(data.products?.["wear-strip"]?.name).toBe("Wear Strip");
-    expect(data.products?.["wear-strip"]?.keyFeatures).toEqual(["Low friction"]);
-    expect(data.products?.["wear-strip"]?.machineComponentData?.downloads).toEqual([
-      { label: "Datasheet", url: "/downloads/wear-strip.pdf" },
+    expect(data.products?.["wear-strip"]?.keyFeatures).toEqual([
+      "Low friction",
     ]);
+    expect(
+      data.products?.["wear-strip"]?.machineComponentData?.downloads,
+    ).toEqual([{ label: "Datasheet", url: "/downloads/wear-strip.pdf" }]);
     expect(data.paths?.["wear-strip"]).toBe(
       "/products/thermoplastics-machine-components/wear-strip",
     );
     expect(data.defaultProduct).toBe("wear-strip");
-    expect(data.seo?.canonical).toBe("/products/thermoplastics-machine-components");
+    expect(data.seo?.canonical).toBe(
+      "/products/thermoplastics-machine-components",
+    );
   });
 
   it("requires backend-provided product slug values", () => {

@@ -2,7 +2,12 @@ import type { Config } from "tailwindcss";
 
 export default {
   darkMode: ["class"],
-  content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
+  content: [
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   prefix: "",
   theme: {
     container: {
@@ -14,8 +19,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        heading: ['Barlow', 'system-ui', 'sans-serif'],
-        body: ['DM Sans', 'system-ui', 'sans-serif'],
+        heading: ["Barlow", "system-ui", "sans-serif"],
+        body: ["DM Sans", "system-ui", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -79,9 +84,9 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       boxShadow: {
-        'card': '0 1px 4px 0 hsl(197 68% 48% / 0.08)',
-        'card-hover': '0 8px 32px 0 hsl(197 68% 48% / 0.18)',
-        'header': '0 1px 0 0 hsl(197 30% 88%)',
+        card: "0 1px 4px 0 hsl(197 68% 48% / 0.08)",
+        "card-hover": "0 8px 32px 0 hsl(197 68% 48% / 0.18)",
+        header: "0 1px 0 0 hsl(197 30% 88%)",
       },
       keyframes: {
         "accordion-down": {

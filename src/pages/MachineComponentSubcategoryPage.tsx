@@ -64,13 +64,8 @@ interface SubcategoryPageData {
 export default function MachineComponentSubcategoryPage() {
   const location = useLocation();
 
-  const {
-    machineData,
-    selectedSlug,
-    setSelectedSlug,
-    loading,
-    error,
-  } = useMachineComponents();
+  const { machineData, selectedSlug, setSelectedSlug, loading, error } =
+    useMachineComponents();
 
   const subcategory = useMemo(() => {
     const segments = location.pathname.split("/").filter(Boolean);
@@ -82,56 +77,50 @@ export default function MachineComponentSubcategoryPage() {
   const [subcategoryData, setSubcategoryData] =
     useState<SubcategoryPageData | null>(null);
 
-    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-const [isSearchOpen, setIsSearchOpen] = useState(false);
-const [search, setSearch] = useState("");
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [search, setSearch] = useState("");
 
-const filteredCount = Object.values(machineData?.products ?? {}).filter(
-  (product) =>
-    product.name.toLowerCase().includes(search.toLowerCase())
-).length;
+  const filteredCount = Object.values(machineData?.products ?? {}).filter(
+    (product) => product.name.toLowerCase().includes(search.toLowerCase()),
+  ).length;
 
   const [pageLoading, setPageLoading] = useState(true);
 
   useEffect(() => {
-  if (!subcategory) return;
+    if (!subcategory) return;
 
-  setPageLoading(true);
+    setPageLoading(true);
 
-  getMachineComponentSubcategory(subcategory)
-    .then((data) => {
-      setSubcategoryData(data);
-    })
-    .catch((err) => {
-      console.error("Failed to load subcategory", err);
-      setSubcategoryData(null);
-    })
-    .finally(() => {
-      setPageLoading(false);
-    });
-}, [subcategory]);
+    getMachineComponentSubcategory(subcategory)
+      .then((data) => {
+        setSubcategoryData(data);
+      })
+      .catch((err) => {
+        console.error("Failed to load subcategory", err);
+        setSubcategoryData(null);
+      })
+      .finally(() => {
+        setPageLoading(false);
+      });
+  }, [subcategory]);
 
   useEffect(() => {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
-  });
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
 
-  setIsDrawerOpen(false);
-  setIsSearchOpen(false);
-}, [location.pathname]);
+    setIsDrawerOpen(false);
+    setIsSearchOpen(false);
+  }, [location.pathname]);
 
   if (loading || pageLoading) {
     return <LoadingState />;
   }
 
   if (error) {
-    return (
-      <EmptyState
-        title="Unable to load page"
-        message={error}
-      />
-    );
+    return <EmptyState title="Unable to load page" message={error} />;
   }
 
   if (!subcategoryData) {
@@ -154,107 +143,89 @@ const filteredCount = Object.values(machineData?.products ?? {}).filter(
               selectedSlug={selectedSlug}
               setSelectedSlug={setSelectedSlug}
               search={search}
-setSearch={setSearch}
+              setSearch={setSearch}
             />
           </div>
         </div>
 
         <section className="min-w-0 flex-1">
+          <div className="sticky top-16 z-20 border-b border-divider bg-background px-4 py-3 lg:hidden">
+            {/* ================= TABLET ================= */}
+            <div className="hidden sm:flex items-center justify-between">
+              {/* Explore */}
 
-            <div className="sticky top-16 z-20 border-b border-divider bg-background px-4 py-3 lg:hidden">
-            
-              {/* ================= TABLET ================= */}
-              <div className="hidden sm:flex items-center justify-between">
-            
-                {/* Explore */}
-            
-                <Sheet open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
-                  <SheetTrigger asChild>
-                    <Button
-                      variant="outline"
-                      className="h-11 px-5 whitespace-nowrap border-[#A9D8EB] hover:border-[#A9D8EB]"
-                    >
-                      <Menu className="mr-2 h-4 w-4" />
-                      Explore Our Range
-                    </Button>
-                  </SheetTrigger>
-            
-                  <SheetContent
-  side="left"
-  className="w-[88vw] max-w-sm p-0"
-  onOpenAutoFocus={(e) => e.preventDefault()}
->
-                    <SheetHeader className="sr-only">
-                      <SheetTitle>
-                        Machine Components Navigation
-                      </SheetTitle>
-                    </SheetHeader>
-            
-                    <MachineSidebar
-                      sidebar={machineData?.sidebar}
-                      products={machineData?.products}
-                      selectedSlug={selectedSlug}
-                      setSelectedSlug={setSelectedSlug}
-                      search={search}
-                      setSearch={setSearch}
-                    />
-                  </SheetContent>
-                </Sheet>
-            
-                {/* Search */}
-            
-                <Sheet open={isSearchOpen} onOpenChange={setIsSearchOpen}>
-                  <SheetTrigger asChild>
-            
-                    <Button
-                      variant="outline"
-                      className="h-11 px-5 whitespace-nowrap border-[#A9D8EB] hover:border-[#A9D8EB]"
-                    >
-                      <Search className="mr-2 h-4 w-4" />
-                      Search Products
-                    </Button>
-            
-                  </SheetTrigger>
-            
-                  <SheetContent side="top">
-            
-                    <SheetHeader className="mb-4">
-            
-                      <SheetTitle>
-                        Search Products
-                      </SheetTitle>
-            
-                    </SheetHeader>
-            
-                    <SidebarSearch
-              value={search}
-              onChange={setSearch}
-              totalProducts={filteredCount}
-              onSearch={() => {
-                setIsSearchOpen(false);
-                setIsDrawerOpen(true);
-              }}
-            />
-            
-                  </SheetContent>
-            
-                </Sheet>
-            
-              </div>
-            
-              {/* ================= MOBILE L + MOBILE M ================= */}
-            
-              <div className="hidden min-[360px]:flex sm:hidden items-center gap-2">
-            
-                {/* Explore */}
-            
-                <Sheet open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
-            
-                  <SheetTrigger asChild>
-            
-                    <Button
-                      variant="outline"
-                      className="
+              <Sheet open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
+                <SheetTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className="h-11 px-5 whitespace-nowrap border-[#A9D8EB] hover:border-[#A9D8EB]"
+                  >
+                    <Menu className="mr-2 h-4 w-4" />
+                    Explore Our Range
+                  </Button>
+                </SheetTrigger>
+
+                <SheetContent
+                  side="left"
+                  className="w-[88vw] max-w-sm p-0"
+                  onOpenAutoFocus={(e) => e.preventDefault()}
+                >
+                  <SheetHeader className="sr-only">
+                    <SheetTitle>Machine Components Navigation</SheetTitle>
+                  </SheetHeader>
+
+                  <MachineSidebar
+                    sidebar={machineData?.sidebar}
+                    products={machineData?.products}
+                    selectedSlug={selectedSlug}
+                    setSelectedSlug={setSelectedSlug}
+                    search={search}
+                    setSearch={setSearch}
+                  />
+                </SheetContent>
+              </Sheet>
+
+              {/* Search */}
+
+              <Sheet open={isSearchOpen} onOpenChange={setIsSearchOpen}>
+                <SheetTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className="h-11 px-5 whitespace-nowrap border-[#A9D8EB] hover:border-[#A9D8EB]"
+                  >
+                    <Search className="mr-2 h-4 w-4" />
+                    Search Products
+                  </Button>
+                </SheetTrigger>
+
+                <SheetContent side="top">
+                  <SheetHeader className="mb-4">
+                    <SheetTitle>Search Products</SheetTitle>
+                  </SheetHeader>
+
+                  <SidebarSearch
+                    value={search}
+                    onChange={setSearch}
+                    totalProducts={filteredCount}
+                    onSearch={() => {
+                      setIsSearchOpen(false);
+                      setIsDrawerOpen(true);
+                    }}
+                  />
+                </SheetContent>
+              </Sheet>
+            </div>
+
+            {/* ================= MOBILE L + MOBILE M ================= */}
+
+            <div className="hidden min-[360px]:flex sm:hidden items-center gap-2">
+              {/* Explore */}
+
+              <Sheet open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
+                <SheetTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className="
   h-8
   flex-1
   min-w-0
@@ -264,48 +235,38 @@ setSearch={setSearch}
   text-[13px]
   hover:border-[#A9D8EB]
 "
-                    >
-                      <Menu className="mr-1 h-3 w-3" />
-                      Explore Our Range
-                    </Button>
-            
-                  </SheetTrigger>
-            
-                  <SheetContent
-  side="left"
-  className="w-[88vw] max-w-sm p-0"
-  onOpenAutoFocus={(e) => e.preventDefault()}
->
-            
-                    <SheetHeader className="sr-only">
-            
-                      <SheetTitle>
-                        Machine Components Navigation
-                      </SheetTitle>
-            
-                    </SheetHeader>
-            
-                    <MachineSidebar
-                      sidebar={machineData?.sidebar}
-                      products={machineData?.products}
-                      selectedSlug={selectedSlug}
-                      setSelectedSlug={setSelectedSlug}
-                      search={search}
-                      setSearch={setSearch}
-                    />
-            
-                  </SheetContent>
-            
-                </Sheet>
-                    {/* Search */}
-            
-                <Sheet open={isSearchOpen} onOpenChange={setIsSearchOpen}>
-            
-                  <SheetTrigger asChild>
-            
-                    <Button
-                      variant="outline"
-                      className="
+                  >
+                    <Menu className="mr-1 h-3 w-3" />
+                    Explore Our Range
+                  </Button>
+                </SheetTrigger>
+
+                <SheetContent
+                  side="left"
+                  className="w-[88vw] max-w-sm p-0"
+                  onOpenAutoFocus={(e) => e.preventDefault()}
+                >
+                  <SheetHeader className="sr-only">
+                    <SheetTitle>Machine Components Navigation</SheetTitle>
+                  </SheetHeader>
+
+                  <MachineSidebar
+                    sidebar={machineData?.sidebar}
+                    products={machineData?.products}
+                    selectedSlug={selectedSlug}
+                    setSelectedSlug={setSelectedSlug}
+                    search={search}
+                    setSearch={setSearch}
+                  />
+                </SheetContent>
+              </Sheet>
+              {/* Search */}
+
+              <Sheet open={isSearchOpen} onOpenChange={setIsSearchOpen}>
+                <SheetTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className="
   h-8
   flex-1
   min-w-0
@@ -315,54 +276,42 @@ setSearch={setSearch}
   text-[13px]
   hover:border-[#A9D8EB]
 "
-                    >
-                      <Search className="mr-1 h-3 w-3" />
-                      Search Products
-                    </Button>
-            
-                  </SheetTrigger>
-            
-                  <SheetContent side="top">
-            
-                    <SheetHeader className="mb-4">
-            
-                      <SheetTitle>
-                        Search Products
-                      </SheetTitle>
-            
-                      <SheetDescription>
-                        Search thermoplastics machine components.
-                      </SheetDescription>
-            
-                    </SheetHeader>
-            
-                    <SidebarSearch
-              value={search}
-              onChange={setSearch}
-              totalProducts={filteredCount}
-              onSearch={() => {
-                setIsSearchOpen(false);
-                setIsDrawerOpen(true);
-              }}
-            />
-            
-                  </SheetContent>
-            
-                </Sheet>
-            
-              </div>
-            
-              {/* ================= MOBILE S (keep existing behaviour) ================= */}
-            
-              <div className="flex min-[360px]:hidden items-center gap-1">
-            
-                <Sheet open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
-            
-                  <SheetTrigger asChild>
-            
-                    <Button
-                      variant="outline"
-                      className="
+                  >
+                    <Search className="mr-1 h-3 w-3" />
+                    Search Products
+                  </Button>
+                </SheetTrigger>
+
+                <SheetContent side="top">
+                  <SheetHeader className="mb-4">
+                    <SheetTitle>Search Products</SheetTitle>
+
+                    <SheetDescription>
+                      Search thermoplastics machine components.
+                    </SheetDescription>
+                  </SheetHeader>
+
+                  <SidebarSearch
+                    value={search}
+                    onChange={setSearch}
+                    totalProducts={filteredCount}
+                    onSearch={() => {
+                      setIsSearchOpen(false);
+                      setIsDrawerOpen(true);
+                    }}
+                  />
+                </SheetContent>
+              </Sheet>
+            </div>
+
+            {/* ================= MOBILE S (keep existing behaviour) ================= */}
+
+            <div className="flex min-[360px]:hidden items-center gap-1">
+              <Sheet open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
+                <SheetTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className="
               h-8
               flex-1
               min-w-0
@@ -370,48 +319,38 @@ setSearch={setSearch}
               border-[#A9D8EB]
               hover:border-[#A9D8EB]
             "
-                    >
-                      <Menu className="mr-1 h-3 w-3" />
-                      Explore Our Range
-                    </Button>
-            
-                  </SheetTrigger>
-            
-                  <SheetContent
-  side="left"
-  className="w-[88vw] max-w-sm p-0"
-  onOpenAutoFocus={(e) => e.preventDefault()}
->
-            
-                    <SheetHeader className="sr-only">
-            
-                      <SheetTitle>
-                        Machine Components Navigation
-                      </SheetTitle>
-            
-                    </SheetHeader>
-            
-                    <MachineSidebar
-                      sidebar={machineData?.sidebar}
-                      products={machineData?.products}
-                      selectedSlug={selectedSlug}
-                      setSelectedSlug={setSelectedSlug}
-                      search={search}
-                      setSearch={setSearch}
-                    />
-            
-                  </SheetContent>
-            
-                </Sheet>
-            
-                <Sheet open={isSearchOpen} onOpenChange={setIsSearchOpen}>
-            
-                  <SheetTrigger asChild>
-            
-                    <Button
-                      variant="outline"
-                      size="icon"
-                      className="
+                  >
+                    <Menu className="mr-1 h-3 w-3" />
+                    Explore Our Range
+                  </Button>
+                </SheetTrigger>
+
+                <SheetContent
+                  side="left"
+                  className="w-[88vw] max-w-sm p-0"
+                  onOpenAutoFocus={(e) => e.preventDefault()}
+                >
+                  <SheetHeader className="sr-only">
+                    <SheetTitle>Machine Components Navigation</SheetTitle>
+                  </SheetHeader>
+
+                  <MachineSidebar
+                    sidebar={machineData?.sidebar}
+                    products={machineData?.products}
+                    selectedSlug={selectedSlug}
+                    setSelectedSlug={setSelectedSlug}
+                    search={search}
+                    setSearch={setSearch}
+                  />
+                </SheetContent>
+              </Sheet>
+
+              <Sheet open={isSearchOpen} onOpenChange={setIsSearchOpen}>
+                <SheetTrigger asChild>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="
   h-8
   flex-1
   min-w-0
@@ -421,44 +360,34 @@ setSearch={setSearch}
   text-[13px]
   hover:border-[#A9D8EB]
 "
-                    >
-                      <Search className="h-1 w-1" />
-                      Search
-                    </Button>
-            
-                  </SheetTrigger>
-            
-                  <SheetContent side="top">
-            
-                    <SheetHeader className="mb-4">
-            
-                      <SheetTitle>
-                        Search Products
-                      </SheetTitle>
-            
-                      <SheetDescription>
-                        Search thermoplastics machine components.
-                      </SheetDescription>
-            
-                    </SheetHeader>
-            
-                    <SidebarSearch
-              value={search}
-              onChange={setSearch}
-              totalProducts={filteredCount}
-              onSearch={() => {
-                setIsSearchOpen(false);
-                setIsDrawerOpen(true);
-              }}
-            />
-            
-                  </SheetContent>
-            
-                </Sheet>
-            
-              </div>
-            
+                  >
+                    <Search className="h-1 w-1" />
+                    Search
+                  </Button>
+                </SheetTrigger>
+
+                <SheetContent side="top">
+                  <SheetHeader className="mb-4">
+                    <SheetTitle>Search Products</SheetTitle>
+
+                    <SheetDescription>
+                      Search thermoplastics machine components.
+                    </SheetDescription>
+                  </SheetHeader>
+
+                  <SidebarSearch
+                    value={search}
+                    onChange={setSearch}
+                    totalProducts={filteredCount}
+                    onSearch={() => {
+                      setIsSearchOpen(false);
+                      setIsDrawerOpen(true);
+                    }}
+                  />
+                </SheetContent>
+              </Sheet>
             </div>
+          </div>
 
           <HeroSection
             title={subcategoryData.heroTitle || subcategoryData.name}
@@ -469,20 +398,13 @@ setSearch={setSearch}
             showActionButtons
           />
 
-          <ProductCardsSection
-    products={subcategoryData.products}
-    
-/>
+          <ProductCardsSection products={subcategoryData.products} />
 
           <SpecificationsSection
             specifications={subcategoryData.specifications}
           />
 
-          <ApplicationsSection
-            applications={subcategoryData.applications}
-          />
-
-          
+          <ApplicationsSection applications={subcategoryData.applications} />
         </section>
       </div>
     </main>

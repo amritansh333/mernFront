@@ -1,4 +1,3 @@
-
 export { default as CookieButton } from "./CookieButton";
 export { default as CookieConsentManager } from "./CookieConsentManager";
 export { default as CookieCategory } from "./CookieCategory";

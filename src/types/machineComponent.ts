@@ -1,11 +1,5 @@
 export type MachineComponentValue =
-  | string
-  | number
-  | boolean
-  | string[]
-  | number[]
-  | null
-  | undefined;
+  string | number | boolean | string[] | number[] | null | undefined;
 
 export interface MachineComponentProduct {
   _id?: string;

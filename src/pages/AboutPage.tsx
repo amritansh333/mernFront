@@ -8,7 +8,7 @@ import {
   Building2,
   Award,
   Plus,
-  X
+  X,
 } from "lucide-react";
 import heroImage from "@/assets/csr.jpeg";
 import manufacturingImage from "@/assets/csr-slider1.jpeg";
@@ -20,15 +20,51 @@ import { useScrollFade } from "@/hooks/useScrollFade";
 /* ARRAYS (UNCHANGED) */
 
 const milestones = [
-  { year: "1985", event: "Khanna Polyrib Pvt. Ltd. founded — began manufacturing PP and HDPE sheets in Kanpur, Uttar Pradesh" },
-  { year: "1992", event: "Launch of POLYRIB V (UHMW PE) product family — extreme wear resistance polymer range" },
-  { year: "1998", event: "ISO 9001 Quality Management Certification achieved — first certification cycle" },
-  { year: "2003", event: "PCCLEAR polycarbonate range launched; KBK Plascon Pvt. Ltd. established; export operations begin" },
-  { year: "2008", event: "KAYLON cast nylon and PAKETAL acetal brands introduced; KBK Polymer Pvt. Ltd. incorporated" },
-  { year: "2012", event: "Distribution centres established in Delhi, Bhiwandi (Mumbai), and Ahmedabad" },
-  { year: "2015", event: "New manufacturing plant commissioned — production capacity doubled; CNC machining division launched" },
-  { year: "2020", event: "500+ product grades across all thermoplastic brand families; 20+ industries served" },
-  { year: "2024", event: "Export to 50+ countries; Kanpur facility upgraded with 11 RAM extrusion lines and 7 compression moulding units" },
+  {
+    year: "1985",
+    event:
+      "Khanna Polyrib Pvt. Ltd. founded — began manufacturing PP and HDPE sheets in Kanpur, Uttar Pradesh",
+  },
+  {
+    year: "1992",
+    event:
+      "Launch of POLYRIB V (UHMW PE) product family — extreme wear resistance polymer range",
+  },
+  {
+    year: "1998",
+    event:
+      "ISO 9001 Quality Management Certification achieved — first certification cycle",
+  },
+  {
+    year: "2003",
+    event:
+      "PCCLEAR polycarbonate range launched; KBK Plascon Pvt. Ltd. established; export operations begin",
+  },
+  {
+    year: "2008",
+    event:
+      "KAYLON cast nylon and PAKETAL acetal brands introduced; KBK Polymer Pvt. Ltd. incorporated",
+  },
+  {
+    year: "2012",
+    event:
+      "Distribution centres established in Delhi, Bhiwandi (Mumbai), and Ahmedabad",
+  },
+  {
+    year: "2015",
+    event:
+      "New manufacturing plant commissioned — production capacity doubled; CNC machining division launched",
+  },
+  {
+    year: "2020",
+    event:
+      "500+ product grades across all thermoplastic brand families; 20+ industries served",
+  },
+  {
+    year: "2024",
+    event:
+      "Export to 50+ countries; Kanpur facility upgraded with 11 RAM extrusion lines and 7 compression moulding units",
+  },
 ];
 
 const groupCompanies = [
@@ -40,7 +76,7 @@ const groupCompanies = [
       "Semi-finished thermoplastic sheets, rods & tubes",
       "Compression-moulded and extruded profiles",
       "CNC precision machined components",
-      "Brand families: POLYRIB, KAYLON, PAKETAL, PCCLEAR"
+      "Brand families: POLYRIB, KAYLON, PAKETAL, PCCLEAR",
     ],
   },
   {
@@ -51,7 +87,7 @@ const groupCompanies = [
       "Thermoplastic machine components & wear parts",
       "RIPLA wear strips and guide profiles",
       "CUTRITE cutting and chopping boards",
-      "Vacuum formed and fabricated plastic assemblies"
+      "Vacuum formed and fabricated plastic assemblies",
     ],
   },
   {
@@ -62,16 +98,36 @@ const groupCompanies = [
       "Nationwide distribution & logistics",
       "Raw polymer material sourcing",
       "Distribution centre operations (Delhi, Bhiwandi, Ahmedabad)",
-      "Export co-ordination and international trade"
+      "Export co-ordination and international trade",
     ],
   },
 ];
 
 const locations = [
-  { city: "Kanpur, Uttar Pradesh", type: "Manufacturing HQ", detail: "Industrial Area, Kanpur — primary production facility with 11 RAM extrusion lines, compression moulding, and CNC workshop." },
-  { city: "Delhi (NCR)", type: "Distribution Centre", detail: "North India distribution hub serving industrial customers across Delhi, NCR, Haryana, Punjab, and surrounding regions." },
-  { city: "Bhiwandi, Maharashtra", type: "Distribution Centre", detail: "West India hub near Mumbai — serving Maharashtra, Gujarat, Goa, and export container consolidation." },
-  { city: "Ahmedabad, Gujarat", type: "Distribution Centre", detail: "Gujarat operations hub — serving chemical, pharmaceutical, and packaging industries across western India." },
+  {
+    city: "Kanpur, Uttar Pradesh",
+    type: "Manufacturing HQ",
+    detail:
+      "Industrial Area, Kanpur — primary production facility with 11 RAM extrusion lines, compression moulding, and CNC workshop.",
+  },
+  {
+    city: "Delhi (NCR)",
+    type: "Distribution Centre",
+    detail:
+      "North India distribution hub serving industrial customers across Delhi, NCR, Haryana, Punjab, and surrounding regions.",
+  },
+  {
+    city: "Bhiwandi, Maharashtra",
+    type: "Distribution Centre",
+    detail:
+      "West India hub near Mumbai — serving Maharashtra, Gujarat, Goa, and export container consolidation.",
+  },
+  {
+    city: "Ahmedabad, Gujarat",
+    type: "Distribution Centre",
+    detail:
+      "Gujarat operations hub — serving chemical, pharmaceutical, and packaging industries across western India.",
+  },
 ];
 
 export default function AboutPage() {
@@ -81,36 +137,37 @@ export default function AboutPage() {
   const ref4 = useScrollFade() as React.RefObject<HTMLElement>;
   const [open, setOpen] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  
 
-useEffect(() => {
-  const video = videoRef.current;
-  if (!video) return;
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
 
-  const observer = new IntersectionObserver(
-    ([entry]) => {
-      if (entry.isIntersecting) {
-        video.play();
-      } else {
-        video.pause();
-      }
-    },
-    { threshold: 0.4 }
-  );
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          video.play();
+        } else {
+          video.pause();
+        }
+      },
+      { threshold: 0.4 },
+    );
 
-  observer.observe(video);
+    observer.observe(video);
 
-  return () => {
-    observer.disconnect();
-  };
-}, []);
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
 
   return (
     <div className="pt-16">
-
       {/* HEADER */}
       <div className="relative min-h-[40vh] flex items-end overflow-hidden bg-charcoal">
-        <img src={heroImage} className="absolute inset-0 w-full h-full object-cover opacity-40" />
+        <img
+          src={heroImage}
+          className="absolute inset-0 w-full h-full object-cover opacity-40"
+        />
         <div className="absolute inset-0 bg-gradient-to-t from-charcoal/90 to-transparent" />
         <div className="relative container max-w-7xl mx-auto px-6 py-14">
           <nav className="text-xs text-white/50 mb-4 flex items-center gap-1.5">
@@ -119,7 +176,9 @@ useEffect(() => {
             <span className="text-white/80">About Us</span>
           </nav>
           <p className="section-label text-white/50 mb-3">Our Company</p>
-          <h1 className="font-heading text-4xl text-white">Welcome to Khanna Group</h1>
+          <h1 className="font-heading text-4xl text-white">
+            Welcome to Khanna Group
+          </h1>
         </div>
       </div>
 
@@ -127,20 +186,16 @@ useEffect(() => {
       <section className="py-8 border-b border-divider">
         <div className="container max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-start">
-
-      
-  <div className="group relative border border-primary/40 overflow-hidden">
-  <video
-    ref={videoRef}
-    src={aboutVideo}
-    muted
-    loop
-    playsInline
-    className="w-full h-73 object-cover transition-all duration-500 ease-in-out opacity-90 group-hover:opacity-100 transition-transform duration-[8000ms] ease-linear group-hover:scale-105"
-  />
-</div>
-
-
+            <div className="group relative border border-primary/40 overflow-hidden">
+              <video
+                ref={videoRef}
+                src={aboutVideo}
+                muted
+                loop
+                playsInline
+                className="w-full h-73 object-cover transition-all duration-500 ease-in-out opacity-90 group-hover:opacity-100 transition-transform duration-[8000ms] ease-linear group-hover:scale-105"
+              />
+            </div>
 
             <div>
               <p className="section-label mb-3">Our Foundation</p>
@@ -148,20 +203,41 @@ useEffect(() => {
                 Built on polymer science and precision manufacturing
               </h2>
               <div className="space-y-4 text-muted-foreground text-lh leading-relaxed">
-                <p><strong className="text-primary">Khanna Polyrib Pvt. Ltd.</strong> is the manufacturer of superior engineering plastic solutions that can be used in the world market with <strong className="text-primary">ISO accredeation</strong>, which is founded on the good principles of polymer science and production best practices.</p>
-                <p>Having decades of experience in this industry, we combine technical invention, exploration of materials, and meticulousness in manufacturing into the creation of plastics that can be reliably worked within the most industrial requirements.</p>
-                <p>We are more than a manufacturing company. We also collaborate with industries to provide development-tailored materials with a precise performance that provides strength, uniformity, and sustainability in a wide range of uses that we have implemented.</p>
+                <p>
+                  <strong className="text-primary">
+                    Khanna Polyrib Pvt. Ltd.
+                  </strong>{" "}
+                  is the manufacturer of superior engineering plastic solutions
+                  that can be used in the world market with{" "}
+                  <strong className="text-primary">ISO accredeation</strong>,
+                  which is founded on the good principles of polymer science and
+                  production best practices.
+                </p>
+                <p>
+                  Having decades of experience in this industry, we combine
+                  technical invention, exploration of materials, and
+                  meticulousness in manufacturing into the creation of plastics
+                  that can be reliably worked within the most industrial
+                  requirements.
+                </p>
+                <p>
+                  We are more than a manufacturing company. We also collaborate
+                  with industries to provide development-tailored materials with
+                  a precise performance that provides strength, uniformity, and
+                  sustainability in a wide range of uses that we have
+                  implemented.
+                </p>
               </div>
             </div>
-
           </div>
         </div>
       </section>
 
-
-
       {/* EXPLORE FEATURES (MISSION & VALUES FROM PART B) */}
-      <section ref={ref4} className="fade-up py-8 border-b border-divider bg-surface-subtle">
+      <section
+        ref={ref4}
+        className="fade-up py-8 border-b border-divider bg-surface-subtle"
+      >
         <div className="container max-w-7xl mx-auto px-6 text-center">
           <p className="section-label mb-3">Explore Features</p>
           <h2 className="font-heading text-3xl text-charcoal mb-10">
@@ -172,15 +248,15 @@ useEffect(() => {
             {[
               {
                 title: "Our Mission",
-                desc: "To deliver innovative, high-quality polymer solutions that empower modern infrastructure, driven by integrity, customer focus, sustainability, and continuous innovation—building lasting partnerships through reliability, performance, and responsible growth."
+                desc: "To deliver innovative, high-quality polymer solutions that empower modern infrastructure, driven by integrity, customer focus, sustainability, and continuous innovation—building lasting partnerships through reliability, performance, and responsible growth.",
               },
               {
                 title: "Our Vision",
-                desc: "Our vision is to have Khanna Polyrib establish standards in the quality, application performance, and responsible polymer engineering in the global industries."
+                desc: "Our vision is to have Khanna Polyrib establish standards in the quality, application performance, and responsible polymer engineering in the global industries.",
               },
               {
                 title: "Our Values",
-                desc: "We have values at Khanna Polyrib, which we apply to each and every product we make and to each and every relationship we form. Our engineering approach believes in integrity, constant quality, and continuous improvement."
+                desc: "We have values at Khanna Polyrib, which we apply to each and every product we make and to each and every relationship we form. Our engineering approach believes in integrity, constant quality, and continuous improvement.",
               },
             ].map((item) => (
               <div
@@ -198,26 +274,33 @@ useEffect(() => {
         </div>
       </section>
 
-
-
       {/* ========================= */}
       {/* BELOW THIS: EXACT PART A */}
       {/* DO NOT MODIFIED SECTIONS */}
       {/* ========================= */}
 
       {/* GROUP STRUCTURE */}
-      <section ref={ref1} className="fade-up py-8 border-b border-divider"> <div className="container max-w-7xl mx-auto px-6">
-    <div className="text-center mb-8">
-      <p className="section-label mb-3">Group Structure</p>
-      <h2 className="font-heading text-3xl text-charcoal">Three Companies, One Group</h2>
-      <p className="text-muted-foreground text-sm mt-3 max-w-xl mx-auto">
-        Each entity within the Khanna Group serves a distinct function — together covering manufacturing, fabrication, and distribution of engineering thermoplastics across India and beyond.
-      </p>
-    </div>
-          
+      <section ref={ref1} className="fade-up py-8 border-b border-divider">
+        {" "}
+        <div className="container max-w-7xl mx-auto px-6">
+          <div className="text-center mb-8">
+            <p className="section-label mb-3">Group Structure</p>
+            <h2 className="font-heading text-3xl text-charcoal">
+              Three Companies, One Group
+            </h2>
+            <p className="text-muted-foreground text-sm mt-3 max-w-xl mx-auto">
+              Each entity within the Khanna Group serves a distinct function —
+              together covering manufacturing, fabrication, and distribution of
+              engineering thermoplastics across India and beyond.
+            </p>
+          </div>
+
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {groupCompanies.map((co) => (
-              <div key={co.name} className="border border-border hover:border-primary/40 transition-colors duration-200 flex flex-col">
+              <div
+                key={co.name}
+                className="border border-border hover:border-primary/40 transition-colors duration-200 flex flex-col"
+              >
                 <div className="h-1 bg-primary" />
                 <div className="p-6 flex flex-col flex-1">
                   <div className="flex items-start gap-3 mb-4">
@@ -238,7 +321,10 @@ useEffect(() => {
                   </p>
                   <ul className="space-y-1.5 mt-auto">
                     {co.focus.map((f) => (
-                      <li key={f} className="flex items-start gap-2 text-sm text-charcoal-light">
+                      <li
+                        key={f}
+                        className="flex items-start gap-2 text-sm text-charcoal-light"
+                      >
                         <CheckCircle2 className="w-3.5 h-3.5 text-primary mt-0.5 shrink-0" />
                         {f}
                       </li>
@@ -255,12 +341,17 @@ useEffect(() => {
       <section className="py-8 bg-surface-subtle border-b border-divider">
         <div className="container max-w-7xl mx-auto px-6">
           <div className="text-center mb-8">
-      <p className="section-label mb-3">Our Locations</p>
-      <h2 className="font-heading text-3xl text-charcoal">Manufacturing & Distribution Network</h2>
-    </div>
+            <p className="section-label mb-3">Our Locations</p>
+            <h2 className="font-heading text-3xl text-charcoal">
+              Manufacturing & Distribution Network
+            </h2>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {locations.map((loc) => (
-              <div key={loc.city} className="flex gap-4 p-5 bg-card border border-border hover:border-primary/30 transition-colors duration-200">
+              <div
+                key={loc.city}
+                className="flex gap-4 p-5 bg-card border border-border hover:border-primary/30 transition-colors duration-200"
+              >
                 <div className="w-10 h-10 bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
                   <MapPin className="w-5 h-5 text-primary" />
                 </div>
@@ -280,10 +371,6 @@ useEffect(() => {
           </div>
         </div>
       </section>
-
-
-
-
     </div>
   );
 }

@@ -4,9 +4,7 @@ interface CookieButtonProps {
   onClick: () => void;
 }
 
-export default function CookieButton({
-  onClick,
-}: CookieButtonProps) {
+export default function CookieButton({ onClick }: CookieButtonProps) {
   return (
     <button
       type="button"
@@ -34,7 +32,6 @@ export default function CookieButton({
       "
     >
       <Settings2 className="h-4 w-4" />
-
       Cookie Settings
     </button>
   );

@@ -3,42 +3,72 @@ import { Mail, Phone, MapPin, Globe, ArrowRight } from "lucide-react";
 import logoImg from "@/assets/logo-footer.png";
 import { useMachineComponentRouting } from "@/lib/product-experience/useMachineComponentRouting";
 
-function getFooterLinks(machineComponents: ReturnType<typeof useMachineComponentRouting>) {
+function getFooterLinks(
+  machineComponents: ReturnType<typeof useMachineComponentRouting>,
+) {
   return {
-  Products: [
-    { label: "Semi-Finished Products", href: "/products/thermoplastics-semi-finished-products" },
-    { label: "Rods & Tubes", href: "/products/thermoplastics-semi-finished-products/rods-tubes" },
-    { label: "Sheets & Blocks", href: "/products/thermoplastics-semi-finished-products/sheets-blocks" },
-    { label: "Coils & Rolls", href: "/products/thermoplastics-semi-finished-products/coils-rolls" },
-    { label: "Machine Components", href: "/products/thermoplastics-machine-components" },
-    { label: "Strips & Profiles", href: "/products/thermoplastics-machine-components/strips-and-profiles" },
-  ],
-  Materials: [
-    { label: "POLYRIB V (UHMW PE)", href: "/materials/uhmwpe" },
-    { label: "POLYRIB H (HDPE)", href: "/materials/hdpe" },
-    { label: "POLYRIB P (PP)", href: "/materials/pp" },
-    { label: "PCCLEAR (PC)", href: "/materials/pc" },
-    { label: "KAYLON (Nylon)", href: "/materials/pa6" },
-    { label: "PAKETAL (Acetal)", href: "/materials/acetal" },
-  ],
-  Company: [
-    { label: "About Us", href: "/about" },
-    { label: "Industries", href: "/industries" },
-    { label: "CSR & Sustainability", href: "/csr" },
-    { label: "Careers", href: "/careers" },
-    { label: "Resources & Downloads", href: "/resources" },
-    { label: "Blog & Gallery", href: "/blog" },
-  ],
-  Support: [
-    { label: "Contact Us", href: "/contact" },
-    { label: "Request a Quote", href: "/contact" },
-    { label: "Material Selector", href: "/tools/material-selector" },
-    { label: "Technical Downloads", href: "/resources" },
-  ],
+    Products: [
+      {
+        label: "Semi-Finished Products",
+        href: "/products/thermoplastics-semi-finished-products",
+      },
+      {
+        label: "Rods & Tubes",
+        href: "/products/thermoplastics-semi-finished-products/rods-tubes",
+      },
+      {
+        label: "Sheets & Blocks",
+        href: "/products/thermoplastics-semi-finished-products/sheets-blocks",
+      },
+      {
+        label: "Coils & Rolls",
+        href: "/products/thermoplastics-semi-finished-products/coils-rolls",
+      },
+      {
+        label: "Machine Components",
+        href: "/products/thermoplastics-machine-components",
+      },
+      {
+        label: "Strips & Profiles",
+        href: "/products/thermoplastics-machine-components/strips-and-profiles",
+      },
+    ],
+    Materials: [
+      { label: "POLYRIB V (UHMW PE)", href: "/materials/uhmwpe" },
+      { label: "POLYRIB H (HDPE)", href: "/materials/hdpe" },
+      { label: "POLYRIB P (PP)", href: "/materials/pp" },
+      { label: "PCCLEAR (PC)", href: "/materials/pc" },
+      { label: "KAYLON (Nylon)", href: "/materials/pa6" },
+      { label: "PAKETAL (Acetal)", href: "/materials/acetal" },
+    ],
+    Company: [
+      { label: "About Us", href: "/about" },
+      { label: "Industries", href: "/industries" },
+      { label: "CSR & Sustainability", href: "/csr" },
+      { label: "Careers", href: "/careers" },
+      { label: "Resources & Downloads", href: "/resources" },
+      { label: "Blog & Gallery", href: "/blog" },
+    ],
+    Support: [
+      { label: "Contact Us", href: "/contact" },
+      { label: "Request a Quote", href: "/contact" },
+      { label: "Material Selector", href: "/tools/material-selector" },
+      { label: "Technical Downloads", href: "/resources" },
+    ],
   };
 }
 
-const brands = ["POLYRIB V", "POLYRIB H", "POLYRIB P", "PCCLEAR", "KAYLON", "PAKETAL", "POLYRIB A", "DIPRA", "PLASCON"];
+const brands = [
+  "POLYRIB V",
+  "POLYRIB H",
+  "POLYRIB P",
+  "PCCLEAR",
+  "KAYLON",
+  "PAKETAL",
+  "POLYRIB A",
+  "DIPRA",
+  "PLASCON",
+];
 
 export function Footer() {
   const machineComponents = useMachineComponentRouting();
@@ -51,12 +81,15 @@ export function Footer() {
         <div className="container max-w-7xl mx-auto px-6 py-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             <div>
-              <p className="section-label text-white/50 mb-2">Trusted Since 1985</p>
+              <p className="section-label text-white/50 mb-2">
+                Trusted Since 1985
+              </p>
               <h3 className="font-heading text-2xl text-white">
                 Get the right thermoplastic for your application
               </h3>
               <p className="text-white/60 mt-2 text-sm max-w-md">
-                Our technical team is available to help you select the ideal grade from our extensive Polyrib product range.
+                Our technical team is available to help you select the ideal
+                grade from our extensive Polyrib product range.
               </p>
             </div>
             <div className="flex gap-3 lg:justify-end">
@@ -67,7 +100,6 @@ export function Footer() {
                 Material Selector
                 <ArrowRight className="w-4 h-4" />
               </Link>
-              
             </div>
           </div>
         </div>
@@ -78,35 +110,36 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
           {/* Brand */}
           <div className="lg:col-span-2 flex flex-col items-start">
-  {/* Logo */}
-<Link to="/" className="block mb-5">
-    <div className="w-full max-w-[160px] sm:max-w-[180px] md:max-w-[200px]">
-      <img
-        src={logoImg}
-        alt="Khanna Polyrib Pvt. Ltd."
-        className="w-full h-auto object-contain"
-      />
-    </div>
-  </Link>
+            {/* Logo */}
+            <Link to="/" className="block mb-5">
+              <div className="w-full max-w-[160px] sm:max-w-[180px] md:max-w-[200px]">
+                <img
+                  src={logoImg}
+                  alt="Khanna Polyrib Pvt. Ltd."
+                  className="w-full h-auto object-contain"
+                />
+              </div>
+            </Link>
 
-  {/* Text */}
-  <p className="text-white/60 text-sm leading-relaxed mb-6 max-w-md lg:max-w-lg">
-    India's leading manufacturer of engineering thermoplastic semi-finished
-    products and machine components. Trusted across 20+ industries worldwide.
-  </p>
+            {/* Text */}
+            <p className="text-white/60 text-sm leading-relaxed mb-6 max-w-md lg:max-w-lg">
+              India's leading manufacturer of engineering thermoplastic
+              semi-finished products and machine components. Trusted across 20+
+              industries worldwide.
+            </p>
 
-  {/* Brands */}
-  <div className="flex flex-wrap gap-1.5">
-    {brands.map((b) => (
-      <span
-        key={b}
-        className="text-[10px] font-semibold px-2 py-0.5 bg-white/10 text-white/60 tracking-wider"
-      >
-        {b}
-      </span>
-    ))}
-  </div>
-</div>
+            {/* Brands */}
+            <div className="flex flex-wrap gap-1.5">
+              {brands.map((b) => (
+                <span
+                  key={b}
+                  className="text-[10px] font-semibold px-2 py-0.5 bg-white/10 text-white/60 tracking-wider"
+                >
+                  {b}
+                </span>
+              ))}
+            </div>
+          </div>
 
           {/* Links */}
           {Object.entries(footerLinks).map(([title, links]) => (
@@ -134,28 +167,39 @@ export function Footer() {
         <div className="mt-4 pt-4 border-t border-white/10 grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="flex items-center gap-3">
             <MapPin className="w-4 h-4 text-primary-light shrink-0" />
-            <span className="text-white/55 text-sm">24/168 Birhana Road, Kanpur-208001, India</span>
+            <span className="text-white/55 text-sm">
+              24/168 Birhana Road, Kanpur-208001, India
+            </span>
           </div>
           <div className="flex items-center gap-3">
             <Phone className="w-4 h-4 text-primary-light shrink-0" />
             <span className="text-white/55 text-sm">0515-2970306</span>
-          </div>  
+          </div>
           <div className="flex items-center gap-3">
-
-          <Mail className="w-4 h-4 text-primary-light shrink-0" />
-          <a href="mailto:info@polyrib.com" className="text-sm font-medium text-white/55 hover:underline">info@polyrib.com</a>
+            <Mail className="w-4 h-4 text-primary-light shrink-0" />
+            <a
+              href="mailto:info@polyrib.com"
+              className="text-sm font-medium text-white/55 hover:underline"
+            >
+              info@polyrib.com
+            </a>
           </div>
         </div>
 
         {/* Bottom */}
         <div className="mt-4 pt-4 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-white/35 text-xs">
-            © {new Date().getFullYear()} Khanna Polyrib Pvt. Ltd. All rights reserved.
+            © {new Date().getFullYear()} Khanna Polyrib Pvt. Ltd. All rights
+            reserved.
           </p>
           <div className="flex flex-col sm:flex-row items-center gap-4 text-xs text-white/35">
             <div className="flex gap-4">
-              <a href="#" className="hover:text-white/70 transition-colors">Privacy Policy</a>
-              <a href="#" className="hover:text-white/70 transition-colors">Terms & Conditions</a>
+              <a href="#" className="hover:text-white/70 transition-colors">
+                Privacy Policy
+              </a>
+              <a href="#" className="hover:text-white/70 transition-colors">
+                Terms & Conditions
+              </a>
             </div>
             <Globe className="w-4 h-4 text-primary-light shrink-0" />
             <a
