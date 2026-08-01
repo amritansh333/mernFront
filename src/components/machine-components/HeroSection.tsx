@@ -33,7 +33,7 @@ export default function HeroSection({
   <section className="border-b border-divider bg-[#F8FAFC]">
 
     {/* Breadcrumb - Full Width */}
-    <div className="mx-auto max-w-7xl px-6 pt-6 lg:px-10 lg:pt-8">
+    <div className="mx-auto max-w-7xl px-6 pt-2 pb-1 lg:px-10 lg:pt-6">
       <MachineBreadcrumbs />
     </div>
 
