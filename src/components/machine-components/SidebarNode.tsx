@@ -59,12 +59,9 @@ function SidebarNode({
   const hasChildren = children.length > 0;
   const isProduct = Boolean(node.slug) && !hasChildren;
   const isSelected = Boolean(node.slug) && node.slug === selectedSlug;
-  const containsSelected =
-    hasChildren && hasSelectedDescendant(node, selectedSlug);
+  const containsSelected = false;
 
-  const [isOpen, setIsOpen] = useState(
-  depth === 0 || isSelected || containsSelected,
-);
+  const [isOpen, setIsOpen] = useState(depth === 0);
 
 const actuallyOpen = depth === 0 || forceOpen || isOpen;
 
@@ -73,10 +70,10 @@ const actuallyOpen = depth === 0 || forceOpen || isOpen;
   const [shouldMarquee, setShouldMarquee] = useState(false);
 
   useEffect(() => {
-    if (forceOpen || containsSelected) {
-      setIsOpen(true);
-    }
-  }, [containsSelected, forceOpen]);
+  if (forceOpen) {
+    setIsOpen(true);
+  }
+}, [forceOpen]);
 
   useEffect(() => {
     const checkOverflow = () => {
@@ -114,14 +111,16 @@ const handleClick = () => {
 
   // Category / Subcategory
   if (hasChildren) {
+  if (node.path) {
+    navigate(node.path);
+    return;
+  }
 
-    if (node.path) {
-      navigate(node.path);
-      return;
-    }
-
+  // Only root categories can expand/collapse
+  if (depth === 0) {
     setIsOpen((prev) => !prev);
   }
+}
 };
 
   const handleKeyDown = (

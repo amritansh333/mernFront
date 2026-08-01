@@ -6,7 +6,6 @@ import MachineSidebar from "@/components/machine-components/MachineSidebar";
 import HeroSection from "@/components/machine-components/HeroSection";
 import ApplicationsSection from "@/components/machine-components/ApplicationsSection";
 import SpecificationsSection from "@/components/machine-components/SpecificationsSection";
-import DownloadsSection from "@/components/machine-components/DownloadsSection";
 import ProductCardsSection from "@/components/machine-components/ProductCardsSection";
 import LoadingState from "@/components/machine-components/LoadingState";
 import EmptyState from "@/components/machine-components/EmptyState";
@@ -482,9 +481,7 @@ setSearch={setSearch}
             applications={subcategoryData.applications}
           />
 
-          <DownloadsSection
-            downloads={subcategoryData.downloads}
-          />
+          
         </section>
       </div>
     </main>

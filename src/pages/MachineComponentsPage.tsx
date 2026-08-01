@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
-import { Menu, Search } from "lucide-react";
+import {
+  Menu,
+  Search,
+  ArrowRight,
+  Boxes,
+} from "lucide-react";
 import MachineSidebar from "@/components/machine-components/MachineSidebar";
+import type { MachineSidebarNode } from "@/types/machineComponent";
 import ProductRenderer from "@/components/machine-components/ProductRenderer";
 import LoadingState from "@/components/machine-components/LoadingState";
 import EmptyState from "@/components/machine-components/EmptyState";
@@ -15,6 +21,8 @@ import {
 } from "@/components/ui/sheet";
 import SidebarSearch from "@/components/machine-components/SidebarSearch";
 import { useMachineComponents } from "@/hooks/useMachineComponents";
+import { Link } from "react-router-dom";
+import { resolveApiAssetUrl } from "@/lib/assetUrl";
 
 export default function MachineComponentsPage() {
 
@@ -33,6 +41,47 @@ export default function MachineComponentsPage() {
   (product) =>
     product.name.toLowerCase().includes(search.toLowerCase())
 ).length;
+
+const relatedProducts = (() => {
+  if (!selectedProduct || !machineData?.sidebar || !machineData?.products) {
+    return [];
+  }
+
+  // Find the subcategory that contains the selected product
+  let siblingSlugs: string[] = [];
+
+  const findSubcategory = (nodes: MachineSidebarNode[]): boolean => {
+  for (const node of nodes) {
+    if (!node.children?.length) continue;
+
+    // Check if this subcategory directly contains the selected product
+    const hasSelected = node.children.some(
+      (child: MachineSidebarNode) => child.slug === selectedProduct.slug
+    );
+
+    if (hasSelected) {
+      siblingSlugs = node.children
+        .map((child: MachineSidebarNode) => child.slug)
+        .filter((slug): slug is string => Boolean(slug));
+
+      return true;
+    }
+
+    if (findSubcategory(node.children)) {
+      return true;
+    }
+  }
+
+  return false;
+};
+
+  findSubcategory(machineData.sidebar);
+
+  return siblingSlugs
+    .filter((slug) => slug !== selectedProduct.slug)
+    .map((slug) => machineData.products[slug])
+    .filter(Boolean);
+})();
 
 
   useEffect(() => {
@@ -459,8 +508,89 @@ export default function MachineComponentsPage() {
 </div>
 
           <div>
-            <ProductRenderer product={selectedProduct} />
-          </div>
+  <ProductRenderer product={selectedProduct} />
+
+  {relatedProducts.length > 0 && (
+    <section className="border-t border-[#279ECE]/10 bg-[#F8FBFD]">
+      <div className="mx-auto max-w-7xl px-5 py-5 lg:px-10">
+
+        <div className="mb-5">
+
+          <div className="inline-flex items-center gap-2 rounded-sm border border-[#279ECE]/20 bg-[#279ECE]/10 px-3 py-1.5">
+    <Boxes className="h-3.5 w-3.5 text-[#276A96]" />
+
+    <span className="text-[10px] font-bold uppercase tracking-widest text-[#276A96]">
+      Related Products
+    </span>
+  </div>
+
+        </div>
+
+        <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+
+          {relatedProducts.map((product) => (
+            <div
+              key={product.slug}
+              className="
+                group
+                overflow-hidden
+                border
+                border-[#279ECE]/10
+                bg-white
+                transition-all
+                duration-300
+                hover:-translate-y-1
+                hover:border-[#279ECE]/35
+                hover:shadow-[0_5px_10px_rgba(39,158,206,0.22)]
+              "
+            >
+
+              <Link
+                to={product.path || "#"}
+                onClick={() => setSelectedSlug(product.slug)}
+              >
+
+                <div className="aspect-[4/3] overflow-hidden bg-[#F6FAFC]">
+
+                  <img
+                    src={resolveApiAssetUrl(product.image)}
+                    alt={product.name}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+
+                </div>
+
+                <div className="flex flex-1 flex-col p-4">
+
+              <h3 className="flex items-center gap-2 text-lg font-semibold text-[#2BA6D9] transition-colors group-hover:text-primary-dark transition-colors">
+                    <span className="line-clamp-2">{product.name}</span>
+
+                    <ArrowRight className="h-4 w-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
+                  </h3>
+
+                  <p className="mt-3 flex-1 text-sm leading-6 text-slate-600 line-clamp-3">
+                    {product.description?.[0]}
+                  </p>
+
+              <div className="mt-auto pt-6">
+
+                <div className="h-[2px] w-12 bg-[#2BA6D9] transition-all duration-300 group-hover:w-full" />
+
+              </div>
+
+            </div>
+
+              </Link>
+
+            </div>
+          ))}
+
+        </div>
+
+      </div>
+    </section>
+  )}
+</div>
         </section>
       </div>
     </main>

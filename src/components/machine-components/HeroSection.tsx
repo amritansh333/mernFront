@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import {
   CircleCheck,
-  ArrowRight,
   Download,
   ShieldCheck,
+  CheckCircle2,
 } from "lucide-react";
 import MachineBreadcrumbs from "@/components/machine-components/MachineBreadcrumbs";
 import { resolveApiAssetUrl } from "@/lib/assetUrl";
@@ -45,7 +45,7 @@ export default function HeroSection({
         {title && (
           <h1
   className="
-mb-2
+mb-4
 text-[24px]
 leading-[1.1]
 font-bold
@@ -60,35 +60,60 @@ lg:text-4xl
         )}
 
           {description.length > 0 && (
-            <div
-  className="
-    mb-3
-    w-full
-    border-l-2
-    border-[#279ECE]/30
-    pl-3
-    text-left
-    max-w-md
-    mx-auto
-    lg:max-w-full
-    lg:mx-0
-    lg:pl-5
-  "
->
-              <div className="space-y-0.5">
-                {description.map((text, index) => (
-                  <div key={index} className="flex items-start gap-2">
-                    <CircleCheck className="mt-1 h-4 w-4 shrink-0 text-[#279ECE]" />
-                    <p className="text-[14px] leading-6 text-[#5C7696] sm:text-[16px]">{text}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
+  <div
+    className="
+      mb-3
+      w-full
+      max-w-md
+      mx-auto
+      text-center
+
+      lg:max-w-full
+      lg:mx-0
+      lg:text-left
+    "
+  >
+    <div className="space-y-1">
+      {description.map((text, index) => (
+        <div
+          key={index}
+          className="
+            flex
+            justify-center
+
+            lg:justify-start
+            lg:items-start
+            lg:gap-2
+          "
+        >
+          {/* Desktop only */}
+          <CircleCheck className="hidden lg:block mt-1 h-4 w-4 shrink-0 text-[#279ECE]" />
+
+          <p
+            className="
+              text-[14px]
+              leading-7
+              text-[#5C7696]
+              text-center
+
+              sm:text-[15px]
+
+              lg:text-[16px]
+              lg:leading-6
+              lg:text-left
+            "
+          >
+            {text}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+)}
 
           {!!features.length && (
             <>
-              <div className="mb-2 text-left">
+              <div className="mb-4 text-left">
   <div className="inline-flex items-center gap-2 rounded-sm border border-[#279ECE]/20 bg-[#279ECE]/10 px-3 py-1.5">
     <ShieldCheck className="h-3.5 w-3.5 text-[#276A96]" />
 
@@ -98,7 +123,7 @@ lg:text-4xl
   </div>
 </div>
 
-              <div className="mb-3 grid grid-cols-1 gap-1 sm:grid-cols-2">
+              <div className="mb-4 grid grid-cols-1 gap-1 sm:grid-cols-2">
                 {features.map((feature, index) => (
                   <div
                     key={index}
@@ -117,26 +142,84 @@ lg:text-4xl
             </>
           )}
 
-          <div className="mt-1 flex flex-wrap justify-center gap-2 lg:justify-start">
+          {/* ================= DOCUMENTATION CTA ================= */}
+
+<div className="mt- overflow-hidden border border-[#279ECE]/15 bg-[#EDF8FD]">
+
+  <div className="grid lg:grid-cols-[1fr_300px]">
+
+    {/* LEFT */}
+
+    <div className="flex flex-col justify-center p-5 lg:p-6">
+
+  <h2 className="text-[30px] font-bold tracking-tight text-[#0F2A3D] transition-colors duration-300 hover:text-[#279ECE]">
+    Need Complete Product Information?
+  </h2>
+
   <Link
-    to="/contact"
-    className="inline-flex h-8 min-w-[132px] sm:h-10 sm:min-w-[160px] sm:h-10 sm:min-w-[160px] items-center justify-center gap-2 bg-gradient-to-r from-[#279ECE] to-[#1F7FA8] px-3 sm:px-5 text-[11px] sm:text-[13px] font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#279ECE]/30"
+    to={`/contact?product=${encodeURIComponent(title ?? "")}`}
+    className="
+      mt-5
+      inline-flex
+      h-10
+      min-w-[180px]
+      items-center
+      justify-center
+      gap-2
+      border
+      border-[#C7D9E6]
+      bg-white
+      px-5
+      text-[13px]
+      font-semibold
+      text-[#279ECE]
+      transition-all
+      duration-200
+      hover:border-[#279ECE]
+      hover:bg-[#F5FBFE]
+      hover:text-[#279ECE]
+      hover:shadow-lg
+      hover:shadow-[#279ECE]/20
+    "
   >
-    <span>Request Quote</span>
-    <ArrowRight className="h-4 w-4" />
+    <span>Get Product Brochure</span>
+
+    <Download className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
   </Link>
 
-  {pdf && (
-    <a
-      href={resolveApiAssetUrl(pdf.url)}
-      target="_blank"
-      rel="noreferrer"
-      className="inline-flex h-8 min-w-[132px] sm:h-10 sm:min-w-[160px] sm:h-10 sm:min-w-[160px] items-center justify-center gap-2 border border-[#C7D9E6] bg-white px-3 sm:px-5 text-[12px] sm:text-[13px] font-semibold text-[#276A96] transition-all duration-200 hover:border-[#279ECE] hover:bg-[#F5FBFE] hover:text-[#279ECE]"
+</div>
+
+    {/* RIGHT */}
+
+    <div className="border-t border-[#279ECE]/10 bg-white/45 p-5 lg:border-l lg:border-t-0 lg:p-6">
+
+  <p className="text-[14px] leading-8 text-[#5C7696]">
+    Click{" "}
+    <Link
+      to={`/contact?product=${encodeURIComponent(title ?? "")}`}
+      className="
+        font-semibold
+        text-[#279ECE]
+        transition-all
+        duration-200
+        hover:underline
+        hover:underline-offset-4
+      "
     >
-      <span>Download Datasheet</span>
-      <Download className="h-4 w-4" />
-    </a>
-  )}
+      Get Product Brochure
+    </Link>{" "}
+    to receive a detailed brochure for{" "}
+    <span className="font-semibold text-[#279ECE]">
+      {title}
+    </span>{" "}
+    with technical specifications, material details, dimensions,
+    applications, and other product information.
+  </p>
+
+</div>
+
+  </div>
+
 </div>
         </div>
 
