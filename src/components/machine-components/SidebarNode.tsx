@@ -5,7 +5,10 @@ import {
   ChevronRight,
   CircleCheck,
   FolderTree,
-  CornerDownRight,
+  LogIn,
+  Layers3,
+  CircleChevronRight,
+  
 } from "lucide-react";
 import {
   getNodeChildren,
@@ -165,7 +168,7 @@ const handleClick = () => {
     {/* Branch + Card */}
     <div className="flex flex-1 items-center gap-2">
       {depth > 0 && (
-        <CornerDownRight
+        <LogIn
           className="
             h-4
             w-4
@@ -195,7 +198,7 @@ const handleClick = () => {
         {isSelected ? (
           <CircleCheck className="h-[15px] w-[15px] text-white" />
         ) : (
-          <FolderTree className="h-[15px] w-[15px] text-[#279ECE] transition-colors group-hover:text-white" />
+          <Layers3 className="h-[15px] w-[15px] text-[#279ECE] transition-colors group-hover:text-white" />
         )}
       </div>
 
@@ -234,23 +237,13 @@ const handleClick = () => {
     "border-l-[#279ECE] bg-white hover:-translate-y-0.5 hover:border-[#279ECE]/40 hover:shadow-md"
   )}
 >
-  <div
-    className="
-      flex h-7 w-7 shrink-0 items-center justify-center
-      rounded-[2px]
-      bg-[#279ECE]/10
-      group-hover:bg-[#279ECE]
-      transition-all
-    "
-  >
-    <FolderTree className="h-[15px] w-[15px] text-[#279ECE] group-hover:text-white" />
-  </div>
+  
 
   <span className="flex-1 pr-2 text-[13.5px] font-semibold leading-5 text-[#1E293B]">
     {getNodeLabel(node)}
   </span>
 
-  <ChevronRight className="h-[15px] w-[15px] shrink-0 text-[#279ECE]" />
+  <CircleChevronRight className="h-[15px] w-[15px] shrink-0 text-[#279ECE]" />
 </div>
         )}
     </div>

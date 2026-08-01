@@ -5,7 +5,7 @@ import {
   ChevronRight,
   CheckCircle,
   MapPin,
-  ArrowRight,
+  PenLine,
   Download
 } from "lucide-react";
 import type { Product } from "@/types/product";
@@ -181,7 +181,7 @@ export default function ProductDetailPage() {
     className="inline-flex h-11 w-full sm:w-[190px] items-center justify-center gap-2 bg-gradient-to-r from-[#279ECE] to-[#1F7FA8] text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#279ECE]/30"
   >
     <span>Request Quote</span>
-    <ArrowRight className="h-4 w-4" />
+    <PenLine className="h-3.5 w-3.5" />
   </Link>
 
   {product.pdfUrl && (
@@ -192,7 +192,7 @@ export default function ProductDetailPage() {
       className="inline-flex h-11 w-full sm:w-[190px] items-center justify-center gap-2 border border-[#C7D9E6] bg-white text-sm font-semibold text-[#276A96] transition-all duration-200 hover:border-[#279ECE] hover:bg-[#F5FBFE] hover:text-[#279ECE]"
     >
       <span>Download Datasheet</span>
-      <Download className="h-4 w-4" />
+      <Download className="h-3.5 w-3.5" />
     </a>
   )}
 </div>

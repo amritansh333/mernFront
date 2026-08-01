@@ -10,6 +10,7 @@ import {
   Factory,
   Layers,
   Ruler,
+  PenLine,
   BadgeCheck,
   HeadphonesIcon,
   CheckCircle2,
@@ -845,7 +846,7 @@ const Index = () => {
               </Link>
 
               <Link
-                to="/contact"
+                to="/contact?tab=drawing"
                 className="inline-flex items-center gap-2 px-4 py-2 text-xs sm:text-sm bg-white/10 border border-white/30 text-white font-normal hover:bg-white/20 transition-colors duration-200"
               >
                 <Send className="w-3.5 h-3.5" /> Send Your Drawing
@@ -855,7 +856,7 @@ const Index = () => {
                 to="/tools/material-selector"
                 className="inline-flex items-center gap-2 px-4 py-2 text-xs sm:text-sm border border-white/20 text-white/80 font-normal hover:bg-white/10 transition-colors duration-200"
               >
-                Material Selector
+                <PenLine className="w-3.5 h-3.5" /> Material Selector
               </Link>
             </div>
             {/* Trust badges */}
@@ -950,10 +951,10 @@ const Index = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
-              to="/contact"
+              to="/contact?tab=quote"
               className="inline-flex items-center gap-2 px-7 py-3 bg-primary-foreground text-primary text-sm font-bold hover:bg-surface-subtle transition-colors duration-200"
             >
-              Request a Quote <ArrowRight className="w-4 h-4" />
+              Request a Quote <PenLine className="w-4 h-4" />
             </Link>
           </div>
         </div>

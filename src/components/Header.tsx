@@ -25,12 +25,12 @@ function getNavItems(machineComponents: ReturnType<typeof useMachineComponentRou
         heading: "Thermoplastics Machine Components",
         headingHref: "/products/thermoplastics-machine-components",
         items: [
-          { label: "Strips & Profiles", href: "/products/thermoplastics-machine-components/strips-and-profiles/polyrib-strips-and-profiles" },
-          { label: "Vacuum Formed Plastic Parts", href: "/products/thermoplastics-machine-components/vacuum-formed-plastic-parts/pcclear-base-plate" },
-          { label: "Cutting Boards", href: "/products/thermoplastics-machine-components/cutting-board/polyrib-ripla" },
-          { label: "Chopping Boards", href: "/products/thermoplastics-machine-components/chopping-board/polyrib-cutrite" },
-          { label: "Application Sheets", href: "/products/thermoplastics-machine-components/application-ready-sheets/arete-liners" },
-          { label: "Machined Plastic Parts", href: "/products/thermoplastics-machine-components/machined-plastic-parts/ccn" },
+          { label: "Strips & Profiles", href: "/products/thermoplastics-machine-components/strips-and-profiles" },
+          { label: "Vacuum Formed Plastic Parts", href: "/products/thermoplastics-machine-components/vacuum-formed-plastic-parts" },
+          { label: "Cutting Boards", href: "/products/thermoplastics-machine-components/cutting-board" },
+          { label: "Chopping Boards", href: "/products/thermoplastics-machine-components/chopping-board" },
+          { label: "Application Ready Sheets", href: "/products/thermoplastics-machine-components/application-ready-sheets" },
+          { label: "Machined Plastic Parts", href: "/products/thermoplastics-machine-components/machined-plastic-parts" },
         ],
       },
     ],
@@ -258,7 +258,7 @@ export function Header() {
           {/* CTA */}
           <div className="hidden lg:flex items-center gap-3">
   <Link
-    to="/contact"
+    to="/contact?tab=quote"
     className="inline-flex items-center justify-center gap-2 px-5 py-2 bg-gradient-to-r from-[#279ECE] to-[#1F7FA8] text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#279ECE]/30"
   >
     <span>Request Quote</span>

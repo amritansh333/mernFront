@@ -10,8 +10,8 @@ function getFooterLinks(machineComponents: ReturnType<typeof useMachineComponent
     { label: "Rods & Tubes", href: "/products/thermoplastics-semi-finished-products/rods-tubes" },
     { label: "Sheets & Blocks", href: "/products/thermoplastics-semi-finished-products/sheets-blocks" },
     { label: "Coils & Rolls", href: "/products/thermoplastics-semi-finished-products/coils-rolls" },
-    { label: "Machine Components", href: machineComponents.rootPath },
-    { label: "Strips & Profiles", href: machineComponents.getPathByLabel("Strips & Profiles") },
+    { label: "Machine Components", href: "/products/thermoplastics-machine-components" },
+    { label: "Strips & Profiles", href: "/products/thermoplastics-machine-components/strips-and-profiles" },
   ],
   Materials: [
     { label: "POLYRIB V (UHMW PE)", href: "/materials/uhmwpe" },

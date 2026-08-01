@@ -466,6 +466,7 @@ setSearch={setSearch}
             image={subcategoryData.image}
             features={subcategoryData.technicalCharacteristics}
             downloads={subcategoryData.downloads}
+            showActionButtons
           />
 
           <ProductCardsSection

@@ -3,7 +3,9 @@ import {
   CircleCheck,
   Download,
   ShieldCheck,
-  CheckCircle2,
+  ArrowRight,
+  PenLine,
+  Upload,
 } from "lucide-react";
 import MachineBreadcrumbs from "@/components/machine-components/MachineBreadcrumbs";
 import { resolveApiAssetUrl } from "@/lib/assetUrl";
@@ -15,6 +17,7 @@ interface HeroSectionProps {
   image?: string;
   features: string[];
   downloads: MachineComponentDownload[];
+  showActionButtons?: boolean;
 }
 
 export default function HeroSection({
@@ -23,6 +26,7 @@ export default function HeroSection({
   image,
   features,
   downloads,
+  showActionButtons = false,
 }: HeroSectionProps) {
   const imageUrl = resolveApiAssetUrl(image);
   const pdf = downloads[0];
@@ -121,6 +125,7 @@ lg:text-4xl
       Technical Characteristics
     </span>
   </div>
+  
 </div>
 
               <div className="mb-4 grid grid-cols-1 gap-1 sm:grid-cols-2">
@@ -139,88 +144,67 @@ lg:text-4xl
                   </div>
                 ))}
               </div>
-            </>
-          )}
-
-          {/* ================= DOCUMENTATION CTA ================= */}
-
-<div className="mt- overflow-hidden border border-[#279ECE]/15 bg-[#EDF8FD]">
-
-  <div className="grid lg:grid-cols-[1fr_300px]">
-
-    {/* LEFT */}
-
-    <div className="flex flex-col justify-center p-5 lg:p-6">
-
-  <h2 className="text-[30px] font-bold tracking-tight text-[#0F2A3D] transition-colors duration-300 hover:text-[#279ECE]">
-    Need Complete Product Information?
-  </h2>
-
+              {showActionButtons && (
+              <div className="mt-5 flex flex-wrap items-center gap-3">
   <Link
-    to={`/contact?product=${encodeURIComponent(title ?? "")}`}
+    to="/contact?tab=quote"
     className="
-      mt-5
       inline-flex
-      h-10
-      min-w-[180px]
+      h-9
       items-center
       justify-center
       gap-2
+      px-5
+      border
+      border-[#279ECE]
+      bg-[#279ECE]
+      text-[13px]
+      font-semibold
+      text-white
+      transition-all
+      duration-200
+      hover:-translate-y-0.5
+      hover:bg-[#1F7FA8]
+      hover:shadow-md
+      hover:shadow-[#279ECE]/20
+    "
+  >
+    <PenLine className="h-3.5 w-3.5" />
+    <span>Request a Quote</span>
+  </Link>
+
+  <Link
+    to="/contact?tab=drawing"
+    className="
+      inline-flex
+      h-9
+      items-center
+      justify-center
+      gap-2
+      px-5
       border
       border-[#C7D9E6]
       bg-white
-      px-5
       text-[13px]
       font-semibold
       text-[#279ECE]
       transition-all
       duration-200
+      hover:-translate-y-0.5
       hover:border-[#279ECE]
       hover:bg-[#F5FBFE]
       hover:text-[#279ECE]
-      hover:shadow-lg
-      hover:shadow-[#279ECE]/20
     "
   >
-    <span>Get Product Brochure</span>
-
-    <Download className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
+    <Upload className="h-3.5 w-3.5" />
+    <span>Send Your Drawing</span>
   </Link>
-
 </div>
+          )}
+            </>
+          )}
 
-    {/* RIGHT */}
-
-    <div className="border-t border-[#279ECE]/10 bg-white/45 p-5 lg:border-l lg:border-t-0 lg:p-6">
-
-  <p className="text-[14px] leading-8 text-[#5C7696]">
-    Click{" "}
-    <Link
-      to={`/contact?product=${encodeURIComponent(title ?? "")}`}
-      className="
-        font-semibold
-        text-[#279ECE]
-        transition-all
-        duration-200
-        hover:underline
-        hover:underline-offset-4
-      "
-    >
-      Get Product Brochure
-    </Link>{" "}
-    to receive a detailed brochure for{" "}
-    <span className="font-semibold text-[#279ECE]">
-      {title}
-    </span>{" "}
-    with technical specifications, material details, dimensions,
-    applications, and other product information.
-  </p>
-
-</div>
-
-  </div>
-
-</div>
+        
         </div>
 
         <div className="order-1 w-full lg:order-2 lg:basis-[40%]">

@@ -8,6 +8,7 @@ import {
 import MachineSidebar from "@/components/machine-components/MachineSidebar";
 import type { MachineSidebarNode } from "@/types/machineComponent";
 import ProductRenderer from "@/components/machine-components/ProductRenderer";
+import DocumentationCTA from "@/components/machine-components/DocumentationCTA";
 import LoadingState from "@/components/machine-components/LoadingState";
 import EmptyState from "@/components/machine-components/EmptyState";
 import { Button } from "@/components/ui/button";
@@ -509,6 +510,12 @@ const relatedProducts = (() => {
 
           <div>
   <ProductRenderer product={selectedProduct} />
+
+  <div className="mx-auto max-w-7xl px-5 pb-6 lg:px-10">
+    <DocumentationCTA
+      title={selectedProduct?.name}
+    />
+  </div>
 
   {relatedProducts.length > 0 && (
     <section className="border-t border-[#279ECE]/10 bg-[#F8FBFD]">

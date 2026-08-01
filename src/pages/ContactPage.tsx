@@ -1,5 +1,5 @@
-import React, { useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState, useRef } from "react";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import {
   ArrowRight,
   CheckCircle2,
@@ -42,6 +42,18 @@ export default function ContactPage() {
   const [files, setFiles] = useState<File[]>([]);
   const [drawSubmitted, setDrawSubmitted] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
+const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
+useEffect(() => {
+  const tab = searchParams.get("tab");
+
+  if (tab === "quote" || tab === "drawing") {
+    setActiveTab(tab);
+  }
+}, [searchParams]);
+
+
 
   const handleDrawSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -166,7 +178,10 @@ export default function ContactPage() {
           {/* Tabs */}
           <div className="flex gap-2 mt-8">
             <button
-              onClick={() => setActiveTab("quote")}
+              onClick={() => {
+  setActiveTab("quote");
+  navigate("/contact?tab=quote", { replace: true });
+}}
               className={`flex items-center gap-2 px-5 py-2.5 text-sm font-semibold border transition-all duration-200 ${
                 activeTab === "quote"
                   ? "bg-primary text-primary-foreground border-primary"
@@ -177,7 +192,10 @@ export default function ContactPage() {
               Request a Quote
             </button>
             <button
-              onClick={() => setActiveTab("drawing")}
+              onClick={() => {
+  setActiveTab("drawing");
+  navigate("/contact?tab=drawing", { replace: true });
+}}
               className={`flex items-center gap-2 px-5 py-2.5 text-sm font-semibold border transition-all duration-200 ${
                 activeTab === "drawing"
                   ? "bg-primary text-primary-foreground border-primary"
