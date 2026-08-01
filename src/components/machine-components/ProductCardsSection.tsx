@@ -1,13 +1,13 @@
-import { ArrowRight, FolderDown } from "lucide-react";
+import { ArrowRight, FolderDown, Save } from "lucide-react";
 import { Link } from "react-router-dom";
 
 interface ProductCard {
-  name: string;
-  slug: string;
-  path: string;
-  image: string;
-  description: string[];
-  keyFeatures: string[];
+  name?: string;
+  slug?: string;
+  path?: string;
+  image?: string;
+  description?: string | string[];
+  keyFeatures?: string[];
 }
 
 interface ProductCardsSectionProps {
@@ -24,7 +24,7 @@ export default function ProductCardsSection({
   return (
     <section className="px-4 py-4 lg:px-8">
   <div className="mb-4 inline-flex items-center gap-2 rounded-sm border border-[#279ECE]/20 bg-[#279ECE]/10 px-3 py-1.5">
-    <FolderDown className="h-3.5 w-3.5 text-[#276A96]" />
+    <Save className="h-3.5 w-3.5 text-[#276A96]" />
 
     <span className="text-[10px] font-bold uppercase tracking-widest text-[#276A96]">
       Our Products
@@ -62,21 +62,14 @@ export default function ProductCardsSection({
 
             <div className="aspect-[4/3] overflow-hidden bg-slate-50">
               <img
-                src={imageUrl}
-                alt={product.name}
-                loading="lazy"
-                className="
-                  h-full
-                  w-full
-                  object-cover
-                  transition-transform
-                  duration-500
-                  group-hover:scale-105
-                "
-                onError={(e) => {
-                  e.currentTarget.src = "/placeholder-product.jpg";
-                }}
-              />
+  src={imageUrl}
+  alt={product.name}
+  loading="lazy"
+  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+  onError={(e) => {
+    e.currentTarget.style.display = "none";
+  }}
+/>
             </div>
 
             {/* Product Content */}
@@ -89,8 +82,10 @@ export default function ProductCardsSection({
                     <ArrowRight className="h-4 w-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
                   </h3>
 
-                  <p className="mt-3 flex-1 text-sm leading-6 text-slate-600 line-clamp-3">
-                    {product.description?.[0]}
+                  <p className="mt-2 text-sm leading-5 text-slate-600 line-clamp-3">
+                    {Array.isArray(product.description)
+  ? product.description[0]
+  : product.description}
                   </p>
 
               <div className="mt-auto pt-6">

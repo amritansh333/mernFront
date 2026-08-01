@@ -509,7 +509,11 @@ const relatedProducts = (() => {
 </div>
 
           <div>
-  <ProductRenderer product={selectedProduct} />
+  <ProductRenderer
+  product={selectedProduct}
+  products={machineData?.products}
+  sidebar={machineData?.sidebar}
+/>
 
   <div className="mx-auto max-w-7xl px-5 pb-6 lg:px-10">
     <DocumentationCTA

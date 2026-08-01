@@ -9,6 +9,7 @@ import {
   Truck,
   Cpu,
   Workflow,
+  FileUser,
 } from "lucide-react";
 
 interface ApplicationsSectionProps {
@@ -26,6 +27,7 @@ const icons = [
   Cpu,
   Workflow,
   Settings,
+  FileUser,
 ];
 
 function getIcon(index: number) {
@@ -42,7 +44,7 @@ export default function ApplicationsSection({
 
       {/* Badge */}
       <div className="inline-flex items-center gap-2 rounded-sm border border-[#279ECE]/20 bg-[#279ECE]/10 px-3 py-1.5 mb-3">
-        <Boxes className="h-3.5 w-3.5 text-[#276A96]" />
+        <FileUser className="h-3.5 w-3.5 text-[#276A96]" />
 
         <span className="text-[10px] font-bold uppercase tracking-widest text-[#276A96]">
           Applications
