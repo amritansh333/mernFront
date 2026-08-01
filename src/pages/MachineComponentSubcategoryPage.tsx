@@ -180,7 +180,11 @@ setSearch={setSearch}
                     </Button>
                   </SheetTrigger>
             
-                  <SheetContent side="left" className="w-[88vw] max-w-sm p-0">
+                  <SheetContent
+  side="left"
+  className="w-[88vw] max-w-sm p-0"
+  onOpenAutoFocus={(e) => e.preventDefault()}
+>
                     <SheetHeader className="sr-only">
                       <SheetTitle>
                         Machine Components Navigation
@@ -268,7 +272,11 @@ setSearch={setSearch}
             
                   </SheetTrigger>
             
-                  <SheetContent side="left" className="w-[88vw] max-w-sm p-0">
+                  <SheetContent
+  side="left"
+  className="w-[88vw] max-w-sm p-0"
+  onOpenAutoFocus={(e) => e.preventDefault()}
+>
             
                     <SheetHeader className="sr-only">
             
@@ -370,7 +378,11 @@ setSearch={setSearch}
             
                   </SheetTrigger>
             
-                  <SheetContent side="left" className="w-[88vw] max-w-sm p-0">
+                  <SheetContent
+  side="left"
+  className="w-[88vw] max-w-sm p-0"
+  onOpenAutoFocus={(e) => e.preventDefault()}
+>
             
                     <SheetHeader className="sr-only">
             
