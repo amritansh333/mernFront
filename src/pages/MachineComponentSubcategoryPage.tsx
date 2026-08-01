@@ -252,15 +252,17 @@ setSearch={setSearch}
                     <Button
                       variant="outline"
                       className="
-              h-11
-              flex-1
-              min-w-0
-              justify-center
-              border-[#A9D8EB]
-              hover:border-[#A9D8EB]
-            "
+  h-8
+  flex-1
+  min-w-0
+  justify-center
+  border-[#A9D8EB]
+  px-2
+  text-[13px]
+  hover:border-[#A9D8EB]
+"
                     >
-                      <Menu className="mr-2 h-4 w-4" />
+                      <Menu className="mr-1 h-3 w-3" />
                       Explore Our Range
                     </Button>
             
@@ -297,15 +299,17 @@ setSearch={setSearch}
                     <Button
                       variant="outline"
                       className="
-              h-11
-              flex-1
-              min-w-0
-              justify-center
-              border-[#A9D8EB]
-              hover:border-[#A9D8EB]
-            "
+  h-8
+  flex-1
+  min-w-0
+  justify-center
+  border-[#A9D8EB]
+  px-2
+  text-[13px]
+  hover:border-[#A9D8EB]
+"
                     >
-                      <Search className="mr-2 h-4 w-4" />
+                      <Search className="mr-1 h-3 w-3" />
                       Search Products
                     </Button>
             
@@ -343,7 +347,7 @@ setSearch={setSearch}
             
               {/* ================= MOBILE S (keep existing behaviour) ================= */}
             
-              <div className="flex min-[360px]:hidden items-center gap-2">
+              <div className="flex min-[360px]:hidden items-center gap-1">
             
                 <Sheet open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
             
@@ -352,7 +356,7 @@ setSearch={setSearch}
                     <Button
                       variant="outline"
                       className="
-              h-11
+              h-8
               flex-1
               min-w-0
               justify-center
@@ -360,7 +364,7 @@ setSearch={setSearch}
               hover:border-[#A9D8EB]
             "
                     >
-                      <Menu className="mr-2 h-4 w-4" />
+                      <Menu className="mr-1 h-3 w-3" />
                       Explore Our Range
                     </Button>
             
@@ -396,9 +400,19 @@ setSearch={setSearch}
                     <Button
                       variant="outline"
                       size="icon"
-                      className="h-11 w-11 shrink-0 border-[#A9D8EB] hover:border-[#A9D8EB]"
+                      className="
+  h-8
+  flex-1
+  min-w-0
+  justify-center
+  border-[#A9D8EB]
+  px-2
+  text-[13px]
+  hover:border-[#A9D8EB]
+"
                     >
-                      <Search className="h-5 w-5" />
+                      <Search className="h-1 w-1" />
+                      Search
                     </Button>
             
                   </SheetTrigger>
