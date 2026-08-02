@@ -25,17 +25,28 @@ export default function BrochureModal({
     useState<BrochureSubmissionPayload | null>(null);
 
   useEffect(() => {
-    if (!open) return;
-
+  if (open) {
     setSubmittedPayload(null);
+
     document.documentElement.style.overflow = "hidden";
     document.body.style.overflow = "hidden";
 
-    return () => {
-      document.documentElement.style.overflow = "";
-      document.body.style.overflow = "";
-    };
-  }, [open]);
+    // Notify floating widgets that a brochure modal is open.
+    document.body.setAttribute("data-brochure-modal-open", "true");
+  } else {
+    document.documentElement.style.overflow = "";
+    document.body.style.overflow = "";
+
+    document.body.removeAttribute("data-brochure-modal-open");
+  }
+
+  return () => {
+    document.documentElement.style.overflow = "";
+    document.body.style.overflow = "";
+
+    document.body.removeAttribute("data-brochure-modal-open");
+  };
+}, [open]);
 
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
