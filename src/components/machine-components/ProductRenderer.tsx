@@ -92,7 +92,7 @@ export default function ProductRenderer({
       name: "Cutting Board",
       slug: "cutting-board",
       path: "/products/thermoplastics-machine-components/cutting-board",
-      image: "/uploads/subcategories/cutting-board.jpeg",
+      image: "/uploads/subcategories/cutting-board.jpg",
       description: [
         "Engineering plastic cutting board solutions for food and industrial applications.",
       ],
@@ -180,9 +180,9 @@ export default function ProductRenderer({
         <>
           <ProductCardsSection products={landingProducts} />
 
-          <ApplicationsSection applications={applications} />
-
           <SpecificationsSection specifications={specifications} />
+
+          <ApplicationsSection applications={applications} />
         </>
       )}
 

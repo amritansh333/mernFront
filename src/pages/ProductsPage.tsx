@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import api from "@/lib/api";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
+import type { Category } from "@/types/catalog";
 import semiFinishedImage from "@/assets/semi-finished-products.jpeg";
 import machineComponentsImage from "@/assets/machine-components.jpeg";
 import { useScrollFade } from "@/hooks/useScrollFade";
@@ -92,7 +93,7 @@ const BRAND_QUICK_LINKS = [
 export default function ProductsPage() {
   const ref = useScrollFade() as React.RefObject<HTMLElement>;
   const machineComponents = useMachineComponentRouting();
-  const [categories, setCategories] = useState<any[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 

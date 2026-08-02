@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
+import type { Brand, SubCategory } from "@/types/catalog";
 import api from "@/lib/api";
 
 export default function BrandsPage() {
   const { categorySlug, subcategorySlug } = useParams();
 
-  const [brands, setBrands] = useState<any[]>([]);
+  const [brands, setBrands] = useState<Brand[]>([]);
+  const [subcategory, setSubcategory] = useState<SubCategory | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // 🔥 Convert slug to readable text
+  //  Convert slug to readable text
   const formatText = (slug?: string) => {
     if (!slug) return "";
     return slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
@@ -20,7 +22,8 @@ export default function BrandsPage() {
       try {
         const res = await api.get(`/brands/by-subcategory/${subcategorySlug}`);
 
-        setBrands(res.data);
+        setBrands(res.data.brands);
+        setSubcategory(res.data.subcategory);
       } catch (err) {
         console.error(err);
       } finally {
@@ -33,10 +36,10 @@ export default function BrandsPage() {
 
   return (
     <div className="pt-16">
-      {/* ✅ TOP HEADER SECTION */}
+      {/*  TOP HEADER SECTION */}
       <div className="bg-surface-subtle border-b border-divider py-12">
         <div className="container max-w-7xl mx-auto px-6">
-          {/* 🔹 Breadcrumb */}
+          {/*  Breadcrumb */}
           <nav className="text-xs text-muted-foreground mb-4 flex items-center gap-1.5 flex-wrap">
             <Link to="/" className="hover:text-primary">
               Home
@@ -65,13 +68,13 @@ export default function BrandsPage() {
                 <span>/</span>
 
                 <span className="text-charcoal">
-                  {formatText(subcategorySlug)}
+                  {subcategory?.name || formatText(subcategorySlug)}
                 </span>
               </>
             )}
           </nav>
 
-          {/* 🔹 Title */}
+          {/*  Title */}
           {loading ? (
             <>
               <div className="h-4 w-32 bg-gray-200 rounded animate-pulse mb-4" />
@@ -88,40 +91,43 @@ export default function BrandsPage() {
               <p className="section-label mb-3">{formatText(categorySlug)}</p>
 
               <h1 className="font-heading text-4xl text-charcoal mb-3">
-                {formatText(subcategorySlug)}
+                {subcategory?.name || formatText(subcategorySlug)}
               </h1>
 
-              {/* 🔹 Description (static for now, can be dynamic later) */}
+              {/*  Description (static for now, can be dynamic later) */}
               <p className="text-muted-foreground max-w-2xl leading-relaxed">
-                Explore available brands under {formatText(subcategorySlug)}{" "}
-                category. Browse materials, specifications and product ranges
-                offered by each brand.
+                Explore available brands under{" "}
+                {subcategory?.name || formatText(subcategorySlug)} category.
+                Browse materials, specifications and product ranges offered by
+                each brand.
               </p>
             </>
           )}
         </div>
       </div>
 
-      {/* ✅ CARDS SECTION */}
-      <section className="py-16">
+      {/*  CARDS SECTION */}
+      <section className="py-14">
         <div className="container max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {loading
               ? Array.from({ length: 6 }).map((_, index) => (
-                  <div
-                    key={index}
-                    className="category-card block animate-pulse"
-                  >
+                  <div key={index} className="product-card block animate-pulse">
                     <div className="card-image aspect-[4/3] overflow-hidden bg-gray-200 rounded-t-xl" />
 
-                    <div className="p-6">
-                      <div className="h-6 w-40 bg-gray-200 rounded mb-4" />
+                    <div className="p-5">
+                      <div className="h-5 w-40 bg-gray-200 rounded mb-3" />
 
-                      <div className="pt-2 border-t border-divider">
-                        <div className="h-4 w-28 bg-gray-200 rounded" />
+                      <div className="space-y-2 mb-4">
+                        <div className="h-3 w-full bg-gray-200 rounded" />
+                        <div className="h-3 w-5/6 bg-gray-200 rounded" />
                       </div>
 
-                      <div className="card-border-bottom mt-1" />
+                      <div className="pt-3 border-t border-divider">
+                        <div className="h-3 w-32 bg-gray-200 rounded" />
+                      </div>
+
+                      <div className="card-border-bottom mt-3" />
                     </div>
                   </div>
                 ))
@@ -129,7 +135,7 @@ export default function BrandsPage() {
                   <Link
                     key={brand._id}
                     to={`/products/${categorySlug}/${subcategorySlug}/${brand.slug}`}
-                    className="category-card block group"
+                    className="product-card block group"
                   >
                     <div className="card-image aspect-[4/3] overflow-hidden">
                       <img
@@ -139,17 +145,21 @@ export default function BrandsPage() {
                       />
                     </div>
 
-                    <div className="p-6">
-                      <h2 className="font-heading text-xl text-charcoal mb-2 group-hover:text-primary">
+                    <div className="p-5">
+                      <h3 className="font-heading font-bold text-charcoal text-md mb-2 group-hover:text-primary transition-colors duration-200">
                         {brand.name}
-                      </h2>
+                      </h3>
 
-                      <div className="cta-link text-sm pt-2 border-t border-divider">
-                        View Products
-                        <ArrowRight className="w-4 h-4" />
+                      <p className="text-xs text-muted-foreground mb-4 line-clamp-2">
+                        {brand.description?.[0] || "No description available"}
+                      </p>
+
+                      <div className="cta-link text-xs pt-3 border-t border-divider">
+                        View Products{" "}
+                        <ArrowRight className="w-3.5 h-3.5 explore-arrow" />
                       </div>
 
-                      <div className="card-border-bottom mt-1" />
+                      <div className="card-border-bottom mt-3" />
                     </div>
                   </Link>
                 ))}

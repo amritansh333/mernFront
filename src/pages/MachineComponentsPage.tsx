@@ -448,9 +448,11 @@ export default function MachineComponentsPage() {
               sidebar={machineData?.sidebar}
             />
 
-            <div className="mx-auto max-w-7xl px-5 pb-6 lg:px-10">
-              <DocumentationCTA title={selectedProduct?.name} />
-            </div>
+            {selectedProduct?.slug !== "thermoplastics-machine-components" && (
+              <div className="mx-auto max-w-7xl px-5 pb-6 lg:px-10">
+                <DocumentationCTA title={selectedProduct?.name} />
+              </div>
+            )}
 
             {relatedProducts.length > 0 && (
               <section className="border-t border-[#279ECE]/10 bg-[#F8FBFD]">

@@ -113,7 +113,7 @@ export default function ResourcesPage() {
             phone: formData.phone,
             email: formData.email,
             message: formData.message,
-            catalog_name: selectedCatalog.id, // ✅ IMPORTANT CHANGE
+            catalog_name: selectedCatalog.id, //  IMPORTANT CHANGE
           }),
         },
       );
@@ -121,7 +121,7 @@ export default function ResourcesPage() {
       const data = await res.json();
 
       if (data.success) {
-        window.open(data.downloadUrl, "_blank"); // ✅ download from backend
+        window.open(data.downloadUrl, "_blank"); //  download from backend
         setOpen(false);
       } else {
         alert(data.message);

@@ -9,12 +9,13 @@ import {
   Download,
 } from "lucide-react";
 import type { Product } from "@/types/product";
+import type { Brand } from "@/types/catalog";
 import api from "@/lib/api";
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export default function ProductDetailPage() {
   const { categorySlug, subcategorySlug, brandSlug, productSlug } = useParams();
-
+  const [brand, setBrand] = useState<Brand | null>(null);
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
   const [currentImage, setCurrentImage] = useState(0);
@@ -30,7 +31,8 @@ export default function ProductDetailPage() {
     const fetchProduct = async () => {
       try {
         const res = await api.get(`/products/${productSlug}`);
-        setProduct(res.data);
+        setBrand(res.data.brand);
+        setProduct(res.data.product);
       } catch (err) {
         console.error(err);
         setProduct(null);
@@ -61,7 +63,7 @@ export default function ProductDetailPage() {
         <div className="container max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* LEFT SIDE */}
           <div>
-            {/* 🔹 Breadcrumb */}
+            {/*  Breadcrumb */}
             <nav className="text-xs text-muted-foreground mb-4 flex items-center gap-1.5 flex-wrap">
               <Link to="/" className="hover:text-primary">
                 Home
@@ -115,13 +117,13 @@ export default function ProductDetailPage() {
                     to={`/products/${categorySlug}/${subcategorySlug}/${brandSlug}`}
                     className="hover:text-primary"
                   >
-                    {formatText(brandSlug)}
+                    {brand?.name || formatText(brandSlug)}
                   </Link>
 
                   <span>/</span>
 
                   <span className="text-charcoal">
-                    {formatText(productSlug)}
+                    {product?.name || formatText(productSlug)}
                   </span>
                 </>
               )}

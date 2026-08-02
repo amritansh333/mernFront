@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
+import type { Brand, Product } from "@/types/catalog";
 import api from "@/lib/api";
 
 export default function BrandProductsPage() {
   const { categorySlug, subcategorySlug, brandSlug } = useParams();
-
-  const [products, setProducts] = useState<any[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [brand, setBrand] = useState<Brand | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // 🔥 Convert slug to readable text
+  //  Convert slug to readable text
   const formatText = (slug?: string) => {
     if (!slug) return "";
     return slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
@@ -20,7 +21,8 @@ export default function BrandProductsPage() {
       try {
         const res = await api.get(`/products/by-brand/${brandSlug}`);
 
-        setProducts(res.data);
+        setBrand(res.data.brand);
+        setProducts(res.data.products);
       } catch (err) {
         console.error(err);
       } finally {
@@ -33,10 +35,10 @@ export default function BrandProductsPage() {
 
   return (
     <div className="pt-16">
-      {/* ✅ TOP HEADER SECTION */}
+      {/*  TOP HEADER SECTION */}
       <div className="bg-surface-subtle border-b border-divider py-12">
         <div className="container max-w-7xl mx-auto px-6">
-          {/* 🔹 Breadcrumb */}
+          {/*  Breadcrumb */}
           <nav className="text-xs text-muted-foreground mb-4 flex items-center gap-1.5 flex-wrap">
             <Link to="/" className="hover:text-primary">
               Home
@@ -75,12 +77,14 @@ export default function BrandProductsPage() {
 
                 <span>/</span>
 
-                <span className="text-charcoal">{formatText(brandSlug)}</span>
+                <span className="text-charcoal">
+                  {brand?.name || formatText(brandSlug)}
+                </span>
               </>
             )}
           </nav>
 
-          {/* 🔹 Header Content */}
+          {/*  Header Content */}
           {loading ? (
             <>
               <div className="h-4 w-32 bg-gray-200 rounded animate-pulse mb-4" />
@@ -94,27 +98,28 @@ export default function BrandProductsPage() {
             </>
           ) : (
             <>
-              {/* 🔹 Label */}
+              {/*  Label */}
               <p className="section-label mb-3">
                 {formatText(subcategorySlug)}
               </p>
 
-              {/* 🔹 Title */}
+              {/*  Title */}
               <h1 className="font-heading text-4xl text-charcoal mb-3">
-                {formatText(brandSlug)}
+                {brand?.name || formatText(brandSlug)}
               </h1>
 
-              {/* 🔹 Description */}
+              {/*  Description */}
               <p className="text-muted-foreground max-w-2xl leading-relaxed">
-                Explore all products under {formatText(brandSlug)}. Browse
-                detailed specifications, applications and available variants.
+                Explore all products under{" "}
+                {brand?.name || formatText(brandSlug)}. Browse detailed
+                specifications, applications and available variants.
               </p>
             </>
           )}
         </div>
       </div>
 
-      {/* ✅ PRODUCTS GRID */}
+      {/*  PRODUCTS GRID */}
       <section className="py-14">
         <div className="container max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -158,7 +163,7 @@ export default function BrandProductsPage() {
                     </div>
 
                     <div className="p-5">
-                      <h3 className="font-heading font-bold text-charcoal text-sm mb-2 group-hover:text-primary transition-colors duration-200">
+                      <h3 className="font-heading font-bold text-charcoal text-md mb-2 group-hover:text-primary transition-colors duration-200">
                         {product.name}
                       </h3>
 
