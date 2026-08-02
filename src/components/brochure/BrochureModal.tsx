@@ -159,14 +159,7 @@ md:p-8
                       </div>
                     </div>
 
-                    {productContext.productName && (
-                      <div className="mt-5 rounded-md border border-[#279ECE]/15 bg-white/70 px-4 py-3 text-sm break-words text-[#5C7696]">
-                        Product:{" "}
-                        <span className="font-semibold text-[#0F2A3D]">
-                          {productContext.productName}
-                        </span>
-                      </div>
-                    )}
+                    
 
                     {submittedPayload ? (
                       <BrochureSuccess

@@ -20,7 +20,7 @@ interface BrochureFormProps {
 }
 
 const fieldClassName =
-  "h-11 w-full border border-[#C7D9E6] bg-white/85 px-3 text-sm text-[#0F2A3D] shadow-sm outline-none transition-all placeholder:text-[#8CA4B8] focus:border-[#279ECE] focus:bg-white focus:ring-2 focus:ring-[#279ECE]/20";
+  "h-10 w-full border border-[#C7D9E6] bg-white/85 px-3 text-sm text-[#0F2A3D] shadow-sm outline-none transition-all placeholder:text-[#8CA4B8] focus:border-[#279ECE] focus:bg-white focus:ring-2 focus:ring-[#279ECE]/20";
 
 const labelClassName = "text-sm font-semibold text-[#0F2A3D]";
 const errorClassName = "mt-1.5 text-xs font-medium text-red-600";
@@ -69,7 +69,7 @@ export default function BrochureForm({
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="mt-6 space-y-5">
+    <form onSubmit={handleSubmit(onSubmit)} className="mt-3 space-y-5">
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <div>
           <label htmlFor="brochure-first-name" className={labelClassName}>
