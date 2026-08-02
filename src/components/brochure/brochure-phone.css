@@ -1,0 +1,42 @@
+.brochure-phone-container {
+  width: 100%;
+}
+
+.brochure-phone-input {
+  width: 100% !important;
+  height: 44px !important;
+  padding-left: 60px !important;
+
+  border: 1px solid #c7d9e6 !important;
+  border-radius: 0 !important;
+
+  background: rgba(255, 255, 255, 0.85) !important;
+
+  color: #0f2a3d !important;
+  font-size: 14px !important;
+
+  transition: 0.2s;
+}
+
+.brochure-phone-input:focus {
+  border-color: #279ece !important;
+  box-shadow: 0 0 0 2px rgba(39, 158, 206, 0.2) !important;
+}
+
+.brochure-phone-button {
+  border: 1px solid #c7d9e6 !important;
+  background: rgba(255, 255, 255, 0.85) !important;
+}
+
+.brochure-phone-button:hover {
+  background: #f5fbfe !important;
+}
+
+.brochure-phone-dropdown {
+  border: 1px solid #c7d9e6 !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+}
+
+.brochure-phone-search {
+  padding: 10px !important;
+}

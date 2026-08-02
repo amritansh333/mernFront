@@ -450,7 +450,12 @@ export default function MachineComponentsPage() {
 
             {selectedProduct?.slug !== "thermoplastics-machine-components" && (
               <div className="mx-auto max-w-7xl px-5 pb-6 lg:px-10">
-                <DocumentationCTA title={selectedProduct?.name} />
+                <DocumentationCTA
+                  title={selectedProduct?.name}
+                  productId={selectedProduct?._id}
+                  productSlug={selectedProduct?.slug}
+                  productName={selectedProduct?.name}
+                />
               </div>
             )}
 
