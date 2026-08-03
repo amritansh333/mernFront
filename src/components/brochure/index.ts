@@ -1,5 +1,6 @@
 export { default as BrochureModal } from "./BrochureModal";
 export { default as BrochureForm } from "./BrochureForm";
+export { default as BrochureOtp } from "./BrochureOtp";
 export { default as BrochureSuccess } from "./BrochureSuccess";
 export type {
   BrochureFormValues,

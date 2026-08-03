@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { AnimatePresence, motion } from "framer-motion";
-import { Download, ShieldCheck, X, LogIn } from "lucide-react";
+import { ShieldCheck, X, LogIn } from "lucide-react";
 
 import BrochureForm from "./BrochureForm";
+import BrochureOtp from "./BrochureOtp";
 import BrochureSuccess from "./BrochureSuccess";
 import type {
   BrochureProductContext,
@@ -16,6 +17,12 @@ interface BrochureModalProps {
   productContext: BrochureProductContext;
 }
 
+interface BrochureOtpRequest {
+  payload: BrochureSubmissionPayload;
+  expiresAt?: string;
+  message?: string;
+}
+
 export default function BrochureModal({
   open,
   onOpenChange,
@@ -23,30 +30,34 @@ export default function BrochureModal({
 }: BrochureModalProps) {
   const [submittedPayload, setSubmittedPayload] =
     useState<BrochureSubmissionPayload | null>(null);
+  const [otpRequest, setOtpRequest] = useState<BrochureOtpRequest | null>(null);
+  const [sessionToken, setSessionToken] = useState<string | null>(null);
 
   useEffect(() => {
-  if (open) {
-    setSubmittedPayload(null);
+    if (open) {
+      setSubmittedPayload(null);
+      setOtpRequest(null);
+      setSessionToken(null);
 
-    document.documentElement.style.overflow = "hidden";
-    document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
+      document.body.style.overflow = "hidden";
 
-    // Notify floating widgets that a brochure modal is open.
-    document.body.setAttribute("data-brochure-modal-open", "true");
-  } else {
-    document.documentElement.style.overflow = "";
-    document.body.style.overflow = "";
+      // Notify floating widgets that a brochure modal is open.
+      document.body.setAttribute("data-brochure-modal-open", "true");
+    } else {
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
 
-    document.body.removeAttribute("data-brochure-modal-open");
-  }
+      document.body.removeAttribute("data-brochure-modal-open");
+    }
 
-  return () => {
-    document.documentElement.style.overflow = "";
-    document.body.style.overflow = "";
+    return () => {
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
 
-    document.body.removeAttribute("data-brochure-modal-open");
-  };
-}, [open]);
+      document.body.removeAttribute("data-brochure-modal-open");
+    };
+  }, [open]);
 
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
@@ -135,7 +146,7 @@ md:p-8
                             className="h-3.5 w-3.5"
                             aria-hidden="true"
                           />
-                          Verify through OTP
+                          Verified Access
                         </div>
 
                         <Dialog.Title
@@ -159,17 +170,32 @@ md:p-8
                       </div>
                     </div>
 
-                    
-
                     {submittedPayload ? (
                       <BrochureSuccess
                         productName={submittedPayload.product.name}
                         onClose={() => onOpenChange(false)}
                       />
+                    ) : otpRequest ? (
+                      <BrochureOtp
+                        mobileNumber={otpRequest.payload.mobileNumber}
+                        productSlug={
+                          otpRequest.payload.product.slug ||
+                          productContext.productSlug ||
+                          ""
+                        }
+                        expiresAt={otpRequest.expiresAt}
+                        message={otpRequest.message}
+                        onAuthorized={(authorizedSessionToken) => {
+                          setSessionToken(authorizedSessionToken);
+                          setSubmittedPayload(otpRequest.payload);
+                        }}
+                      />
                     ) : (
                       <BrochureForm
                         productContext={productContext}
-                        onSubmitted={setSubmittedPayload}
+                        onOtpRequested={(details) => {
+                          setOtpRequest(details);
+                        }}
                       />
                     )}
                   </div>

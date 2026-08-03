@@ -15,18 +15,17 @@ export default function BrochureSuccess({
       role="status"
       aria-live="polite"
     >
-      <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-full border border-[#279ECE]/25 bg-[#279ECE]/10 text-[#279ECE] shadow-[0_16px_40px_rgba(39,158,206,0.18)]">
+      <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-full border border-[#16A34A]/25 bg-[#16A34A]/10 text-[#16A34A] shadow-[0_16px_40px_rgba(22,163,74,0.18)]">
         <CheckCircle2 className="h-7 w-7" aria-hidden="true" />
       </div>
 
-      <h3 className="text-xl font-semibold text-[#0F2A3D]">Details Captured</h3>
+      <h3 className="text-xl font-semibold text-[#0F2A3D]">
+        Verification Successful
+      </h3>
 
       <p className="mt-3 max-w-sm text-sm leading-6 text-[#5C7696]">
-        Your brochure request for{" "}
-        <span className="font-semibold text-[#279ECE]">
-          {productName || "this product"}
-        </span>{" "}
-        has been prepared for the next integration step.
+        Your details have been verified successfully. The brochure will be
+        available once it has been uploaded.
       </p>
 
       <button

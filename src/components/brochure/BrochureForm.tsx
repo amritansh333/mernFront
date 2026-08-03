@@ -6,6 +6,7 @@ import "./brochure-phone.css";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { Controller } from "react-hook-form";
+import { requestOtp } from "@/lib/brochureApi";
 
 import {
   brochureFormSchema,
@@ -16,7 +17,11 @@ import {
 
 interface BrochureFormProps {
   productContext: BrochureProductContext;
-  onSubmitted: (payload: BrochureSubmissionPayload) => void;
+  onOtpRequested: (details: {
+    payload: BrochureSubmissionPayload;
+    expiresAt?: string;
+    message?: string;
+  }) => void;
 }
 
 const fieldClassName =
@@ -27,7 +32,7 @@ const errorClassName = "mt-1.5 text-xs font-medium text-red-600";
 
 export default function BrochureForm({
   productContext,
-  onSubmitted,
+  onOtpRequested,
 }: BrochureFormProps) {
   const {
     register,
@@ -35,6 +40,7 @@ export default function BrochureForm({
     handleSubmit,
     formState: { errors, isSubmitting },
     setFocus,
+    setError,
   } = useForm<BrochureFormValues>({
     resolver: zodResolver(brochureFormSchema),
     mode: "onBlur",
@@ -51,7 +57,17 @@ export default function BrochureForm({
     setFocus("firstName");
   }, [setFocus]);
 
-  const onSubmit = (values: BrochureFormValues) => {
+  const onSubmit = async (values: BrochureFormValues) => {
+    const productSlug = productContext.productSlug?.trim();
+
+    if (!productSlug) {
+      setError("root", {
+        type: "manual",
+        message: "Brochure download is not available for this product.",
+      });
+      return;
+    }
+
     const payload: BrochureSubmissionPayload = {
       ...values,
       companyName: values.companyName?.trim() || undefined,
@@ -64,8 +80,40 @@ export default function BrochureForm({
       submittedAt: new Date().toISOString(),
     };
 
-    console.log("Product brochure request", payload);
-    onSubmitted(payload);
+    try {
+      const response = await requestOtp({
+        firstName: values.firstName,
+        lastName: values.lastName,
+        companyName: payload.companyName,
+        email: values.email,
+        mobileNumber: values.mobileNumber,
+        productId: productContext.productId,
+        productSlug,
+        productName: productContext.productName,
+        currentRoute: payload.currentRoute,
+      });
+
+      if (!response.success) {
+        throw new Error(response.message || "Unable to send OTP.");
+      }
+
+      onOtpRequested({
+        payload,
+        expiresAt: response.expiresAt,
+        message: response.message,
+      });
+    } catch (error) {
+      const message =
+        error?.response?.data?.message ||
+        error?.response?.data?.error ||
+        error?.message ||
+        "Network error. Please try again.";
+
+      setError("root", {
+        type: "manual",
+        message,
+      });
+    }
   };
 
   return (
@@ -133,7 +181,6 @@ export default function BrochureForm({
       <div>
         <label htmlFor="brochure-company-name" className={labelClassName}>
           Company Name{" "}
-          <span className="font-normal text-[#5C7696]">(optional)</span>
         </label>
         <input
           id="brochure-company-name"
@@ -224,6 +271,12 @@ export default function BrochureForm({
           ? `${productContext.productName} Brochure`
           : "Product Brochure"}
       </button>
+
+      {errors.root?.message && (
+        <p className={errorClassName} role="alert">
+          {errors.root.message}
+        </p>
+      )}
     </form>
   );
 }

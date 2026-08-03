@@ -4,9 +4,9 @@ import { PhoneCall } from "lucide-react";
 const PHONE_NUMBER = "+919936794816";
 
 export default function CallButton() {
-const [moveUp, setMoveUp] = useState(false);
-const [expanded, setExpanded] = useState(false);
-const [isBrochureModalOpen, setIsBrochureModalOpen] = useState(false);
+  const [moveUp, setMoveUp] = useState(false);
+  const [expanded, setExpanded] = useState(false);
+  const [isBrochureModalOpen, setIsBrochureModalOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,23 +44,23 @@ const [isBrochureModalOpen, setIsBrochureModalOpen] = useState(false);
   }, []);
 
   useEffect(() => {
-  const updateModalState = () => {
-    setIsBrochureModalOpen(
-      document.body.hasAttribute("data-brochure-modal-open"),
-    );
-  };
+    const updateModalState = () => {
+      setIsBrochureModalOpen(
+        document.body.hasAttribute("data-brochure-modal-open"),
+      );
+    };
 
-  updateModalState();
+    updateModalState();
 
-  const observer = new MutationObserver(updateModalState);
+    const observer = new MutationObserver(updateModalState);
 
-  observer.observe(document.body, {
-    attributes: true,
-    attributeFilter: ["data-brochure-modal-open"],
-  });
+    observer.observe(document.body, {
+      attributes: true,
+      attributeFilter: ["data-brochure-modal-open"],
+    });
 
-  return () => observer.disconnect();
-}, []);
+    return () => observer.disconnect();
+  }, []);
 
   const handleClick = () => {
     if (window.innerWidth < 768) {
@@ -76,11 +76,11 @@ const [isBrochureModalOpen, setIsBrochureModalOpen] = useState(false);
   };
 
   if (isBrochureModalOpen) {
-  return null;
-}
+    return null;
+  }
 
-return (
-  <>
+  return (
+    <>
       <div
         className={`
           fixed
