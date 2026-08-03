@@ -6,6 +6,13 @@ import { ShieldCheck, X, LogIn } from "lucide-react";
 import BrochureForm from "./BrochureForm";
 import BrochureOtp from "./BrochureOtp";
 import BrochureSuccess from "./BrochureSuccess";
+import {
+  checkBrochureSession,
+  downloadBrochure,
+  getBrochureErrorMessage,
+  isBrochureAuthError,
+  startBrochureDownload,
+} from "@/lib/brochureApi";
 import type {
   BrochureProductContext,
   BrochureSubmissionPayload,
@@ -23,6 +30,8 @@ interface BrochureOtpRequest {
   message?: string;
 }
 
+type BrochureStep = "checking" | "form" | "otp" | "success";
+
 export default function BrochureModal({
   open,
   onOpenChange,
@@ -31,20 +40,91 @@ export default function BrochureModal({
   const [submittedPayload, setSubmittedPayload] =
     useState<BrochureSubmissionPayload | null>(null);
   const [otpRequest, setOtpRequest] = useState<BrochureOtpRequest | null>(null);
-  const [sessionToken, setSessionToken] = useState<string | null>(null);
+  const [step, setStep] = useState<BrochureStep>("form");
+  const [sessionError, setSessionError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (open) {
+    let isCurrent = true;
+
+    const resetBrochureState = () => {
       setSubmittedPayload(null);
       setOtpRequest(null);
-      setSessionToken(null);
+      setSessionError(null);
+    };
+
+    const returnToForm = (message?: string) => {
+      resetBrochureState();
+      setSessionError(message || null);
+      setStep("form");
+    };
+
+    const authorizeExistingSession = async () => {
+      const productSlug = productContext.productSlug?.trim();
+
+      if (!productSlug) {
+        returnToForm("Brochure download is not available for this product.");
+        return;
+      }
+
+      setStep("checking");
+
+      try {
+        const hasSession = await checkBrochureSession();
+
+        if (!isCurrent) {
+          return;
+        }
+
+        if (!hasSession) {
+          returnToForm();
+          return;
+        }
+
+        const downloadResponse = await downloadBrochure(productSlug);
+
+        if (!isCurrent) {
+          return;
+        }
+
+        if (downloadResponse.success === false) {
+          throw new Error(
+            downloadResponse.message || "Brochure authorization failed.",
+          );
+        }
+
+        startBrochureDownload(downloadResponse.downloadUrl);
+        setSubmittedPayload(null);
+        setOtpRequest(null);
+        setSessionError(null);
+        setStep("success");
+      } catch (error) {
+        if (!isCurrent) {
+          return;
+        }
+
+        if (isBrochureAuthError(error)) {
+          returnToForm();
+          return;
+        }
+
+        returnToForm(
+          getBrochureErrorMessage(error, "Network error. Please try again."),
+        );
+      }
+    };
+
+    if (open) {
+      resetBrochureState();
 
       document.documentElement.style.overflow = "hidden";
       document.body.style.overflow = "hidden";
 
       // Notify floating widgets that a brochure modal is open.
       document.body.setAttribute("data-brochure-modal-open", "true");
+      void authorizeExistingSession();
     } else {
+      setStep("form");
+      resetBrochureState();
       document.documentElement.style.overflow = "";
       document.body.style.overflow = "";
 
@@ -52,12 +132,13 @@ export default function BrochureModal({
     }
 
     return () => {
+      isCurrent = false;
       document.documentElement.style.overflow = "";
       document.body.style.overflow = "";
 
       document.body.removeAttribute("data-brochure-modal-open");
     };
-  }, [open]);
+  }, [open, productContext.productSlug]);
 
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
@@ -170,12 +251,23 @@ md:p-8
                       </div>
                     </div>
 
-                    {submittedPayload ? (
+                    {step === "checking" ? (
+                      <div
+                        className="mt-3 py-8 text-sm font-medium text-[#5C7696]"
+                        role="status"
+                        aria-live="polite"
+                      >
+                        Checking brochure access...
+                      </div>
+                    ) : step === "success" ? (
                       <BrochureSuccess
-                        productName={submittedPayload.product.name}
+                        productName={
+                          submittedPayload?.product.name ||
+                          productContext.productName
+                        }
                         onClose={() => onOpenChange(false)}
                       />
-                    ) : otpRequest ? (
+                    ) : step === "otp" && otpRequest ? (
                       <BrochureOtp
                         mobileNumber={otpRequest.payload.mobileNumber}
                         productSlug={
@@ -185,16 +277,27 @@ md:p-8
                         }
                         expiresAt={otpRequest.expiresAt}
                         message={otpRequest.message}
-                        onAuthorized={(authorizedSessionToken) => {
-                          setSessionToken(authorizedSessionToken);
+                        onAuthorized={() => {
                           setSubmittedPayload(otpRequest.payload);
+                          setSessionError(null);
+                          setStep("success");
+                        }}
+                        onUnauthorized={() => {
+                          setSubmittedPayload(null);
+                          setOtpRequest(null);
+                          setSessionError(null);
+                          setStep("form");
                         }}
                       />
                     ) : (
                       <BrochureForm
                         productContext={productContext}
+                        initialError={sessionError}
                         onOtpRequested={(details) => {
+                          setSessionError(null);
                           setOtpRequest(details);
+                          setSubmittedPayload(null);
+                          setStep("otp");
                         }}
                       />
                     )}

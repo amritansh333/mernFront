@@ -17,6 +17,7 @@ import {
 
 interface BrochureFormProps {
   productContext: BrochureProductContext;
+  initialError?: string | null;
   onOtpRequested: (details: {
     payload: BrochureSubmissionPayload;
     expiresAt?: string;
@@ -32,6 +33,7 @@ const errorClassName = "mt-1.5 text-xs font-medium text-red-600";
 
 export default function BrochureForm({
   productContext,
+  initialError,
   onOtpRequested,
 }: BrochureFormProps) {
   const {
@@ -56,6 +58,17 @@ export default function BrochureForm({
   useEffect(() => {
     setFocus("firstName");
   }, [setFocus]);
+
+  useEffect(() => {
+    if (!initialError) {
+      return;
+    }
+
+    setError("root", {
+      type: "manual",
+      message: initialError,
+    });
+  }, [initialError, setError]);
 
   const onSubmit = async (values: BrochureFormValues) => {
     const productSlug = productContext.productSlug?.trim();

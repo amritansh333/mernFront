@@ -1,4 +1,5 @@
 import api from "@/lib/api";
+import axios from "axios";
 
 export interface RequestOtpPayload {
   firstName: string;
@@ -16,7 +17,6 @@ export interface RequestOtpResponse {
   success: boolean;
   message?: string;
   expiresAt?: string;
-  otp?: string;
 }
 
 export interface VerifyOtpPayload {
@@ -25,7 +25,8 @@ export interface VerifyOtpPayload {
 }
 
 export interface VerifyOtpResponse {
-  sessionToken: string;
+  success?: boolean;
+  message?: string;
 }
 
 export interface ResendOtpPayload {
@@ -36,13 +37,74 @@ export interface ResendOtpResponse {
   success?: boolean;
   message?: string;
   expiresAt?: string;
-  otp?: string;
 }
 
 export interface DownloadBrochureResponse {
   success?: boolean;
   message?: string;
   downloadUrl?: string;
+}
+
+export interface BrochureSessionResponse {
+  success?: boolean;
+  authenticated?: boolean;
+  isAuthenticated?: boolean;
+  valid?: boolean;
+  active?: boolean;
+  message?: string;
+}
+
+export function isBrochureAuthError(error: unknown) {
+  if (!axios.isAxiosError(error)) {
+    return false;
+  }
+
+  return error.response?.status === 401 || error.response?.status === 403;
+}
+
+export function getBrochureErrorMessage(error: unknown, fallback: string) {
+  const responseData = (
+    error as {
+      response?: {
+        data?: {
+          message?: string;
+          error?: string;
+        };
+      };
+      message?: string;
+    }
+  )?.response?.data;
+
+  return (
+    responseData?.message ||
+    responseData?.error ||
+    (error as { message?: string })?.message ||
+    fallback
+  );
+}
+
+function isSessionAuthenticated(data?: BrochureSessionResponse) {
+  if (!data) {
+    return false;
+  }
+
+  if (typeof data.authenticated === "boolean") {
+    return data.authenticated;
+  }
+
+  if (typeof data.isAuthenticated === "boolean") {
+    return data.isAuthenticated;
+  }
+
+  if (typeof data.valid === "boolean") {
+    return data.valid;
+  }
+
+  if (typeof data.active === "boolean") {
+    return data.active;
+  }
+
+  return data.success === true;
 }
 
 export async function requestOtp(
@@ -80,16 +142,41 @@ export async function resendOtp(
 
 export async function downloadBrochure(
   productSlug: string,
-  sessionToken: string,
 ): Promise<DownloadBrochureResponse> {
   const response = await api.get<DownloadBrochureResponse>(
     `/brochure/download/${productSlug}`,
-    {
-      headers: {
-        Authorization: `Bearer ${sessionToken}`,
-      },
-    },
   );
 
   return response.data;
+}
+
+export async function checkBrochureSession(): Promise<boolean> {
+  try {
+    const response = await api.get<BrochureSessionResponse>(
+      "/brochure/session",
+    );
+
+    return isSessionAuthenticated(response.data);
+  } catch (error) {
+    if (isBrochureAuthError(error)) {
+      return false;
+    }
+
+    throw error;
+  }
+}
+
+export function startBrochureDownload(downloadUrl?: string) {
+  if (!downloadUrl) {
+    return;
+  }
+
+  const link = document.createElement("a");
+  link.href = downloadUrl;
+  link.rel = "noopener";
+  link.target = "_blank";
+  link.download = "";
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
 }

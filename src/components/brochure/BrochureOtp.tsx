@@ -5,14 +5,22 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
-import { downloadBrochure, resendOtp, verifyOtp } from "@/lib/brochureApi";
+import {
+  downloadBrochure,
+  getBrochureErrorMessage,
+  isBrochureAuthError,
+  resendOtp,
+  startBrochureDownload,
+  verifyOtp,
+} from "@/lib/brochureApi";
 
 interface BrochureOtpProps {
   mobileNumber: string;
   productSlug: string;
   expiresAt?: string;
   message?: string;
-  onAuthorized: (sessionToken: string) => void;
+  onAuthorized: () => void;
+  onUnauthorized: () => void;
 }
 
 const labelClassName = "text-sm font-semibold text-[#0F2A3D]";
@@ -21,27 +29,6 @@ const buttonClassName =
   "inline-flex h-12 w-full items-center justify-center gap-2 border border-[#279ECE] bg-[#279ECE] px-5 text-sm font-semibold text-white shadow-lg shadow-[#279ECE]/25 transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#1F7FA8] focus:outline-none focus:ring-2 focus:ring-[#279ECE] focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-70";
 const secondaryButtonClassName =
   "inline-flex h-11 w-full items-center justify-center gap-2 border border-[#279ECE] bg-white/75 px-5 text-sm font-semibold text-[#279ECE] shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-white focus:outline-none focus:ring-2 focus:ring-[#279ECE] focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-70";
-
-function getErrorMessage(error: unknown, fallback: string) {
-  const responseData = (
-    error as {
-      response?: {
-        data?: {
-          message?: string;
-          error?: string;
-        };
-      };
-      message?: string;
-    }
-  )?.response?.data;
-
-  return (
-    responseData?.message ||
-    responseData?.error ||
-    (error as { message?: string })?.message ||
-    fallback
-  );
-}
 
 function getInitialCountdown(expiresAt?: string) {
   if (!expiresAt) {
@@ -65,6 +52,7 @@ export default function BrochureOtp({
   expiresAt,
   message,
   onAuthorized,
+  onUnauthorized,
 }: BrochureOtpProps) {
   const [otp, setOtp] = useState("");
   const [countdown, setCountdown] = useState(() =>
@@ -124,16 +112,19 @@ export default function BrochureOtp({
         otp,
       });
 
-      if (!verifyResponse.sessionToken) {
-        throw new Error("Unable to verify OTP.");
+      if (verifyResponse.success === false) {
+        throw new Error(verifyResponse.message || "Unable to verify OTP.");
       }
-
-      const authorizedSessionToken = verifyResponse.sessionToken;
-
-      const downloadResponse = await downloadBrochure(
-        productSlug,
-        authorizedSessionToken,
+    } catch (error) {
+      setErrorMessage(
+        getBrochureErrorMessage(error, "Network error. Please try again."),
       );
+      setIsVerifying(false);
+      return;
+    }
+
+    try {
+      const downloadResponse = await downloadBrochure(productSlug);
 
       if (downloadResponse.success === false) {
         throw new Error(
@@ -141,10 +132,16 @@ export default function BrochureOtp({
         );
       }
 
-      onAuthorized(authorizedSessionToken);
+      startBrochureDownload(downloadResponse.downloadUrl);
+      onAuthorized();
     } catch (error) {
+      if (isBrochureAuthError(error)) {
+        onUnauthorized();
+        return;
+      }
+
       setErrorMessage(
-        getErrorMessage(error, "Network error. Please try again."),
+        getBrochureErrorMessage(error, "Network error. Please try again."),
       );
     } finally {
       setIsVerifying(false);
@@ -173,7 +170,7 @@ export default function BrochureOtp({
       setCountdown(getInitialCountdown(resendResponse.expiresAt));
     } catch (error) {
       setErrorMessage(
-        getErrorMessage(error, "Network error. Please try again."),
+        getBrochureErrorMessage(error, "Network error. Please try again."),
       );
     } finally {
       setIsResending(false);

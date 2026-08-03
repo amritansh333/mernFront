@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   ArrowRight,
@@ -49,8 +49,9 @@ const pillars = [
   },
 ];
 
+const csrImages = [csr1, csr2, csr3];
+
 export default function CSRPage() {
-  const csrImages = [csr1, csr2, csr3];
   const [current, setCurrent] = useState(0);
 
   useEffect(() => {

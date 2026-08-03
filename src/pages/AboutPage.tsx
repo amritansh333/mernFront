@@ -193,7 +193,7 @@ export default function AboutPage() {
                 muted
                 loop
                 playsInline
-                className="w-full h-73 object-cover transition-all duration-500 ease-in-out opacity-90 group-hover:opacity-100 transition-transform duration-[8000ms] ease-linear group-hover:scale-105"
+                className="w-full h-73 object-cover transition-all duration-500 ease-in-out opacity-90 group-hover:opacity-100 transition-transform [transition-duration:8000ms] ease-linear group-hover:scale-105"
               />
             </div>
 
