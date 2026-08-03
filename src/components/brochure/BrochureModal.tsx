@@ -235,7 +235,7 @@ md:p-8
                           className="text-xl font-bold tracking-tight text-[#0F2A3D] sm:text-2xl lg:text-3xl"
                         >
                           Get{" "}
-                          <span className="text-[#0F2A3D] hover:text-[#279ECE]">
+                          <span className="text-[#279ECE]">
                             {productContext.productName}
                           </span>{" "}
                           Brochure

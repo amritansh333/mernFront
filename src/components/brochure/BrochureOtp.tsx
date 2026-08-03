@@ -63,6 +63,7 @@ export default function BrochureOtp({
   const [isVerifying, setIsVerifying] = useState(false);
   const [isResending, setIsResending] = useState(false);
   const otpContainerRef = useRef<HTMLDivElement | null>(null);
+  const maskedMobileNumber = `+${mobileNumber.slice(0, 2)} ${mobileNumber.slice(2, 5)}***${mobileNumber.slice(-4)}`;
 
   useEffect(() => {
     setCountdown(getInitialCountdown(expiresAt));
@@ -184,8 +185,9 @@ export default function BrochureOtp({
           Enter verification code
         </h3>
         <p className="mt-2 text-sm leading-6 text-[#5C7696]">
-          We sent a 6-digit OTP to your registered mobile number.
-        </p>
+  We've sent a 6-digit OTP to{" "}
+  <span className="font-semibold text-[#279ECE]">{maskedMobileNumber}</span>.
+</p>
       </div>
 
       <div>
