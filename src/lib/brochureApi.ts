@@ -152,9 +152,8 @@ export async function downloadBrochure(
 
 export async function checkBrochureSession(): Promise<boolean> {
   try {
-    const response = await api.get<BrochureSessionResponse>(
-      "/brochure/session",
-    );
+    const response =
+      await api.get<BrochureSessionResponse>("/brochure/session");
 
     return isSessionAuthenticated(response.data);
   } catch (error) {

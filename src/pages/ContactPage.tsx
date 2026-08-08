@@ -73,13 +73,13 @@ export default function ContactPage() {
 
   const getFileExtension = (name: string) =>
     name.split(".").pop()?.toLowerCase() ?? "";
- 
+
   const isValidFullName = (value: string) =>
-  /^[\p{L}\p{M}' -]{2,100}$/u.test(value.trim());
- 
+    /^[\p{L}\p{M}' -]{2,100}$/u.test(value.trim());
+
   const isValidEmail = (value: string) =>
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
- 
+
   const isMeaningfulCompany = (value: string) => /[A-Za-z0-9]/.test(value);
 
   const isSafeFileName = (name: string) => {
@@ -93,17 +93,17 @@ export default function ContactPage() {
 
     return true;
   };
- 
+
   const isValidPhone = (value: string) => {
     const allowedPattern = /^[0-9()+\-\s]+$/;
     if (!allowedPattern.test(value)) {
       return false;
     }
- 
+
     const digits = value.replace(/[^0-9]/g, "").length;
     return digits >= 7 && digits <= 15;
   };
- 
+
   const isDuplicateFile = (file: File, currentFiles: File[]) =>
     currentFiles.some(
       (existing) =>
@@ -112,53 +112,55 @@ export default function ContactPage() {
         existing.lastModified === file.lastModified,
     );
 
-    const validateFilesList = (fileList: File[]): string[] => {
-      const errors: string[] = [];
+  const validateFilesList = (fileList: File[]): string[] => {
+    const errors: string[] = [];
 
-      if (fileList.length > MAX_DRAWING_FILES) {
-        errors.push(`You can upload up to ${MAX_DRAWING_FILES} files.`);
+    if (fileList.length > MAX_DRAWING_FILES) {
+      errors.push(`You can upload up to ${MAX_DRAWING_FILES} files.`);
+    }
+
+    const seen = new Set<string>();
+
+    fileList.forEach((file) => {
+      const extension = getFileExtension(file.name);
+
+      if (!isSafeFileName(file.name)) {
+        errors.push(`File ${file.name} has an invalid file name.`);
       }
 
-      const seen = new Set<string>();
+      if (file.name.length > 255) {
+        errors.push(
+          `File ${file.name} has a file name longer than 255 characters.`,
+        );
+      }
 
-      fileList.forEach((file) => {
-        const extension = getFileExtension(file.name);
+      if (file.size === 0) {
+        errors.push(`File ${file.name} is empty.`);
+      }
 
-        if (!isSafeFileName(file.name)) {
-          errors.push(`File ${file.name} has an invalid file name.`);
-        }
+      if (file.size > MAX_FILE_SIZE) {
+        errors.push(`File ${file.name} is larger than 20 MB.`);
+      }
 
-        if (file.name.length > 255) {
-          errors.push(`File ${file.name} has a file name longer than 255 characters.`);
-        }
+      if (!DRAWING_FILE_EXTENSIONS.includes(extension)) {
+        errors.push(
+          `File ${file.name} has an unsupported extension. Accepted types are PDF, PNG, JPG, JPEG, DWG, DXF, STEP, and STP.`,
+        );
+      }
 
-        if (file.size === 0) {
-          errors.push(`File ${file.name} is empty.`);
-        }
+      const key = `${file.name}|${file.size}|${file.lastModified}`;
+      if (seen.has(key)) {
+        errors.push(`"${file.name}" appears more than once.`);
+      } else {
+        seen.add(key);
+      }
+    });
 
-        if (file.size > MAX_FILE_SIZE) {
-          errors.push(`File ${file.name} is larger than 20 MB.`);
-        }
+    // Deduplicate identical error messages
+    return Array.from(new Set(errors));
+  };
 
-        if (!DRAWING_FILE_EXTENSIONS.includes(extension)) {
-          errors.push(
-            `File ${file.name} has an unsupported extension. Accepted types are PDF, PNG, JPG, JPEG, DWG, DXF, STEP, and STP.`,
-          );
-        }
-
-        const key = `${file.name}|${file.size}|${file.lastModified}`;
-        if (seen.has(key)) {
-          errors.push(`"${file.name}" appears more than once.`);
-        } else {
-          seen.add(key);
-        }
-      });
-
-      // Deduplicate identical error messages
-      return Array.from(new Set(errors));
-    };
-
-    const handleDrawSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleDrawSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (uploading) {
@@ -273,14 +275,14 @@ export default function ContactPage() {
 
         switch (response.status) {
           case 400:
-            message =
-              "Please check the form and file uploads, then try again.";
+            message = "Please check the form and file uploads, then try again.";
             break;
           case 401:
             message = "You are not authorized to send this drawing request.";
             break;
           case 403:
-            message = "Access denied. Please contact support if this continues.";
+            message =
+              "Access denied. Please contact support if this continues.";
             break;
           case 413:
             message =
@@ -319,72 +321,74 @@ export default function ContactPage() {
     const currentFiles = [...files];
     const incomingFiles = Array.from(newFiles);
     const nextFiles: File[] = [...currentFiles];
-      const availableSlots = MAX_DRAWING_FILES - nextFiles.length;
+    const availableSlots = MAX_DRAWING_FILES - nextFiles.length;
 
-      if (availableSlots <= 0) {
-        setValidationErrors([
-          `You can upload up to ${MAX_DRAWING_FILES} files only.`,
-        ]);
+    if (availableSlots <= 0) {
+      setValidationErrors([
+        `You can upload up to ${MAX_DRAWING_FILES} files only.`,
+      ]);
+      return;
+    }
+
+    const rejectedErrors: string[] = [];
+
+    incomingFiles.slice(0, availableSlots).forEach((file) => {
+      const extension = getFileExtension(file.name);
+
+      if (!isSafeFileName(file.name)) {
+        rejectedErrors.push(
+          `"${file.name}" has an invalid file name and was not added.`,
+        );
         return;
       }
 
-      const rejectedErrors: string[] = [];
-
-      incomingFiles.slice(0, availableSlots).forEach((file) => {
-        const extension = getFileExtension(file.name);
-
-        if (!isSafeFileName(file.name)) {
-          rejectedErrors.push(`"${file.name}" has an invalid file name and was not added.`);
-          return;
-        }
-
-        if (file.size === 0) {
-          rejectedErrors.push(`"${file.name}" is empty and was not added.`);
-          return;
-        }
-
-        if (file.size > MAX_FILE_SIZE) {
-          rejectedErrors.push(
-            `"${file.name}" is larger than 20 MB and was not added.`,
-          );
-          return;
-        }
-
-        if (!DRAWING_FILE_EXTENSIONS.includes(extension)) {
-          rejectedErrors.push(
-            `"${file.name}" has an unsupported file type and was not added.`,
-          );
-          return;
-        }
-
-        if (isDuplicateFile(file, nextFiles)) {
-          rejectedErrors.push(`"${file.name}" is already added.`);
-          return;
-        }
-
-        nextFiles.push(file);
-      });
-
-      if (incomingFiles.length > availableSlots) {
-        rejectedErrors.push(`You can upload up to ${MAX_DRAWING_FILES} files.`);
+      if (file.size === 0) {
+        rejectedErrors.push(`"${file.name}" is empty and was not added.`);
+        return;
       }
 
-      const finalFiles = nextFiles.slice(0, MAX_DRAWING_FILES);
-      setFiles(finalFiles);
+      if (file.size > MAX_FILE_SIZE) {
+        rejectedErrors.push(
+          `"${file.name}" is larger than 20 MB and was not added.`,
+        );
+        return;
+      }
 
-      // Recalculate errors for the final set and merge with rejected ones
-      const listErrors = validateFilesList(finalFiles);
-      const merged = Array.from(new Set([...rejectedErrors, ...listErrors]));
-      setValidationErrors(merged);
-    };
+      if (!DRAWING_FILE_EXTENSIONS.includes(extension)) {
+        rejectedErrors.push(
+          `"${file.name}" has an unsupported file type and was not added.`,
+        );
+        return;
+      }
 
-    const removeFile = (i: number) => {
-      setFiles((prev) => {
-        const next = prev.filter((_, idx) => idx !== i);
-        setValidationErrors(validateFilesList(next));
-        return next;
-      });
-    };
+      if (isDuplicateFile(file, nextFiles)) {
+        rejectedErrors.push(`"${file.name}" is already added.`);
+        return;
+      }
+
+      nextFiles.push(file);
+    });
+
+    if (incomingFiles.length > availableSlots) {
+      rejectedErrors.push(`You can upload up to ${MAX_DRAWING_FILES} files.`);
+    }
+
+    const finalFiles = nextFiles.slice(0, MAX_DRAWING_FILES);
+    setFiles(finalFiles);
+
+    // Recalculate errors for the final set and merge with rejected ones
+    const listErrors = validateFilesList(finalFiles);
+    const merged = Array.from(new Set([...rejectedErrors, ...listErrors]));
+    setValidationErrors(merged);
+  };
+
+  const removeFile = (i: number) => {
+    setFiles((prev) => {
+      const next = prev.filter((_, idx) => idx !== i);
+      setValidationErrors(validateFilesList(next));
+      return next;
+    });
+  };
 
   const contactItems = [
     {
@@ -483,8 +487,7 @@ export default function ContactPage() {
 
       switch (response.status) {
         case 400:
-          message =
-            "Please check your enquiry details and try again.";
+          message = "Please check your enquiry details and try again.";
           break;
         case 401:
           message = "You are not authorized to submit an enquiry.";
@@ -805,7 +808,6 @@ export default function ContactPage() {
                       });
                       setUploadError("");
                       setValidationErrors([]);
-                      
                     }}
                     className="cta-link inline-flex"
                   >
@@ -976,7 +978,7 @@ export default function ContactPage() {
                   )}
                   {uploading && (
                     <div className="rounded-sm border border-primary/30 bg-primary/10 px-4 py-3 text-sm text-primary">
-                                        Uploading your drawing...
+                      Uploading your drawing...
                     </div>
                   )}
                   <div>

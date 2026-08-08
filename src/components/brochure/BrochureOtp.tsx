@@ -185,9 +185,12 @@ export default function BrochureOtp({
           Enter verification code
         </h3>
         <p className="mt-2 text-sm leading-6 text-[#5C7696]">
-  We've sent a 6-digit OTP to{" "}
-  <span className="font-semibold text-[#279ECE]">{maskedMobileNumber}</span>.
-</p>
+          We've sent a 6-digit OTP to{" "}
+          <span className="font-semibold text-[#279ECE]">
+            {maskedMobileNumber}
+          </span>
+          .
+        </p>
       </div>
 
       <div>
