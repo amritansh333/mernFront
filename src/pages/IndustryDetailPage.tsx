@@ -1346,7 +1346,7 @@ export default function IndustryDetailPage() {
                 team for grade confirmation.
               </p>
 
-              <div className="mt-6 space-y-2">
+              <div className="mt-6 space-y-3">
                 {data.products.map((p) => (
                   <Link
                     key={p.name}
@@ -1365,7 +1365,7 @@ export default function IndustryDetailPage() {
                   </Link>
                 ))}
                 <Link
-                  to="/contact"
+                  to="/contact?tab=quote"
                   className="inline-flex items-center gap-3 px-5 py-2.5 bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary-dark transition-colors duration-200"
                 >
                   Technical Enquiry <ArrowRight className="w-4 h-4" />

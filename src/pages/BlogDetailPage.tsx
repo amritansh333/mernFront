@@ -514,7 +514,7 @@ export default function BlogDetailPage() {
                   </p>
 
                   <Link
-                    to="/contact"
+                    to="/contact?tab=quote"
                     className="mt-5 inline-flex w-full items-center justify-center gap-2 bg-primary px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
                   >
                     Technical Enquiry

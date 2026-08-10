@@ -50,8 +50,9 @@ function getFooterLinks(
       { label: "Blog & Gallery", href: "/blog" },
     ],
     Support: [
-      { label: "Contact Us", href: "/contact" },
-      { label: "Request a Quote", href: "/contact" },
+      { label: "Contact Us", href: "/contact?tab=quote" },
+      { label: "Request a Quote", href: "/contact?tab=quote" },
+      { label: "Send Your Drawing", href: "/contact?tab=drawing" },
       { label: "Material Selector", href: "/tools/material-selector" },
       { label: "Technical Downloads", href: "/resources" },
     ],

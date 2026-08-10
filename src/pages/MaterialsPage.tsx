@@ -526,7 +526,7 @@ export default function MaterialsPage() {
               Material Selector <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
-              to="/contact"
+              to="/contact?tab=quote"
               className="inline-flex items-center gap-2 px-5 py-2.5 border border-border text-charcoal-light text-sm font-semibold hover:border-primary hover:text-primary transition-colors duration-200"
             >
               Technical Enquiry

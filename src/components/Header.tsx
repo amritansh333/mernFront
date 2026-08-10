@@ -111,7 +111,7 @@ function getNavItems(
         { label: "Careers", href: "/careers" },
         { label: "Blog & Gallery", href: "/blog" },
         { label: "Resources & Downloads", href: "/resources" },
-        { label: "Contact", href: "/contact" },
+        { label: "Contact", href: "/contact?tab=quote" },
       ],
     },
   ];
