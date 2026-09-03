@@ -320,7 +320,7 @@ export function Header() {
               to="/contact?tab=quote"
               className="inline-flex items-center justify-center gap-2 px-5 py-2 bg-gradient-to-r from-[#279ECE] to-[#1F7FA8] text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#279ECE]/30"
             >
-              <span>Request Quote</span>
+              <span>Request a Quote</span>
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
@@ -446,7 +446,7 @@ export function Header() {
                 to="/contact"
                 className="inline-flex w-full items-center justify-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#279ECE] to-[#1F7FA8] text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#279ECE]/30"
               >
-                <span>Request Quote</span>
+                <span>Request a Quote</span>
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
