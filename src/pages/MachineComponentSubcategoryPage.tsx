@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
+﻿import { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { Menu, Search } from "lucide-react";
 
@@ -9,6 +10,9 @@ import SpecificationsSection from "@/components/machine-components/Specification
 import ProductCardsSection from "@/components/machine-components/ProductCardsSection";
 import LoadingState from "@/components/machine-components/LoadingState";
 import EmptyState from "@/components/machine-components/EmptyState";
+import { BrochureModal } from "@/components/brochure";
+import { buildMachineComponentBreadcrumbs } from "@/lib/machineComponentBreadcrumbs";
+import type { BrochureProductContext } from "@/components/brochure/types";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -66,6 +70,7 @@ export default function MachineComponentSubcategoryPage() {
 
   const { machineData, selectedSlug, setSelectedSlug, loading, error } =
     useMachineComponents();
+  const navigate = useNavigate();
 
   const subcategory = useMemo(() => {
     const segments = location.pathname.split("/").filter(Boolean);
@@ -86,6 +91,12 @@ export default function MachineComponentSubcategoryPage() {
   ).length;
 
   const [pageLoading, setPageLoading] = useState(true);
+
+  // Brochure modal state for brochure-based product cards on brochure subcategories
+  const [isBrochureOpen, setIsBrochureOpen] = useState(false);
+  const [brochureProductContext, setBrochureProductContext] = useState<
+    BrochureProductContext
+  >({ currentRoute: `${location.pathname}${location.search}${location.hash}` });
 
   useEffect(() => {
     if (!subcategory) return;
@@ -398,13 +409,74 @@ export default function MachineComponentSubcategoryPage() {
             showActionButtons
           />
 
-          <ProductCardsSection products={subcategoryData.products} />
+          {
+  // For Cutting Board and Chopping Board, intercept clicks on Ripla products
+  // and open the existing BrochureModal.
+  subcategory === "cutting-board" ||
+  subcategory === "chopping-board" ? (
+    <ProductCardsSection
+      products={subcategoryData.products}
+      shouldUseCustomClick={(p) => {
+        const slug = (p?.slug || "").toLowerCase();
+        // Brochure flow for RIPLA (cutting boards) and CUTRITE (chopping boards)
+        return slug.includes("ripla") || slug.includes("cutrite");
+      }}
+      onCardClick={(p) => {
+        const productSlug = p.slug || "";
+
+        const breadcrumbs = buildMachineComponentBreadcrumbs(
+          machineData,
+          productSlug,
+          location.pathname,
+        )
+          .map((b) => b.label)
+          .filter((l) => l && l !== "Home");
+
+        const currentRoute =
+          `${location.pathname}${location.search}${location.hash}`;
+
+        const canonical = machineData?.products?.[productSlug];
+
+        const canonicalId =
+          canonical?._id ||
+          (canonical as unknown as { id?: string })?.id ||
+          undefined;
+
+        if (typeof p.path === "string") {
+          navigate(p.path);
+        }
+
+        setBrochureProductContext({
+          productId: canonicalId,
+          productSlug,
+          productName: p.name,
+          breadcrumbLabels:
+            breadcrumbs.length > 0
+              ? breadcrumbs
+              : [p.name || ""],
+          currentRoute,
+        });
+
+        setIsBrochureOpen(true);
+      }}
+    />
+  ) : (
+    <ProductCardsSection products={subcategoryData.products} />
+  )
+}
 
           <SpecificationsSection
             specifications={subcategoryData.specifications}
           />
 
           <ApplicationsSection applications={subcategoryData.applications} />
+
+          {/* Brochure modal used for Ripla cards on Cutting Board subcategory */}
+          <BrochureModal
+            open={isBrochureOpen}
+            onOpenChange={setIsBrochureOpen}
+            productContext={brochureProductContext}
+          />
         </section>
       </div>
     </main>

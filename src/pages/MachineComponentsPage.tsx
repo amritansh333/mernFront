@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import { Menu, Search, ArrowRight, Boxes } from "lucide-react";
+import { useLocation } from "react-router-dom";
 import MachineSidebar from "@/components/machine-components/MachineSidebar";
 import type { MachineSidebarNode } from "@/types/machineComponent";
 import ProductRenderer from "@/components/machine-components/ProductRenderer";
 import DocumentationCTA from "@/components/machine-components/DocumentationCTA";
+import { BrochureModal } from "@/components/brochure";
+import type { BrochureProductContext } from "@/components/brochure/types";
 import LoadingState from "@/components/machine-components/LoadingState";
 import EmptyState from "@/components/machine-components/EmptyState";
 import { Button } from "@/components/ui/button";
@@ -18,6 +21,7 @@ import {
 import SidebarSearch from "@/components/machine-components/SidebarSearch";
 import { useMachineComponents } from "@/hooks/useMachineComponents";
 import { Link } from "react-router-dom";
+import { buildMachineComponentBreadcrumbs } from "@/lib/machineComponentBreadcrumbs";
 import { resolveApiAssetUrl } from "@/lib/assetUrl";
 
 export default function MachineComponentsPage() {
@@ -29,7 +33,11 @@ export default function MachineComponentsPage() {
     loading,
     error,
   } = useMachineComponents();
+  const location = useLocation();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  // Brochure modal state for Ripla direct-route handling
+  const [isBrochureOpen, setIsBrochureOpen] = useState(false);
+  const [brochureProductContext, setBrochureProductContext] = useState<BrochureProductContext | null>(null);
   const [search, setSearch] = useState("");
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const filteredCount = Object.values(machineData?.products ?? {}).filter(
@@ -186,6 +194,44 @@ export default function MachineComponentsPage() {
     setIsSearchOpen(false);
   }, [selectedSlug]);
 
+  // When routed directly to a Ripla product URL, ensure brochure modal opens
+  // and the canonical productId is taken from the global machineData.products entry.
+  // Use effect so this logic runs on navigation.
+  const slugLower = String(selectedProduct?.slug || "").toLowerCase();
+  const subCategorySlug = selectedProduct?.hierarchy?.subCategory?.slug;
+  const isRiplaBrochureProduct =
+  (slugLower.includes("ripla") || slugLower.includes("cutrite")) &&
+  (subCategorySlug === "cutting-board" ||
+    subCategorySlug === "chopping-board");
+
+  useEffect(() => {
+    if (!isRiplaBrochureProduct) return;
+
+    const canonical = machineData?.products?.[selectedProduct?.slug || ""];
+    const canonicalId = canonical?._id || (canonical as unknown as { id?: string })?.id || undefined;
+
+    const breadcrumbs = buildMachineComponentBreadcrumbs(
+      machineData,
+      selectedProduct?.slug || "",
+      location.pathname,
+    )
+      .map((b) => b.label)
+      .filter((l) => l && l !== "Home");
+
+    const currentRoute = `${location.pathname}${location.search}${location.hash}`;
+
+    setBrochureProductContext({
+      productId: canonicalId,
+      productSlug: selectedProduct?.slug,
+      productName: selectedProduct?.name,
+      breadcrumbLabels: breadcrumbs.length > 0 ? breadcrumbs : [selectedProduct?.name || ""],
+      currentRoute,
+    });
+
+    setIsBrochureOpen(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isRiplaBrochureProduct, selectedProduct?.slug]);
+
   if (loading) return <LoadingState />;
   if (error)
     return (
@@ -209,6 +255,41 @@ export default function MachineComponentsPage() {
       />
     );
   }
+
+    if (isRiplaBrochureProduct) {
+      // Render the page shell but do not render the detailed ProductRenderer or DocumentationCTA.
+      // The BrochureModal will be open and takes care of the OTP/brochure flow.
+      return (
+        <main className="pt-16 bg-background">
+          <div className="flex min-h-[calc(100vh-4rem)]">
+            <div className="hidden w-72 shrink-0 lg:block xl:w-80">
+              <div className="sticky top-16 h-[calc(100vh-4rem)]">
+                <MachineSidebar
+                  sidebar={machineData?.sidebar}
+                  products={machineData?.products}
+                  selectedSlug={selectedSlug}
+                  setSelectedSlug={setSelectedSlug}
+                  search={search}
+                  setSearch={setSearch}
+                />
+              </div>
+            </div>
+
+            <section className="min-w-0 flex-1">
+              {/* Keep header and controls consistent */}
+              <div className="mx-auto max-w-7xl px-5 pb-6 lg:px-10">
+                {/* Brochure modal used for Ripla direct-route */}
+                <BrochureModal
+                  open={isBrochureOpen}
+                  onOpenChange={setIsBrochureOpen}
+                  productContext={brochureProductContext || { currentRoute: location.pathname }}
+                />
+              </div>
+            </section>
+          </div>
+        </main>
+      );
+    }
 
   return (
     <main className="pt-16 bg-background">
