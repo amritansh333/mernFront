@@ -139,9 +139,7 @@ export default function EventDetailPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const [activeImage, setActiveImage] = useState<number | null>(
-    null,
-  );
+  const [activeImage, setActiveImage] = useState<number | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -182,8 +180,7 @@ export default function EventDetailPage() {
     if (!item?.gallery) return [];
 
     return [...item.gallery].sort(
-      (a: any, b: any) =>
-        (a.sortOrder || 0) - (b.sortOrder || 0),
+      (a: any, b: any) => (a.sortOrder || 0) - (b.sortOrder || 0),
     );
   }, [item?.gallery]);
 
@@ -196,23 +193,17 @@ export default function EventDetailPage() {
       }
 
       if (event.key === "ArrowRight" && gallery.length > 1) {
-        setActiveImage(
-          (activeImage + 1) % gallery.length,
-        );
+        setActiveImage((activeImage + 1) % gallery.length);
       }
 
       if (event.key === "ArrowLeft" && gallery.length > 1) {
-        setActiveImage(
-          (activeImage - 1 + gallery.length) %
-            gallery.length,
-        );
+        setActiveImage((activeImage - 1 + gallery.length) % gallery.length);
       }
     };
 
     window.addEventListener("keydown", onKeyDown);
 
-    return () =>
-      window.removeEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
   }, [activeImage, gallery.length]);
 
   if (loading) {
@@ -248,8 +239,8 @@ export default function EventDetailPage() {
           </h1>
 
           <p className="mx-auto mt-3 max-w-md text-sm leading-6 text-muted-foreground">
-            The event you're looking for may have been removed
-            or the link may no longer be available.
+            The event you're looking for may have been removed or the link may
+            no longer be available.
           </p>
 
           <Link
@@ -277,9 +268,7 @@ export default function EventDetailPage() {
   const longStartDate = formatLongDate(ev.startDate);
 
   const eventDate =
-    startDate && endDate
-      ? `${startDate} – ${endDate}`
-      : startDate || endDate;
+    startDate && endDate ? `${startDate} – ${endDate}` : startDate || endDate;
 
   const location =
     ev.city && ev.country
@@ -297,121 +286,118 @@ export default function EventDetailPage() {
     ev.eventWebsite ||
     ev.registrationUrl;
 
-  const currentGalleryItem =
-    activeImage !== null ? gallery[activeImage] : null;
+  const currentGalleryItem = activeImage !== null ? gallery[activeImage] : null;
 
   const coverImageUrl = resolveApiAssetUrl(item.coverImage);
 
   return (
     <main className="min-h-screen bg-background">
       {/* Hero */}
-{/* Hero */}
-<section className="relative overflow-hidden border-b border-border">
-  {/* Cover Image from Backend */}
-  {coverImageUrl && (
-    <div
-      className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-      style={{
-        backgroundImage: `url("${coverImageUrl}")`,
-      }}
-    />
-  )}
+      {/* Hero */}
+      <section className="relative overflow-hidden border-b border-border">
+        {/* Cover Image from Backend */}
+        {coverImageUrl && (
+          <div
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: `url("${coverImageUrl}")`,
+            }}
+          />
+        )}
 
-  {/* Image readability overlay */}
-  <div className="absolute inset-0 bg-white/98" />
+        {/* Image readability overlay */}
+        <div className="absolute inset-0 bg-white/98" />
 
-  {/* Subtle left-to-right fade */}
-  <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-white/50 via-white/75 to-transparent" />
+        {/* Subtle left-to-right fade */}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-white/50 via-white/75 to-transparent" />
 
-  {/* Hero Content */}
-  <div className="container relative mx-auto px-5 py-8 sm:px-6 sm:py-12 lg:py-14">
-    <Link
-      to="/events"
-      className="
+        {/* Hero Content */}
+        <div className="container relative mx-auto px-5 py-8 sm:px-6 sm:py-12 lg:py-14">
+          <Link
+            to="/events"
+            className="
         mb-7 inline-flex items-center gap-2
         text-sm font-medium text-muted-foreground
         transition-colors hover:text-primary
       "
-    >
-      <ArrowLeft className="h-4 w-4" />
-      Back to events
-    </Link>
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Back to events
+          </Link>
 
-    <div className="max-w-4xl">
-      {/* Badges */}
-      <div className="flex flex-wrap items-center gap-2">
-        <span
-          className="
+          <div className="max-w-4xl">
+            {/* Badges */}
+            <div className="flex flex-wrap items-center gap-2">
+              <span
+                className="
             inline-flex items-center gap-1.5
             border border-primary/20 bg-white/80
             px-3 py-1.5 text-xs font-semibold
             uppercase tracking-[0.1em] text-primary
             backdrop-blur-sm
           "
-        >
-          <CalendarDays className="h-3.5 w-3.5" />
-          {item.type}
-        </span>
+              >
+                <CalendarDays className="h-3.5 w-3.5" />
+                {item.type}
+              </span>
 
-        {item.featured && (
-          <span
-            className="
+              {item.featured && (
+                <span
+                  className="
               inline-flex items-center gap-1.5
               border border-primary/20 bg-primary/10
               px-3 py-1.5 text-xs font-semibold
               text-primary backdrop-blur-sm
             "
-          >
-            <Check className="h-3.5 w-3.5" />
-            Featured
-          </span>
-        )}
-      </div>
+                >
+                  <Check className="h-3.5 w-3.5" />
+                  Featured
+                </span>
+              )}
+            </div>
 
-      {/* Title */}
-      <h1
-        className="
+            {/* Title */}
+            <h1
+              className="
           mt-5 font-heading text-4xl font-semibold
           leading-[1.05] tracking-tight text-charcoal
           sm:text-5xl lg:text-6xl
         "
-      >
-        {item.title}
-      </h1>
+            >
+              {item.title}
+            </h1>
 
-      {/* Excerpt */}
-      {item.excerpt && (
-        <p
-          className="
+            {/* Excerpt */}
+            {item.excerpt && (
+              <p
+                className="
             mt-5 max-w-3xl text-base leading-7
             text-charcoal sm:text-lg sm:leading-8
           "
-        >
-          {item.excerpt}
-        </p>
-      )}
+              >
+                {item.excerpt}
+              </p>
+            )}
 
-      {/* Date + Location */}
-      <div className="mt-6 flex flex-wrap gap-x-5 gap-y-3 text-sm text-charcoal">
-        {eventDate && (
-          <span className="inline-flex items-center gap-2">
-            <CalendarDays className="h-4 w-4 text-primary" />
-            {eventDate}
-          </span>
-        )}
+            {/* Date + Location */}
+            <div className="mt-6 flex flex-wrap gap-x-5 gap-y-3 text-sm text-charcoal">
+              {eventDate && (
+                <span className="inline-flex items-center gap-2">
+                  <CalendarDays className="h-4 w-4 text-primary" />
+                  {eventDate}
+                </span>
+              )}
 
-        {location && (
-          <span className="inline-flex items-center gap-2">
-            <MapPin className="h-4 w-4 text-primary text-charcoal" />
-            {location}
-          </span>
-        )}
-      </div>
-    </div>
-  </div>
-</section>
-
-      
+              {location && (
+                <span className="inline-flex items-center gap-2">
+                  <MapPin className="h-4 w-4 text-primary text-charcoal" />
+                  {location}
+                </span>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Main content */}
       <section className="container mx-auto px-5 py-10 sm:px-6 sm:py-14">
@@ -501,10 +487,7 @@ export default function EventDetailPage() {
                   </div>
 
                   <span className="text-sm text-muted-foreground">
-                    {gallery.length}{" "}
-                    {gallery.length === 1
-                      ? "image"
-                      : "images"}
+                    {gallery.length} {gallery.length === 1 ? "image" : "images"}
                   </span>
                 </div>
 
@@ -530,11 +513,7 @@ export default function EventDetailPage() {
                     >
                       <img
                         src={image.url}
-                        alt={
-                          image.alt ||
-                          image.caption ||
-                          item.title
-                        }
+                        alt={image.alt || image.caption || item.title}
                         loading="lazy"
                         className="
                           h-full w-full object-cover
@@ -599,30 +578,27 @@ export default function EventDetailPage() {
                 </div>
 
                 <div className="space-y-8">
-                  {item.videos.map(
-                    (video: any, index: number) => (
-                      <div key={`${video.videoId}-${index}`}>
-                        <VideoEmbed video={video} />
+                  {item.videos.map((video: any, index: number) => (
+                    <div key={`${video.videoId}-${index}`}>
+                      <VideoEmbed video={video} />
 
-                        {(video.title ||
-                          video.caption) && (
-                          <div className="mt-3">
-                            {video.title && (
-                              <h3 className="font-heading text-lg font-semibold text-charcoal">
-                                {video.title}
-                              </h3>
-                            )}
+                      {(video.title || video.caption) && (
+                        <div className="mt-3">
+                          {video.title && (
+                            <h3 className="font-heading text-lg font-semibold text-charcoal">
+                              {video.title}
+                            </h3>
+                          )}
 
-                            {video.caption && (
-                              <p className="mt-1 text-sm leading-6 text-muted-foreground">
-                                {video.caption}
-                              </p>
-                            )}
-                          </div>
-                        )}
-                      </div>
-                    ),
-                  )}
+                          {video.caption && (
+                            <p className="mt-1 text-sm leading-6 text-muted-foreground">
+                              {video.caption}
+                            </p>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  ))}
                 </div>
               </section>
             )}
@@ -688,10 +664,7 @@ export default function EventDetailPage() {
                 )}
 
                 {ev.city && (
-                  <DetailRow
-                    icon={<MapPin className="h-4 w-4" />}
-                    label="City"
-                  >
+                  <DetailRow icon={<MapPin className="h-4 w-4" />} label="City">
                     {ev.city}
                   </DetailRow>
                 )}
@@ -715,10 +688,7 @@ export default function EventDetailPage() {
                 )}
 
                 {ev.booth && (
-                  <DetailRow
-                    icon={<Users className="h-4 w-4" />}
-                    label="Booth"
-                  >
+                  <DetailRow icon={<Users className="h-4 w-4" />} label="Booth">
                     {ev.booth}
                   </DetailRow>
                 )}
@@ -733,8 +703,7 @@ export default function EventDetailPage() {
                 )}
               </dl>
 
-              {(ev.registrationUrl ||
-                ev.eventWebsite) && (
+              {(ev.registrationUrl || ev.eventWebsite) && (
                 <div className="space-y-3 border-t border-border p-5">
                   {ev.registrationUrl && (
                     <a
@@ -790,8 +759,8 @@ export default function EventDetailPage() {
               </h3>
 
               <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                Interested in our engineering plastic solutions
-                or want to connect with our team?
+                Interested in our engineering plastic solutions or want to
+                connect with our team?
               </p>
 
               <Link
@@ -853,10 +822,7 @@ export default function EventDetailPage() {
                     <div className="aspect-video overflow-hidden">
                       <img
                         src={related.coverImage}
-                        alt={
-                          related.coverAlt ||
-                          related.title
-                        }
+                        alt={related.coverAlt || related.title}
                         loading="lazy"
                         className="
                           h-full w-full object-cover
@@ -923,8 +889,7 @@ export default function EventDetailPage() {
                   event.stopPropagation();
 
                   setActiveImage(
-                    (activeImage - 1 + gallery.length) %
-                      gallery.length,
+                    (activeImage - 1 + gallery.length) % gallery.length,
                   );
                 }}
                 className="
@@ -945,9 +910,7 @@ export default function EventDetailPage() {
                 onClick={(event) => {
                   event.stopPropagation();
 
-                  setActiveImage(
-                    (activeImage + 1) % gallery.length,
-                  );
+                  setActiveImage((activeImage + 1) % gallery.length);
                 }}
                 className="
                   absolute right-3 top-1/2 z-10
@@ -982,8 +945,7 @@ export default function EventDetailPage() {
               "
             />
 
-            {(currentGalleryItem.caption ||
-              gallery.length > 1) && (
+            {(currentGalleryItem.caption || gallery.length > 1) && (
               <div className="mt-4 flex items-center justify-between gap-4 text-white">
                 <p className="text-sm text-white/80">
                   {currentGalleryItem.caption}

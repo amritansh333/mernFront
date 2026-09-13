@@ -91,9 +91,7 @@ export async function fetchNewsEvents(params = {}) {
 export async function fetchNewsEventBySlug(
   slug: string,
 ): Promise<NewsEventDetail & { related: EventCard[] }> {
-  const response = await api.get(
-    `/news-events/${encodeURIComponent(slug)}`,
-  );
+  const response = await api.get(`/news-events/${encodeURIComponent(slug)}`);
 
   const data = response.data?.data;
 
@@ -145,8 +143,7 @@ export async function fetchNewsEventBySlug(
 
     videos: (it.videos || [])
       .sort(
-        (a: VideoItem, b: VideoItem) =>
-          (a.sortOrder || 0) - (b.sortOrder || 0),
+        (a: VideoItem, b: VideoItem) => (a.sortOrder || 0) - (b.sortOrder || 0),
       )
       .map((v: VideoItem) => ({
         provider: v.provider,

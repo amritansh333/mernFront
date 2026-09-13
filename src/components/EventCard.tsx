@@ -1,11 +1,6 @@
 import { Link } from "react-router-dom";
 import { format } from "date-fns";
-import {
-  ArrowUpRight,
-  CalendarDays,
-  MapPin,
-  Sparkles,
-} from "lucide-react";
+import { ArrowUpRight, CalendarDays, MapPin, Sparkles } from "lucide-react";
 
 type EventCardProps = {
   item: any;
@@ -27,22 +22,15 @@ export default function EventCard({ item }: EventCardProps) {
   const endDate = formatDate(item.event?.endDate);
 
   const eventDate =
-    startDate && endDate
-      ? `${startDate} – ${endDate}`
-      : startDate || endDate;
+    startDate && endDate ? `${startDate} – ${endDate}` : startDate || endDate;
 
   const location =
     item.event?.city && item.event?.country
       ? `${item.event.city}, ${item.event.country}`
-      : item.event?.city ||
-        item.event?.country ||
-        item.event?.location ||
-        null;
+      : item.event?.city || item.event?.country || item.event?.location || null;
 
   const to =
-    item.type === "Event"
-      ? `/events/${item.slug}`
-      : `/news/${item.slug}`;
+    item.type === "Event" ? `/events/${item.slug}` : `/news/${item.slug}`;
 
   return (
     <article

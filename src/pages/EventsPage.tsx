@@ -123,85 +123,76 @@ export default function EventsPage() {
         .join(" ")
         .toLowerCase();
 
-      const matchesSearch =
-        !query || searchable.includes(query);
+      const matchesSearch = !query || searchable.includes(query);
 
       return matchesYear && matchesSearch;
     });
   }, [items, search, selectedYear]);
 
-  const featuredEvent =
-    items.find((item) => item.featured) || items[0] || null;
+  const featuredEvent = items.find((item) => item.featured) || items[0] || null;
 
   const remainingItems = filteredItems.filter(
     (item) => item.id !== featuredEvent?.id,
   );
 
-  const featuredStartDate = formatDate(
-    featuredEvent?.event?.startDate,
-  );
+  const featuredStartDate = formatDate(featuredEvent?.event?.startDate);
 
-  const featuredEndDate = formatDate(
-    featuredEvent?.event?.endDate,
-  );
+  const featuredEndDate = formatDate(featuredEvent?.event?.endDate);
 
   const featuredLocation = featuredEvent?.event?.city
     ? `${featuredEvent.event.city}${
-        featuredEvent.event.country
-          ? `, ${featuredEvent.event.country}`
-          : ""
+        featuredEvent.event.country ? `, ${featuredEvent.event.country}` : ""
       }`
     : featuredEvent?.event?.location;
 
   return (
     <main className="min-h-screen bg-background">
       {/* Hero */}
-<section className="relative overflow-hidden border-b border-border">
-  {/* Background Image */}
-  <div
-  className="absolute inset-0 bg-cover bg-center"
-  style={{
-  backgroundImage:
-    "url('http://localhost:5000/uploads/events/events-hero.jpg')",
-}}
-/>
+      <section className="relative overflow-hidden border-b border-border">
+        {/* Background Image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage:
+              "url('http://localhost:5000/uploads/events/events-hero.jpg')",
+          }}
+        />
 
-{/* Readability overlay */}
-<div className="absolute inset-0 bg-gradient-to-r from-white via-white/60 to-white/10" />
+        {/* Readability overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/60 to-white/10" />
 
-{/* Bottom fade */}
-<div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-background/60 to-transparent" />
+        {/* Bottom fade */}
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-background/60 to-transparent" />
 
-  {/* Hero Content */}
-  <div className="container relative mx-auto px-5 py-14 sm:px-6 sm:py-20 lg:py-24">
-    <div className="max-w-3xl">
-      <div className="mb-5 inline-flex items-center gap-2 border border-primary/20 bg-white/80 px-3.5 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-primary backdrop-blur-sm">
-        <CalendarDays className="h-4 w-4" />
-        Events & Exhibitions
-      </div>
+        {/* Hero Content */}
+        <div className="container relative mx-auto px-5 py-14 sm:px-6 sm:py-20 lg:py-24">
+          <div className="max-w-3xl">
+            <div className="mb-5 inline-flex items-center gap-2 border border-primary/20 bg-white/80 px-3.5 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-primary backdrop-blur-sm">
+              <CalendarDays className="h-4 w-4" />
+              Events & Exhibitions
+            </div>
 
-      <h1
-        className="
+            <h1
+              className="
           font-heading text-4xl font-semibold leading-[1.05]
           tracking-tight text-charcoal
           sm:text-5xl lg:text-6xl
         "
-      >
-        Connecting Ideas,
-        <span className="block text-primary">
-          Engineering & Industry.
-        </span>
-      </h1>
+            >
+              Connecting Ideas,
+              <span className="block text-primary">
+                Engineering & Industry.
+              </span>
+            </h1>
 
-      <p className="mt-6 max-w-2xl text-base leading-7 text-charcoal sm:text-lg">
-        Explore upcoming and past exhibitions, trade fairs and
-        industry events where Khanna PolyRib connects with
-        customers, partners and professionals from across the
-        engineering plastics industry.
-      </p>
-    </div>
-  </div>
-</section>
+            <p className="mt-6 max-w-2xl text-base leading-7 text-charcoal sm:text-lg">
+              Explore upcoming and past exhibitions, trade fairs and industry
+              events where Khanna PolyRib connects with customers, partners and
+              professionals from across the engineering plastics industry.
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* Featured event */}
       {!loading && !error && featuredEvent && (
@@ -235,10 +226,7 @@ export default function EventsPage() {
                 {featuredEvent.coverImage ? (
                   <img
                     src={featuredEvent.coverImage}
-                    alt={
-                      featuredEvent.coverAlt ||
-                      featuredEvent.title
-                    }
+                    alt={featuredEvent.coverAlt || featuredEvent.title}
                     className="
                       h-full w-full object-cover
                       transition-transform duration-700
@@ -267,8 +255,7 @@ export default function EventsPage() {
                     <span className="inline-flex items-center gap-2">
                       <CalendarDays className="h-4 w-4 text-primary" />
                       {featuredStartDate}
-                      {featuredEndDate &&
-                        ` – ${featuredEndDate}`}
+                      {featuredEndDate && ` – ${featuredEndDate}`}
                     </span>
                   )}
 
@@ -297,8 +284,7 @@ export default function EventsPage() {
                   </p>
                 )}
 
-                {(featuredEvent.event?.venue ||
-                  featuredEvent.event?.booth) && (
+                {(featuredEvent.event?.venue || featuredEvent.event?.booth) && (
                   <div className="mt-6 flex flex-wrap gap-2">
                     {featuredEvent.event?.venue && (
                       <span className="bg-surface-subtle px-3 py-2 text-sm text-muted-foreground">
@@ -344,9 +330,7 @@ export default function EventsPage() {
             <input
               type="search"
               value={search}
-              onChange={(event) =>
-                setSearch(event.target.value)
-              }
+              onChange={(event) => setSearch(event.target.value)}
               placeholder="Search events, locations, exhibitions..."
               className="
                 h-11 w-full border border-transparent
@@ -363,9 +347,7 @@ export default function EventsPage() {
           <div className="relative sm:w-44">
             <select
               value={selectedYear}
-              onChange={(event) =>
-                setSelectedYear(event.target.value)
-              }
+              onChange={(event) => setSelectedYear(event.target.value)}
               className="
                 h-11 w-full appearance-none
                 border border-border bg-background
@@ -429,56 +411,52 @@ export default function EventsPage() {
           </div>
         )}
 
-        {!loading &&
-          !error &&
-          filteredItems.length === 0 && (
-            <div className="border border-dashed border-border bg-card px-6 py-16 text-center">
-              <div className="mx-auto flex h-14 w-14 items-center justify-center bg-surface-subtle">
-                <Clock3 className="h-6 w-6 text-muted-foreground" />
+        {!loading && !error && filteredItems.length === 0 && (
+          <div className="border border-dashed border-border bg-card px-6 py-16 text-center">
+            <div className="mx-auto flex h-14 w-14 items-center justify-center bg-surface-subtle">
+              <Clock3 className="h-6 w-6 text-muted-foreground" />
+            </div>
+
+            <h3 className="mt-5 font-heading text-xl font-semibold text-charcoal">
+              No events found
+            </h3>
+
+            <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-muted-foreground">
+              Try changing your search or year filter to find other exhibitions
+              and industry events.
+            </p>
+
+            {(search || selectedYear !== "All") && (
+              <button
+                type="button"
+                onClick={() => {
+                  setSearch("");
+                  setSelectedYear("All");
+                }}
+                className="mt-5 text-sm font-semibold text-primary hover:underline"
+              >
+                Clear filters
+              </button>
+            )}
+          </div>
+        )}
+
+        {!loading && !error && remainingItems.length > 0 && (
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {remainingItems.map((item, index) => (
+              <div
+                key={item.id}
+                className="animate-in fade-in slide-in-from-bottom-3 duration-500"
+                style={{
+                  animationDelay: `${Math.min(index * 70, 420)}ms`,
+                  animationFillMode: "both",
+                }}
+              >
+                <EventCard item={item} />
               </div>
-
-              <h3 className="mt-5 font-heading text-xl font-semibold text-charcoal">
-                No events found
-              </h3>
-
-              <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-muted-foreground">
-                Try changing your search or year filter to find
-                other exhibitions and industry events.
-              </p>
-
-              {(search || selectedYear !== "All") && (
-                <button
-                  type="button"
-                  onClick={() => {
-                    setSearch("");
-                    setSelectedYear("All");
-                  }}
-                  className="mt-5 text-sm font-semibold text-primary hover:underline"
-                >
-                  Clear filters
-                </button>
-              )}
-            </div>
-          )}
-
-        {!loading &&
-          !error &&
-          remainingItems.length > 0 && (
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {remainingItems.map((item, index) => (
-                <div
-                  key={item.id}
-                  className="animate-in fade-in slide-in-from-bottom-3 duration-500"
-                  style={{
-                    animationDelay: `${Math.min(index * 70, 420)}ms`,
-                    animationFillMode: "both",
-                  }}
-                >
-                  <EventCard item={item} />
-                </div>
-              ))}
-            </div>
-          )}
+            ))}
+          </div>
+        )}
       </section>
     </main>
   );
