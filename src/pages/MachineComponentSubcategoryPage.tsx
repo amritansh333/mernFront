@@ -14,6 +14,8 @@ import { BrochureModal } from "@/components/brochure";
 import { buildMachineComponentBreadcrumbs } from "@/lib/machineComponentBreadcrumbs";
 import type { BrochureProductContext } from "@/components/brochure/types";
 import CuttingBoardApplicationsSection from "@/components/machine-components/CuttingBoardApplicationsSection";
+import PadsAdvantagesSection from "@/components/machine-components/PadsAdvantagesSection";
+import IndustriesSection from "@/components/machine-components/IndustriesSection";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -178,6 +180,39 @@ const technicalSpecificationsTable = {
     },
   ],
 } as const;
+
+const industryData: Record<string, string[]> = {
+  "polyrib-strips": [
+    "Mining",
+    "Ports and Stockyards",
+    "Cement",
+    "Steel",
+    "Power Generation",
+    "Quarrying",
+    "Aggregate Processing",
+  ],
+
+  "chopping-board": [
+    "Footwear & Leather",
+    "Automotive",
+    "Textiles & Garments",
+    "Furniture & Upholstery",
+    "Rubber & Gaskets",
+    "Packaging & Paper",
+    "Foam & Mattress",
+    "Industrial Components",
+    "Thermoplastic Processing",
+  ],
+
+  "pop": [
+    "Heavy Equipment",
+    "Construction",
+    "Power",
+    "Oil & Gas",
+    "Shipping",
+    "Logistics",
+  ],
+};
 
 // ============================================================
 // MATERIAL / USES TABLE
@@ -752,6 +787,17 @@ export default function MachineComponentSubcategoryPage() {
   </>
 )}
 
+{subcategory === "pads" && (
+  <PadsAdvantagesSection />
+)}
+
+{/* Product-specific industries */}
+{industryData[subcategory] && (
+  <IndustriesSection
+    industries={industryData[subcategory]}
+  />
+)}
+
 <ApplicationsSection applications={subcategoryData.applications} />
 
           {/* Brochure modal used for Ripla cards on Cutting Board subcategory */}
@@ -766,7 +812,8 @@ export default function MachineComponentSubcategoryPage() {
   // and open the existing BrochureModal.
   subcategory === "cutting-board" ||
   subcategory === "chopping-board" ||
-  subcategory === "pop" ? (
+  subcategory === "pop" ||
+  subcategory === "pads" ? (
     <ProductCardsSection
       products={subcategoryData.products}
       shouldUseCustomClick={(p) => {

@@ -200,10 +200,11 @@ export default function MachineComponentsPage() {
   const slugLower = String(selectedProduct?.slug || "").toLowerCase();
   const subCategorySlug = selectedProduct?.hierarchy?.subCategory?.slug;
   const isRiplaBrochureProduct =
-  (slugLower.includes("ripla") || slugLower.includes("cutrite") || slugLower.includes("pop")) &&
+  (slugLower.includes("ripla") || slugLower.includes("cutrite") || slugLower.includes("pop") || slugLower.includes("pads")) &&
   (subCategorySlug === "cutting-board" ||
     subCategorySlug === "chopping-board" ||
-  subCategorySlug === "pop");
+  subCategorySlug === "pop" ||
+subCategorySlug === "pads");
 
   useEffect(() => {
     if (!isRiplaBrochureProduct) return;
