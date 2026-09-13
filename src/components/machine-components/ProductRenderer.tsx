@@ -142,24 +142,6 @@ export default function ProductRenderer({
         "Specialized POP engineering plastic products for industrial applications.",
       ],
     },
-    {
-      name: "Pipes",
-      slug: "pipes",
-      path: "/products/thermoplastics-machine-components/pipes",
-      image: "/uploads/subcategories/pipes.jpeg",
-      description: [
-        "Engineering thermoplastic pipe solutions with excellent chemical resistance.",
-      ],
-    },
-    {
-      name: "Precision Machined Plastic Parts",
-      slug: "precision-machined-plastic-parts",
-      path: "/products/thermoplastics-machine-components/precision-machined-plastic-parts",
-      image: "/uploads/subcategories/precision-machined-plastic-parts.jpeg",
-      description: [
-        "High precision machined plastic components manufactured for critical applications.",
-      ],
-    },
   ];
 
   const showFullInformation = false;
@@ -183,7 +165,7 @@ export default function ProductRenderer({
 
           <ApplicationsSection applications={applications} />
 
-         {/* <ProductCardsSection products={landingProducts} /> */}
+          
         
 
       {/* Existing product logic - unchanged */}
