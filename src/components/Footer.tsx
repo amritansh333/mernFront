@@ -53,7 +53,6 @@ function getFooterLinks(
       { label: "Blog & Gallery", href: "/blog" },
       { label: "Events", href: "/events" },
       { label: "Resources & Downloads", href: "/resources" },
-      
     ],
     Support: [
       { label: "Contact Us", href: "/contact?tab=quote" },

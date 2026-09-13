@@ -57,9 +57,18 @@ export async function fetchNewsEventBySlug(slug: string) {
     publishedAt: it.publishedAt,
     event: it.event || null,
     body: it.body,
-    gallery: (it.gallery || []).map((g: any) => ({ url: resolveApiAssetUrl(g.url), alt: g.alt, caption: g.caption })),
+    gallery: (it.gallery || []).map((g: any) => ({
+      url: resolveApiAssetUrl(g.url),
+      alt: g.alt,
+      caption: g.caption,
+    })),
     videos: it.videos || [],
     seo: it.seo || {},
-    related: (data.related || []).map((r: any) => ({ id: r.id || r._id, title: r.title, slug: r.slug, coverImage: resolveApiAssetUrl(r.coverImage) })),
+    related: (data.related || []).map((r: any) => ({
+      id: r.id || r._id,
+      title: r.title,
+      slug: r.slug,
+      coverImage: resolveApiAssetUrl(r.coverImage),
+    })),
   };
 }

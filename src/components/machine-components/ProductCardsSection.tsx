@@ -51,7 +51,8 @@ export default function ProductCardsSection({
               : "/placeholder-product.jpg";
 
             const useCustom = Boolean(
-              shouldUseCustomClick?.(product) && typeof onCardClick === "function",
+              shouldUseCustomClick?.(product) &&
+              typeof onCardClick === "function",
             );
 
             // If useCustom is true, render a non-navigation interactive card that
@@ -83,7 +84,6 @@ export default function ProductCardsSection({
             return (
               // @ts-expect-error JSX component variable (Link or div)
               <CardWrapper {...wrapperProps}>
-
                 {/* Product Image */}
 
                 <div className="aspect-[4/3] overflow-hidden bg-slate-50">
@@ -117,7 +117,7 @@ export default function ProductCardsSection({
                     <div className="h-[2px] w-12 bg-[#2BA6D9] transition-all duration-300 group-hover:w-full" />
                   </div>
                 </div>
-              {/* close CardWrapper */}
+                {/* close CardWrapper */}
               </CardWrapper>
             );
           })}

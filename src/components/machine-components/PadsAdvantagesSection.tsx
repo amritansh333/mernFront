@@ -139,18 +139,14 @@ export default function PadsAdvantagesSection() {
       </h2>
 
       <p className="mb-8 max-w-4xl text-sm leading-6 text-[#64748B] sm:text-base">
-        Key advantages of UHMWPE marine fender and fascia pads for port,
-        dock and wharf protection.
+        Key advantages of UHMWPE marine fender and fascia pads for port, dock
+        and wharf protection.
       </p>
 
       {/* Advantages Grid */}
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {advantages.map(({ title, icon: Icon }) => (
-          <AdvantageBox
-            key={title}
-            title={title}
-            icon={Icon}
-          />
+          <AdvantageBox key={title} title={title} icon={Icon} />
         ))}
       </div>
     </section>

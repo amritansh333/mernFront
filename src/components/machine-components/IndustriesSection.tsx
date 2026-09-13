@@ -52,9 +52,7 @@ export default function IndustriesSection({
       </div>
 
       {/* Heading */}
-      <h2 className="mb-4 text-2xl font-bold text-[#0F2A3D]">
-        Industries
-      </h2>
+      <h2 className="mb-4 text-2xl font-bold text-[#0F2A3D]">Industries</h2>
 
       {/* Grid */}
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">

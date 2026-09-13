@@ -36,12 +36,7 @@ const riplaSoftMaterials = [
 ];
 
 // Icons for cutting machines
-const machineIcons = [
-  Scissors,
-  Factory,
-  Workflow,
-  Cog,
-];
+const machineIcons = [Scissors, Factory, Workflow, Cog];
 
 // Icons for soft materials
 const materialIcons = [
@@ -72,10 +67,7 @@ interface ApplicationBoxProps {
   icon: React.ElementType;
 }
 
-function ApplicationBox({
-  title,
-  icon: Icon,
-}: ApplicationBoxProps) {
+function ApplicationBox({ title, icon: Icon }: ApplicationBoxProps) {
   return (
     <div
       className="
@@ -137,7 +129,6 @@ function ApplicationBox({
 export default function CuttingBoardApplicationsSection() {
   return (
     <section className="mb-4 border border-[#276A96]/10 bg-[#F8FAFC] px-6 py-6 sm:p-10">
-
       {/* ======================================================
           BADGE
           ====================================================== */}
@@ -159,8 +150,8 @@ export default function CuttingBoardApplicationsSection() {
       </h2>
 
       <p className="mb-8 max-w-4xl text-sm leading-6 text-[#64748B]">
-        Ripla Cutting boards are available as perfectly suitable boards
-        for several types of cutting machines, cutting processes and tools.
+        Ripla Cutting boards are available as perfectly suitable boards for
+        several types of cutting machines, cutting processes and tools.
       </p>
 
       {/* ======================================================
@@ -194,8 +185,8 @@ export default function CuttingBoardApplicationsSection() {
       </h3>
 
       <p className="mb-4 text-sm leading-6 text-[#64748B]">
-        Ripla Cutting boards can be used from both sides and are suitable
-        for cutting all types of soft materials:
+        Ripla Cutting boards can be used from both sides and are suitable for
+        cutting all types of soft materials:
       </p>
 
       <div className="mb-10 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -217,7 +208,6 @@ export default function CuttingBoardApplicationsSection() {
           ====================================================== */}
 
       <div className="border-t border-[#276A96]/10 pt-8">
-
         <div className="mb-4 inline-flex items-center gap-2 rounded-sm border border-[#279ECE]/20 bg-[#279ECE]/10 px-3 py-1.5">
           <FileUser className="h-3.5 w-3.5 text-[#276A96]" />
 
@@ -227,7 +217,6 @@ export default function CuttingBoardApplicationsSection() {
         </div>
 
         <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
-
           {/* Storage Direction */}
           <ApplicationBox
             title="Boards should be always stored with facing on the ground. Boards should never be stored in standing position."
@@ -239,7 +228,6 @@ export default function CuttingBoardApplicationsSection() {
             title="Board surface should be changed after every shift to prevent warpage of the board."
             icon={Settings}
           />
-
         </div>
       </div>
     </section>

@@ -75,41 +75,35 @@ interface SubcategoryPageData {
 const materialUsesTable = [
   {
     material: "Ripla Kaylon",
-    uses:
-      "Very High hardness boards for On-bridge and roller type cutting installation. Universal, especially on roller-cutting presses.",
+    uses: "Very High hardness boards for On-bridge and roller type cutting installation. Universal, especially on roller-cutting presses.",
     cuttingMaterial: "Textile synthetics and other soft materials",
   },
   {
     material: "Ripla Cutrite",
-    uses:
-      "Cutting board for manual cuts, e.g. in Pattern Departments.",
+    uses: "Cutting board for manual cuts, e.g. in Pattern Departments.",
     cuttingMaterial: "—",
   },
   {
     material: "Ripla HIH",
-    uses:
-      "Most Versatile Board of high strength, high hardness and low impact for multiple applications.",
+    uses: "Most Versatile Board of high strength, high hardness and low impact for multiple applications.",
     cuttingMaterial:
       "Leather, leather fibre material, paper cardboard articles (round with inner bore for envelopes), shoe uppers and specially suitable for safety footwear and hand cutting. Also suitable for Textile and Components Industries.",
   },
   {
     material: "Ripla HIK",
-    uses:
-      "Multi-purpose high quality Boards with high impact strength, low bending and warpage.",
+    uses: "Multi-purpose high quality Boards with high impact strength, low bending and warpage.",
     cuttingMaterial:
       "Leather, soft materials, shoe industry. Its application is most for bag cutting and fashion Shoe Upper.",
   },
   {
     material: "Ripla Hitech",
-    uses:
-      "Higher life, high quality, high impact strength, high hardness board. Perfect substitute for any imported board.",
+    uses: "Higher life, high quality, high impact strength, high hardness board. Perfect substitute for any imported board.",
     cuttingMaterial:
       "Cutting boards for swing arm cutting machines. Leather, insole materials for high pressure application and specially used for Gloves Cutting Machine.",
   },
   {
     material: "Ripla KET",
-    uses:
-      "Cutting board for universal use; also as one-way cutting board of 3–12 mm thickness.",
+    uses: "Cutting board for universal use; also as one-way cutting board of 3–12 mm thickness.",
     cuttingMaterial:
       "Textiles, felts, fleeces, foam plastic, leather, insole materials, rubber, foils and other soft materials.",
   },
@@ -204,7 +198,7 @@ const industryData: Record<string, string[]> = {
     "Thermoplastic Processing",
   ],
 
-  "pop": [
+  pop: [
     "Heavy Equipment",
     "Construction",
     "Power",
@@ -260,11 +254,7 @@ function MaterialUsesTable() {
                 {materialUsesTable.map((row, index) => (
                   <tr
                     key={row.material}
-                    className={
-                      index % 2 === 0
-                        ? "bg-white"
-                        : "bg-[#F7FAFC]"
-                    }
+                    className={index % 2 === 0 ? "bg-white" : "bg-[#F7FAFC]"}
                   >
                     <td className="border-r border-t border-[#D9E4EA] px-5 py-5 align-top text-sm font-semibold text-[#0B3B5D]">
                       {row.material}
@@ -292,7 +282,6 @@ function MaterialUsesTable() {
     </section>
   );
 }
-
 
 // ============================================================
 // TECHNICAL SPECIFICATIONS TABLE
@@ -344,20 +333,14 @@ function TechnicalSpecificationsTable() {
                 {rows.map((row, rowIndex) => (
                   <tr
                     key={row.parameter}
-                    className={
-                      rowIndex % 2 === 0
-                        ? "bg-white"
-                        : "bg-[#F7FAFC]"
-                    }
+                    className={rowIndex % 2 === 0 ? "bg-white" : "bg-[#F7FAFC]"}
                   >
                     {/* Sticky first column makes the table easier to use
                         on mobile while horizontally scrolling. */}
                     <td
                       className={[
                         "sticky left-0 z-[1] min-w-[210px] border-r border-t border-[#D9E4EA] px-4 py-4 align-top text-sm font-semibold text-[#0B3B5D]",
-                        rowIndex % 2 === 0
-                          ? "bg-white"
-                          : "bg-[#F7FAFC]",
+                        rowIndex % 2 === 0 ? "bg-white" : "bg-[#F7FAFC]",
                       ].join(" ")}
                     >
                       {row.parameter}
@@ -376,9 +359,7 @@ function TechnicalSpecificationsTable() {
                         key={`${row.parameter}-${headers[valueIndex + 3]}`}
                         className={[
                           "min-w-[145px] border-t border-[#D9E4EA] px-4 py-4 align-top text-sm leading-6 text-[#425466]",
-                          valueIndex < row.values.length - 1
-                            ? "border-r"
-                            : "",
+                          valueIndex < row.values.length - 1 ? "border-r" : "",
                         ].join(" ")}
                       >
                         {value}
@@ -427,7 +408,6 @@ const riplaSoftMaterials = [
   "Thermoplastic materials",
 ] as const;
 
-
 export default function MachineComponentSubcategoryPage() {
   const location = useLocation();
 
@@ -457,9 +437,10 @@ export default function MachineComponentSubcategoryPage() {
 
   // Brochure modal state for brochure-based product cards on brochure subcategories
   const [isBrochureOpen, setIsBrochureOpen] = useState(false);
-  const [brochureProductContext, setBrochureProductContext] = useState<
-    BrochureProductContext
-  >({ currentRoute: `${location.pathname}${location.search}${location.hash}` });
+  const [brochureProductContext, setBrochureProductContext] =
+    useState<BrochureProductContext>({
+      currentRoute: `${location.pathname}${location.search}${location.hash}`,
+    });
 
   useEffect(() => {
     if (!subcategory) return;
@@ -772,33 +753,29 @@ export default function MachineComponentSubcategoryPage() {
             showActionButtons
           />
           <SpecificationsSection
-  specifications={subcategoryData.specifications}
-/>
+            specifications={subcategoryData.specifications}
+          />
 
-{/* ============================================================
+          {/* ============================================================
     RIPLA CUTTING BOARD TABLES
     Only displayed on the Cutting Board subcategory.
     ============================================================ */}
-{subcategory === "cutting-board" && (
-  <>
-    <MaterialUsesTable />
-    <TechnicalSpecificationsTable />
-    <CuttingBoardApplicationsSection />
-  </>
-)}
+          {subcategory === "cutting-board" && (
+            <>
+              <MaterialUsesTable />
+              <TechnicalSpecificationsTable />
+              <CuttingBoardApplicationsSection />
+            </>
+          )}
 
-{subcategory === "pads" && (
-  <PadsAdvantagesSection />
-)}
+          {subcategory === "pads" && <PadsAdvantagesSection />}
 
-{/* Product-specific industries */}
-{industryData[subcategory] && (
-  <IndustriesSection
-    industries={industryData[subcategory]}
-  />
-)}
+          {/* Product-specific industries */}
+          {industryData[subcategory] && (
+            <IndustriesSection industries={industryData[subcategory]} />
+          )}
 
-<ApplicationsSection applications={subcategoryData.applications} />
+          <ApplicationsSection applications={subcategoryData.applications} />
 
           {/* Brochure modal used for Ripla cards on Cutting Board subcategory */}
           <BrochureModal
@@ -808,64 +785,59 @@ export default function MachineComponentSubcategoryPage() {
           />
 
           {
-  // For Cutting Board and Chopping Board, intercept clicks on Ripla products
-  // and open the existing BrochureModal.
-  subcategory === "cutting-board" ||
-  subcategory === "chopping-board" ||
-  subcategory === "pop" ||
-  subcategory === "pads" ? (
-    <ProductCardsSection
-      products={subcategoryData.products}
-      shouldUseCustomClick={(p) => {
-        const slug = (p?.slug || "").toLowerCase();
-        // Brochure flow for RIPLA (cutting boards) and CUTRITE (chopping boards)
-        return slug.includes("ripla") || slug.includes("cutrite");
-      }}
-      onCardClick={(p) => {
-        const productSlug = p.slug || "";
+            // For Cutting Board and Chopping Board, intercept clicks on Ripla products
+            // and open the existing BrochureModal.
+            subcategory === "cutting-board" ||
+            subcategory === "chopping-board" ||
+            subcategory === "pop" ||
+            subcategory === "pads" ? (
+              <ProductCardsSection
+                products={subcategoryData.products}
+                shouldUseCustomClick={(p) => {
+                  const slug = (p?.slug || "").toLowerCase();
+                  // Brochure flow for RIPLA (cutting boards) and CUTRITE (chopping boards)
+                  return slug.includes("ripla") || slug.includes("cutrite");
+                }}
+                onCardClick={(p) => {
+                  const productSlug = p.slug || "";
 
-        const breadcrumbs = buildMachineComponentBreadcrumbs(
-          machineData,
-          productSlug,
-          location.pathname,
-        )
-          .map((b) => b.label)
-          .filter((l) => l && l !== "Home");
+                  const breadcrumbs = buildMachineComponentBreadcrumbs(
+                    machineData,
+                    productSlug,
+                    location.pathname,
+                  )
+                    .map((b) => b.label)
+                    .filter((l) => l && l !== "Home");
 
-        const currentRoute =
-          `${location.pathname}${location.search}${location.hash}`;
+                  const currentRoute = `${location.pathname}${location.search}${location.hash}`;
 
-        const canonical = machineData?.products?.[productSlug];
+                  const canonical = machineData?.products?.[productSlug];
 
-        const canonicalId =
-          canonical?._id ||
-          (canonical as unknown as { id?: string })?.id ||
-          undefined;
+                  const canonicalId =
+                    canonical?._id ||
+                    (canonical as unknown as { id?: string })?.id ||
+                    undefined;
 
-        if (typeof p.path === "string") {
-          navigate(p.path);
-        }
+                  if (typeof p.path === "string") {
+                    navigate(p.path);
+                  }
 
-        setBrochureProductContext({
-          productId: canonicalId,
-          productSlug,
-          productName: p.name,
-          breadcrumbLabels:
-            breadcrumbs.length > 0
-              ? breadcrumbs
-              : [p.name || ""],
-          currentRoute,
-        });
+                  setBrochureProductContext({
+                    productId: canonicalId,
+                    productSlug,
+                    productName: p.name,
+                    breadcrumbLabels:
+                      breadcrumbs.length > 0 ? breadcrumbs : [p.name || ""],
+                    currentRoute,
+                  });
 
-        setIsBrochureOpen(true);
-      }}
-    />
-  ) : (
-    <ProductCardsSection products={subcategoryData.products} />
-  )
-}
-
-          
+                  setIsBrochureOpen(true);
+                }}
+              />
+            ) : (
+              <ProductCardsSection products={subcategoryData.products} />
+            )
+          }
         </section>
       </div>
     </main>

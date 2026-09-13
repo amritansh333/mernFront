@@ -1,7 +1,7 @@
 export type MachineComponentValue =
   string | number | boolean | string[] | number[] | null | undefined;
 
-  export interface MachineComponentHierarchyNode {
+export interface MachineComponentHierarchyNode {
   _id?: string;
   id?: string;
   slug?: string;

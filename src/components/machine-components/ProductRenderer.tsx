@@ -158,18 +158,12 @@ export default function ProductRenderer({
 
       {/* Landing page only */}
       {/* Landing page only */}
-      
-          
 
-          <SpecificationsSection specifications={specifications} />
+      <SpecificationsSection specifications={specifications} />
 
-          <ApplicationsSection applications={applications} />
-
-          
-        
+      <ApplicationsSection applications={applications} />
 
       {/* Existing product logic - unchanged */}
-    
     </>
   );
 }
