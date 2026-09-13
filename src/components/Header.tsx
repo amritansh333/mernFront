@@ -110,6 +110,7 @@ function getNavItems(
         { label: "CSR & Sustainability", href: "/csr" },
         { label: "Careers", href: "/careers" },
         { label: "Blog & Gallery", href: "/blog" },
+        { label: "Events", href: "/events" },
         { label: "Resources & Downloads", href: "/resources" },
         { label: "Contact", href: "/contact?tab=quote" },
       ],

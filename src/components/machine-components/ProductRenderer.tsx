@@ -1,7 +1,7 @@
 import ApplicationsSection from "@/components/machine-components/ApplicationsSection";
 import SpecificationsSection from "@/components/machine-components/SpecificationsSection";
 import HeroSection from "@/components/machine-components/HeroSection";
-import ProductCardsSection from "@/components/machine-components/ProductCardsSection";
+//import ProductCardsSection from "@/components/machine-components/ProductCardsSection";
 
 import type {
   MachineComponentDownload,
@@ -65,7 +65,7 @@ export default function ProductRenderer({
   const machineSpecifications = product?.machineComponentData?.specifications;
 
   const downloads = getDownloads(product);
-  const isLandingPage = product?.slug === "thermoplastics-machine-components";
+  //const isLandingPage = product?.slug === "thermoplastics-machine-components";
 
   const specifications = machineSpecifications ?? product?.specifications;
 
@@ -176,22 +176,18 @@ export default function ProductRenderer({
 
       {/* Landing page only */}
       {/* Landing page only */}
-      {isLandingPage && (
-        <>
-          <ProductCardsSection products={landingProducts} />
+      
+          
 
           <SpecificationsSection specifications={specifications} />
 
           <ApplicationsSection applications={applications} />
-        </>
-      )}
+
+         {/* <ProductCardsSection products={landingProducts} /> */}
+        
 
       {/* Existing product logic - unchanged */}
-      {showFullInformation && !isLandingPage && (
-        <>
-          <ApplicationsSection applications={applications} />
-        </>
-      )}
+    
     </>
   );
 }

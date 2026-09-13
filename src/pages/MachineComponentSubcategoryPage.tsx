@@ -408,12 +408,25 @@ export default function MachineComponentSubcategoryPage() {
             downloads={subcategoryData.downloads}
             showActionButtons
           />
+          <SpecificationsSection
+            specifications={subcategoryData.specifications}
+          />
+
+          <ApplicationsSection applications={subcategoryData.applications} />
+
+          {/* Brochure modal used for Ripla cards on Cutting Board subcategory */}
+          <BrochureModal
+            open={isBrochureOpen}
+            onOpenChange={setIsBrochureOpen}
+            productContext={brochureProductContext}
+          />
 
           {
   // For Cutting Board and Chopping Board, intercept clicks on Ripla products
   // and open the existing BrochureModal.
   subcategory === "cutting-board" ||
-  subcategory === "chopping-board" ? (
+  subcategory === "chopping-board" ||
+  subcategory === "pop" ? (
     <ProductCardsSection
       products={subcategoryData.products}
       shouldUseCustomClick={(p) => {
@@ -465,18 +478,7 @@ export default function MachineComponentSubcategoryPage() {
   )
 }
 
-          <SpecificationsSection
-            specifications={subcategoryData.specifications}
-          />
-
-          <ApplicationsSection applications={subcategoryData.applications} />
-
-          {/* Brochure modal used for Ripla cards on Cutting Board subcategory */}
-          <BrochureModal
-            open={isBrochureOpen}
-            onOpenChange={setIsBrochureOpen}
-            productContext={brochureProductContext}
-          />
+          
         </section>
       </div>
     </main>

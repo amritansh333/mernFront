@@ -32,6 +32,10 @@ function getFooterLinks(
         label: "Strips & Profiles",
         href: "/products/thermoplastics-machine-components/strips-and-profiles",
       },
+      {
+        label: "Application Ready Sheets",
+        href: "/products/thermoplastics-machine-components/application-ready-sheets",
+      },
     ],
     Materials: [
       { label: "POLYRIB V (UHMW PE)", href: "/materials/uhmwpe" },
@@ -46,8 +50,10 @@ function getFooterLinks(
       { label: "Industries", href: "/industries" },
       { label: "CSR & Sustainability", href: "/csr" },
       { label: "Careers", href: "/careers" },
-      { label: "Resources & Downloads", href: "/resources" },
       { label: "Blog & Gallery", href: "/blog" },
+      { label: "Events", href: "/events" },
+      { label: "Resources & Downloads", href: "/resources" },
+      
     ],
     Support: [
       { label: "Contact Us", href: "/contact?tab=quote" },

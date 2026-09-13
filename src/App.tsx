@@ -10,6 +10,8 @@ import { CookieConsentManager } from "@/components/cookie-consent";
 import Index from "@/pages/Index";
 import AboutPage from "@/pages/AboutPage";
 import BlogPage from "@/pages/BlogPage";
+import EventsPage from "@/pages/EventsPage";
+import EventDetailPage from "@/pages/EventDetailPage";
 import BlogDetailPage from "@/pages/BlogDetailPage";
 import CareersPage from "@/pages/CareersPage";
 import ContactPage from "@/pages/ContactPage";
@@ -37,6 +39,8 @@ function App() {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/blog/:slug" element={<BlogDetailPage />} />
+          <Route path="/events" element={<EventsPage />} />
+          <Route path="/events/:slug" element={<EventDetailPage />} />
           <Route path="/careers" element={<CareersPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/csr" element={<CSRPage />} />
