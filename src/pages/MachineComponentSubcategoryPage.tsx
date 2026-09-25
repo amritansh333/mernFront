@@ -283,7 +283,6 @@ function MaterialUsesTable() {
   );
 }
 
-
 // ============================================================
 // PCCLEAR - PRODUCTION PROGRAM
 // ============================================================
@@ -462,9 +461,7 @@ function PCClearProductionProgram() {
                 {pcClearProductionProgram.map((row, index) => (
                   <tr
                     key={row.thickness}
-                    className={
-                      index % 2 === 0 ? "bg-white" : "bg-[#F7FAFC]"
-                    }
+                    className={index % 2 === 0 ? "bg-white" : "bg-[#F7FAFC]"}
                   >
                     <td className="border-r border-t border-[#D9E4EA] px-5 py-2.5 text-sm font-semibold text-[#0B3B5D]">
                       {row.thickness}
@@ -495,8 +492,6 @@ function PCClearProductionProgram() {
     </section>
   );
 }
-
-
 
 // ============================================================
 // PCCLEAR - TECHNICAL DATA SHEET
@@ -730,8 +725,6 @@ function PCClearTechnicalDataSheet() {
     </section>
   );
 }
-
-
 
 // ============================================================
 // TECHNICAL SPECIFICATIONS TABLE
@@ -1220,23 +1213,23 @@ export default function MachineComponentSubcategoryPage() {
 
           {subcategory === "pads" && <PadsAdvantagesSection />}
 
-{/* ============================================================
+          {/* ============================================================
     PCCLEAR - VACUUM FORMED PLASTIC PARTS
     Production Program + Technical Data Sheet
     ============================================================ */}
-{subcategory === "vacuum-formed-plastic-parts" && (
-  <>
-    <PCClearProductionProgram />
-    <PCClearTechnicalDataSheet />
-  </>
-)}
+          {subcategory === "vacuum-formed-plastic-parts" && (
+            <>
+              <PCClearProductionProgram />
+              <PCClearTechnicalDataSheet />
+            </>
+          )}
 
-{/* Product-specific industries */}
-{industryData[subcategory] && (
-  <IndustriesSection industries={industryData[subcategory]} />
-)}
+          {/* Product-specific industries */}
+          {industryData[subcategory] && (
+            <IndustriesSection industries={industryData[subcategory]} />
+          )}
 
-<ApplicationsSection applications={subcategoryData.applications} />
+          <ApplicationsSection applications={subcategoryData.applications} />
 
           {/* Brochure modal used for Ripla cards on Cutting Board subcategory */}
           <BrochureModal

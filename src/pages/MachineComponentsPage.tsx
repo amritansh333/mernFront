@@ -22,6 +22,9 @@ import SidebarSearch from "@/components/machine-components/SidebarSearch";
 import { useMachineComponents } from "@/hooks/useMachineComponents";
 import { Link } from "react-router-dom";
 import { buildMachineComponentBreadcrumbs } from "@/lib/machineComponentBreadcrumbs";
+
+import PCClearBasePlateLouversSection from "@/components/machine-components/PCClearBasePlateLouversSection";
+
 import { resolveApiAssetUrl } from "@/lib/assetUrl";
 
 export default function MachineComponentsPage() {
@@ -540,6 +543,18 @@ export default function MachineComponentsPage() {
               products={machineData?.products}
               sidebar={machineData?.sidebar}
             />
+
+            {/* ============================================================
+    PCCLEAR BASE PLATE / LOUVERS
+    Displayed AFTER ProductRenderer so it appears after the
+    Applications / Where It's Used section.
+    ============================================================ */}
+            {(selectedProduct?.slug === "pcclear-base-plate" ||
+              selectedProduct?.slug === "pcclear-louvers") && (
+              <PCClearBasePlateLouversSection
+                productSlug={selectedProduct?.slug}
+              />
+            )}
 
             {selectedProduct?.slug !== "thermoplastics-machine-components" && (
               <div className="mx-auto max-w-7xl px-5 pb-6 lg:px-10">
