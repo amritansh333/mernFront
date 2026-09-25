@@ -283,6 +283,456 @@ function MaterialUsesTable() {
   );
 }
 
+
+// ============================================================
+// PCCLEAR - PRODUCTION PROGRAM
+// ============================================================
+
+const pcClearProductionProgram = [
+  {
+    thickness: "1.2",
+    sheet: "Yes",
+    roll: "",
+    embossed: "",
+  },
+  {
+    thickness: "1.5",
+    sheet: "Yes",
+    roll: "Yes",
+    embossed: "Yes",
+  },
+  {
+    thickness: "1.75",
+    sheet: "Yes",
+    roll: "Yes",
+    embossed: "Yes",
+  },
+  {
+    thickness: "2",
+    sheet: "Yes",
+    roll: "Yes",
+    embossed: "Yes",
+  },
+  {
+    thickness: "2.25",
+    sheet: "Yes",
+    roll: "Yes",
+    embossed: "Yes",
+  },
+  {
+    thickness: "2.5",
+    sheet: "Yes",
+    roll: "Yes",
+    embossed: "Yes",
+  },
+  {
+    thickness: "2.75",
+    sheet: "Yes",
+    roll: "Yes",
+    embossed: "Yes",
+  },
+  {
+    thickness: "3",
+    sheet: "Yes",
+    roll: "Yes",
+    embossed: "Yes",
+  },
+  {
+    thickness: "3.25",
+    sheet: "Yes",
+    roll: "",
+    embossed: "Yes",
+  },
+  {
+    thickness: "3.5",
+    sheet: "Yes",
+    roll: "",
+    embossed: "Yes",
+  },
+  {
+    thickness: "3.75",
+    sheet: "Yes",
+    roll: "",
+    embossed: "Yes",
+  },
+  {
+    thickness: "4",
+    sheet: "Yes",
+    roll: "",
+    embossed: "Yes",
+  },
+  {
+    thickness: "4.25",
+    sheet: "Yes",
+    roll: "",
+    embossed: "Yes",
+  },
+  {
+    thickness: "4.5",
+    sheet: "Yes",
+    roll: "",
+    embossed: "Yes",
+  },
+  {
+    thickness: "4.75",
+    sheet: "Yes",
+    roll: "",
+    embossed: "Yes",
+  },
+  {
+    thickness: "5",
+    sheet: "Yes",
+    roll: "",
+    embossed: "Yes",
+  },
+  {
+    thickness: "5.75",
+    sheet: "Yes",
+    roll: "",
+    embossed: "",
+  },
+  {
+    thickness: "6",
+    sheet: "Yes",
+    roll: "",
+    embossed: "",
+  },
+  {
+    thickness: "8",
+    sheet: "Yes",
+    roll: "",
+    embossed: "",
+  },
+  {
+    thickness: "10",
+    sheet: "Yes",
+    roll: "",
+    embossed: "",
+  },
+  {
+    thickness: "12",
+    sheet: "Yes",
+    roll: "",
+    embossed: "",
+  },
+] as const;
+
+function PCClearProductionProgram() {
+  return (
+    <section className="border-t border-divider bg-background px-4 py-12 sm:px-6 lg:px-8 xl:px-10">
+      <div className="mx-auto max-w-[1400px]">
+        <div className="mb-6">
+          <div className="mb-3 inline-flex items-center border border-[#A9D8EB] bg-[#F5FBFE] px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#258FC0]">
+            PRODUCTION PROGRAM
+          </div>
+
+          <h2 className="text-2xl font-bold tracking-tight text-[#082B49] sm:text-3xl">
+            PCClear Production Program
+          </h2>
+
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-muted-foreground sm:text-base">
+            Available PCClear thicknesses and production formats.
+          </p>
+        </div>
+
+        <div className="overflow-hidden rounded-lg border border-[#D9E4EA] bg-white shadow-sm">
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[650px] border-collapse text-left">
+              <thead>
+                <tr className="bg-[#21678E] text-white">
+                  <th className="w-[25%] border-r border-white/20 px-5 py-3 text-sm font-semibold">
+                    Thickness (mm)
+                  </th>
+
+                  <th className="w-[25%] border-r border-white/20 px-5 py-3 text-sm font-semibold text-center">
+                    Sheet
+                  </th>
+
+                  <th className="w-[25%] border-r border-white/20 px-5 py-3 text-sm font-semibold text-center">
+                    Roll
+                  </th>
+
+                  <th className="w-[25%] px-5 py-3 text-sm font-semibold text-center">
+                    Embossed
+                  </th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {pcClearProductionProgram.map((row, index) => (
+                  <tr
+                    key={row.thickness}
+                    className={
+                      index % 2 === 0 ? "bg-white" : "bg-[#F7FAFC]"
+                    }
+                  >
+                    <td className="border-r border-t border-[#D9E4EA] px-5 py-2.5 text-sm font-semibold text-[#0B3B5D]">
+                      {row.thickness}
+                    </td>
+
+                    <td className="border-r border-t border-[#D9E4EA] px-5 py-2.5 text-center text-sm text-[#425466]">
+                      {row.sheet}
+                    </td>
+
+                    <td className="border-r border-t border-[#D9E4EA] px-5 py-2.5 text-center text-sm text-[#425466]">
+                      {row.roll}
+                    </td>
+
+                    <td className="border-t border-[#D9E4EA] px-5 py-2.5 text-center text-sm text-[#425466]">
+                      {row.embossed}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="border-t border-[#D9E4EA] bg-[#F7FAFC] px-4 py-2 text-center text-xs text-muted-foreground sm:hidden">
+            Swipe horizontally to view the complete production program
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+
+
+// ============================================================
+// PCCLEAR - TECHNICAL DATA SHEET
+// ============================================================
+
+const pcClearTechnicalData = [
+  {
+    category: "GENERAL",
+    rows: [
+      {
+        property: "Density",
+        method: "ISO 1183",
+        unit: "g/cm³",
+        value: "1.2",
+      },
+      {
+        property: "Light Transmission (Depending on Thickness)",
+        method: "ASTM D 1003",
+        unit: "%",
+        value: "81 - 90",
+      },
+      {
+        property: "Light Transmission",
+        method: "ISO 489",
+        unit: "%",
+        value: "1,585",
+      },
+    ],
+  },
+  {
+    category: "MECHANICAL",
+    rows: [
+      {
+        property: "Tensile Strength at yield",
+        method: "ISO 527-2",
+        unit: "MPa",
+        value: "63",
+      },
+      {
+        property: "Tensile Modulus",
+        method: "ISO 527-2",
+        unit: "MPa",
+        value: "2300",
+      },
+      {
+        property: "Elongation at break",
+        method: "ISO 527-2",
+        unit: "%",
+        value: ">100",
+      },
+      {
+        property: "Elongation at yield",
+        method: "ISO 527-2",
+        unit: "%",
+        value: "6",
+      },
+      {
+        property: "Flexural Modulus",
+        method: "ISO 178",
+        unit: "MPa",
+        value: "2330",
+      },
+      {
+        property: "Charpy Un-notched",
+        method: "ISO 179",
+        unit: "kJ/m²",
+        value: "Not Break",
+      },
+      {
+        property: "Izod Impact notched",
+        method: "ISO 180a",
+        unit: "kJ/m²",
+        value: ">65",
+      },
+    ],
+  },
+  {
+    category: "THERMAL",
+    rows: [
+      {
+        property: "Temp of deflection (HDT) Under load of 1.8MPa",
+        method: "ISO 75-1",
+        unit: "°C",
+        value: "130",
+      },
+      {
+        property: "Vicat softening temp (50°C/h 50N)",
+        method: "ISO 306",
+        unit: "°C",
+        value: "144",
+      },
+      {
+        property: "Thermal conductivity",
+        method: "DIN52612",
+        unit: "W/m × °C",
+        value: "0.2",
+      },
+      {
+        property: "Coefficient of linear thermal expansion 0-50°C",
+        method: "ISO 11359",
+        unit: "mm/(m × 1/°C)",
+        value: "0.070",
+      },
+      {
+        property: "GWFI (Glow-Wire flammability index)",
+        method: "IEC60695-2",
+        unit: "°C",
+        value: "900",
+      },
+    ],
+  },
+  {
+    category: "ELECTRICAL",
+    rows: [
+      {
+        property: "Volume Resistivity",
+        method: "IEC 60093",
+        unit: "Ω × cm",
+        value: "3 × 10¹⁴",
+      },
+      {
+        property: "Surface resistivity, dry",
+        method: "IEC 60093",
+        unit: "Ω",
+        value: "6 × 10¹⁵",
+      },
+      {
+        property: "Dissipation Factor 1MHz",
+        method: "IEC 60250",
+        unit: "",
+        value: "0.009",
+      },
+      {
+        property: "Dissipation Factor 100Hz",
+        method: "IEC 60250",
+        unit: "",
+        value: "0.0006",
+      },
+    ],
+  },
+] as const;
+
+function PCClearTechnicalDataSheet() {
+  return (
+    <section className="border-t border-divider bg-[#F7FAFC] px-4 py-12 sm:px-6 lg:px-8 xl:px-10">
+      <div className="mx-auto max-w-[1400px]">
+        <div className="mb-6">
+          <div className="mb-3 inline-flex items-center border border-[#A9D8EB] bg-white px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#258FC0]">
+            TECHNICAL DATA
+          </div>
+
+          <h2 className="text-2xl font-bold tracking-tight text-[#082B49] sm:text-3xl">
+            PCClear Technical Data Sheet
+          </h2>
+
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-muted-foreground sm:text-base">
+            Technical properties and test data for PCClear material.
+          </p>
+        </div>
+
+        <div className="overflow-hidden rounded-lg border border-gray bg-white shadow-sm">
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[900px] border-collapse text-left">
+              <thead>
+                <tr className="bg-[#21678E] text-white">
+                  <th className="w-[40%] border-r border-white/20 px-5 py-3 text-sm font-semibold">
+                    General Properties
+                  </th>
+
+                  <th className="w-[23%] border-r border-white/20 px-5 py-3 text-sm font-semibold">
+                    Method
+                  </th>
+
+                  <th className="w-[17%] border-r border-white/20 px-5 py-3 text-sm font-semibold">
+                    Units
+                  </th>
+
+                  <th className="w-[20%] px-5 py-3 text-sm font-semibold">
+                    Value
+                  </th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {pcClearTechnicalData.map((section) => (
+                  <>
+                    <tr key={`${section.category}-heading`}>
+                      <td
+                        colSpan={4}
+                        className="border-t border-[#D9E4EA] bg-[#F7FAFC] px-5 py-2 text-xs font-bold uppercase tracking-wide text-black"
+                      >
+                        {section.category}
+                      </td>
+                    </tr>
+
+                    {section.rows.map((row, index) => (
+                      <tr
+                        key={`${section.category}-${row.property}`}
+                        className={
+                          index % 2 === 0 ? "bg-[#2E91C4]" : "bg-[#3198CA]"
+                        }
+                      >
+                        <td className="border-r border-t border-white/40 px-5 py-2 text-sm font-medium text-white">
+                          {row.property}
+                        </td>
+
+                        <td className="border-r border-t border-white/40 px-5 py-2 text-sm text-white">
+                          {row.method}
+                        </td>
+
+                        <td className="border-r border-t border-white/40 px-5 py-2 text-sm text-white">
+                          {row.unit || "—"}
+                        </td>
+
+                        <td className="border-t border-white/40 px-5 py-2 text-sm font-medium text-white">
+                          {row.value}
+                        </td>
+                      </tr>
+                    ))}
+                  </>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="border-t border-[#D9E4EA] bg-[#F7FAFC] px-4 py-2 text-center text-xs text-muted-foreground sm:hidden">
+            Swipe horizontally to view the complete technical data sheet
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+
+
 // ============================================================
 // TECHNICAL SPECIFICATIONS TABLE
 // ============================================================
@@ -770,12 +1220,23 @@ export default function MachineComponentSubcategoryPage() {
 
           {subcategory === "pads" && <PadsAdvantagesSection />}
 
-          {/* Product-specific industries */}
-          {industryData[subcategory] && (
-            <IndustriesSection industries={industryData[subcategory]} />
-          )}
+{/* ============================================================
+    PCCLEAR - VACUUM FORMED PLASTIC PARTS
+    Production Program + Technical Data Sheet
+    ============================================================ */}
+{subcategory === "vacuum-formed-plastic-parts" && (
+  <>
+    <PCClearProductionProgram />
+    <PCClearTechnicalDataSheet />
+  </>
+)}
 
-          <ApplicationsSection applications={subcategoryData.applications} />
+{/* Product-specific industries */}
+{industryData[subcategory] && (
+  <IndustriesSection industries={industryData[subcategory]} />
+)}
+
+<ApplicationsSection applications={subcategoryData.applications} />
 
           {/* Brochure modal used for Ripla cards on Cutting Board subcategory */}
           <BrochureModal
