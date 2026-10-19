@@ -280,11 +280,11 @@ const MATERIAL_FAMILIES = [
     slug: "pps",
     colour: "bg-emerald-50 text-emerald-700 border-emerald-200",
     tagline: "UV-Stabilised Speciality PP Sheets",
-    desc: "Premium UV-stabilised PP sheets for outdoor, roofing, vacuum forming, and gate liner applications. Includes embossed, cloth-lined, and dual-coloured variants.",
+    desc: "Premium UV-stabilised PP sheets for outdoor, roofing, and gate liner applications. Includes embossed, and dual-coloured variants.",
     grades: [
       "DIPRA AD CLEAR",
       "DIPRA EMBOSSED GATE LINER",
-      "DIPRA PPGL UVIOFAST ROOF LINER",
+      "DIPRA UVIOFAST ROOF LINER",
       "POLYRIB PP EMBOSSED",
       "POLYRIB PP DUAL",
       "POLYRIB PP UV",
@@ -299,7 +299,6 @@ const MATERIAL_FAMILIES = [
     keyProps: [
       "UV-stabilised outdoor grades",
       "Cloth-lined roofing liner",
-      "Embossed vacuum forming",
       "Talc-filled for stiffness",
       "Dual-colour co-extruded",
       "Gate and door liner applications",

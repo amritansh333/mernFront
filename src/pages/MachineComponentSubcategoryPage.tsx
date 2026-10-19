@@ -291,8 +291,8 @@ const pcClearProductionProgram = [
   {
     thickness: "1.2",
     sheet: "Yes",
-    roll: "",
-    embossed: "",
+    roll: "Yes",
+    embossed: "Yes",
   },
   {
     thickness: "1.5",
@@ -339,25 +339,25 @@ const pcClearProductionProgram = [
   {
     thickness: "3.25",
     sheet: "Yes",
-    roll: "",
+    roll: "Yes",
     embossed: "Yes",
   },
   {
     thickness: "3.5",
     sheet: "Yes",
-    roll: "",
+    roll: "Yes",
     embossed: "Yes",
   },
   {
     thickness: "3.75",
     sheet: "Yes",
-    roll: "",
+    roll: "Yes",
     embossed: "Yes",
   },
   {
     thickness: "4",
     sheet: "Yes",
-    roll: "",
+    roll: "Yes",
     embossed: "Yes",
   },
   {
