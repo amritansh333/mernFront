@@ -9,7 +9,7 @@ function getFooterLinks(
   return {
     Products: [
       {
-        label: "Semi-Finished Products",
+        label: "SEMI-FINISHED PRODUCTS",
         href: "/products/thermoplastics-semi-finished-products",
       },
       {
@@ -25,7 +25,7 @@ function getFooterLinks(
         href: "/products/thermoplastics-semi-finished-products/coils-rolls",
       },
       {
-        label: "Machine Components",
+        label: "ENGINEERED PRODUCTS",
         href: "/products/thermoplastics-machine-components",
       },
       {

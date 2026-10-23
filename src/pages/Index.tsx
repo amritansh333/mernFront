@@ -910,7 +910,7 @@ const Index = () => {
               tag="Semi-Finished"
             />
             <ProductCategoryCard
-              title="Thermoplastic Machine Components"
+              title="Thermoplastic Engineered Products"
               description="RIPLA cutting boards, CUTRITE chopping boards, ARETE composite liners, POLYLIMB Orthopaedic Sheets, Strips & Profiles, Vacuum Formed Parts and Precision Machined Plastic Components — all manufactured in Polyrib's proprietary grades."
               href={machineComponents.rootPath}
               image={machineComponentsImage}

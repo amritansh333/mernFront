@@ -13,7 +13,7 @@ function getNavItems(
       megaMenu: true,
       columns: [
         {
-          heading: "Thermoplastics Semi Finished Products",
+          heading: "Thermoplastics Semi-Finished Products",
           headingHref: "/products/thermoplastics-semi-finished-products",
           items: [
             {
@@ -39,7 +39,7 @@ function getNavItems(
           ],
         },
         {
-          heading: "Thermoplastics Machine Components",
+          heading: "Thermoplastics Engineered Products",
           headingHref: "/products/thermoplastics-machine-components",
           items: [
             {
