@@ -1191,6 +1191,7 @@ export default function MachineComponentSubcategoryPage() {
             title={subcategoryData.heroTitle || subcategoryData.name}
             description={subcategoryData.description}
             image={subcategoryData.image}
+            imageSlug={subcategoryData.slug || subcategory}
             features={subcategoryData.technicalCharacteristics}
             downloads={subcategoryData.downloads}
             showActionButtons
