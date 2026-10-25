@@ -755,11 +755,11 @@ export default function EventDetailPage() {
               </div>
 
               <h3 className="mt-4 font-heading text-lg font-semibold text-charcoal">
-                Meet Khanna PolyRib
+                Meet Khanna Polyrib
               </h3>
 
               <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                Interested in our engineering plastic solutions or want to
+                Interested in our thermoplastic engineering solutions or want to
                 connect with our team?
               </p>
 

@@ -154,7 +154,7 @@ export default function EventsPage() {
           className="absolute inset-0 bg-cover bg-center"
           style={{
             backgroundImage:
-              "url('https://polyrib-backend-v2.onrender.com/uploads/events/events-hero.jpg')",
+              "url('https://polyrib-backend-v2.onrender.com/uploads/events/events-hero.png')",
           }}
         />
 

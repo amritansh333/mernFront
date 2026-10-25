@@ -83,7 +83,7 @@ export function Footer() {
   return (
     <footer className="bg-charcoal text-primary-foreground">
       {/* Top bar */}
-      <div className="border-b border-white/10">
+      <div className="bg-primaryborder-b border-white/10">
         <div className="container max-w-7xl mx-auto px-6 py-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             <div>
