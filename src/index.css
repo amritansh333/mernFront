@@ -403,3 +403,746 @@
   top: auto;
   z-index: 1;
 }
+
+
+/* ==========================================
+   INDUSTRIES — SEQUENTIAL POP-IN ANIMATION
+   Preserves the existing layout and dimensions
+   ========================================== */
+
+/* All elements remain visible if JS or animation
+   initialization fails. */
+
+.industries-motion-section .industries-motion-heading,
+.industries-motion-section .industries-motion-card,
+.industries-motion-section .industries-motion-footer {
+  opacity: 1;
+  transform: none;
+}
+
+/* Initial state before the section enters view */
+
+.industries-motion-section:not(.industries-motion-visible)
+  .industries-motion-heading,
+.industries-motion-section:not(.industries-motion-visible)
+  .industries-motion-footer {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.industries-motion-section:not(.industries-motion-visible)
+  .industries-motion-card {
+  opacity: 0;
+  transform: translateY(14px) scale(0.94);
+}
+
+/* Heading enters first */
+
+.industries-motion-visible .industries-motion-heading {
+  animation: industry-heading-enter 550ms
+    cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Cards pop sequentially without changing their layout */
+
+.industries-motion-visible .industries-motion-card {
+  animation: industry-card-pop 480ms
+    cubic-bezier(0.16, 1, 0.3, 1)
+    var(--industry-delay, 180ms) both;
+}
+
+/* Footer appears after the cards */
+
+.industries-motion-visible .industries-motion-footer {
+  animation: industry-footer-enter 500ms
+    cubic-bezier(0.16, 1, 0.3, 1)
+    1900ms both;
+}
+
+@keyframes industry-heading-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes industry-card-pop {
+  0% {
+    opacity: 0;
+    transform: translateY(14px) scale(0.94);
+  }
+
+  65% {
+    opacity: 1;
+    transform: translateY(-2px) scale(1.015);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes industry-footer-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Keep the original hover interaction */
+
+@media (hover: hover) and (pointer: fine) {
+  .industries-motion-visible .industries-motion-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgb(33 155 204 / 10%);
+  }
+}
+
+/* Accessibility: disable motion when requested */
+
+@media (prefers-reduced-motion: reduce) {
+  .industries-motion-section .industries-motion-heading,
+  .industries-motion-section .industries-motion-card,
+  .industries-motion-section .industries-motion-footer {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+
+
+/* ==========================================
+   POLYRIB PROMISE — SEQUENTIAL BUBBLE POP
+   ========================================== */
+
+/* Preserve the existing layout and dimensions. */
+
+.promise-bubble-card {
+  opacity: 1;
+  transform: scale(1);
+  transform-origin: center center;
+  backface-visibility: hidden;
+}
+
+/* Initial state before entering the viewport. */
+
+.polyrib-promise-section:not(.promise-visible)
+  .promise-bubble-card {
+  opacity: 0;
+  transform: scale(0.82);
+}
+
+/* Reveal cards one after another. */
+
+.promise-visible .promise-bubble-card {
+  animation: promise-bubble-pop 720ms
+    cubic-bezier(0.22, 1.35, 0.45, 1)
+    var(--promise-delay, 0ms) both;
+}
+
+/* Subtle heading entrance. */
+
+.promise-visible .promise-heading {
+  animation: promise-heading-enter 500ms
+    cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes promise-bubble-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.82);
+  }
+
+  55% {
+    opacity: 1;
+    transform: scale(1.045);
+  }
+
+  78% {
+    transform: scale(0.985);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes promise-heading-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Gentle interaction after the entrance animation. */
+
+@media (hover: hover) and (pointer: fine) {
+  .promise-bubble-card:hover {
+    border-color: hsl(var(--primary) / 0.4);
+    box-shadow: 0 8px 24px rgb(33 155 204 / 10%);
+  }
+
+  .promise-bubble-card .promise-icon {
+    transition: transform 300ms
+      cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .promise-bubble-card:hover .promise-icon {
+    transform: scale(1.08);
+  }
+}
+
+/* Accessibility. */
+
+@media (prefers-reduced-motion: reduce) {
+  .promise-visible .promise-bubble-card,
+  .promise-visible .promise-heading {
+    animation: none !important;
+  }
+
+  .polyrib-promise-section .promise-bubble-card,
+  .polyrib-promise-section .promise-heading {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+
+
+/* ==========================================
+   ISO CERTIFICATION — BUBBLE POP ANIMATION
+   ========================================== */
+
+.certification-bubble-card {
+  opacity: 1;
+  transform: scale(1);
+  transform-origin: center center;
+  backface-visibility: hidden;
+}
+
+/* Initial state */
+
+.certification-motion-section:not(.certification-visible)
+  .certification-heading {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.certification-motion-section:not(.certification-visible)
+  .certification-bubble-card {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+/* Animate heading and certification card */
+
+.certification-visible .certification-heading {
+  animation: certification-heading-enter 500ms
+    cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.certification-visible .certification-bubble-card {
+  animation: certification-bubble-pop 750ms
+    cubic-bezier(0.22, 1.35, 0.45, 1) 180ms both;
+}
+
+@keyframes certification-heading-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes certification-bubble-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+
+  55% {
+    opacity: 1;
+    transform: scale(1.055);
+  }
+
+  78% {
+    transform: scale(0.985);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Subtle hover interaction */
+
+@media (hover: hover) and (pointer: fine) {
+  .certification-bubble-card:hover {
+    box-shadow: 0 8px 24px rgb(33 155 204 / 12%);
+  }
+
+  .certification-icon {
+    transition: transform 300ms
+      cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .certification-bubble-card:hover .certification-icon {
+    transform: scale(1.1);
+  }
+}
+
+/* Accessibility */
+
+@media (prefers-reduced-motion: reduce) {
+  .certification-visible .certification-heading,
+  .certification-visible .certification-bubble-card {
+    animation: none !important;
+  }
+
+  .certification-motion-section .certification-heading,
+  .certification-motion-section .certification-bubble-card {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+
+/* =========================================
+   INFRASTRUCTURE — INDUSTRIAL REVEAL
+   ========================================= */
+
+.infrastructure-motion-section .infrastructure-motion-heading {
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+.infrastructure-motion-section.infrastructure-motion-visible
+  .infrastructure-motion-heading {
+  animation: infrastructure-heading-reveal 650ms ease-out forwards;
+}
+
+.infrastructure-motion-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(22px) scale(0.97);
+  transition:
+    transform 300ms ease,
+    box-shadow 300ms ease,
+    background-color 300ms ease;
+}
+
+.infrastructure-motion-visible .infrastructure-motion-card {
+  animation: infrastructure-card-reveal 650ms
+    cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: var(--infrastructure-delay);
+}
+
+/* Subtle industrial blue accent */
+.infrastructure-motion-accent {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: hsl(var(--primary));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 350ms ease;
+}
+
+/* Icon background and icon animation */
+.infrastructure-motion-icon {
+  transition:
+    background-color 300ms ease,
+    transform 300ms ease;
+}
+
+.infrastructure-motion-card:hover {
+  transform: translateY(-4px);
+  background-color: hsl(var(--card));
+  box-shadow: 0 8px 22px rgb(0 0 0 / 6%);
+  z-index: 1;
+}
+
+.infrastructure-motion-card:hover .infrastructure-motion-icon {
+  background-color: hsl(var(--primary) / 0.14);
+  transform: scale(1.07);
+}
+
+.infrastructure-motion-card:hover .infrastructure-motion-accent {
+  transform: scaleX(1);
+}
+
+/* Value responds gently to hover */
+.infrastructure-motion-value {
+  transition: letter-spacing 300ms ease;
+}
+
+.infrastructure-motion-card:hover .infrastructure-motion-value {
+  letter-spacing: 0.01em;
+}
+
+/* Entrance animations */
+@keyframes infrastructure-heading-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes infrastructure-card-reveal {
+  0% {
+    opacity: 0;
+    transform: translateY(22px) scale(0.97);
+  }
+
+  70% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Accessibility: disable movement when requested */
+@media (prefers-reduced-motion: reduce) {
+  .infrastructure-motion-section .infrastructure-motion-heading,
+  .infrastructure-motion-section .infrastructure-motion-card {
+    opacity: 1;
+    transform: none;
+    animation: none;
+    transition: none;
+  }
+
+  .infrastructure-motion-accent,
+  .infrastructure-motion-icon,
+  .infrastructure-motion-value {
+    transition: none;
+  }
+}
+
+
+
+/* =========================================
+   MATERIALS — PRECISION REVEAL
+   ========================================= */
+
+/* Intro entrance */
+.materials-intro {
+  opacity: 0;
+  transform: translateY(18px);
+}
+
+.materials-motion-visible .materials-intro {
+  animation: materials-intro-reveal 700ms
+    cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Featured image */
+.materials-image-frame {
+  position: relative;
+  overflow: hidden;
+}
+
+.materials-feature-image {
+  opacity: 0;
+  transform: scale(1.045);
+  transition:
+    transform 600ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 300ms ease;
+}
+
+.materials-motion-visible .materials-feature-image {
+  animation: materials-image-reveal 900ms ease-out 150ms forwards;
+}
+
+.materials-image-frame:hover .materials-feature-image {
+  transform: scale(1.025);
+  border-color: hsl(var(--primary) / 0.45);
+}
+
+/* Fine blue line along image bottom */
+.materials-image-accent {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  background: hsl(var(--primary));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 450ms ease;
+}
+
+.materials-image-frame:hover .materials-image-accent {
+  transform: scaleX(1);
+}
+
+/* Material card entrance */
+.material-motion-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(18px) scale(0.985);
+  transition:
+    transform 280ms ease,
+    border-color 280ms ease,
+    box-shadow 280ms ease,
+    background-color 280ms ease;
+}
+
+.materials-motion-visible .material-motion-card {
+  animation: material-card-reveal 600ms
+    cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: var(--material-delay);
+}
+
+/* Blue accent moves from left to right */
+.material-card-accent {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: hsl(var(--primary));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 350ms ease;
+}
+
+/* Refined hover effect */
+.material-motion-card:hover {
+  transform: translateY(-3px);
+  border-color: hsl(var(--primary) / 0.45);
+  box-shadow: 0 7px 20px rgb(25 70 100 / 7%);
+  background-color: hsl(var(--card));
+  z-index: 1;
+}
+
+.material-motion-card:hover .material-card-accent {
+  transform: scaleX(1);
+}
+
+.material-motion-abbr {
+  transition:
+    transform 280ms ease,
+    color 280ms ease;
+}
+
+.material-motion-card:hover .material-motion-abbr {
+  transform: translateX(3px);
+  color: hsl(var(--primary));
+}
+
+/* Keyframes */
+@keyframes materials-intro-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes materials-image-reveal {
+  from {
+    opacity: 0;
+    transform: scale(1.045);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes material-card-reveal {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) scale(0.985);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .materials-intro,
+  .materials-feature-image,
+  .material-motion-card {
+    opacity: 1;
+    transform: none;
+    animation: none;
+    transition: none;
+  }
+
+  .materials-image-accent,
+  .material-card-accent,
+  .material-motion-abbr {
+    transition: none;
+  }
+}
+
+
+
+/* Product gallery: preserve the existing image dimensions */
+.product-gallery {
+  position: relative;
+  isolation: isolate;
+  background: hsl(var(--surface-subtle));
+}
+
+/* Each image occupies the same image area */
+.product-gallery-image {
+  display: block;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(100%);
+  transition:
+    transform 650ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 350ms ease,
+    visibility 0s linear 650ms;
+  will-change: transform, opacity;
+}
+
+/* Current image */
+.product-gallery-image-active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+  transition:
+    transform 650ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 350ms ease,
+    visibility 0s;
+  z-index: 1;
+}
+
+/* Accessibility: show a static image when motion is reduced */
+@media (prefers-reduced-motion: reduce) {
+  .product-gallery-image {
+    display: none;
+    transition: none;
+    transform: none;
+    will-change: auto;
+  }
+
+  .product-gallery-image:first-child {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+    z-index: 1;
+  }
+}
+
+
+
+/* =========================================
+   POLYRIB CTA — TYPEWRITER ANIMATION
+   ========================================= */
+
+.polyrib-cta-heading,
+.polyrib-cta-description,
+.polyrib-cta-button-wrapper {
+  opacity: 0;
+}
+
+/* Heading typing effect */
+.polyrib-cta-heading {
+  width: fit-content;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.polyrib-cta-section.cta-visible .polyrib-cta-heading {
+  opacity: 1;
+  animation: cta-heading-reveal 450ms ease-out both;
+}
+
+/* Paragraph follows the heading */
+.polyrib-cta-section.cta-visible .polyrib-cta-description {
+  animation: cta-content-reveal 700ms ease-out 350ms both;
+}
+
+/* Button appears last */
+.polyrib-cta-section.cta-visible .polyrib-cta-button-wrapper {
+  animation: cta-content-reveal 600ms ease-out 650ms both;
+}
+
+@keyframes cta-heading-reveal {
+  from {
+    opacity: 0;
+    clip-path: inset(0 100% 0 0);
+  }
+
+  to {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes cta-content-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .polyrib-cta-heading,
+  .polyrib-cta-description,
+  .polyrib-cta-button-wrapper,
+  .polyrib-cta-section.cta-visible .polyrib-cta-heading,
+  .polyrib-cta-section.cta-visible .polyrib-cta-description,
+  .polyrib-cta-section.cta-visible .polyrib-cta-button-wrapper {
+    opacity: 1;
+    animation: none;
+    clip-path: none;
+    transform: none;
+  }
+}

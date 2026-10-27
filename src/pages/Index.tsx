@@ -28,8 +28,19 @@ import {
 import { useScrollFade } from "@/hooks/useScrollFade";
 import { useMachineComponentRouting } from "@/lib/product-experience/useMachineComponentRouting";
 import heroVideo from "@/assets/hero-landingpage.mp4";
-import semiFinishedImage from "@/assets/semi-finished-products.jpeg";
-import machineComponentsImage from "@/assets/machine-components.jpeg";
+// Semi-finished product gallery
+import semiFinishedImage1 from "@/assets/semi-finished-products_1.jpeg";
+import semiFinishedImage2 from "@/assets/semi-finished-products_2.jpeg";
+import semiFinishedImage3 from "@/assets/semi-finished-products_3.jpeg";
+import semiFinishedImage4 from "@/assets/semi-finished-products_4.jpeg";
+import semiFinishedImage5 from "@/assets/semi-finished-products_5.jpeg";
+
+// Engineered product gallery
+import machineComponentsImage1 from "@/assets/machine-components_1.jpeg";
+import machineComponentsImage2 from "@/assets/machine-components_2.jpeg";
+import machineComponentsImage3 from "@/assets/machine-components_3.jpeg";
+import machineComponentsImage4 from "@/assets/machine-components_4.jpeg";
+import machineComponentsImage5 from "@/assets/machine-components_5.jpeg";
 import slider1 from "@/assets/slider1-Engineered-To-Perform.jpeg";
 import slider2 from "@/assets/slider2-Engineered-To-Perform.jpeg";
 import slider3 from "@/assets/slider3-Engineered-To-Perform.jpeg";
@@ -347,7 +358,7 @@ function StatSection() {
   const [counts, setCounts] = useState([0, 0, 0, 0]);
 
   useEffect(() => {
-    const duration = 2000;
+    const duration = 2500;
     let animationFrame: number;
     let startTime: number | null = null;
 
@@ -386,9 +397,7 @@ function StatSection() {
       {stats.map((s, index) => (
         <div key={s.label} className="px-6 py-8 text-center">
           <div className="font-heading text-3xl font-bold text-primary mb-1">
-            {index === 3
-              ? s.value
-              : `${counts[index]}+`}
+            {index === 3 ? s.value : `${counts[index]}+`}
           </div>
           <div className="text-sm text-muted-foreground">{s.label}</div>
         </div>
@@ -483,52 +492,113 @@ function WhyUsSection() {
   );
 }
 
+
+
 function ProductCategoryCard({
   title,
   description,
   href,
-  image,
+  images,
   tag,
 }: {
   title: string;
   description: string;
   href: string;
-  image: string;
+  images: string[];
   tag: string;
 }) {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [reduceMotion, setReduceMotion] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    );
+
+    const updateMotionPreference = () => {
+      setReduceMotion(mediaQuery.matches);
+    };
+
+    updateMotionPreference();
+    mediaQuery.addEventListener("change", updateMotionPreference);
+
+    return () => {
+      mediaQuery.removeEventListener("change", updateMotionPreference);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (reduceMotion || images.length <= 1) return;
+
+    const interval = window.setInterval(() => {
+      setActiveIndex((current) => (current + 1) % images.length);
+    }, 1800);
+
+    return () => window.clearInterval(interval);
+  }, [images.length, reduceMotion]);
+
   return (
     <Link to={href} className="category-card block group">
-      <div className="card-image aspect-[2/1] overflow-hidden bg-surface-subtle">
-        <img
-          src={image}
-          alt={title}
-          className="w-full h-full object-cover"
-          loading="lazy"
-        />
+      {/* Image viewport: original dimensions and aspect ratio preserved */}
+      <div className="card-image relative aspect-[2/1] overflow-hidden bg-surface-subtle">
+        {images.map((image, index) => {
+          const isActive = index === activeIndex;
+
+          return (
+            <img
+              key={image}
+              src={image}
+              alt={`${title} - Image ${index + 1}`}
+              loading={index === 0 ? "eager" : "lazy"}
+              draggable={false}
+              className={`product-gallery-image absolute inset-0 w-full h-full object-cover ${
+                isActive ? "product-gallery-image-active" : ""
+              }`}
+              style={{
+                transform: isActive
+                  ? "translateX(0)"
+                  : index < activeIndex
+                    ? "translateX(-100%)"
+                    : "translateX(100%)",
+                transition: reduceMotion
+                  ? "none"
+                  : "transform 650ms cubic-bezier(0.22, 1, 0.36, 1)",
+                zIndex: isActive ? 2 : 1,
+              }}
+            />
+          );
+        })}
       </div>
+
+      {/* Existing card content preserved */}
       <div className="p-4">
-        <span className="section-label text-xs block mb-2">{tag}</span>
+        <span className="section-label text-xs block mb-2">
+          {tag}
+        </span>
+
         <h3 className="font-heading text-xl text-charcoal mb-2 group-hover:text-primary transition-colors duration-200">
           {title}
         </h3>
+
         <p className="text-sm text-muted-foreground mb-2 leading-relaxed">
           {description}
         </p>
+
         <div className="cta-link pt-2 border-t border-divider">
           Explore Range
           <ArrowRight className="w-4 h-4 explore-arrow" />
         </div>
+
         <div className="card-border-bottom mt-1" />
       </div>
     </Link>
   );
 }
 
-
 /* ─── Materials Section (Brand Portfolio) ───────────────── */
 
 function MaterialsSection() {
-  const ref = useScrollFade() as React.RefObject<HTMLElement>;
+  const ref = useScrollFade() as React.Ref<HTMLElement>;
   const sectionRef = useRef<HTMLElement | null>(null);
   const [columns, setColumns] = useState(4);
   const [activeRow, setActiveRow] = useState(0);
@@ -552,11 +622,7 @@ function MaterialsSection() {
   // Group cards into complete rows.
   const brandRows = Array.from(
     { length: Math.ceil(brandFamilies.length / columns) },
-    (_, index) =>
-      brandFamilies.slice(
-        index * columns,
-        (index + 1) * columns,
-      ),
+    (_, index) => brandFamilies.slice(index * columns, (index + 1) * columns),
   );
 
   // Track the row currently entering the stacking sequence.
@@ -570,12 +636,9 @@ function MaterialsSection() {
       cancelAnimationFrame(frame);
 
       frame = requestAnimationFrame(() => {
-        const rows = section.querySelectorAll<HTMLElement>(
-          ".brand-stack-row",
-        );
+        const rows = section.querySelectorAll<HTMLElement>(".brand-stack-row");
 
-        const stickyTop =
-          window.innerWidth <= 639 ? 132 : 160;
+        const stickyTop = window.innerWidth <= 639 ? 132 : 160;
 
         let currentRow = 0;
 
@@ -614,32 +677,22 @@ function MaterialsSection() {
         if (typeof ref === "function") {
           ref(node);
         } else if (ref) {
-          (
-            ref as React.MutableRefObject<HTMLElement | null>
-          ).current = node;
+          (ref as React.MutableRefObject<HTMLElement | null>).current = node;
         }
       }}
       className="brand-portfolio-section bg-surface-subtle border-y border-divider"
     >
       {/* Preserve the original website indentation. */}
       <div className="container max-w-7xl mx-auto px-6">
-
         {/* Sticky heading: constrained to the original container. */}
         <div
-  className={`brand-portfolio-heading flex flex-col md:flex-row md:items-center md:justify-between ${
-    activeRow >= brandRows.length - 1
-      ? "brand-heading-release"
-      : ""
-  }`}
->
-          <h2 className="font-heading text-3xl text-charcoal">
-            Our Brands
-          </h2>
+          className={`brand-portfolio-heading flex flex-col md:flex-row md:items-center md:justify-between ${
+            activeRow >= brandRows.length - 1 ? "brand-heading-release" : ""
+          }`}
+        >
+          <h2 className="font-heading text-3xl text-charcoal">Our Brands</h2>
 
-          <Link
-            to="/products"
-            className="cta-link mt-3 md:mt-0"
-          >
+          <Link to="/products" className="cta-link mt-3 md:mt-0">
             Explore Brands
             <ArrowRight className="w-4 h-4 inline ml-1" />
           </Link>
@@ -660,9 +713,7 @@ function MaterialsSection() {
             >
               <div
                 className={`brand-stack-grid grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-6 ${
-                  rowIndex < activeRow
-                    ? "brand-row-passed"
-                    : ""
+                  rowIndex < activeRow ? "brand-row-passed" : ""
                 }`}
               >
                 {row.map((m) => (
@@ -709,53 +760,110 @@ function MaterialsSection() {
   );
 }
 
+
 /* Polymers We Work With */
 function PolymersSection() {
-  const ref = useScrollFade() as React.RefObject<HTMLElement>;
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    );
+
+    if (reduceMotion.matches) {
+      setIsVisible(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      {
+        threshold: 0.12,
+        rootMargin: "0px 0px -30px 0px",
+      },
+    );
+
+    observer.observe(section);
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section ref={ref} className="fade-up py-8 border-b border-divider">
+    <section
+      ref={sectionRef}
+      className={`materials-motion-section py-8 border-b border-divider ${
+        isVisible ? "materials-motion-visible" : ""
+      }`}
+    >
       <div className="container max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-stretch">
-          <div className="flex flex-col gap-6">
-            {/* Heading */}
+          {/* Left column */}
+          <div className="materials-intro flex flex-col gap-6">
             <div>
               <h2 className="font-heading text-3xl text-charcoal mb-4">
                 The Polymers We Work With
               </h2>
 
               <Link to="/materials" className="cta-link">
-                View all Material families <ArrowRight className="w-4 h-4" />
+                View all Material families
+                <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
 
-            <div className="w-full">
+            {/* Original image frame and dimensions preserved */}
+            <div className="materials-image-frame w-full">
               <img
                 src={polymerImg}
-                alt="Polymers"
-                className="w-full h-[180px] sm:h-[220px] lg:h-[260px] object-cover bg-card border border-border p-4 hover:border-primary/40 transition-colors duration-200 block group overflow-hidden hover:shadow-lg transition-all duration-300"
+                alt="Polymer materials in different colours"
+                className="materials-feature-image w-full h-[180px] sm:h-[220px] lg:h-[260px] object-cover bg-card border border-border p-4"
+                loading="lazy"
               />
+
+              <div className="materials-image-accent" />
             </div>
           </div>
-          <div className="  lg:col-span-2 grid grid-cols-1 sm:grid-cols-2  gap-3 ">
-            {polymers.map((m) => (
+
+          {/* Right column */}
+          <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {polymers.map((m, index) => (
               <Link
                 key={m.abbr}
                 to={`/materials/${m.slug}`}
-                className="bg-card border border-border p-4 hover:border-primary/40 transition-colors duration-200 block group overflow-hidden hover:shadow-lg transition-all duration-300"
+                className="material-motion-card bg-card border border-border p-4 block group"
+                style={
+                  {
+                    "--material-index": index,
+                    "--material-delay": `${index * 200}ms`,
+                  } as React.CSSProperties
+                }
               >
-                <div className="flex items-start gap-3 ">
-                  <span className="font-heading font-bold text-primary text-lg w-28 shrink-0 group-hover:text-primary-dark transition-colors">
+                <div className="flex items-start gap-3">
+                  <span className="material-motion-abbr font-heading font-bold text-primary text-lg w-28 shrink-0">
                     {m.abbr}
                   </span>
+
                   <div>
-                    <div className="text-sm text-charcoal font-medium mb-0.5 group-hover:text-primary">
+                    <div className="text-sm text-charcoal font-medium mb-0.5 group-hover:text-primary transition-colors duration-200">
                       {m.name}
                     </div>
+
                     <div className="text-xs text-muted-foreground">
                       {m.prop}
                     </div>
                   </div>
                 </div>
+
+                {/* Animated bottom accent */}
+                <div className="material-card-accent" />
               </Link>
             ))}
           </div>
@@ -765,33 +873,78 @@ function PolymersSection() {
   );
 }
 
+
+
 /* Industries */
 function IndustriesSection() {
-  const ref = useScrollFade() as React.RefObject<HTMLElement>;
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    // Respect accessibility preferences.
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setIsVisible(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      {
+        threshold: 0.15,
+        rootMargin: "0px 0px -30px 0px",
+      },
+    );
+
+    observer.observe(section);
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section
-      ref={ref}
-      className="fade-up py-8 bg-surface-subtle border-y border-divider"
+      ref={sectionRef}
+      className={`industries-motion-section py-8 bg-surface-subtle border-y border-divider ${
+        isVisible ? "industries-motion-visible" : ""
+      }`}
     >
       <div className="container max-w-7xl mx-auto px-6">
-        <div className="text-center mb-8">
+        {/* Heading */}
+        <div className="industries-motion-heading text-center mb-8">
           <h2 className="font-heading text-3xl text-charcoal">
             Industries We Serve
           </h2>
         </div>
+
+        {/* Original layout: unchanged */}
         <div className="flex flex-wrap justify-center gap-3">
-          {allIndustries.map((ind) => (
+          {allIndustries.map((ind, index) => (
             <Link
               key={ind.abbr}
               to={`/industries/${ind.slug}`}
-              className="flex items-center gap-2 px-4 py-2.5 border border-border bg-card hover:border-primary hover:text-primary text-sm font-medium text-charcoal-light transition-all duration-200"
+              className="industries-motion-card flex items-center gap-2 px-4 py-2.5 border border-border bg-card hover:border-primary hover:text-primary text-sm font-medium text-charcoal-light transition-all duration-200"
+              style={
+                {
+                  "--industry-index": index,
+                  "--industry-delay": `${180 + index * 150}ms`,
+                } as React.CSSProperties
+              }
             >
-              <ChevronRight className="w-3.5 h-3.5 text-primary" />
+              <ChevronRight className="w-3.5 h-3.5 text-primary shrink-0" />
               {ind.abbr}
             </Link>
           ))}
         </div>
-        <div className="text-center mt-8">
+
+        {/* Footer */}
+        <div className="industries-motion-footer text-center mt-8">
           <Link to="/industries" className="cta-link">
             View all industries <ArrowRight className="w-4 h-4" />
           </Link>
@@ -801,13 +954,53 @@ function IndustriesSection() {
   );
 }
 
+
 /* Infrastructure */
 function InfrastructureSection() {
-  const ref = useScrollFade() as React.RefObject<HTMLElement>;
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const mediaQuery = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    );
+
+    if (mediaQuery.matches) {
+      setIsVisible(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      {
+        threshold: 0.15,
+        rootMargin: "0px 0px -40px 0px",
+      },
+    );
+
+    observer.observe(section);
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section ref={ref} className="fade-up py-8 border-b border-divider">
+    <section
+      ref={sectionRef}
+      className={`infrastructure-motion-section py-8 border-b border-divider ${
+        isVisible ? "infrastructure-motion-visible" : ""
+      }`}
+    >
       <div className="container max-w-7xl mx-auto px-6">
-        <div className="text-center mb-8">
+        {/* Heading and description */}
+        <div className="infrastructure-motion-heading text-center mb-8">
           <h2 className="font-heading text-3xl text-charcoal">
             Infrastructure Built for Scale
           </h2>
@@ -819,22 +1012,45 @@ function InfrastructureSection() {
             </span>
           </p>
         </div>
+
+        {/* Original grid layout preserved */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-divider border border-divider">
-          {infrastructure.map((item) => (
+          {infrastructure.map((item, index) => (
             <div
               key={item.label}
-              className="bg-card p-8 hover:bg-surface-subtle transition-colors duration-200"
+              className="infrastructure-motion-card bg-card p-8 group"
+              style={
+                {
+                  "--infrastructure-index": index,
+                  "--infrastructure-delay": `${index * 400}ms`,
+                } as React.CSSProperties
+              }
             >
-              <div className="w-10 h-10 rounded-sm bg-primary/10 flex items-center justify-center mb-4">
-                <Cog className="w-5 h-5 text-primary" strokeWidth={1.5} />
+              {/* Icon */}
+              <div className="infrastructure-motion-icon w-10 h-10 rounded-sm bg-primary/10 flex items-center justify-center mb-4">
+                <Cog
+                  className="w-5 h-5 text-primary"
+                  strokeWidth={1.5}
+                />
               </div>
-              <div className="font-heading text-2xl font-bold text-primary mb-1">
+
+              {/* Main value */}
+              <div className="infrastructure-motion-value font-heading text-2xl font-bold text-primary mb-1">
                 {item.value}
               </div>
+
+              {/* Capability name */}
               <div className="font-semibold text-charcoal text-sm mb-1">
                 {item.label}
               </div>
-              <div className="text-sm text-muted-foreground">{item.sub}</div>
+
+              {/* Description */}
+              <div className="text-sm text-muted-foreground">
+                {item.sub}
+              </div>
+
+              {/* Subtle animated bottom accent */}
+              <div className="infrastructure-motion-accent" />
             </div>
           ))}
         </div>
@@ -843,26 +1059,54 @@ function InfrastructureSection() {
   );
 }
 
-{
-  /* COMPLIANCE */
-}
+
+/* COMPLIANCE */
 function CertificationSection() {
-  const ref = useScrollFade();
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setIsVisible(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      {
+        threshold: 0.2,
+        rootMargin: "0px 0px -20px 0px",
+      },
+    );
+
+    observer.observe(section);
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <>
-      {/* SECTION */}
       <section
-        ref={ref}
-        className="fade-up py-8 bg-surface-subtle border-b border divider"
+        ref={sectionRef}
+        className={`certification-motion-section py-8 bg-surface-subtle border-b border-divider ${
+          isVisible ? "certification-visible" : ""
+        }`}
       >
         <div className="container max-w-7xl mx-auto px-6">
-          {/* Heading */}
-          <div className="text-center mb-8">
+          <div className="text-center mb-8 certification-heading">
             <h2 className="font-heading text-3xl text-charcoal">
               Certifications & Standards
             </h2>
+
             <p className="text-muted-foreground text-sm mt-3 max-w-xl mx-auto">
               Khanna Polyrib Pvt. Ltd. holds
               <span className="font-semibold text-base text-primary">
@@ -875,46 +1119,48 @@ function CertificationSection() {
             </p>
           </div>
 
-          {/*  YOUR BUTTON / BOX (UNCHANGED) */}
           <div className="flex justify-center">
-            <div
+            <button
+              type="button"
               onClick={() => setOpen(true)}
-              className="border border-border bg-card p-4 text-center hover:border-primary/40 transition-colors duration-200 cursor-pointer w-full max-w-[250px] overflow-hidden hover:shadow-lg transition-all duration-300"
+              aria-label="View ISO 9001:2015 certification"
+              className="certification-bubble-card border border-border bg-card p-4 text-center hover:border-primary/40 transition-colors duration-200 cursor-pointer w-full max-w-[250px] overflow-hidden"
             >
-              <div className="w-8 h-8 bg-primary/10 flex items-center justify-center mx-auto mb-2">
+              <div className="certification-icon w-8 h-8 bg-primary/10 flex items-center justify-center mx-auto mb-2">
                 <Award className="w-4 h-4 text-primary" />
               </div>
+
               <div className="text-sm font-semibold text-charcoal">
                 ISO 9001:2015 Certified
               </div>
-            </div>
+            </button>
           </div>
         </div>
       </section>
 
-      {/*  MODAL OUTSIDE SECTION */}
+      {/* Certificate modal — functionality preserved */}
       {open && (
         <div className="fixed inset-0 z-[9999] flex items-center justify-center">
-          {/* FULL PAGE BLUR */}
-          <div
-            className="absolute inset-0 bg-black/40 backdrop-blur-md"
+          <button
+            type="button"
+            aria-label="Close certificate preview"
+            className="absolute inset-0 bg-black/40 backdrop-blur-md cursor-default"
             onClick={() => setOpen(false)}
           />
 
-          {/* MODAL CONTENT */}
           <div className="relative z-[10000] flex justify-center items-center w-full h-full px-4">
-            {/* CLOSE BUTTON */}
             <button
+              type="button"
               onClick={() => setOpen(false)}
+              aria-label="Close certificate"
               className="absolute top-6 right-6 bg-white rounded-full p-2 shadow-md hover:bg-gray-200"
             >
               <X className="w-5 h-5 text-black" />
             </button>
 
-            {/* IMAGE */}
             <img
               src={certImg}
-              alt="certificate"
+              alt="ISO 9001:2015 certificate"
               className="max-h-[90vh] max-w-[90vw] object-contain rounded-lg shadow-xl"
             />
           </div>
@@ -924,29 +1170,76 @@ function CertificationSection() {
   );
 }
 
+
+
 /* Polyrib Promise */
 function PolyribPromiseSection() {
-  const ref = useScrollFade() as React.RefObject<HTMLElement>;
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setIsVisible(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      {
+        threshold: 0.25,
+        rootMargin: "0px 0px -20px 0px",
+      },
+    );
+
+    observer.observe(section);
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section ref={ref} className="fade-up py-8 border-b border-divider">
+    <section
+      ref={sectionRef}
+      className={`polyrib-promise-section py-8 border-b border-divider ${
+        isVisible ? "promise-visible" : ""
+      }`}
+    >
       <div className="container max-w-7xl mx-auto px-6">
-        <div className="text-center mb-8">
+        <div className="text-center mb-8 promise-heading">
           <h2 className="font-heading text-3xl text-charcoal">
             The Polyrib Promise
           </h2>
         </div>
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {promise.map(({ icon: Icon, title, desc }) => (
+          {promise.map(({ icon: Icon, title, desc }, index) => (
             <div
               key={title}
-              className="bg-card border border-border p-8 text-center hover:border-primary/40 transition-colors duration-200 group overflow-hidden hover:shadow-lg transition-all duration-300 "
+              className="promise-bubble-card bg-card border border-border p-8 text-center group"
+              style={
+                {
+                  "--promise-delay": `${index * 500}ms`,
+                } as React.CSSProperties
+              }
             >
-              <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-5 group-hover:bg-primary/20 transition-colors duration-200">
-                <Icon className="w-6 h-6 text-primary" strokeWidth={1.5} />
+              <div className="promise-icon w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-5 group-hover:bg-primary/20 transition-colors duration-200">
+                <Icon
+                  className="w-6 h-6 text-primary"
+                  strokeWidth={1.5}
+                />
               </div>
+
               <h3 className="font-heading font-bold text-charcoal text-base mb-3">
                 {title}
               </h3>
+
               <p className="text-sm text-muted-foreground leading-relaxed">
                 {desc}
               </p>
@@ -958,11 +1251,41 @@ function PolyribPromiseSection() {
   );
 }
 
+
 /* ─── Page ──────────────────────────────────────────────── */
 
 const Index = () => {
   const _heroRef = useRef(null);
   const machineComponents = useMachineComponentRouting();
+
+  // CTA animation state
+  const ctaRef = useRef<HTMLElement | null>(null);
+  const [ctaVisible, setCtaVisible] = useState(false);
+
+  // Trigger the CTA animation when it enters the viewport
+  useEffect(() => {
+    const section = ctaRef.current;
+    if (!section) return;
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setCtaVisible(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setCtaVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.3 },
+    );
+
+    observer.observe(section);
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div>
@@ -1037,14 +1360,12 @@ const Index = () => {
         </div>
       </section>
 
-
-{/* Stats bar */}
-<div className="container max-w-7xl mx-auto px-6 mt-6 sm:mt-8">
-  <div className="bg-card border border-border shadow-card">
-    <StatSection />
-  </div>
-</div>
-
+      {/* Stats bar */}
+      <div className="container max-w-7xl mx-auto px-6 mt-6 sm:mt-8">
+        <div className="bg-card border border-border shadow-card">
+          <StatSection />
+        </div>
+      </div>
 
       {/* Why Polyrib */}
       <WhyUsSection />
@@ -1064,21 +1385,34 @@ const Index = () => {
             </Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <ProductCategoryCard
-              title="Thermoplastic Semi-Finished Products"
-              description="Extruded and Compression-moulded Sheets, Blocks, Rods, Tubes, Welding Rods and Rolls across our full brand portfolio — POLYRIB V, H, P; DIPRA, PCCLEAR, KAYLON, PAKETAL, HITECH, ARETE, POLYLIMB and more. Available ex-stock in standard dimensions — Custom Sizes on request."
-              href="/products/thermoplastics-semi-finished-products"
-              image={semiFinishedImage}
-              tag="Semi-Finished"
-            />
-            <ProductCategoryCard
-              title="Thermoplastic Engineered Products"
-              description="RIPLA cutting boards, CUTRITE chopping boards, ARETE composite liners, POLYLIMB Orthopaedic Sheets, Strips & Profiles, Vacuum Formed Parts and Precision Machined Plastic Components — all manufactured in Polyrib's proprietary grades."
-              href={machineComponents.rootPath}
-              image={machineComponentsImage}
-              tag="Machine Components"
-            />
-          </div>
+  <ProductCategoryCard
+    title="Thermoplastic Semi-Finished Products"
+    description="Extruded and Compression-moulded Sheets, Blocks, Rods, Tubes, Welding Rods and Rolls across our full brand portfolio — POLYRIB V, H, P; DIPRA, PCCLEAR, KAYLON, PAKETAL, HITECH, ARETE, POLYLIMB and more. Available ex-stock in standard dimensions — Custom Sizes on request."
+    href="/products/thermoplastics-semi-finished-products"
+    images={[
+      semiFinishedImage1,
+      semiFinishedImage2,
+      semiFinishedImage3,
+      semiFinishedImage4,
+      semiFinishedImage5,
+    ]}
+    tag="Semi-Finished"
+  />
+
+  <ProductCategoryCard
+    title="Thermoplastic Engineered Products"
+    description="RIPLA cutting boards, CUTRITE chopping boards, ARETE composite liners, POLYLIMB Orthopaedic Sheets, Strips & Profiles, Vacuum Formed Parts and Precision Machined Plastic Components — all manufactured in Polyrib's proprietary grades."
+    href={machineComponents.rootPath}
+    images={[
+      machineComponentsImage1,
+      machineComponentsImage2,
+      machineComponentsImage3,
+      machineComponentsImage4,
+      machineComponentsImage5,
+    ]}
+    tag="Engineered Products"
+  />
+</div>
         </div>
       </section>
 
@@ -1101,26 +1435,35 @@ const Index = () => {
       <PolyribPromiseSection />
 
       {/* CTA Banner */}
-      <section className="bg-primary py-8">
-        <div className="container max-w-7xl mx-auto px-6 text-center">
-          <h2 className="font-heading text-3xl text-primary-foreground mb-4">
-            Upgrade to smarter thermoplastics. Partner with Polyrib
-          </h2>
-          <p className="text-primary-foreground/70 mb-8 max-w-xl mx-auto text-sm leading-relaxed">
-            Precision-engineered plastic sheets and components that deliver
-            long-term performance in demanding applications. Our engineering
-            team responds within 24 hours.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link
-              to="/contact?tab=quote"
-              className="inline-flex items-center gap-2 px-7 py-3 bg-primary-foreground text-primary text-sm font-bold hover:bg-surface-subtle transition-colors duration-200"
-            >
-              Request a Quote <PenLine className="w-4 h-4" />
-            </Link>
-          </div>
-        </div>
-      </section>
+      
+{/* CTA Banner */}
+<section
+  ref={ctaRef}
+  className={`polyrib-cta-section bg-primary py-8 ${
+    ctaVisible ? "cta-visible" : ""
+  }`}
+>
+  <div className="container max-w-7xl mx-auto px-6 text-center">
+    <h2 className="polyrib-cta-heading font-heading text-3xl text-primary-foreground mb-4">
+      Upgrade to smarter thermoplastics. Partner with Polyrib
+    </h2>
+
+    <p className="polyrib-cta-description text-primary-foreground/70 mb-8 max-w-xl mx-auto text-sm leading-relaxed">
+      Precision-engineered plastic sheets and components that deliver
+      long-term performance in demanding applications. Our engineering
+      team responds within 24 hours.
+    </p>
+
+    <div className="polyrib-cta-button-wrapper flex flex-col sm:flex-row gap-3 justify-center">
+      <Link
+        to="/contact?tab=quote"
+        className="inline-flex items-center gap-2 px-7 py-3 bg-primary-foreground text-primary text-sm font-bold hover:bg-surface-subtle transition-colors duration-200"
+      >
+        Request a Quote <PenLine className="w-4 h-4" />
+      </Link>
+    </div>
+  </div>
+</section>
     </div>
   );
 };

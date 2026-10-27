@@ -6,6 +6,20 @@ import { ArrowRight } from "lucide-react";
 import type { Category } from "@/types/catalog";
 import semiFinishedImage from "@/assets/semi-finished-products.jpeg";
 import machineComponentsImage from "@/assets/machine-components.jpeg";
+// Semi-finished product gallery
+import semiFinishedImage1 from "@/assets/semi-finished-products_1.jpeg";
+import semiFinishedImage2 from "@/assets/semi-finished-products_2.jpeg";
+import semiFinishedImage3 from "@/assets/semi-finished-products_3.jpeg";
+import semiFinishedImage4 from "@/assets/semi-finished-products_4.jpeg";
+import semiFinishedImage5 from "@/assets/semi-finished-products_5.jpeg";
+
+// Engineered product gallery
+import machineComponentsImage1 from "@/assets/machine-components_1.jpeg";
+import machineComponentsImage2 from "@/assets/machine-components_2.jpeg";
+import machineComponentsImage3 from "@/assets/machine-components_3.jpeg";
+import machineComponentsImage4 from "@/assets/machine-components_4.jpeg";
+import machineComponentsImage5 from "@/assets/machine-components_5.jpeg";
+
 import { useScrollFade } from "@/hooks/useScrollFade";
 import { useMachineComponentRouting } from "@/lib/product-experience/useMachineComponentRouting";
 
@@ -90,6 +104,74 @@ const BRAND_QUICK_LINKS = [
   },
 ];
 
+
+function ProductImageCarousel({
+  images,
+  alt,
+}: {
+  images: string[];
+  alt: string;
+}) {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [reduceMotion, setReduceMotion] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    );
+
+    const updateMotionPreference = () => {
+      setReduceMotion(mediaQuery.matches);
+    };
+
+    updateMotionPreference();
+    mediaQuery.addEventListener("change", updateMotionPreference);
+
+    return () => {
+      mediaQuery.removeEventListener("change", updateMotionPreference);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (reduceMotion || images.length <= 1) return;
+
+    const interval = window.setInterval(() => {
+      setActiveIndex((current) => (current + 1) % images.length);
+    }, 2000);
+
+    return () => window.clearInterval(interval);
+  }, [images.length, reduceMotion]);
+
+  return (
+    <div className="card-image product-gallery aspect-video overflow-hidden relative">
+      {images.map((image, index) => {
+        const isActive = index === activeIndex;
+
+        return (
+          <img
+            key={image}
+            src={image}
+            alt={`${alt} — image ${index + 1}`}
+            aria-hidden={!isActive}
+            className={`product-gallery-image absolute inset-0 w-full h-full object-cover ${
+              isActive ? "product-gallery-image-active" : ""
+            }`}
+            style={
+              {
+                "--gallery-index": index,
+              } as React.CSSProperties
+            }
+            loading={index === 0 ? "eager" : "lazy"}
+            decoding="async"
+          />
+        );
+      })}
+    </div>
+  );
+}
+
+
+
 export default function ProductsPage() {
   const ref = useScrollFade() as React.RefObject<HTMLElement>;
   const machineComponents = useMachineComponentRouting();
@@ -128,9 +210,8 @@ export default function ProductsPage() {
             Polyrib Products
           </h1>
           <p className="text-muted-foreground max-w-2xl leading-relaxed">
-            Two comprehensive product divisions — Semi-Finished thermoplastic
-            materials across all Polyrib brand families, and precision Machine
-            Components for industrial applications.
+            Two comprehensive product divisions - Thermoplastic Semi-Finished
+            materials across all Polyrib brand families, and precision Thermoplastic Engineered Products for industrial applications.
           </p>
         </div>
       </div>
@@ -145,18 +226,26 @@ export default function ProductsPage() {
                 to={machineComponents.resolveCategoryPath(cat)}
                 className="category-card block group"
               >
-                <div className="card-image aspect-video overflow-hidden">
-                  <img
-                    src={
-                      cat.slug.includes("semi")
-                        ? semiFinishedImage
-                        : machineComponentsImage
-                    }
-                    alt={cat.name}
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                  />
-                </div>
+                <ProductImageCarousel
+  images={
+    cat.slug.includes("semi")
+      ? [
+          semiFinishedImage1,
+          semiFinishedImage2,
+          semiFinishedImage3,
+          semiFinishedImage4,
+          semiFinishedImage5,
+        ]
+      : [
+          machineComponentsImage1,
+          machineComponentsImage2,
+          machineComponentsImage3,
+          machineComponentsImage4,
+          machineComponentsImage5,
+        ]
+  }
+  alt={cat.name}
+/>
 
                 <div className="p-8">
                   <span className="section-label block mb-3">{cat.name}</span>

@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import {
@@ -393,51 +394,68 @@ export default function HeroSection({
             }}
           >
             <div className="relative z-10 border border-[#276A96]/15 bg-white p-3 shadow-2xl">
-              {/* Main Image */}
-              <div className="group relative aspect-[4/3] overflow-hidden bg-[#F8FAFC]">
-                {activeImage && (
-                  <button
-                    type="button"
-                    onClick={() => setIsZoomed(true)}
-                    className="absolute inset-0 z-10 block h-full w-full cursor-zoom-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#279ECE]"
-                    aria-label={`Zoom image ${activeIndex + 1} of ${galleryImages.length}`}
-                  >
-                    <img
-                      src={activeImage}
-                      alt={`${title ?? "Product"} - image ${activeIndex + 1}`}
-                      className="h-full w-full object-contain transition-transform duration-500 ease-in-out group-hover:scale-[1.03]"
-                    />
+              
+{/* Main Image — same animation as ProductsPage.tsx */}
+<div className="card-image product-gallery relative aspect-[4/3] overflow-hidden bg-[#F8FAFC]">
+  {galleryImages.map((src, index) => {
+    const isActive = index === activeIndex;
 
-                    <span className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center bg-white/90 text-[#276A96] opacity-0 shadow-sm transition-opacity duration-200 group-hover:opacity-100">
-                      <ZoomIn className="h-4 w-4" />
-                    </span>
-                  </button>
-                )}
+    return (
+      <img
+        key={src}
+        src={src}
+        alt={`${title ?? "Product"} — image ${index + 1}`}
+        aria-hidden={!isActive}
+        className={`product-gallery-image absolute inset-0 h-full w-full object-contain ${
+          isActive ? "product-gallery-image-active" : ""
+        }`}
+        style={
+          {
+            "--gallery-index": index,
+          } as CSSProperties
+        }
+        loading={index === 0 ? "eager" : "lazy"}
+        decoding="async"
+      />
+    );
+  })}
 
-                {/* Previous Arrow */}
-                {galleryImages.length > 1 && (
-                  <button
-                    type="button"
-                    onClick={showPrevious}
-                    aria-label="Previous product image"
-                    className="absolute left-2 top-1/2 z-20 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-white/70 bg-white/90 text-[#0F2A3D] shadow-md transition-all duration-200 hover:scale-105 hover:bg-[#279ECE] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#279ECE]"
-                  >
-                    <ChevronLeft className="h-5 w-5" />
-                  </button>
-                )}
+  {/* Zoom overlay */}
+  <button
+    type="button"
+    onClick={() => setIsZoomed(true)}
+    aria-label={`Zoom image ${activeIndex + 1} of ${galleryImages.length}`}
+    className="absolute inset-0 z-10 flex h-full w-full cursor-zoom-in items-start justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#279ECE]"
+  >
+    <span className="m-2 flex h-8 w-8 items-center justify-center bg-white/90 text-[#276A96] opacity-0 shadow-sm transition-opacity duration-200 hover:opacity-100">
+      <ZoomIn className="h-4 w-4" />
+    </span>
+  </button>
 
-                {/* Next Arrow */}
-                {galleryImages.length > 1 && (
-                  <button
-                    type="button"
-                    onClick={showNext}
-                    aria-label="Next product image"
-                    className="absolute right-2 top-1/2 z-20 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-white/70 bg-white/90 text-[#0F2A3D] shadow-md transition-all duration-200 hover:scale-105 hover:bg-[#279ECE] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#279ECE]"
-                  >
-                    <ChevronRight className="h-5 w-5" />
-                  </button>
-                )}
-              </div>
+  {/* Previous Arrow */}
+  {galleryImages.length > 1 && (
+    <button
+      type="button"
+      onClick={showPrevious}
+      aria-label="Previous product image"
+      className="absolute left-2 top-1/2 z-20 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-white/70 bg-white/90 text-[#0F2A3D] shadow-md transition-all duration-200 hover:scale-105 hover:bg-[#279ECE] hover:text-white"
+    >
+      <ChevronLeft className="h-5 w-5" />
+    </button>
+  )}
+
+  {/* Next Arrow */}
+  {galleryImages.length > 1 && (
+    <button
+      type="button"
+      onClick={showNext}
+      aria-label="Next product image"
+      className="absolute right-2 top-1/2 z-20 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-white/70 bg-white/90 text-[#0F2A3D] shadow-md transition-all duration-200 hover:scale-105 hover:bg-[#279ECE] hover:text-white"
+    >
+      <ChevronRight className="h-5 w-5" />
+    </button>
+  )}
+</div>
 
               {/* Image Indicators */}
               <div className="flex items-center justify-center gap-2 pt-4 pb-1">

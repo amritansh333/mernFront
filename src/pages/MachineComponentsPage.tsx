@@ -566,7 +566,7 @@ export default function MachineComponentsPage() {
                 />
               </div>
             )}
-
+            {/*}
             {relatedProducts.length > 0 && (
               <section className="border-t border-[#279ECE]/10 bg-[#F8FBFD]">
                 <div className="mx-auto max-w-7xl px-5 py-5 lg:px-10">
@@ -633,6 +633,8 @@ export default function MachineComponentsPage() {
                 </div>
               </section>
             )}
+
+            */}
           </div>
         </section>
       </div>
