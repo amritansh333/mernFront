@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   ArrowRight,
@@ -344,15 +344,51 @@ const promise = [
 
 function StatSection() {
   const ref = useScrollFade() as React.RefObject<HTMLDivElement>;
+  const [counts, setCounts] = useState([0, 0, 0, 0]);
+
+  useEffect(() => {
+    const duration = 2000;
+    let animationFrame: number;
+    let startTime: number | null = null;
+
+    const animate = (timestamp: number) => {
+      if (startTime === null) startTime = timestamp;
+
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+
+      // Smooth ease-out animation.
+      const easedProgress = 1 - Math.pow(1 - progress, 4);
+
+      setCounts([
+        Math.floor(40 * easedProgress),
+        Math.floor(500 * easedProgress),
+        Math.floor(20 * easedProgress),
+        0,
+      ]);
+
+      if (progress < 1) {
+        animationFrame = requestAnimationFrame(animate);
+      } else {
+        setCounts([40, 500, 20, 0]);
+      }
+    };
+
+    animationFrame = requestAnimationFrame(animate);
+
+    return () => cancelAnimationFrame(animationFrame);
+  }, []);
+
   return (
     <div
       ref={ref}
       className="stagger-children grid grid-cols-2 md:grid-cols-4 divide-x divide-divider border-x border-divider"
     >
-      {stats.map((s) => (
+      {stats.map((s, index) => (
         <div key={s.label} className="px-6 py-8 text-center">
           <div className="font-heading text-3xl font-bold text-primary mb-1">
-            {s.value}
+            {index === 3
+              ? s.value
+              : `${counts[index]}+`}
           </div>
           <div className="text-sm text-muted-foreground">{s.label}</div>
         </div>
@@ -367,7 +403,7 @@ function WhyUsSection() {
   return (
     <section
       ref={ref}
-      className="fade-up py-8 bg-surface-subtle border-y border-divider overflow-hidden"
+      className="fade-up my-6 sm:my-8 py-8 bg-surface-subtle border-y border-divider overflow-hidden"
     >
       <div className="container max-w-7xl mx-auto px-6">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8">
@@ -488,60 +524,184 @@ function ProductCategoryCard({
   );
 }
 
-/* Materials Section (Brand Portfolio) */
+
+/* ─── Materials Section (Brand Portfolio) ───────────────── */
+
 function MaterialsSection() {
   const ref = useScrollFade() as React.RefObject<HTMLElement>;
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [columns, setColumns] = useState(4);
+  const [activeRow, setActiveRow] = useState(0);
+
+  // Keep the original desktop/tablet/mobile responsive layout.
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 639px)");
+
+    const updateColumns = () => {
+      setColumns(mediaQuery.matches ? 2 : 4);
+    };
+
+    updateColumns();
+    mediaQuery.addEventListener("change", updateColumns);
+
+    return () => {
+      mediaQuery.removeEventListener("change", updateColumns);
+    };
+  }, []);
+
+  // Group cards into complete rows.
+  const brandRows = Array.from(
+    { length: Math.ceil(brandFamilies.length / columns) },
+    (_, index) =>
+      brandFamilies.slice(
+        index * columns,
+        (index + 1) * columns,
+      ),
+  );
+
+  // Track the row currently entering the stacking sequence.
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    let frame = 0;
+
+    const updateActiveRow = () => {
+      cancelAnimationFrame(frame);
+
+      frame = requestAnimationFrame(() => {
+        const rows = section.querySelectorAll<HTMLElement>(
+          ".brand-stack-row",
+        );
+
+        const stickyTop =
+          window.innerWidth <= 639 ? 132 : 160;
+
+        let currentRow = 0;
+
+        rows.forEach((row, index) => {
+          const rect = row.getBoundingClientRect();
+
+          if (rect.top <= stickyTop + 8) {
+            currentRow = index;
+          }
+        });
+
+        setActiveRow(currentRow);
+      });
+    };
+
+    window.addEventListener("scroll", updateActiveRow, {
+      passive: true,
+    });
+
+    window.addEventListener("resize", updateActiveRow);
+
+    updateActiveRow();
+
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", updateActiveRow);
+      window.removeEventListener("resize", updateActiveRow);
+    };
+  }, [columns]);
 
   return (
     <section
-      ref={ref}
-      className="fade-up py-8 bg-surface-subtle border-y border-divider "
-    >
-      <div className="container max-w-7xl mx-auto px-6">
-        {/* Heading */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
-          <h2 className="font-heading text-3xl text-charcoal ">Our Brands</h2>
+      ref={(node) => {
+        sectionRef.current = node;
 
-          <Link to="/products" className="cta-link mt-3 md:mt-0">
-            Explore Brands <ArrowRight className="w-4 h-4 inline ml-1" />
+        if (typeof ref === "function") {
+          ref(node);
+        } else if (ref) {
+          (
+            ref as React.MutableRefObject<HTMLElement | null>
+          ).current = node;
+        }
+      }}
+      className="brand-portfolio-section bg-surface-subtle border-y border-divider"
+    >
+      {/* Preserve the original website indentation. */}
+      <div className="container max-w-7xl mx-auto px-6">
+
+        {/* Sticky heading: constrained to the original container. */}
+        <div
+  className={`brand-portfolio-heading flex flex-col md:flex-row md:items-center md:justify-between ${
+    activeRow >= brandRows.length - 1
+      ? "brand-heading-release"
+      : ""
+  }`}
+>
+          <h2 className="font-heading text-3xl text-charcoal">
+            Our Brands
+          </h2>
+
+          <Link
+            to="/products"
+            className="cta-link mt-3 md:mt-0"
+          >
+            Explore Brands
+            <ArrowRight className="w-4 h-4 inline ml-1" />
           </Link>
         </div>
 
-        {/* Grid */}
-        <div className=" grid grid-cols-1 sm:grid-cols-4 lg:grid-cols-4 gap-6">
-          {brandFamilies.map((m) => (
-            <Link
-              key={m.abbr}
-              to={`/products/thermoplastics-semi-finished-products/sheets-blocks/${m.slug}`}
-              className="category-card block group border border-border  overflow-hidden hover:shadow-lg transition-all duration-300"
+        {/* The stacking sequence ends with the final brand row. */}
+        <div className="brand-stack-sequence">
+          {brandRows.map((row, rowIndex) => (
+            <div
+              key={`${columns}-${rowIndex}`}
+              className="brand-stack-row"
+              style={
+                {
+                  "--brand-row-index": rowIndex,
+                  "--brand-row-count": brandRows.length,
+                } as React.CSSProperties
+              }
             >
-              {/* Image */}
-              <div className="w-full h-40 overflow-hidden">
-                <img
-                  src={m.image} // <-- add image field in your data
-                  alt={m.name}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
+              <div
+                className={`brand-stack-grid grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-6 ${
+                  rowIndex < activeRow
+                    ? "brand-row-passed"
+                    : ""
+                }`}
+              >
+                {row.map((m) => (
+                  <Link
+                    key={m.abbr}
+                    to={`/products/thermoplastics-semi-finished-products/sheets-blocks/${m.slug}`}
+                    className="category-card block group border border-border overflow-hidden hover:shadow-lg transition-all duration-300"
+                  >
+                    {/* Keep the original image dimensions. */}
+                    <div className="w-full h-40 overflow-hidden">
+                      <img
+                        src={m.image}
+                        alt={m.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        loading="lazy"
+                      />
+                    </div>
+
+                    {/* Keep the original card content and padding. */}
+                    <div className="p-4">
+                      <h3 className="font-heading text-lg text-primary group-hover:text-primary-dark transition-colors cta-link">
+                        {m.abbr}
+                        <ArrowRight className="w-4 h-4 explore-arrow" />
+                      </h3>
+
+                      <p className="text-sm text-charcoal font-medium mt-1 group-hover:text-primary">
+                        {m.name}
+                      </p>
+
+                      <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
+                        {m.prop}
+                      </p>
+
+                      <div className="card-border-bottom mt-1" />
+                    </div>
+                  </Link>
+                ))}
               </div>
-
-              {/* Content */}
-              <div className="p-4">
-                <h3 className="font-heading text-lg text-primary group-hover:text-primary-dark transition-colors cta-link">
-                  {m.abbr}
-                  <ArrowRight className="w-4 h-4 explore-arrow" />
-                </h3>
-
-                <p className="text-sm text-charcoal font-medium mt-1 group-hover:text-primary">
-                  {m.name}
-                </p>
-
-                <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
-                  {m.prop}
-                </p>
-
-                <div className="card-border-bottom mt-1" />
-              </div>
-            </Link>
+            </div>
           ))}
         </div>
       </div>
@@ -877,12 +1037,14 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Stats bar */}
-      <div className="container max-w-7xl mx-auto px-6 -mt-px">
-        <div className="bg-card border border-border shadow-card">
-          <StatSection />
-        </div>
-      </div>
+
+{/* Stats bar */}
+<div className="container max-w-7xl mx-auto px-6 mt-6 sm:mt-8">
+  <div className="bg-card border border-border shadow-card">
+    <StatSection />
+  </div>
+</div>
+
 
       {/* Why Polyrib */}
       <WhyUsSection />

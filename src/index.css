@@ -258,3 +258,148 @@
 .animate-slide-fade {
   animation: slideFade 30s infinite;
 }
+
+
+/* ==========================================
+   BRAND PORTFOLIO — STICKY ROW STACKING
+   ========================================== */
+
+.brand-portfolio-section {
+  position: relative;
+  overflow: clip;
+  isolation: isolate;
+}
+
+/*
+ * Preserve the original max-width and horizontal
+ * indentation. The heading stays within this container.
+ */
+.brand-portfolio-section > .container {
+  position: relative;
+  width: 100%;
+}
+
+/*
+ * Sticky heading stays below the site navbar.
+ * Its background prevents cards from showing through.
+ */
+.brand-portfolio-heading {
+  position: sticky;
+  top: 72px;
+  z-index: 50;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  background: hsl(var(--surface-subtle));
+}
+
+/*
+ * Each row is one complete layer:
+ * four cards on desktop, two cards on mobile.
+ */
+.brand-stack-sequence {
+  position: relative;
+  padding-bottom: 24px;
+}
+
+.brand-stack-row {
+  position: sticky;
+  top: 160px;
+  z-index: calc(10 + var(--brand-row-index));
+  padding-bottom: 16px;
+  background: hsl(var(--surface-subtle));
+  transform-origin: center top;
+  will-change: transform;
+}
+
+/*
+ * A previous row becomes a background layer as the
+ * next complete row moves into the sticky position.
+ */
+.brand-stack-grid {
+  position: relative;
+  align-items: stretch;
+  background: hsl(var(--surface-subtle));
+}
+
+.brand-stack-grid > a {
+  min-width: 0;
+  height: 100%;
+}
+
+/*
+ * Keep existing card image size and prevent flex/grid
+ * shrinking from reducing the image area.
+ */
+.brand-stack-grid > a > div:first-child {
+  height: 160px;
+  min-height: 160px;
+}
+
+.brand-stack-grid img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/*
+ * After the final row, the sequence ends naturally.
+ * The following section is not sticky or pinned.
+ */
+.brand-portfolio-section::after {
+  content: "";
+  display: block;
+  height: 0;
+}
+
+/* Tablet and desktop */
+@media (min-width: 640px) {
+  .brand-portfolio-heading {
+    top: 72px;
+  }
+
+  .brand-stack-row {
+    top: 160px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 639px) {
+  .brand-portfolio-heading {
+    top: 60px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+
+  .brand-stack-row {
+    top: 132px;
+    padding-bottom: 12px;
+  }
+
+  .brand-stack-grid {
+    gap: 12px;
+  }
+
+  .brand-stack-grid > a > div:first-child {
+    height: 160px;
+    min-height: 160px;
+  }
+}
+
+/*
+ * Respect reduced-motion preferences.
+ */
+@media (prefers-reduced-motion: reduce) {
+  .brand-stack-grid,
+  .brand-stack-grid img {
+    scroll-behavior: auto;
+    transition: none !important;
+  }
+}
+
+
+/* Release the heading when the final card row arrives. */
+.brand-portfolio-heading.brand-heading-release {
+  position: relative;
+  top: auto;
+  z-index: 1;
+}
