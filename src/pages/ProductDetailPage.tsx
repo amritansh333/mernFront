@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Link, useParams, Navigate } from "react-router-dom";
 import {
   ChevronLeft,
@@ -18,7 +18,9 @@ export default function ProductDetailPage() {
   const [brand, setBrand] = useState<Brand | null>(null);
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
-  const [currentImage, setCurrentImage] = useState(0);
+const [currentImage, setCurrentImage] = useState(0);
+const [discoveredImages, setDiscoveredImages] = useState<string[]>([]);
+const [reduceMotion, setReduceMotion] = useState(false);
 
   const formatText = (slug?: string) => {
     if (!slug) return "";
@@ -44,17 +46,154 @@ export default function ProductDetailPage() {
     fetchProduct();
   }, [productSlug]);
 
-  if (!loading && !product) return <Navigate to="/products" replace />;
 
-  /* Repeat same image 3 times */
-  const images = product?.image
-    ? [product.image, product.image, product.image]
-    : [];
+  const images = useMemo(() => {
+  const uniqueImages = new Set<string>();
 
-  const nextImage = () => setCurrentImage((prev) => (prev + 1) % images.length);
+  for (const image of discoveredImages) {
+    if (image) uniqueImages.add(image);
+  }
 
-  const prevImage = () =>
-    setCurrentImage((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  return Array.from(uniqueImages);
+}, [discoveredImages]);
+
+const nextImage = useCallback(() => {
+  setCurrentImage((previous) =>
+    images.length > 1 ? (previous + 1) % images.length : 0,
+  );
+}, [images.length]);
+
+const prevImage = useCallback(() => {
+  setCurrentImage((previous) =>
+    images.length > 1
+      ? (previous === 0 ? images.length - 1 : previous - 1)
+      : 0,
+  );
+}, [images.length]);
+
+useEffect(() => {
+  setCurrentImage(0);
+  setDiscoveredImages([]);
+}, [productSlug]);
+
+useEffect(() => {
+  const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  const updateMotionPreference = () => {
+    setReduceMotion(mediaQuery.matches);
+  };
+
+  updateMotionPreference();
+  mediaQuery.addEventListener("change", updateMotionPreference);
+
+  return () => {
+    mediaQuery.removeEventListener("change", updateMotionPreference);
+  };
+}, []);
+
+useEffect(() => {
+  if (!product?.image) {
+    setDiscoveredImages([]);
+    return;
+  }
+
+  let cancelled = false;
+  const primaryImage = product.image;
+  const imageDirectory = primaryImage.slice(
+    0,
+    primaryImage.lastIndexOf("/") + 1,
+  );
+  const imageFilename = primaryImage.slice(
+    primaryImage.lastIndexOf("/") + 1,
+  );
+  const extensionIndex = imageFilename.lastIndexOf(".");
+  const extension =
+    extensionIndex >= 0 ? imageFilename.slice(extensionIndex) : "";
+  const filenameWithoutExtension =
+    extensionIndex >= 0
+      ? imageFilename.slice(0, extensionIndex)
+      : imageFilename;
+
+  // Supports: product.jpeg, product_1.jpeg, product_2.jpeg, etc.
+  // Also supports: product-1.jpeg, product-2.jpeg, etc.
+  const baseFilename = filenameWithoutExtension.replace(/[_-]\d+$/, "");
+
+  const candidates = [
+    primaryImage,
+    ...Array.from({ length: 100 }, (_, index) => {
+      const number = index + 1;
+      return `${imageDirectory}${baseFilename}_${number}${extension}`;
+    }),
+    ...Array.from({ length: 100 }, (_, index) => {
+      const number = index + 1;
+      return `${imageDirectory}${baseFilename}-${number}${extension}`;
+    }),
+  ];
+
+  const checkImage = (src: string) =>
+    new Promise<boolean>((resolve) => {
+      const image = new Image();
+
+      image.onload = () => resolve(true);
+      image.onerror = () => resolve(false);
+      image.src = `${BASE_URL}${src}`;
+    });
+
+  const discoverImages = async () => {
+    const validImages: string[] = [];
+
+    // Preserve the main image first.
+    if (await checkImage(primaryImage)) {
+      validImages.push(primaryImage);
+    }
+
+    // Check numbered variants without duplicating the primary image.
+    const additionalImages = await Promise.all(
+  candidates.slice(1).map(async (candidate) => {
+    if (cancelled || candidate === primaryImage) {
+      return null;
+    }
+
+    const exists = await checkImage(candidate);
+
+    return exists ? candidate : null;
+  }),
+);
+
+if (cancelled) return;
+
+validImages.push(
+  ...additionalImages.filter(
+    (image): image is string => image !== null,
+  ),
+);
+
+    if (!cancelled) {
+      setDiscoveredImages(validImages);
+    }
+  };
+
+  void discoverImages();
+
+  return () => {
+    cancelled = true;
+  };
+}, [product?.image]);
+
+useEffect(() => {
+  if (reduceMotion || images.length <= 1) return;
+
+  const interval = window.setInterval(() => {
+    setCurrentImage((previous) => (previous + 1) % images.length);
+  }, 2000);
+
+  return () => window.clearInterval(interval);
+}, [images.length, reduceMotion]);
+
+if (!loading && !product) {
+  return <Navigate to="/products" replace />;
+}
+
 
   return (
     <div className="pt-16">
@@ -192,58 +331,86 @@ export default function ProductDetailPage() {
             )}
           </div>
 
-          {/* RIGHT SIDE IMAGE SLIDER */}
-          <div className="relative">
-            {loading ? (
-              <>
-                <div className="w-full h-[380px] bg-gray-200 rounded-md animate-pulse" />
+{/* RIGHT SIDE IMAGE SLIDER */}
+<div className="relative">
+  {loading || (product?.image && images.length === 0) ? (
+    <div className="card-image relative aspect-[4/3] overflow-hidden bg-[#F8FAFC]">
+      <div className="h-full w-full animate-pulse bg-gray-200" />
+    </div>
+  ) : (
+    images.length > 0 && (
+      <>
+        {/* Main Image — same animation as ProductsPage.tsx */}
+        <div className="card-image product-gallery relative aspect-[4/3] overflow-hidden bg-[#F8FAFC]">
+          {images.map((src, index) => {
+            const isActive = index === currentImage;
 
-                <div className="flex justify-center gap-2 mt-4">
-                  {Array.from({ length: 3 }).map((_, i) => (
-                    <span
-                      key={i}
-                      className="h-2 w-2 rounded-full bg-gray-300 animate-pulse"
-                    />
-                  ))}
-                </div>
-              </>
-            ) : (
-              images.length > 0 && (
-                <>
-                  <img
-                    src={`${BASE_URL}${images[currentImage]}`}
-                    alt={product.name}
-                    className="w-full h-[380px] object-cover rounded-md"
-                  />
+            return (
+              <img
+                key={src}
+                src={`${BASE_URL}${src}`}
+                alt={`${product?.name ?? "Product"} — image ${index + 1}`}
+                aria-hidden={!isActive}
+                className={`product-gallery-image absolute inset-0 h-full w-full object-contain ${
+                  isActive ? "product-gallery-image-active" : ""
+                }`}
+                style={
+                  {
+                    "--gallery-index": index,
+                  } as React.CSSProperties
+                }
+                loading={index === 0 ? "eager" : "lazy"}
+                decoding="async"
+              />
+            );
+          })}
 
-                  <button
-                    onClick={prevImage}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 bg-white shadow p-2 rounded"
-                  >
-                    <ChevronLeft size={20} />
-                  </button>
+          {/* Previous Arrow */}
+          {images.length > 1 && (
+            <button
+              type="button"
+              onClick={prevImage}
+              aria-label="Previous product image"
+              className="absolute left-2 top-1/2 z-20 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-white/70 bg-white/90 text-[#0F2A3D] shadow-md transition-all duration-200 hover:scale-105 hover:bg-[#279ECE] hover:text-white"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+          )}
 
-                  <button
-                    onClick={nextImage}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 bg-white shadow p-2 rounded"
-                  >
-                    <ChevronRight size={20} />
-                  </button>
+          {/* Next Arrow */}
+          {images.length > 1 && (
+            <button
+              type="button"
+              onClick={nextImage}
+              aria-label="Next product image"
+              className="absolute right-2 top-1/2 z-20 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-white/70 bg-white/90 text-[#0F2A3D] shadow-md transition-all duration-200 hover:scale-105 hover:bg-[#279ECE] hover:text-white"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
+          )}
+        </div>
 
-                  <div className="flex justify-center gap-2 mt-4">
-                    {images.map((_: string, i: number) => (
-                      <span
-                        key={i}
-                        className={`h-2 w-2 rounded-full ${
-                          i === currentImage ? "bg-primary" : "bg-gray-300"
-                        }`}
-                      />
-                    ))}
-                  </div>
-                </>
-              )
-            )}
+        {/* Image Indicators */}
+        {images.length > 1 && (
+          <div className="mt-4 flex justify-center gap-2">
+            {images.map((src, index) => (
+              <button
+                key={src}
+                type="button"
+                onClick={() => setCurrentImage(index)}
+                aria-label={`Show product image ${index + 1}`}
+                aria-current={index === currentImage ? "true" : undefined}
+                className={`h-2 w-2 rounded-full transition-colors ${
+                  index === currentImage ? "bg-primary" : "bg-gray-300"
+                }`}
+              />
+            ))}
           </div>
+        )}
+      </>
+    )
+  )}
+</div>
         </div>
       </div>
 
