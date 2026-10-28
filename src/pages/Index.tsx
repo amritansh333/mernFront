@@ -24,6 +24,25 @@ import {
   Lightbulb,
   PackageCheck,
   X,
+  Plane,
+  Sprout,
+  Car,
+  Building2,
+  Utensils,
+  Truck,
+  Hammer,
+  Shirt,
+  Anchor,
+  Package,
+  HeartPulse,
+  Mountain,
+  Fuel,
+  Boxes,
+  BookOpen,
+  Signpost,
+  Dumbbell,
+  Train,
+  Droplets,
 } from "lucide-react";
 import { useScrollFade } from "@/hooks/useScrollFade";
 import { useMachineComponentRouting } from "@/lib/product-experience/useMachineComponentRouting";
@@ -96,6 +115,30 @@ const allIndustries = [
   { abbr: "Transportaion", slug: "transportation" },
   { abbr: "Water & Waste Water", slug: "water-waste-water" },
 ];
+
+const industryIcons = {
+  aerospace: Plane,
+  "agro-processing": Sprout,
+  automotive: Car,
+  "build-construction": Building2,
+  cement: Factory,
+  chemical: FlaskConical,
+  "food-beverage": Utensils,
+  "heavy-equipment": Truck,
+  "iron-steel": Hammer,
+  leather: Shirt,
+  marine: Anchor,
+  "material-handling": Package,
+  medical: HeartPulse,
+  mining: Mountain,
+  "oil-gas": Fuel,
+  packaging: Boxes,
+  "pulp-paper": BookOpen,
+  signage: Signpost,
+  "sports-recreation": Dumbbell,
+  transportation: Train,
+  "water-waste-water": Droplets,
+} as const;
 
 const brandFamilies = [
   {
@@ -191,87 +234,49 @@ const trustPoints = [
   { icon: Globe, label: "Export to 50+ Countries" },
 ];
 
-const polymers = [
-  {
-    slug: "uhmwpe",
-    abbr: "UHMWPE",
-    name: "Ideal for High Performance Industrial Applications",
-    prop: "• Exceptional Wear Resistance • Low Friction~Outstanding Impact Strength",
-  },
-  {
-    slug: "pc",
-    abbr: "PC",
-    name: "Ideal for Architectural & Industrial Use",
-    prop: "• Optical Clarity • High Impact • UV Resistance",
-  },
-  {
-    slug: "pp",
-    abbr: "PP",
-    name: "Wide Range of Applications",
-    prop: "• Versatile Lightweight Polymer • Excellent Chemical Resistance ",
-  },
-  {
-    slug: "hdpe",
-    abbr: "HDPE",
-    name: "Ideal for demanding Environments",
-    prop: "• Superior Toughness • Chemical Resistance • Long Term Durability",
-  },
-  {
-    slug: "ldpe",
-    abbr: "LDPE",
-    name: "Ideal for Durable low-load Applications",
-    prop: "• Flexible Lightweight",
-  },
-  {
-    slug: "cast-nylon",
-    abbr: "CAST NYLON",
-    name: "Ideal For Load Bearoing and Precision Components",
-    prop: "• Excellent Mechanical Strength • Wear Resistance • Dimensional Stability",
-  },
-  {
-    slug: "pom",
-    abbr: "POM",
-    name: "Ideal for moving parts and components",
-    prop: "Low Friction • Excellent Dimensional Stability • Tight Tolerance",
-  },
-  {
-    slug: "abs",
-    abbr: "ABS",
-    name: "Durable Consumer and Industrial Components",
-    prop: "Good Surface finish • Impact Resistance • Excellent for Vacuum Forming & Electroplating",
-  },
-];
 
 const infrastructure = [
   {
     label: "RAM Extrusion Lines",
     value: "11 Lines",
     sub: "Thickness: 0.9 mm – 40 mm",
+    icon: Factory,
+    number: "01",
   },
   {
     label: "Plank Extrusion Lines",
     value: "Heavy Gauge",
     sub: "Sheet thickness: 25 mm – 250 mm",
+    icon: Layers,
+    number: "02",
   },
   {
     label: "Sheet Extrusion Lines",
     value: "6 Lines",
     sub: "Wide-format sheet production",
+    icon: Ruler,
+    number: "03",
   },
   {
     label: "Compression Moulding",
     value: "7 Facilities",
     sub: "Width 700–5000 mm · Thickness 6–105 mm",
+    icon: FlaskConical,
+    number: "04",
   },
   {
     label: "Cast Nylon Manufacturing",
     value: "In-House",
     sub: "Full monomer casting capability",
+    icon: Cog,
+    number: "05",
   },
   {
     label: "CNC Machining Centre",
     value: "Full Suite",
     sub: "VMC · 3 CNC Lathes · 4 CNC Routers",
+    icon: Cpu,
+    number: "06",
   },
 ];
 
@@ -354,54 +359,161 @@ const promise = [
 /* ─── Sub-components ────────────────────────────────────── */
 
 function StatSection() {
-  const ref = useScrollFade() as React.RefObject<HTMLDivElement>;
-  const [counts, setCounts] = useState([0, 0, 0, 0]);
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const [counts, setCounts] = useState([0, 0, 0]);
+  const hasAnimated = useRef(false);
+
+  const statItems = [
+    {
+      value: 40,
+      suffix: "+",
+      label: "Years of Manufacturing",
+      caption: "ESTABLISHED 1985",
+      icon: Factory,
+      accent: "blue",
+    },
+    {
+      value: 500,
+      suffix: "+",
+      label: "Product Grades",
+      caption: "CUSTOM FORMULATED",
+      icon: FlaskConical,
+      accent: "blue",
+    },
+    {
+      value: 20,
+      suffix: "+",
+      label: "Industries Served",
+      caption: "GLOBAL APPLICATION",
+      icon: LayoutGrid,
+      accent: "blue",
+    },
+    {
+      value: "ISO 9001",
+      suffix: "",
+      label: "Certified",
+      caption: "ISO 9001:2015",
+      icon: Shield,
+      accent: "green",
+    },
+  ] as const;
 
   useEffect(() => {
-    const duration = 2500;
-    let animationFrame: number;
+    const element = ref.current;
+    if (!element) return;
+
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    if (prefersReducedMotion) {
+      setCounts([40, 500, 20]);
+      setIsVisible(true);
+      hasAnimated.current = true;
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      {
+        threshold: 0.2,
+        rootMargin: "0px 0px -20px 0px",
+      },
+    );
+
+    observer.observe(element);
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!isVisible || hasAnimated.current) return;
+
+    hasAnimated.current = true;
+
+    const duration = 1800;
+    let animationFrame = 0;
     let startTime: number | null = null;
 
     const animate = (timestamp: number) => {
       if (startTime === null) startTime = timestamp;
 
       const progress = Math.min((timestamp - startTime) / duration, 1);
-
-      // Smooth ease-out animation.
       const easedProgress = 1 - Math.pow(1 - progress, 4);
 
       setCounts([
         Math.floor(40 * easedProgress),
         Math.floor(500 * easedProgress),
         Math.floor(20 * easedProgress),
-        0,
       ]);
 
       if (progress < 1) {
         animationFrame = requestAnimationFrame(animate);
       } else {
-        setCounts([40, 500, 20, 0]);
+        setCounts([40, 500, 20]);
       }
     };
 
     animationFrame = requestAnimationFrame(animate);
 
     return () => cancelAnimationFrame(animationFrame);
-  }, []);
+  }, [isVisible]);
 
   return (
     <div
       ref={ref}
-      className="stagger-children grid grid-cols-2 md:grid-cols-4 divide-x divide-divider border-x border-divider"
+      className={`stats-panel ${
+        isVisible ? "stats-panel-visible" : ""
+      }`}
+      aria-label="Khanna Polyrib company statistics"
     >
-      {stats.map((s, index) => (
-        <div key={s.label} className="px-6 py-8 text-center">
-          <div className="font-heading text-3xl font-bold text-primary mb-1">
-            {index === 3 ? s.value : `${counts[index]}+`}
-          </div>
-          <div className="text-sm text-muted-foreground">{s.label}</div>
-        </div>
-      ))}
+      {statItems.map((item, index) => {
+        const Icon = item.icon;
+
+        const displayValue =
+          index === 3
+            ? item.value
+            : `${counts[index]}${item.suffix}`;
+
+        return (
+          <article
+            key={item.label}
+            className={`stats-card stats-card-${item.accent}`}
+            style={
+              {
+                "--stats-index": index,
+              } as React.CSSProperties
+            }
+          >
+            <div className="stats-card-top">
+              <span className="stats-icon">
+                <Icon
+                  aria-hidden="true"
+                  size={21}
+                  strokeWidth={2.2}
+                />
+              </span>
+            </div>
+
+            <div
+              className="stats-value"
+              aria-label={`${item.value}${item.suffix}`}
+            >
+              {displayValue}
+            </div>
+
+            <div className="stats-label">{item.label}</div>
+
+            <div className="stats-caption">{item.caption}</div>
+          </article>
+        );
+      })}
     </div>
   );
 }
@@ -412,7 +524,7 @@ function WhyUsSection() {
   return (
     <section
       ref={ref}
-      className="fade-up my-6 sm:my-8 py-8 bg-surface-subtle border-y border-divider overflow-hidden"
+      className="fade-up my-6 sm:my-8 py-8 bg-white border-y border-divider overflow-hidden"
     >
       <div className="container max-w-7xl mx-auto px-6">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8">
@@ -538,7 +650,7 @@ function ProductCategoryCard({
   }, [images.length, reduceMotion]);
 
   return (
-    <Link to={href} className="category-card block group">
+    <Link to={href} className="category-card block group rounded-2xl">
       {/* Image viewport: original dimensions and aspect ratio preserved */}
       <div className="card-image relative aspect-[2/1] overflow-hidden bg-surface-subtle">
         {images.map((image, index) => {
@@ -680,7 +792,7 @@ function MaterialsSection() {
           (ref as React.MutableRefObject<HTMLElement | null>).current = node;
         }
       }}
-      className="brand-portfolio-section bg-surface-subtle border-y border-divider"
+      className="brand-portfolio-section bg-white border-y border-divider"
     >
       {/* Preserve the original website indentation. */}
       <div className="container max-w-7xl mx-auto px-6">
@@ -720,7 +832,7 @@ function MaterialsSection() {
                   <Link
                     key={m.abbr}
                     to={`/products/thermoplastics-semi-finished-products/sheets-blocks/${m.slug}`}
-                    className="category-card block group border border-border overflow-hidden hover:shadow-lg transition-all duration-300"
+                    className="category-card block group border border-border overflow-hidden hover:shadow-lg transition-all duration-300 rounded-xl"
                   >
                     {/* Keep the original image dimensions. */}
                     <div className="w-full h-40 overflow-hidden">
@@ -800,7 +912,7 @@ function PolymersSection() {
   return (
     <section
       ref={sectionRef}
-      className={`materials-motion-section py-8 border-b border-divider ${
+      className={`materials-motion-section py-8 border-b border-divider bg-white ${
         isVisible ? "materials-motion-visible" : ""
       }`}
     >
@@ -819,54 +931,168 @@ function PolymersSection() {
               </Link>
             </div>
 
-            {/* Original image frame and dimensions preserved */}
-            <div className="materials-image-frame w-full">
-              <img
-                src={polymerImg}
-                alt="Polymer materials in different colours"
-                className="materials-feature-image w-full h-[180px] sm:h-[220px] lg:h-[260px] object-cover bg-card border border-border p-4"
-                loading="lazy"
-              />
+            {/* Polymer Compounding Lab — Textured Industrial Card */}
+<div className="polymer-lab-card w-full p-4 sm:p-5 rounded-xl overflow-hidden">
 
-              <div className="materials-image-accent" />
-            </div>
+  {/* Existing polymer image — dimensions preserved */}
+  <div className="w-full overflow-hidden rounded-lg border border-slate-700/60">
+    <img
+      src={polymerImg}
+      alt="Polymer materials in different colours"
+      className="materials-feature-image w-full h-[180px] sm:h-[220px] lg:h-[260px] object-cover"
+      loading="lazy"
+    />
+  </div>
+
+  {/* Card Content */}
+  <div className="pt-5">
+
+    <h3 className="font-heading text-lg font-bold text-white mb-2">
+      Polymer Compounding Lab
+    </h3>
+
+    <p className="text-sm text-slate-300 leading-relaxed">
+      Our in-house analytical lab measures melt flow index (MFI),
+      density distribution, Shore hardness, and glass transition
+      temperatures across every production batch.
+    </p>
+
+    {/* Technical Information */}
+    <div className="lab-technical-panel mt-5 p-3 sm:p-4 rounded-lg space-y-3">
+
+      <div className="flex flex-wrap items-start justify-between gap-2">
+        <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-sky-400">
+          Resin Grade:
+        </span>
+
+        <span className="text-[10px] sm:text-xs font-bold font-mono text-white text-right">
+          VIRGIN FORMULATION
+        </span>
+      </div>
+
+      <div className="flex flex-wrap items-start justify-between gap-2">
+        <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-sky-400">
+          Test Standards:
+        </span>
+
+        <span className="text-[10px] sm:text-xs font-bold font-mono text-white text-right">
+          ASTM D790 / ISO 178
+        </span>
+      </div>
+
+    </div>
+  </div>
+</div>
           </div>
 
-          {/* Right column */}
-          <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {polymers.map((m, index) => (
-              <Link
-                key={m.abbr}
-                to={`/materials/${m.slug}`}
-                className="material-motion-card bg-card border border-border p-4 block group"
-                style={
-                  {
-                    "--material-index": index,
-                    "--material-delay": `${index * 200}ms`,
-                  } as React.CSSProperties
-                }
-              >
-                <div className="flex items-start gap-3">
-                  <span className="material-motion-abbr font-heading font-bold text-primary text-lg w-28 shrink-0">
-                    {m.abbr}
-                  </span>
+          
 
-                  <div>
-                    <div className="text-sm text-charcoal font-medium mb-0.5 group-hover:text-primary transition-colors duration-200">
-                      {m.name}
-                    </div>
+{/* Right column — Material family cards */}
+<div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+  {[
+    {
+      brand: "POLYRIB V",
+      base: "PE / UHMW PE",
+      slug: "uhmwpe",
+      colour: "bg-blue-50 text-blue-700 border-blue-200",
+      tagline: "Ultra-High Molecular Weight Polyethylene",
+      desc: "Self-lubricating, exceptional abrasion resistance, high impact strength. Widely used in conveyor liners, wear strips, and food processing equipment.",
+    },
+    {
+      brand: "PCCLEAR",
+      base: "PC",
+      slug: "pc",
+      colour: "bg-sky-50 text-sky-700 border-sky-200",
+      tagline: "Polycarbonate",
+      desc: "High-clarity PC sheets with outstanding impact strength. Available in transparent, embossed, shaded, and UV-stabilised variants.",
+    },
+    {
+      brand: "POLYRIB P",
+      base: "PP",
+      slug: "pp",
+      colour: "bg-orange-50 text-orange-700 border-orange-200",
+      tagline: "Polypropylene",
+      desc: "High-impact and chemical-resistant PP sheets for acid and chemical tanks, galvanising, anodising, and food processing.",
+    },
+    {
+      brand: "POLYRIB H",
+      base: "HDPE",
+      slug: "hdpe",
+      colour: "bg-green-50 text-green-700 border-green-200",
+      tagline: "High-Density Polyethylene",
+      desc: "Tough, corrosion-resistant HDPE sheets for chemical tanks, crate partitions, fabrication, and structural applications.",
+    },
+    {
+      brand: "KAYLON",
+      base: "CAST NYLON (PA6)",
+      slug: "pa6",
+      colour: "bg-purple-50 text-purple-700 border-purple-200",
+      tagline: "Cast Nylon / Polyamide 6",
+      desc: "Oil-filled, MoS₂-filled, and heat-stabilised cast nylon for gears, bearings, wear pads, and high-strength engineering components.",
+    },
+    {
+      brand: "PAKETAL",
+      base: "ACETAL / POM",
+      slug: "acetal",
+      colour: "bg-red-50 text-red-700 border-red-200",
+      tagline: "Acetal / Polyoxymethylene",
+      desc: "Excellent machinability, dimensional stability, and low friction for precision gears, cams, bearings, and industrial components.",
+    },
+    {
+      brand: "POLYRIB A",
+      base: "ABS / ASA",
+      slug: "abs",
+      colour: "bg-yellow-50 text-yellow-700 border-yellow-200",
+      tagline: "ABS & ASA Sheets",
+      desc: "Automotive-grade ABS and ASA sheets for interior and exterior trim, display systems, and rapid prototyping.",
+    },
+    {
+      brand: "PLASCON-V",
+      base: "UHMWPE ENGINEERING",
+      slug: "pe",
+      colour: "bg-teal-50 text-teal-700 border-teal-200",
+      tagline: "Engineering Polymer Grades",
+      desc: "Specialised engineering polymers designed for CNC-machined components, industrial sliders, wear parts, and demanding sliding applications.",
+    },
+  ].map((m, index) => (
+    <Link
+      key={m.slug}
+      to={`/materials/${m.slug}`}
+      className="group block text-left p-5 border-2 border-border bg-card hover:border-primary/40 hover:shadow-card transition-all duration-200 rounded-xl"
+      style={
+        {
+          "--material-index": index,
+        } as React.CSSProperties
+      }
+    >
+      {/* Material badge and chevron — same layout as MaterialsPage */}
+      <div className="flex items-start justify-between mb-2">
+        <span
+          className={`text-[10px] px-2.5 py-1 font-bold border ${m.colour}`}
+        >
+          {m.base}
+        </span>
 
-                    <div className="text-xs text-muted-foreground">
-                      {m.prop}
-                    </div>
-                  </div>
-                </div>
+        <ChevronRight className="w-4 h-4 text-muted-foreground transition-transform duration-200 group-hover:translate-x-1 group-hover:text-primary" />
+      </div>
 
-                {/* Animated bottom accent */}
-                <div className="material-card-accent" />
-              </Link>
-            ))}
-          </div>
+      {/* Brand */}
+      <h3 className="font-heading font-bold text-charcoal text-lg mb-1 group-hover:text-primary transition-colors duration-200">
+        {m.brand}
+      </h3>
+
+      {/* Tagline */}
+      <p className="text-xs text-primary font-semibold mb-2">
+        {m.tagline}
+      </p>
+
+      {/* Description */}
+      <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">
+        {m.desc}
+      </p>
+    </Link>
+  ))}
+</div>
         </div>
       </div>
     </section>
@@ -911,7 +1137,7 @@ function IndustriesSection() {
   return (
     <section
       ref={sectionRef}
-      className={`industries-motion-section py-8 bg-surface-subtle border-y border-divider ${
+      className={`industries-motion-section py-8 bg-white border-y border-divider ${
         isVisible ? "industries-motion-visible" : ""
       }`}
     >
@@ -925,23 +1151,32 @@ function IndustriesSection() {
 
         {/* Original layout: unchanged */}
         <div className="flex flex-wrap justify-center gap-3">
-          {allIndustries.map((ind, index) => (
-            <Link
-              key={ind.abbr}
-              to={`/industries/${ind.slug}`}
-              className="industries-motion-card flex items-center gap-2 px-4 py-2.5 border border-border bg-card hover:border-primary hover:text-primary text-sm font-medium text-charcoal-light transition-all duration-200"
-              style={
-                {
-                  "--industry-index": index,
-                  "--industry-delay": `${180 + index * 150}ms`,
-                } as React.CSSProperties
-              }
-            >
-              <ChevronRight className="w-3.5 h-3.5 text-primary shrink-0" />
-              {ind.abbr}
-            </Link>
-          ))}
-        </div>
+  {allIndustries.map((ind, index) => {
+    const Icon = industryIcons[ind.slug as keyof typeof industryIcons];
+
+    return (
+      <Link
+        key={ind.abbr}
+        to={`/industries/${ind.slug}`}
+        className="industries-motion-card group flex items-center gap-2.5 px-4 py-2.5 border border-border bg-card hover:border-primary hover:text-primary text-sm font-medium text-charcoal-light transition-all duration-200 rounded-lg"
+        style={
+          {
+            "--industry-index": index,
+            "--industry-delay": `${180 + index * 150}ms`,
+          } as React.CSSProperties
+        }
+      >
+        <Icon
+          className="w-4 h-4 text-primary shrink-0 transition-transform duration-200 group-hover:scale-110"
+          strokeWidth={1.8}
+          aria-hidden="true"
+        />
+
+        <span>{ind.abbr}</span>
+      </Link>
+    );
+  })}
+</div>
 
         {/* Footer */}
         <div className="industries-motion-footer text-center mt-8">
@@ -993,69 +1228,166 @@ function InfrastructureSection() {
 
   return (
     <section
-      ref={sectionRef}
-      className={`infrastructure-motion-section py-8 border-b border-divider ${
-        isVisible ? "infrastructure-motion-visible" : ""
-      }`}
-    >
-      <div className="container max-w-7xl mx-auto px-6">
-        {/* Heading and description */}
-        <div className="infrastructure-motion-heading text-center mb-8">
-          <h2 className="font-heading text-3xl text-charcoal">
-            Infrastructure Built for Scale
-          </h2>
+  ref={sectionRef}
+  className={`infrastructure-motion-section py-8 border-b border-divider bg-[#161F2D] ${
+    isVisible ? "infrastructure-motion-visible" : ""
+  }`}
+>
+  <div className="container max-w-7xl mx-auto px-6">
+    {/* Heading and description */}
+    <div className="infrastructure-motion-heading text-center mb-8">
+      <h2 className="font-heading text-3xl text-white">
+        Infrastructure Built for Scale
+      </h2>
 
-          <p className="text-muted-foreground text-sm mt-3 max-w-xl mx-auto">
-            From extrusion to precision CNC machining —{" "}
-            <span className="font-semibold text-base text-primary">
-              Fully equipped to deliver any polymer component at any volume.
-            </span>
-          </p>
-        </div>
+      <p className="text-muted-foreground text-sm mt-3 max-w-xl mx-auto">
+        From extrusion to precision CNC machining —{" "}
+        <span className="font-semibold text-base text-primary">
+          Fully equipped to deliver any polymer component at any volume.
+        </span>
+      </p>
+    </div>
 
-        {/* Original grid layout preserved */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-divider border border-divider">
-          {infrastructure.map((item, index) => (
-            <div
-              key={item.label}
-              className="infrastructure-motion-card bg-card p-8 group"
-              style={
-                {
-                  "--infrastructure-index": index,
-                  "--infrastructure-delay": `${index * 400}ms`,
-                } as React.CSSProperties
-              }
-            >
-              {/* Icon */}
-              <div className="infrastructure-motion-icon w-10 h-10 rounded-sm bg-primary/10 flex items-center justify-center mb-4">
-                <Cog
-                  className="w-5 h-5 text-primary"
-                  strokeWidth={1.5}
+    {/* Grid layout with increased gap and separate rounded cards */}
+
+{/* Continuous Infrastructure Card Marquee */}
+<div
+  className="infrastructure-marquee"
+  role="region"
+  aria-label="Manufacturing infrastructure and capabilities"
+>
+  <div className="infrastructure-marquee-track">
+
+    {/* First set of six cards */}
+    <div className="infrastructure-marquee-group">
+
+      {infrastructure.map((item) => {
+        const Icon = item.icon;
+
+        return (
+          <article
+            key={item.number}
+            className="infrastructure-marquee-card"
+          >
+            {/* Top row */}
+            <div className="infrastructure-card-top">
+              <div className="infrastructure-card-icon">
+                <Icon
+                  className="w-5 h-5"
+                  strokeWidth={1.7}
+                  aria-hidden="true"
                 />
               </div>
 
-              {/* Main value */}
-              <div className="infrastructure-motion-value font-heading text-2xl font-bold text-primary mb-1">
-                {item.value}
-              </div>
-
-              {/* Capability name */}
-              <div className="font-semibold text-charcoal text-sm mb-1">
-                {item.label}
-              </div>
-
-              {/* Description */}
-              <div className="text-sm text-muted-foreground">
-                {item.sub}
-              </div>
-
-              {/* Subtle animated bottom accent */}
-              <div className="infrastructure-motion-accent" />
+              <span className="infrastructure-card-number">
+                CAPABILITY / {item.number}
+              </span>
             </div>
-          ))}
-        </div>
-      </div>
-    </section>
+
+            {/* Main information */}
+            <div className="infrastructure-card-content">
+
+              <p className="infrastructure-card-label">
+                {item.label}
+              </p>
+
+              <h3 className="infrastructure-card-value">
+                {item.value}
+              </h3>
+
+              <p className="infrastructure-card-description">
+                {item.sub}
+              </p>
+
+            </div>
+
+            {/* Bottom accent */}
+            <div className="infrastructure-card-footer">
+              <span className="infrastructure-card-status">
+                <span className="infrastructure-status-dot" />
+                KHANNA POLYRIB PVT. LTD.
+              </span>
+
+              <span className="infrastructure-card-arrow">
+                ↗
+              </span>
+            </div>
+
+            {/* Decorative gradient glow */}
+            <div
+              className="infrastructure-card-glow"
+              aria-hidden="true"
+            />
+          </article>
+        );
+      })}
+
+    </div>
+
+    {/* Duplicate set for seamless infinite scrolling */}
+    <div
+      className="infrastructure-marquee-group"
+      aria-hidden="true"
+    >
+
+      {infrastructure.map((item) => {
+        const Icon = item.icon;
+
+        return (
+          <article
+            key={`duplicate-${item.number}`}
+            className="infrastructure-marquee-card"
+          >
+            <div className="infrastructure-card-top">
+              <div className="infrastructure-card-icon">
+                <Icon
+                  className="w-5 h-5"
+                  strokeWidth={1.7}
+                />
+              </div>
+
+              <span className="infrastructure-card-number">
+                CAPABILITY / {item.number}
+              </span>
+            </div>
+
+            <div className="infrastructure-card-content">
+              <p className="infrastructure-card-label">
+                {item.label}
+              </p>
+
+              <h3 className="infrastructure-card-value">
+                {item.value}
+              </h3>
+
+              <p className="infrastructure-card-description">
+                {item.sub}
+              </p>
+            </div>
+
+            <div className="infrastructure-card-footer">
+              <span className="infrastructure-card-status">
+                <span className="infrastructure-status-dot" />
+                MANUFACTURING CAPABILITY
+              </span>
+
+              <span className="infrastructure-card-arrow">
+                ↗
+              </span>
+            </div>
+
+            <div className="infrastructure-card-glow" />
+          </article>
+        );
+      })}
+
+    </div>
+
+  </div>
+</div>
+
+  </div>
+</section>
   );
 }
 
@@ -1124,7 +1456,7 @@ function CertificationSection() {
               type="button"
               onClick={() => setOpen(true)}
               aria-label="View ISO 9001:2015 certification"
-              className="certification-bubble-card border border-border bg-card p-4 text-center hover:border-primary/40 transition-colors duration-200 cursor-pointer w-full max-w-[250px] overflow-hidden"
+              className="certification-bubble-card border border-border bg-card p-4 text-center hover:border-primary/40 transition-colors duration-200 cursor-pointer w-full max-w-[250px] overflow-hidden rounded-xl"
             >
               <div className="certification-icon w-8 h-8 bg-primary/10 flex items-center justify-center mx-auto mb-2">
                 <Award className="w-4 h-4 text-primary" />
@@ -1222,7 +1554,7 @@ function PolyribPromiseSection() {
           {promise.map(({ icon: Icon, title, desc }, index) => (
             <div
               key={title}
-              className="promise-bubble-card bg-card border border-border p-8 text-center group"
+              className="promise-bubble-card bg-card border border-border p-8 text-center group rounded-xl"
               style={
                 {
                   "--promise-delay": `${index * 500}ms`,
@@ -1304,10 +1636,11 @@ const Index = () => {
           {/* Overlay gradients — unchanged effect */}
           <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/60 to-charcoal/20" />
           <div className="absolute inset-0 bg-gradient-to-r from-charcoal/70 to-transparent" />
+          
         </div>
         <div className="relative container max-w-7xl mx-auto px-6 pb-20 pt-32">
           <div className="max-w-2xl">
-            <h1 className="font-normal text-3xl sm:text-4xl lg:text-4xl text-white leading-tight mb-6 animate-fade-in">
+            <h1 className="font-heading text-3xl sm:text-4xl lg:text-4xl text-white leading-tight mb-6 animate-fade-in">
               <span className="block pt-12 sm:pt-8">Best Engineering</span>
 
               <span className="block">Thermoplastics Solutions</span>
@@ -1360,12 +1693,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Stats bar */}
-      <div className="container max-w-7xl mx-auto px-6 mt-6 sm:mt-8">
-        <div className="bg-card border border-border shadow-card">
-          <StatSection />
-        </div>
-      </div>
+      {/* Floating Stats Bar */} <div className="container max-w-7xl mx-auto px-6 -mt-8 sm:-mt-10 lg:-mt-12 relative z-20"> <StatSection /> </div>
 
       {/* Why Polyrib */}
       <WhyUsSection />
@@ -1457,7 +1785,7 @@ const Index = () => {
     <div className="polyrib-cta-button-wrapper flex flex-col sm:flex-row gap-3 justify-center">
       <Link
         to="/contact?tab=quote"
-        className="inline-flex items-center gap-2 px-7 py-3 bg-primary-foreground text-primary text-sm font-bold hover:bg-surface-subtle transition-colors duration-200"
+        className="inline-flex items-center gap-2 px-7 py-3 bg-primary-foreground text-primary text-sm font-bold hover:bg-surface-subtle transition-colors duration-200 rounded-lg"
       >
         Request a Quote <PenLine className="w-4 h-4" />
       </Link>

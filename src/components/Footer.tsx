@@ -101,7 +101,7 @@ export function Footer() {
             <div className="flex gap-3 lg:justify-end">
               <Link
                 to="/tools/material-selector"
-                className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary-light transition-colors duration-200"
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary-light transition-colors duration-200 rounded-lg"
               >
                 Material Selector
                 <ArrowRight className="w-4 h-4" />
