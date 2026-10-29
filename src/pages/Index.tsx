@@ -1657,7 +1657,7 @@ function CertificationSection() {
     <>
 <section
   ref={sectionRef}
-  className={`certification-motion-section py-8 bg-surface-subtle border-b border-divider ${
+  className={`certification-motion-section py-8 bg-white border-b border-divider ${
     isVisible ? "certification-visible" : ""
   }`}
 >

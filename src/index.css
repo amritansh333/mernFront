@@ -1148,20 +1148,19 @@
 
 
 /* ==========================================
-   KHANNA POLYRIB — STATISTICS PANEL
-========================================== */
-
-
-/* Frosted Glass Stats Container */
+   KHANNA POLYRIB — INDUSTRIAL STATISTICS PANEL
+   Dark-to-light blue gradient + subtle texture
+   ========================================== */
 
 .stats-panel {
-  --stats-card-bg: #DFECF3;
+  --stats-card-bg: #e7f2f8;
   --stats-text: #102039;
-  --stats-muted: #526071;
-  --stats-blue: #0876a8;
-  --stats-green: #00bf91;
+  --stats-muted: #52677d;
+  --stats-blue: #078fbe;
+  --stats-green: #00a987;
 
   position: relative;
+  isolation: isolate;
   z-index: 10;
 
   display: grid;
@@ -1171,22 +1170,25 @@
   width: 100%;
   padding: 12px;
 
-  /* Transparent glass effect */
-  background: rgba(225, 237, 250, 0.16);
+  overflow: hidden;
 
-  /* Blur the hero visible through the container */
-  -webkit-backdrop-filter: blur(24px) saturate(145%);
-  backdrop-filter: blur(24px) saturate(145%);
+  /* Dark top blending smoothly into a light blue bottom */
+  background:
+    linear-gradient(
+      180deg,
+      #172a40 0%,
+      #25465f 24%,
+      #477c99 52%,
+      #a9d4e7 80%,
+      #e4f3fa 100%
+    );
 
-  /* Subtle glass edges */
-  border: 1px solid rgba(255, 255, 255, 0.38);
+  border: 1px solid rgba(255, 255, 255, 0.55);
   border-radius: 17px;
 
-  /* Soft depth and inner highlight */
   box-shadow:
-    0 12px 35px rgba(8, 20, 38, 0.18),
-    inset 0 1px 0 rgba(255, 255, 255, 0.28),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.08);
+    0 14px 38px rgba(10, 30, 50, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
 
   opacity: 0;
   transform: translateY(22px);
@@ -1196,20 +1198,62 @@
     transform 650ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* Industrial contour-line texture */
+.stats-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+
+  background:
+    repeating-radial-gradient(
+      ellipse at 8% 0%,
+      transparent 0 24px,
+      rgba(255, 255, 255, 0.12) 25px 26px,
+      transparent 27px 43px
+    );
+
+  opacity: 0.7;
+}
+
+/* Subtle technical grid */
+.stats-panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+
+  background-image:
+    linear-gradient(
+      rgba(255, 255, 255, 0.055) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.055) 1px,
+      transparent 1px
+    );
+
+  background-size: 32px 32px;
+
+  mask-image: linear-gradient(
+    to bottom,
+    #000 0%,
+    rgba(0, 0, 0, 0.7) 45%,
+    transparent 100%
+  );
+}
+
 .stats-panel-visible {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* Preserve the existing light-blue statistic cards */
-
-.stats-card {
-  background: rgba(237, 243, 255, 0.96);
-  border: 1px solid rgba(255, 255, 255, 0.55);
-  border-radius: 9px;
-}
-
-/* Individual cards */
+/* ==========================================
+   INDIVIDUAL STATISTIC CARDS
+   ========================================== */
 
 .stats-card {
   --stats-accent: var(--stats-blue);
@@ -1225,12 +1269,14 @@
 
   min-width: 0;
   min-height: 140px;
-
   padding: 18px 20px;
 
   background: var(--stats-card-bg);
+
   border: 1px solid rgba(255, 255, 255, 0.8);
-  border-radius: 9px;
+  border-radius: 10px;
+
+  color: var(--stats-text);
 
   opacity: 0;
   transform: translateY(15px);
@@ -1239,57 +1285,69 @@
     opacity 500ms ease,
     transform 500ms cubic-bezier(0.22, 1, 0.36, 1),
     background-color 250ms ease,
-    box-shadow 250ms ease;
+    box-shadow 250ms ease,
+    border-color 250ms ease;
 }
 
 .stats-card-green {
   --stats-accent: var(--stats-green);
 }
 
-.stats-panel-visible .stats-card {
-  opacity: 1;
-  transform: translateY(0);
+/* Fine contour lines inside each card */
+.stats-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
 
-  transition-delay: calc(var(--stats-index) * 100ms);
+  background:
+    repeating-radial-gradient(
+      ellipse at 100% 100%,
+      transparent 0 19px,
+      rgba(7, 143, 190, 0.075) 20px 21px,
+      transparent 22px 34px
+    );
+
+  opacity: 0.7;
 }
 
-/* Subtle hover animation */
-
+/* Small decorative corner detail */
 .stats-card::after {
   content: "";
-
   position: absolute;
-  z-index: -1;
-
-  right: -32px;
+  right: -28px;
   bottom: -42px;
+  z-index: -1;
 
   width: 100px;
   height: 100px;
 
-  border: 1px solid color-mix(in srgb, var(--stats-accent) 12%, transparent);
+  border: 1px solid rgba(7, 143, 190, 0.15);
   border-radius: 50%;
 
-  opacity: 0;
-  transform: scale(0.7);
-
-  transition:
-    opacity 300ms ease,
-    transform 400ms ease;
-
   pointer-events: none;
+
+  transition: transform 350ms ease;
 }
 
+.stats-panel-visible .stats-card {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: calc(var(--stats-index) * 100ms);
+}
+
+/* Hover interaction */
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   .stats-card:hover {
-    background: #f5f7ff;
-    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
+    background: #f4faff;
+    border-color: rgba(7, 143, 190, 0.35);
+    box-shadow: 0 8px 22px rgba(15, 45, 70, 0.1);
     transform: translateY(-4px);
   }
 
   .stats-card:hover::after {
-    opacity: 1;
-    transform: scale(1);
+    transform: translate(-8px, -8px);
   }
 
   .stats-card:hover .stats-icon {
@@ -1297,12 +1355,13 @@
   }
 }
 
-/* Icon */
+/* ==========================================
+   ICONS AND TYPOGRAPHY
+   ========================================== */
 
 .stats-card-top {
   display: flex;
   align-items: center;
-
   margin-bottom: 9px;
 }
 
@@ -1315,8 +1374,6 @@
 
   transition: transform 250ms ease;
 }
-
-/* Main statistic */
 
 .stats-value {
   max-width: 100%;
@@ -1332,8 +1389,6 @@
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
 }
-
-/* Labels */
 
 .stats-label {
   margin-top: 5px;
@@ -1363,10 +1418,8 @@
 }
 
 /* ==========================================
-   RESPONSIVE LAYOUT
-========================================== */
-
-/* Smaller laptops and tablets */
+   TABLETS
+   ========================================== */
 
 @media (max-width: 900px) {
   .stats-panel {
@@ -1385,7 +1438,9 @@
   }
 }
 
-/* Mobile phones */
+/* ==========================================
+   MOBILE
+   ========================================== */
 
 @media (max-width: 480px) {
   .stats-panel {
@@ -1426,8 +1481,7 @@
   }
 }
 
-/* Very narrow screens */
-
+/* Extra narrow phones */
 @media (max-width: 340px) {
   .stats-panel {
     gap: 6px;
@@ -1453,15 +1507,49 @@
 }
 
 /* Accessibility */
-
 @media (prefers-reduced-motion: reduce) {
   .stats-panel,
   .stats-card,
+  .stats-card::before,
   .stats-card::after,
   .stats-icon {
-    animation: none !important;
     transition: none !important;
+    animation: none !important;
+  }
+
+  .stats-panel,
+  .stats-card {
     transform: none !important;
+  }
+}
+
+/* ==========================================
+   STAT CARDS — SUBTLE TOP-TO-BOTTOM FADE
+   Darker top → blended middle → original bottom
+   ========================================== */
+
+/* All four statistic cards */
+.stats-card,
+.stats-card-green {
+  background: linear-gradient(
+    180deg,
+    #C2D9E8 0%,
+    #D5E7F1 35%,
+    #E7F2F8 75%,
+    #E7F2F8 100%
+  ) !important;
+}
+
+/* Preserve the gradient on hover */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .stats-card:hover {
+    background: linear-gradient(
+      180deg,
+      #CCDFEC 0%,
+      #DCEBF3 35%,
+      #F4F8FB 75%,
+      #F4F8FB 100%
+    ) !important;
   }
 }
 
@@ -3548,7 +3636,7 @@
 
 
 /* =========================================
-   ISO BADGE — TRANSPARENT WITH EDGE GLOW
+   ISO BADGE — SCROLL ZOOM + HOVER EDGE GLOW
    ========================================= */
 
 .iso-badge-button {
@@ -3572,7 +3660,10 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Badge image */
+/* =========================================
+   BADGE IMAGE — DEFAULT APPEARANCE
+   ========================================= */
+
 .iso-badge-image {
   display: block;
   width: 100%;
@@ -3586,17 +3677,67 @@
   transform: scale(1);
   transform-origin: center;
 
-  /* Glow follows the PNG's transparent edges */
+  /* Glow follows the transparent edges of the PNG */
   filter: drop-shadow(0 0 5px rgba(39, 158, 206, 0.18));
 
   transition:
     transform 350ms cubic-bezier(0.2, 0.7, 0.3, 1),
     filter 350ms ease;
+
+  will-change: transform, filter;
 }
 
-/* Zoom + glow around the spikes */
+/* =========================================
+   SCROLL-TRIGGERED ZOOM ANIMATION
+   Uses the existing certification-visible class
+   ========================================= */
+
+.certification-motion-section.certification-visible .iso-badge-image {
+  animation: certificationBadgeZoom
+    900ms
+    cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Zoom in, briefly overshoot, then settle naturally */
+@keyframes certificationBadgeZoom {
+  0% {
+    transform: scale(0.78);
+    filter: drop-shadow(0 0 2px rgba(39, 158, 206, 0.08));
+  }
+
+  65% {
+    transform: scale(1.09);
+    filter:
+      drop-shadow(0 0 10px rgba(39, 158, 206, 0.42))
+      drop-shadow(0 8px 18px rgba(32, 130, 172, 0.2));
+  }
+
+  85% {
+    transform: scale(0.98);
+    filter:
+      drop-shadow(0 0 7px rgba(39, 158, 206, 0.3))
+      drop-shadow(0 4px 10px rgba(32, 130, 172, 0.12));
+  }
+
+  100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 5px rgba(39, 158, 206, 0.18));
+  }
+}
+
+/* =========================================
+   HOVER — ZOOM + STRONGER BLUE EDGE GLOW
+   ========================================= */
+
 @media (hover: hover) and (pointer: fine) {
   .iso-badge-button:hover .iso-badge-image {
+    /*
+     * Stop the entrance animation if the user hovers
+     * while it is running. This lets hover take control
+     * of transform and filter without conflicts.
+     */
+    animation: none;
+
     transform: scale(1.08);
 
     filter:
@@ -3605,23 +3746,36 @@
   }
 }
 
-/* Click feedback */
+/* =========================================
+   CLICK FEEDBACK
+   ========================================= */
+
 .iso-badge-button:active .iso-badge-image {
+  animation: none;
   transform: scale(1.03);
 }
 
-/* Keyboard accessibility */
+/* =========================================
+   KEYBOARD ACCESSIBILITY
+   ========================================= */
+
 .iso-badge-button:focus-visible {
   outline: 2px solid #279ece;
   outline-offset: 5px;
 }
 
-/* Reduced motion */
+/* =========================================
+   REDUCED-MOTION ACCESSIBILITY
+   ========================================= */
+
 @media (prefers-reduced-motion: reduce) {
   .iso-badge-image {
-    transition: none;
+    animation: none !important;
+    transition: none !important;
+    transform: none;
   }
 }
+
 
 
 
