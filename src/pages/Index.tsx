@@ -84,6 +84,10 @@ import polymerImg from "@/assets/polymer-materials.jpeg";
 import isoBadge from "@/assets/iso-badge.png";
 import certImg from "@/assets/isoCertificate2015.jpg";
 
+import ScrollStack, {
+  ScrollStackItem,
+} from "@/components/ScrollStack";
+
 /* ─── Data ─────────────────────────────────────────────── */
 
 const stats = [
@@ -939,11 +943,10 @@ function ProductCategoryCard({
 
 function MaterialsSection() {
   const ref = useScrollFade() as React.Ref<HTMLElement>;
-  const sectionRef = useRef<HTMLElement | null>(null);
-  const [columns, setColumns] = useState(4);
-  const [activeRow, setActiveRow] = useState(0);
 
-  // Keep the original desktop/tablet/mobile responsive layout.
+  const [columns, setColumns] = useState(4);
+
+  // Preserve the four-column desktop and two-column mobile layouts.
   useEffect(() => {
     const mediaQuery = window.matchMedia("(max-width: 639px)");
 
@@ -952,6 +955,7 @@ function MaterialsSection() {
     };
 
     updateColumns();
+
     mediaQuery.addEventListener("change", updateColumns);
 
     return () => {
@@ -959,139 +963,115 @@ function MaterialsSection() {
     };
   }, []);
 
-  // Group cards into complete rows.
-  const brandRows = Array.from(
-    { length: Math.ceil(brandFamilies.length / columns) },
-    (_, index) => brandFamilies.slice(index * columns, (index + 1) * columns),
+  /*
+   * Distribute individual brands into independent columns.
+   *
+   * Desktop: 4 independent stacks.
+   * Mobile:  2 independent stacks.
+   *
+   * The original visual ordering is preserved across rows.
+   */
+  const brandColumns = Array.from(
+    { length: columns },
+    (_, columnIndex) =>
+      brandFamilies.filter(
+        (_, brandIndex) => brandIndex % columns === columnIndex,
+      ),
   );
 
-  // Track the row currently entering the stacking sequence.
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-
-    let frame = 0;
-
-    const updateActiveRow = () => {
-      cancelAnimationFrame(frame);
-
-      frame = requestAnimationFrame(() => {
-        const rows = section.querySelectorAll<HTMLElement>(".brand-stack-row");
-
-        const stickyTop = window.innerWidth <= 639 ? 132 : 160;
-
-        let currentRow = 0;
-
-        rows.forEach((row, index) => {
-          const rect = row.getBoundingClientRect();
-
-          if (rect.top <= stickyTop + 8) {
-            currentRow = index;
-          }
-        });
-
-        setActiveRow(currentRow);
-      });
-    };
-
-    window.addEventListener("scroll", updateActiveRow, {
-      passive: true,
-    });
-
-    window.addEventListener("resize", updateActiveRow);
-
-    updateActiveRow();
-
-    return () => {
-      cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", updateActiveRow);
-      window.removeEventListener("resize", updateActiveRow);
-    };
-  }, [columns]);
+  const isMobile = columns === 2;
 
   return (
     <section
-      ref={(node) => {
-        sectionRef.current = node;
-
-        if (typeof ref === "function") {
-          ref(node);
-        } else if (ref) {
-          (ref as React.MutableRefObject<HTMLElement | null>).current = node;
-        }
-      }}
+      ref={ref}
       className="brand-portfolio-section bg-white border-y border-divider"
     >
-      {/* Preserve the original website indentation. */}
       <div className="container max-w-7xl mx-auto px-6">
-        {/* Sticky heading: constrained to the original container. */}
-        <div
-          className={`brand-portfolio-heading flex flex-col md:flex-row md:items-center md:justify-between ${
-            activeRow >= brandRows.length - 1 ? "brand-heading-release" : ""
-          }`}
-        >
-          <h2 className="font-heading text-3xl text-charcoal">Our Brands</h2>
+        {/* Keep the heading and link together. */}
+        <div className="brand-portfolio-heading flex flex-col md:flex-row md:items-center md:justify-between">
+          <h2 className="font-heading text-3xl text-charcoal">
+            Our Brands
+          </h2>
 
-          <Link to="/products" className="cta-link mt-3 md:mt-0">
+          <Link
+            to="/products"
+            className="cta-link mt-3 md:mt-0"
+          >
             Explore Brands
             <ArrowRight className="w-4 h-4 inline ml-1" />
           </Link>
         </div>
 
-        {/* The stacking sequence ends with the final brand row. */}
-        <div className="brand-stack-sequence">
-          {brandRows.map((row, rowIndex) => (
+        {/* Independent card stacks. */}
+        <div
+          className={`polyrib-brand-columns ${
+            isMobile
+              ? "polyrib-brand-columns-mobile"
+              : "polyrib-brand-columns-desktop"
+          }`}
+        >
+          {brandColumns.map((brands, columnIndex) => (
             <div
-              key={`${columns}-${rowIndex}`}
-              className="brand-stack-row"
-              style={
-                {
-                  "--brand-row-index": rowIndex,
-                  "--brand-row-count": brandRows.length,
-                } as React.CSSProperties
-              }
+              key={`brand-column-${columns}-${columnIndex}`}
+              className="polyrib-brand-column"
             >
-              <div
-                className={`brand-stack-grid grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-6 ${
-                  rowIndex < activeRow ? "brand-row-passed" : ""
-                }`}
+              <ScrollStack
+                className="polyrib-brand-stack"
+                useWindowScroll={true}
+                smoothScroll={false}
+                snap={false}
+                itemDistance={isMobile ? 105 : 145}
+                itemStackDistance={isMobile ? 14 : 22}
+                stackPosition={isMobile ? 145 : 145}
+                itemScale={isMobile ? 0.025 : 0.035}
+                baseScale={isMobile ? 0.92 : 0.88}
+                dimAmount={0}
+                blurAmount={0}
+                tiltAmount={0}
+                rotationAmount={0}
+                holdDistance={isMobile ? 70 : 110}
               >
-                {row.map((m) => (
-                  <Link
+                {brands.map((m) => (
+                  <ScrollStackItem
                     key={m.abbr}
-                    to={`/products/thermoplastics-semi-finished-products/sheets-blocks/${m.slug}`}
-                    className="category-card block group border border-border overflow-hidden hover:shadow-lg transition-all duration-300 rounded-xl"
+                    itemClassName="polyrib-brand-card"
                   >
-                    {/* Keep the original image dimensions. */}
-                    <div className="w-full h-40 overflow-hidden">
-                      <img
-                        src={m.image}
-                        alt={m.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        loading="lazy"
-                      />
-                    </div>
+                    <Link
+                      to={`/products/thermoplastics-semi-finished-products/sheets-blocks/${m.slug}`}
+                      className="category-card block group border border-border overflow-hidden rounded-xl"
+                    >
+                      {/* Brand image */}
+                      <div className="polyrib-brand-image">
+                        <img
+                          src={m.image}
+                          alt={m.name}
+                          className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
+                          loading="lazy"
+                        />
+                      </div>
 
-                    {/* Keep the original card content and padding. */}
-                    <div className="p-4">
-                      <h3 className="font-heading text-lg text-primary group-hover:text-primary-dark transition-colors cta-link">
-                        {m.abbr}
-                        <ArrowRight className="w-4 h-4 explore-arrow" />
-                      </h3>
+                      {/* Brand information */}
+                      <div className="p-4">
+                        <h3 className="font-heading text-lg text-primary group-hover:text-primary-dark transition-colors cta-link">
+                          {m.abbr}
 
-                      <p className="text-sm text-charcoal font-medium mt-1 group-hover:text-primary">
-                        {m.name}
-                      </p>
+                          <ArrowRight className="w-4 h-4 explore-arrow" />
+                        </h3>
 
-                      <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
-                        {m.prop}
-                      </p>
+                        <p className="text-sm text-charcoal font-medium mt-1 group-hover:text-primary">
+                          {m.name}
+                        </p>
 
-                      <div className="card-border-bottom mt-1" />
-                    </div>
-                  </Link>
+                        <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
+                          {m.prop}
+                        </p>
+
+                        <div className="card-border-bottom mt-1" />
+                      </div>
+                    </Link>
+                  </ScrollStackItem>
                 ))}
-              </div>
+              </ScrollStack>
             </div>
           ))}
         </div>
@@ -1100,14 +1080,32 @@ function MaterialsSection() {
   );
 }
 
+/* ─── Polymers We Work With ─────────────────────────────── */
 
-/* Polymers We Work With */
 function PolymersSection() {
   const sectionRef = useRef<HTMLElement | null>(null);
+
   const [isVisible, setIsVisible] = useState(false);
 
+  // Typewriter text states.
+  const [typedHeading, setTypedHeading] = useState("");
+  const [typedDescription, setTypedDescription] = useState("");
+  const [typedResin, setTypedResin] = useState("");
+  const [typedStandards, setTypedStandards] = useState("");
+
+  const headingText = "Polymer Compounding Lab";
+
+  const descriptionText =
+    "Our in-house analytical lab measures melt flow index (MFI), density distribution, Shore hardness, and glass transition temperatures across every production batch.";
+
+  const resinText = "VIRGIN FORMULATION";
+
+  const standardsText = "ASTM D790 / ISO 178";
+
+  // Detect when the section enters the viewport.
   useEffect(() => {
     const section = sectionRef.current;
+
     if (!section) return;
 
     const reduceMotion = window.matchMedia(
@@ -1116,6 +1114,12 @@ function PolymersSection() {
 
     if (reduceMotion.matches) {
       setIsVisible(true);
+
+      setTypedHeading(headingText);
+      setTypedDescription(descriptionText);
+      setTypedResin(resinText);
+      setTypedStandards(standardsText);
+
       return;
     }
 
@@ -1137,87 +1141,85 @@ function PolymersSection() {
     return () => observer.disconnect();
   }, []);
 
-  return (
-    <section
-      ref={sectionRef}
-      className={`materials-motion-section py-8 border-b border-divider bg-white ${
-        isVisible ? "materials-motion-visible" : ""
-      }`}
-    >
-      <div className="container max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-stretch">
-          {/* Left column */}
-          <div className="materials-intro flex flex-col gap-6">
-            <div>
-              <h2 className="font-heading text-3xl text-charcoal mb-4">
-                The Polymers We Work With
-              </h2>
+  // Typewriter animation for the Polymer Compounding Lab.
+  useEffect(() => {
+    if (!isVisible) return;
 
-              <Link to="/materials" className="cta-link">
-                View all Material families
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
 
-            {/* Polymer Compounding Lab — Textured Industrial Card */}
-<div className="polymer-lab-card w-full p-4 sm:p-5 rounded-xl overflow-hidden">
+    if (reduceMotion) return;
 
-  {/* Existing polymer image — dimensions preserved */}
-  <div className="w-full overflow-hidden rounded-lg border border-slate-700/60">
-    <img
-      src={polymerImg}
-      alt="Polymer materials in different colours"
-      className="materials-feature-image w-full h-[180px] sm:h-[220px] lg:h-[260px] object-cover"
-      loading="lazy"
-    />
-  </div>
+    let cancelled = false;
 
-  {/* Card Content */}
-  <div className="pt-5">
+    const timers: ReturnType<typeof setTimeout>[] = [];
 
-    <h3 className="font-heading text-lg font-bold text-white mb-2">
-      Polymer Compounding Lab
-    </h3>
+    const typeText = (
+      text: string,
+      setter: (value: string) => void,
+      delay: number,
+      speed: number,
+    ): number => {
+      for (let i = 1; i <= text.length; i++) {
+        const timer = setTimeout(() => {
+          if (!cancelled) {
+            setter(text.slice(0, i));
+          }
+        }, delay + i * speed);
 
-    <p className="text-sm text-slate-300 leading-relaxed">
-      Our in-house analytical lab measures melt flow index (MFI),
-      density distribution, Shore hardness, and glass transition
-      temperatures across every production batch.
-    </p>
+        timers.push(timer);
+      }
 
-    {/* Technical Information */}
-    <div className="lab-technical-panel mt-5 p-3 sm:p-4 rounded-lg space-y-3">
+      return delay + text.length * speed;
+    };
 
-      <div className="flex flex-wrap items-start justify-between gap-2">
-        <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-sky-400">
-          Resin Grade:
-        </span>
+    // Heading types first.
+    const headingDuration = typeText(
+      headingText,
+      setTypedHeading,
+      250,
+      42,
+    );
 
-        <span className="text-[10px] sm:text-xs font-bold font-mono text-white text-right">
-          VIRGIN FORMULATION
-        </span>
-      </div>
+    // Description follows the heading.
+    const descriptionStart = headingDuration + 180;
 
-      <div className="flex flex-wrap items-start justify-between gap-2">
-        <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-sky-400">
-          Test Standards:
-        </span>
+    const descriptionDuration = typeText(
+      descriptionText,
+      setTypedDescription,
+      descriptionStart,
+      13,
+    );
 
-        <span className="text-[10px] sm:text-xs font-bold font-mono text-white text-right">
-          ASTM D790 / ISO 178
-        </span>
-      </div>
+    // Technical information follows the description.
+    const resinStart = descriptionStart + descriptionDuration + 180;
 
-    </div>
-  </div>
-</div>
-          </div>
+    const resinDuration = typeText(
+      resinText,
+      setTypedResin,
+      resinStart,
+      38,
+    );
 
-          
+    const standardsStart = resinStart + resinDuration + 140;
 
-{/* Right column — Material family cards */}
-<div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
-  {[
+    typeText(
+      standardsText,
+      setTypedStandards,
+      standardsStart,
+      38,
+    );
+
+    return () => {
+      cancelled = true;
+
+      timers.forEach((timer) => clearTimeout(timer));
+    };
+  }, [isVisible]);
+
+  // Material families.
+  const materials = [
     {
       brand: "POLYRIB V",
       base: "PE / UHMW PE",
@@ -1282,45 +1284,176 @@ function PolymersSection() {
       tagline: "Engineering Polymer Grades",
       desc: "Specialised engineering polymers designed for CNC-machined components, industrial sliders, wear parts, and demanding sliding applications.",
     },
-  ].map((m, index) => (
-    <Link
-      key={m.slug}
-      to={`/materials/${m.slug}`}
-      className="group block text-left p-5 border-2 border-border bg-card hover:border-primary/40 hover:shadow-card transition-all duration-200 rounded-xl"
-      style={
-        {
-          "--material-index": index,
-        } as React.CSSProperties
-      }
+  ];
+
+  return (
+    <section
+      ref={sectionRef}
+      className={`materials-motion-section py-8 border-b border-divider bg-white ${
+        isVisible ? "materials-motion-visible" : ""
+      }`}
     >
-      {/* Material badge and chevron — same layout as MaterialsPage */}
-      <div className="flex items-start justify-between mb-2">
-        <span
-          className={`text-[10px] px-2.5 py-1 font-bold border ${m.colour}`}
-        >
-          {m.base}
-        </span>
+      <div className="container max-w-7xl mx-auto px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-stretch">
 
-        <ChevronRight className="w-4 h-4 text-muted-foreground transition-transform duration-200 group-hover:translate-x-1 group-hover:text-primary" />
-      </div>
+          {/* ───────────── LEFT COLUMN ───────────── */}
 
-      {/* Brand */}
-      <h3 className="font-heading font-bold text-charcoal text-lg mb-1 group-hover:text-primary transition-colors duration-200">
-        {m.brand}
-      </h3>
+          <div className="materials-intro flex flex-col gap-6">
+            <div>
+              <h2 className="font-heading text-3xl text-charcoal mb-4">
+                The Polymers We Work With
+              </h2>
 
-      {/* Tagline */}
-      <p className="text-xs text-primary font-semibold mb-2">
-        {m.tagline}
-      </p>
+              <Link to="/materials" className="cta-link">
+                View all Material families
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
 
-      {/* Description */}
-      <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">
-        {m.desc}
-      </p>
-    </Link>
-  ))}
-</div>
+            {/* Polymer Compounding Lab */}
+            <div className="polymer-lab-card w-full p-4 sm:p-5 rounded-xl overflow-hidden">
+
+              {/* Polymer image */}
+              <div className="w-full overflow-hidden rounded-lg border border-slate-700/60">
+                <img
+                  src={polymerImg}
+                  alt="Polymer materials in different colours"
+                  className="materials-feature-image w-full h-[180px] sm:h-[220px] lg:h-[260px] object-cover"
+                  loading="lazy"
+                />
+              </div>
+
+              {/* Typewriter content */}
+              <div className="pt-5">
+
+                <h3
+                  className="font-heading text-lg font-bold text-white mb-2"
+                  aria-label={headingText}
+                >
+                  {typedHeading}
+
+                  {isVisible && typedHeading.length < headingText.length && (
+                    <span
+                      className="lab-typewriter-cursor"
+                      aria-hidden="true"
+                    >
+                      |
+                    </span>
+                  )}
+                </h3>
+
+                <p
+                  className="text-sm text-slate-300 leading-relaxed"
+                  aria-label={descriptionText}
+                >
+                  {typedDescription}
+
+                  {isVisible &&
+                    typedHeading.length === headingText.length &&
+                    typedDescription.length < descriptionText.length && (
+                      <span
+                        className="lab-typewriter-cursor"
+                        aria-hidden="true"
+                      >
+                        |
+                      </span>
+                    )}
+                </p>
+
+                {/* Technical information */}
+                <div className="lab-technical-panel mt-5 p-3 sm:p-4 rounded-lg space-y-3">
+
+                  <div className="flex flex-wrap items-start justify-between gap-2">
+                    <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-sky-400">
+                      Resin Grade:
+                    </span>
+
+                    <span className="text-[10px] sm:text-xs font-bold font-mono text-white text-right">
+                      {typedResin}
+
+                      {typedDescription.length === descriptionText.length &&
+                        typedResin.length < resinText.length && (
+                          <span
+                            className="lab-typewriter-cursor"
+                            aria-hidden="true"
+                          >
+                            |
+                          </span>
+                        )}
+                    </span>
+                  </div>
+
+                  <div className="flex flex-wrap items-start justify-between gap-2">
+                    <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-sky-400">
+                      Test Standards:
+                    </span>
+
+                    <span className="text-[10px] sm:text-xs font-bold font-mono text-white text-right">
+                      {typedStandards}
+
+                      {typedResin.length === resinText.length &&
+                        typedStandards.length < standardsText.length && (
+                          <span
+                            className="lab-typewriter-cursor"
+                            aria-hidden="true"
+                          >
+                            |
+                          </span>
+                        )}
+                    </span>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* ───────────── RIGHT COLUMN ───────────── */}
+
+          <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+            {materials.map((m, index) => (
+              <Link
+                key={m.slug}
+                to={`/materials/${m.slug}`}
+                className={`material-family-card group block text-left p-5 border-2 border-border bg-card hover:border-primary/40 hover:shadow-card transition-all duration-200 rounded-xl ${
+                  isVisible ? "material-family-card-visible" : ""
+                }`}
+                style={
+                  {
+                    "--material-index": index,
+                  } as React.CSSProperties
+                }
+              >
+                {/* Material badge and chevron */}
+                <div className="flex items-start justify-between mb-2">
+                  <span
+                    className={`text-[10px] px-2.5 py-1 font-bold border ${m.colour}`}
+                  >
+                    {m.base}
+                  </span>
+
+                  <ChevronRight className="w-4 h-4 text-muted-foreground transition-transform duration-200 group-hover:translate-x-1 group-hover:text-primary" />
+                </div>
+
+                {/* Brand */}
+                <h3 className="font-heading font-bold text-charcoal text-lg mb-1 group-hover:text-primary transition-colors duration-200">
+                  {m.brand}
+                </h3>
+
+                {/* Tagline */}
+                <p className="text-xs text-primary font-semibold mb-2">
+                  {m.tagline}
+                </p>
+
+                {/* Description */}
+                <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">
+                  {m.desc}
+                </p>
+              </Link>
+            ))}
+
+          </div>
         </div>
       </div>
     </section>
@@ -1847,6 +1980,36 @@ const Index = () => {
     return () => observer.disconnect();
   }, []);
 
+  const [typedText, setTypedText] = useState(["", "", ""]);
+
+useEffect(() => {
+  const lines = [
+    "Best Engineering",
+    "Thermoplastics Solutions",
+    "Built For Performance",
+  ];
+
+  const timers: ReturnType<typeof setTimeout>[] = [];
+
+  lines.forEach((line, lineIndex) => {
+    for (let charIndex = 1; charIndex <= line.length; charIndex++) {
+      const timer = setTimeout(() => {
+        setTypedText((previous) => {
+          const updated = [...previous];
+          updated[lineIndex] = line.slice(0, charIndex);
+          return updated;
+        });
+      }, 300 + charIndex * 65);
+
+      timers.push(timer);
+    }
+  });
+
+  return () => {
+    timers.forEach(clearTimeout);
+  };
+}, []);
+
   return (
     <div>
       {/* Hero */}
@@ -1862,21 +2025,27 @@ const Index = () => {
           />
 
           {/* Overlay gradients — unchanged effect */}
-          <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/60 to-charcoal/20" />
-          <div className="absolute inset-0 bg-gradient-to-r from-charcoal/70 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/50 to-charcoal/20" />
+          <div className="absolute inset-0 bg-gradient-to-r from-charcoal/35 to-transparent" />
           
         </div>
         <div className="relative container max-w-7xl mx-auto px-6 pb-20 pt-32">
           <div className="max-w-2xl">
-            <h1 className="font-heading text-3xl sm:text-4xl lg:text-4xl text-white leading-tight mb-6 animate-fade-in">
-              <span className="block pt-12 sm:pt-8">Best Engineering</span>
+            {/* Hero Heading — Mask Reveal + Cyan Highlight Sweep */}
 
-              <span className="block">Thermoplastics Solutions</span>
+<h1 className="hero-cyan-heading font-heading text-3xl sm:text-4xl lg:text-4xl leading-tight mb-6">
+  <span className="block pt-12 sm:pt-8">
+    Best Engineering
+  </span>
 
-              <span className="block text-primary-light">
-                Built For Performance
-              </span>
-            </h1>
+  <span className="block">
+    Thermoplastics Solutions
+  </span>
+
+  <span className="block">
+    Built For Performance
+  </span>
+</h1>
 
             <div
               className="flex flex-col sm:flex-row gap-3 animate-fade-in"

@@ -261,7 +261,9 @@
 
 
 /* ==========================================
-   BRAND PORTFOLIO — STICKY ROW STACKING
+   BRAND PORTFOLIO — RESPONSIVE CARD ANIMATION
+   Desktop: layered stacking
+   Mobile: scroll-triggered card entrance
    ========================================== */
 
 .brand-portfolio-section {
@@ -270,31 +272,36 @@
   isolation: isolate;
 }
 
-/*
- * Preserve the original max-width and horizontal
- * indentation. The heading stays within this container.
- */
 .brand-portfolio-section > .container {
   position: relative;
   width: 100%;
 }
 
-/*
- * Sticky heading stays below the site navbar.
- * Its background prevents cards from showing through.
- */
+/* ==========================================
+   HEADING
+   ========================================== */
+
 .brand-portfolio-heading {
   position: sticky;
   top: 72px;
   z-index: 50;
+
   padding-top: 16px;
   padding-bottom: 16px;
+
+  background: #fff;
 }
 
-/*
- * Each row is one complete layer:
- * four cards on desktop, two cards on mobile.
- */
+.brand-portfolio-heading.brand-heading-release {
+  position: relative;
+  top: auto;
+  z-index: 1;
+}
+
+/* ==========================================
+   DESKTOP STACKING
+   ========================================== */
+
 .brand-stack-sequence {
   position: relative;
   padding-bottom: 24px;
@@ -303,52 +310,89 @@
 .brand-stack-row {
   position: sticky;
   top: 160px;
+
   z-index: calc(10 + var(--brand-row-index));
-  padding-bottom: 16px;
+
+  padding-bottom: 18px;
+  isolation: isolate;
+}
+
+.brand-stack-grid {
+  --brand-stack-scale: 0.985;
+  --brand-stack-y: 0px;
+  --brand-stack-shadow: 0.035;
+  --brand-stack-depth: 0;
+
+  position: relative;
+  align-items: stretch;
+
+  transform:
+    translate3d(0, var(--brand-stack-y), 0)
+    scale(var(--brand-stack-scale));
+
   transform-origin: center top;
+
+  filter: drop-shadow(
+    0 9px 15px
+    rgb(15 35 55 / var(--brand-stack-shadow))
+  );
+
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+
   will-change: transform;
 }
 
-/*
- * A previous row becomes a background layer as the
- * next complete row moves into the sticky position.
- */
-.brand-stack-grid {
-  position: relative;
-  align-items: stretch;
-}
-
 .brand-stack-grid > a {
+  display: block;
   min-width: 0;
   height: 100%;
 }
 
-/*
- * Keep existing card image size and prevent flex/grid
- * shrinking from reducing the image area.
- */
 .brand-stack-grid > a > div:first-child {
   height: 160px;
   min-height: 160px;
 }
 
 .brand-stack-grid img {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-/*
- * After the final row, the sequence ends naturally.
- * The following section is not sticky or pinned.
- */
-.brand-portfolio-section::after {
-  content: "";
-  display: block;
-  height: 0;
+.brand-stack-grid.brand-row-active {
+  z-index: 5;
 }
 
-/* Tablet and desktop */
+.brand-stack-grid.brand-row-depth-1 {
+  filter: drop-shadow(
+    0 7px 12px rgb(15 35 55 / 0.065)
+  );
+}
+
+.brand-stack-grid.brand-row-depth-2 {
+  filter: drop-shadow(
+    0 6px 11px rgb(15 35 55 / 0.055)
+  );
+}
+
+.brand-stack-grid.brand-row-depth-3 {
+  filter: drop-shadow(
+    0 5px 10px rgb(15 35 55 / 0.045)
+  );
+}
+
+.brand-stack-grid.brand-row-depth-4 {
+  filter: drop-shadow(
+    0 4px 9px rgb(15 35 55 / 0.035)
+  );
+}
+
+/* ==========================================
+   TABLET AND DESKTOP
+   ========================================== */
+
 @media (min-width: 640px) {
   .brand-portfolio-heading {
     top: 72px;
@@ -356,49 +400,217 @@
 
   .brand-stack-row {
     top: 160px;
-  }
-}
-
-/* Mobile */
-@media (max-width: 639px) {
-  .brand-portfolio-heading {
-    top: 60px;
-    padding-top: 12px;
-    padding-bottom: 12px;
-  }
-
-  .brand-stack-row {
-    top: 132px;
-    padding-bottom: 12px;
+    padding-bottom: 18px;
   }
 
   .brand-stack-grid {
-    gap: 12px;
+    column-gap: 24px;
+    row-gap: 24px;
+  }
+}
+
+/* ==========================================
+   MOBILE — ANIMATED, SEPARATED CARDS
+   ========================================== */
+
+@media (max-width: 639px) {
+  /* Keep the heading in normal document flow. */
+
+  .brand-portfolio-heading,
+  .brand-portfolio-heading.brand-heading-release {
+    position: relative;
+    top: auto;
+    z-index: auto;
+
+    padding-top: 12px;
+    padding-bottom: 16px;
+
+    background: #fff;
+  }
+
+  /* Never overlap mobile rows. */
+
+  .brand-stack-sequence {
+    padding-bottom: 24px;
+  }
+
+  .brand-stack-row {
+    position: relative;
+    top: auto;
+    z-index: auto;
+
+    padding-bottom: 20px;
+    isolation: auto;
+  }
+
+  /*
+   * Override desktop stacking transforms.
+   * Mobile animation is applied to individual cards.
+   */
+
+  .brand-stack-grid,
+  .brand-stack-grid.brand-row-active,
+  .brand-stack-grid.brand-row-passed,
+  .brand-stack-grid.brand-row-depth-1,
+  .brand-stack-grid.brand-row-depth-2,
+  .brand-stack-grid.brand-row-depth-3,
+  .brand-stack-grid.brand-row-depth-4 {
+    display: grid;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    column-gap: 12px;
+    row-gap: 16px;
+
+    transform: none !important;
+    filter: none !important;
+
+    will-change: auto;
+  }
+
+  /* Each card remains in normal document flow. */
+
+  .brand-stack-grid > a {
+    position: relative;
+
+    display: block;
+
+    width: 100%;
+    min-width: 0;
+    height: 100%;
+
+    overflow: hidden;
+
+    opacity: 0.7;
+
+    transform: translate3d(0, 14px, 0) scale(0.965);
+
+    transform-origin: center center;
+
+    box-shadow: 0 2px 7px rgb(15 35 55 / 0.045);
+
+    transition:
+      opacity 420ms ease,
+      transform 520ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 420ms ease;
+
+    transition-delay: 0ms, 0ms, 0ms;
+
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  /*
+   * Animate each card into view.
+   * The scale increase remains subtle enough that
+   * neighboring cards do not collide.
+   */
+
+  .brand-stack-grid > a.brand-mobile-in-view {
+    opacity: 1;
+
+    transform: translate3d(0, 0, 0) scale(1);
+
+    box-shadow:
+      0 5px 13px rgb(15 35 55 / 0.075),
+      0 1px 3px rgb(15 35 55 / 0.035);
+
+    transition-delay:
+      var(--brand-mobile-delay, 0ms);
+  }
+
+  /* Preserve the image and ensure the whole logo is visible. */
+
+  .brand-stack-grid > a > div:first-child {
+    width: 100%;
+    height: 135px;
+    min-height: 135px;
+    overflow: hidden;
+  }
+
+  .brand-stack-grid img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+  }
+
+  /* Compact content for two-column cards. */
+
+  .brand-stack-grid .p-4 {
+    padding: 12px;
+  }
+
+  .brand-stack-grid h3 {
+    font-size: 15px;
+    line-height: 1.4;
+  }
+
+  .brand-stack-grid p {
+    overflow-wrap: anywhere;
+  }
+}
+
+/* ==========================================
+   EXTRA-SMALL PHONES
+   ========================================== */
+
+@media (max-width: 380px) {
+  .brand-portfolio-section > .container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .brand-stack-row {
+    padding-bottom: 16px;
+  }
+
+  .brand-stack-grid,
+  .brand-stack-grid.brand-row-active,
+  .brand-stack-grid.brand-row-passed {
+    column-gap: 9px;
+    row-gap: 12px;
   }
 
   .brand-stack-grid > a > div:first-child {
-    height: 160px;
-    min-height: 160px;
+    height: 110px;
+    min-height: 110px;
+  }
+
+  .brand-stack-grid .p-4 {
+    padding: 9px;
+  }
+
+  .brand-stack-grid h3 {
+    font-size: 13px;
+  }
+
+  .brand-stack-grid p {
+    font-size: 11px;
+    line-height: 1.45;
   }
 }
 
-/*
- * Respect reduced-motion preferences.
- */
+/* ==========================================
+   ACCESSIBILITY
+   ========================================== */
+
 @media (prefers-reduced-motion: reduce) {
   .brand-stack-grid,
-  .brand-stack-grid img {
+  .brand-stack-grid img,
+  .brand-stack-grid > a {
     scroll-behavior: auto;
     transition: none !important;
+    animation: none !important;
+    will-change: auto;
   }
-}
 
-
-/* Release the heading when the final card row arrives. */
-.brand-portfolio-heading.brand-heading-release {
-  position: relative;
-  top: auto;
-  z-index: 1;
+  .brand-stack-grid > a {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }
 
 
@@ -1671,6 +1883,87 @@
   }
 }
 
+/* ==========================================
+   POLYRIB — POLYMER LAB TYPEWRITER
+   ========================================== */
+
+.lab-typewriter-cursor {
+  display: inline-block;
+  margin-left: 2px;
+  color: #38bdf8;
+  font-weight: 400;
+  animation: lab-cursor-blink 0.7s steps(1, end) infinite;
+}
+
+@keyframes lab-cursor-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* ==========================================
+   MATERIAL FAMILY CARDS — STAGGERED ENTRANCE
+   ========================================== */
+
+/* Initial state before the section enters view. */
+.material-family-card {
+  opacity: 0;
+  transform: translate3d(0, 22px, 0);
+
+  will-change: opacity, transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Animate cards one after another. */
+.materials-motion-visible .material-family-card-visible {
+  animation: material-card-enter 650ms
+    cubic-bezier(0.22, 1, 0.36, 1) both;
+
+  animation-delay: calc(var(--material-index, 0) * 350ms);
+}
+
+@keyframes material-card-enter {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 22px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Keep hover effects smooth after entrance. */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .material-family-card-visible:hover {
+    transform: translate3d(0, -3px, 0);
+  }
+}
+
+/* ==========================================
+   REDUCED MOTION ACCESSIBILITY
+   ========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .lab-typewriter-cursor {
+    animation: none;
+  }
+
+  .material-family-card {
+    opacity: 1;
+    transform: none;
+    animation: none !important;
+    will-change: auto;
+  }
+}
 
 
 /* ==========================================
@@ -2502,8 +2795,7 @@
   max-width: 760px;
   margin: 0;
 
-  color: #17212F;
-
+  color: #ffffff;
   font-size: clamp(25px, 3vw, 38px);
   font-weight: 700;
   line-height: 1.08;
@@ -2758,37 +3050,38 @@
 
 /* Card 1 — Sky blue */
 .why-us-card:nth-of-type(1) {
-  background-color: #B1ADA1;
+  background-color: #279ece
+;
   border-color: #8BD5FA;
 }
 
 /* Card 2 — Mint green */
 .why-us-card:nth-of-type(2) {
-  background-color: #23AE8F;
+  background-color: #134f67;
   border-color: #8CE5AC;
 }
 
 /* Card 3 — Warm yellow */
 .why-us-card:nth-of-type(3) {
-  background-color: #FFE49A;
+  background-color: #279ece;
   border-color: #F5CE65;
 }
 
 /* Card 4 — Lavender */
 .why-us-card:nth-of-type(4) {
-  background-color: #05B1B7;
+  background-color: #134f67;
   border-color: #B9A6FA;
 }
 
 /* Card 5 — Coral pink */
 .why-us-card:nth-of-type(5) {
-  background-color: #BFCACB;
+  background-color: #279ece;
   border-color: #F5A998;
 }
 
 /* Card 6 — Aqua */
 .why-us-card:nth-of-type(6) {
-  background-color: #AEEFEA;
+  background-color: #134f67;
   border-color: #7ADBD3;
 }
 
@@ -3633,7 +3926,17 @@
   }
 }
 
-
+/* Make all text inside Why Polyrib cards white */
+.why-us-card,
+.why-us-card .why-us-card-index,
+.why-us-card .why-us-card-index span,
+.why-us-card .why-us-card-copy h3,
+.why-us-card .why-us-card-copy p,
+.why-us-card .why-us-card-bottomline,
+.why-us-card .why-us-card-arrow,
+.why-us-card .why-us-card-icon {
+  color: #ffffff !important;
+}
 
 /* =========================================
    ISO BADGE — SCROLL ZOOM + HOVER EDGE GLOW
@@ -3897,7 +4200,7 @@
 }
 
 .category-card .product-image-wave-secondary {
-  stroke: hsl(var(--primary) / 0.42);
+  stroke: hsl(var(--primary) / 0.78);
   stroke-width: 0.9;
 }
 
@@ -3907,7 +4210,7 @@
   }
 
   .category-card:hover .product-image-wave-secondary {
-    stroke: hsl(var(--primary) / 0.58);
+    stroke: hsl(var(--primary) / 0.95);
   }
 }
 
@@ -3933,5 +4236,67 @@
   .category-card .card-border-bottom,
   .category-card .explore-arrow {
     transition: none !important;
+  }
+}
+
+
+
+/* ==========================================
+   POLYRIB HERO — CYAN HIGHLIGHT SWEEP
+   ========================================== */
+
+.hero-cyan-heading {
+  color: #ffffff;
+
+  background-image: linear-gradient(
+    105deg,
+    #ffffff 0%,
+    #ffffff 35%,
+    #48bce8 45%,
+    #b7efff 50%,
+    #48bce8 55%,
+    #ffffff 65%,
+    #ffffff 100%
+  );
+
+  background-size: 300% 100%;
+  background-position: 100% 0;
+
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  animation: hero-full-cyan-sweep 2.2s ease-in-out 0.3s forwards;
+}
+
+@keyframes hero-full-cyan-sweep {
+  from {
+    background-position: 100% 0;
+  }
+
+  to {
+    background-position: 0% 0;
+  }
+}
+
+/* Keep the final line blue after the animation. */
+.hero-cyan-heading > span:last-child {
+  color: #48bce8;
+  -webkit-text-fill-color: #48bce8;
+  background: none;
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .hero-cyan-heading {
+    animation: none;
+    background: none;
+    color: #ffffff;
+    -webkit-text-fill-color: #ffffff;
+  }
+
+  .hero-cyan-heading > span:last-child {
+    color: #48bce8;
+    -webkit-text-fill-color: #48bce8;
   }
 }
