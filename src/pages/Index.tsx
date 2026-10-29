@@ -520,90 +520,185 @@ function StatSection() {
 
 /* Why Polyrib */
 function WhyUsSection() {
-  const ref = useScrollFade() as React.RefObject<HTMLElement>;
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const pinRef = useRef<HTMLDivElement | null>(null);
+  const [cardProgress, setCardProgress] = useState(0);
+  const [viewportWidth, setViewportWidth] = useState(1280);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    const pin = pinRef.current;
+    if (!section || !pin) return;
+
+    let frame = 0;
+    setViewportWidth(window.innerWidth);
+
+    const updateProgress = () => {
+      setViewportWidth(window.innerWidth);
+      cancelAnimationFrame(frame);
+
+      frame = requestAnimationFrame(() => {
+        const sectionRect = section.getBoundingClientRect();
+        const stickyTop = window.innerWidth <= 639 ? 60 : 72;
+        const travelDistance = Math.max(
+          1,
+          section.offsetHeight - pin.offsetHeight,
+        );
+        const progress = Math.min(
+          1,
+          Math.max(0, (stickyTop - sectionRect.top) / travelDistance),
+        );
+
+        setCardProgress(progress * (whyPoints.length - 1));
+      });
+    };
+
+    updateProgress();
+    window.addEventListener("scroll", updateProgress, { passive: true });
+    window.addEventListener("resize", updateProgress);
+
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", updateProgress);
+      window.removeEventListener("resize", updateProgress);
+    };
+  }, []);
+
+  const cardStep =
+    viewportWidth <= 639 ? 88 : viewportWidth <= 1023 ? 112 : 142;
+
   return (
     <section
-      ref={ref}
-      className="fade-up my-6 sm:my-8 py-8 bg-white border-y border-divider overflow-hidden"
+      ref={sectionRef}
+      className="why-us-scroll-section bg-white border-y border-divider"
+      aria-label="Why choose Khanna Polyrib"
     >
-      <div className="container max-w-7xl mx-auto px-6">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8">
-          <div>
-            <h2 className="font-heading text-3xl text-charcoal">
-              One-Stop Polymer Engineering Solutions
-            </h2>
-          </div>
-          <Link to="/about" className="cta-link mt-4 md:mt-0">
-            About Us <ArrowRight className="w-4 h-4" />
-          </Link>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 border border-divider overflow-hidden">
-          {/* Facility photo */}
-          <div className="relative min-h-[420px] sm:min-h-[480px] lg:min-h-0 overflow-hidden">
-            {/* Image Slider */}
-            <div className="absolute inset-0 animate-fade-slider">
-              {[slider1, slider2, slider3, slider4, slider5].map(
-                (img, index) => (
-                  <img
-                    key={index}
-                    src={img}
-                    alt={`Engineered To Perform ${index + 1}`}
-                    className="absolute inset-0 w-full h-full object-cover opacity-0 animate-slide-fade"
-                    style={{
-                      animationDelay: `${index * 6}s`,
-                    }}
-                  />
-                ),
-              )}
+      <div ref={pinRef} className="why-us-pin">
+        <div className="container max-w-7xl mx-auto px-6 why-us-pin-container">
+          <div className="why-us-heading flex flex-col md:flex-row justify-between items-start md:items-end">
+            <div>
+              <h2 className="font-heading text-3xl text-charcoal">
+                One-Stop Polymer Engineering Solutions
+              </h2>
             </div>
+            <Link to="/about" className="cta-link mt-3 md:mt-0">
+              About Us <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
 
-            {/* Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-charcoal/95 via-charcoal/50 to-transparent" />
-
-            {/* Text Overlay (UNCHANGED) */}
-
-            <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 bg-black/10 ">
-              <p className="text-white/60 text-sm tracking-widest uppercase font-semibold mb-3">
-                Established 1985
-              </p>
-              <div className="space-y-2">
-                {whyChecks.map((c, i) => (
-                  <div key={i} className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-primary-light shrink-0" />
-                    <span className="text-white/80 text-sm sm:text-sm font-medium leading-snug">
-                      {c}
-                    </span>
-                  </div>
-                ))}
+          <div className="why-us-layout grid grid-cols-1 lg:grid-cols-2 gap-0 border border-divider">
+            {/* Facility photo and whyChecks remain unchanged */}
+            <div className="why-us-facility relative min-h-0 overflow-hidden">
+              {/* Image Slider */}
+              <div className="absolute inset-0 animate-fade-slider">
+                {[slider1, slider2, slider3, slider4, slider5].map(
+                  (img, index) => (
+                    <img
+                      key={index}
+                      src={img}
+                      alt={`Engineered To Perform ${index + 1}`}
+                      className="absolute inset-0 w-full h-full object-cover opacity-0 animate-slide-fade"
+                      style={{
+                        animationDelay: `${index * 6}s`,
+                      }}
+                    />
+                  ),
+                )}
               </div>
-            </div>
-          </div>
-          {/* Advantage points grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-divider">
-            {whyPoints.map(({ icon: Icon, title, desc }) => (
-              <div
-                key={title}
-                className="bg-card p-4 flex flex-col gap-1 hover:bg-surface-subtle transition-colors duration-200"
-              >
-                <div className="w-9 h-9 rounded-sm bg-primary/10 flex items-center justify-center shrink-0">
-                  <Icon className="w-4 h-4 text-primary" strokeWidth={1.75} />
-                </div>
-                <div>
-                  <h4 className="font-heading font-semibold text-charcoal text-lg mb-0">
-                    {title}
-                  </h4>
-                  <p className="text-sm text-muted-foreground ">{desc}</p>
+
+              {/* Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-charcoal/95 via-charcoal/50 to-transparent" />
+
+              {/* Existing whyChecks content preserved */}
+              <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 bg-black/10">
+                <p className="text-white/60 text-sm tracking-widest uppercase font-semibold mb-3">
+                  Established 1985
+                </p>
+                <div className="space-y-2">
+                  {whyChecks.map((c, i) => (
+                    <div key={i} className="flex items-center gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-primary-light shrink-0" />
+                      <span className="text-white/80 text-sm sm:text-sm font-medium leading-snug">
+                        {c}
+                      </span>
+                    </div>
+                  ))}
                 </div>
               </div>
-            ))}
+            </div>
+
+            {/* Six vertically scrolling cards with a zoomed centre card */}
+            <div className="why-us-card-panel">
+              <div className="why-us-card-stage" aria-label="Why choose Khanna Polyrib">
+                <div className="why-us-card-grid-glow" aria-hidden="true" />
+                {whyPoints.map(({ icon: Icon, title, desc }, index) => {
+                  const distance = index - cardProgress;
+                  const distanceFromCenter = Math.abs(distance);
+                  const scale = Math.max(0.76, 1 - distanceFromCenter * 0.13);
+                  const opacity = Math.max(0, 1 - distanceFromCenter * 0.43);
+                  const isActive = distanceFromCenter < 0.5;
+                  const verticalOffset = distance * cardStep;
+                  const verticalTransform =
+                    verticalOffset >= 0
+                      ? `calc(-50% + ${verticalOffset}px)`
+                      : `calc(-50% - ${Math.abs(verticalOffset)}px)`;
+
+                  return (
+                    <article
+                      key={title}
+                      className={`why-us-card ${isActive ? "why-us-card-active" : ""}`}
+                      aria-current={isActive ? "step" : undefined}
+                      style={
+                        {
+                          transform: `translate3d(0, ${verticalTransform}, 0) scale(${scale})`,
+                          opacity,
+                          zIndex: 100 - Math.round(distanceFromCenter * 10),
+                          "--why-card-index": index,
+                        } as React.CSSProperties
+                      }
+                    >
+                      <div className="why-us-card-topline">
+                        <span className="why-us-card-index">
+                          WHY POLYRIB <span>{String(index + 1).padStart(2, "0")}</span>
+                        </span>
+                        <span className="why-us-card-indicator" aria-hidden="true" />
+                      </div>
+
+                      <div className="why-us-card-content">
+                        <div className="why-us-card-icon">
+                          <Icon size={23} strokeWidth={1.8} aria-hidden="true" />
+                        </div>
+                        <div className="why-us-card-copy">
+                          <h3 className="font-heading">{title}</h3>
+                          <p>{desc}</p>
+                        </div>
+                      </div>
+
+                      <div className="why-us-card-bottomline" aria-hidden="true">
+                        <span>ENGINEERING EXCELLENCE</span>
+                        <span className="why-us-card-arrow">
+                          <ArrowRight size={17} />
+                        </span>
+                      </div>
+                    </article>
+                  );
+                })}
+              </div>
+              <div className="why-us-progress" aria-hidden="true">
+                <span
+                  className="why-us-progress-fill"
+                  style={{
+                    transform: `scaleX(${whyPoints.length > 1 ? cardProgress / (whyPoints.length - 1) : 1})`,
+                  }}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
   );
 }
-
 
 
 function ProductCategoryCard({
