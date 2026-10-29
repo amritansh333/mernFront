@@ -662,15 +662,15 @@ function WhyUsStackCard({
 function WhyUsFacility() {
   return (
     <div className="why-us-facility relative min-h-0 overflow-hidden">
-      {/* Rotating facility images */}
-      <div className="absolute inset-0 animate-fade-slider">
+      {/* Facility images sliding from right to left */}
+      <div className="why-us-slider absolute inset-0">
         {[slider1, slider2, slider3, slider4, slider5].map(
           (img, index) => (
             <img
               key={index}
               src={img}
               alt={`Khanna Polyrib manufacturing facility ${index + 1}`}
-              className="absolute inset-0 w-full h-full object-cover opacity-0 animate-slide-fade"
+              className="why-us-slide absolute inset-0 h-full w-full object-cover"
               style={{
                 animationDelay: `${index * 6}s`,
               }}
@@ -684,24 +684,31 @@ function WhyUsFacility() {
 
       {/* Facility details */}
       <div className="why-us-facility-content absolute bottom-0 left-0 right-0 p-4 sm:p-6 bg-black/10">
-        <p className="text-white/70 text-sm tracking-widest uppercase font-semibold mb-3">
-          Established 1985
-        </p>
+        {/* Established year — first */}
+<p
+  className="why-us-typewriter why-us-established"
+  style={{ animationDelay: "0s" }}
+>
+  Established 1985
+</p>
 
-        <div className="space-y-2">
-          {whyChecks.map((check, index) => (
-            <div
-              key={index}
-              className="flex items-center gap-2"
-            >
-              <CheckCircle2 className="w-4 h-4 text-primary-light shrink-0" />
+{/* Checklist — sequential typing */}
+<div className="space-y-2">
+  {whyChecks.map((check, index) => (
+    <div key={index} className="flex items-start gap-2">
+      <CheckCircle2 className="w-4 h-4 text-primary-light shrink-0 mt-0.5" />
 
-              <span className="text-white/90 text-sm font-medium leading-snug">
-                {check}
-              </span>
-            </div>
-          ))}
-        </div>
+      <span
+        className="why-us-typewriter why-us-check-text"
+        style={{
+          animationDelay: `${(index + 1) * 1.5}s`,
+        }}
+      >
+        {check}
+      </span>
+    </div>
+  ))}
+</div>
       </div>
     </div>
   );
@@ -2048,30 +2055,33 @@ useEffect(() => {
 </h1>
 
             <div
-              className="flex flex-col sm:flex-row gap-3 animate-fade-in"
-              style={{ animationDelay: "300ms" }}
-            >
-              <Link
-                to="/products"
-                className="inline-flex items-center gap-2 px-4 py-2 text-xs sm:text-sm bg-primary text-primary-foreground font-normal hover:bg-primary-light transition-colors duration-200"
-              >
-                Explore Products <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
+  className="flex flex-col items-start sm:flex-row sm:items-center gap-2 sm:gap-3 animate-fade-in"
+  style={{ animationDelay: "300ms" }}
+>
+  <Link
+    to="/products"
+    className="inline-flex w-[172px] sm:w-auto items-center justify-center gap-2 px-3 sm:px-4 py-2 text-xs sm:text-sm bg-primary text-primary-foreground font-normal hover:bg-primary-light transition-colors duration-200 rounded-lg whitespace-nowrap"
+  >
+    Explore Products
+    <ArrowRight className="w-3.5 h-3.5 shrink-0" />
+  </Link>
 
-              <Link
-                to="/contact?tab=drawing"
-                className="inline-flex items-center gap-2 px-4 py-2 text-xs sm:text-sm bg-white/10 border border-white/30 text-white font-normal hover:bg-white/20 transition-colors duration-200"
-              >
-                <Send className="w-3.5 h-3.5" /> Send Your Drawing
-              </Link>
+  <Link
+    to="/contact?tab=drawing"
+    className="inline-flex w-[172px] sm:w-auto items-center justify-center gap-2 px-3 sm:px-4 py-2 text-xs sm:text-sm bg-white/10 border border-white/30 text-white font-normal hover:bg-white/20 transition-colors duration-200 rounded-lg whitespace-nowrap"
+  >
+    <Send className="w-3.5 h-3.5 shrink-0" />
+    Send Your Drawing
+  </Link>
 
-              <Link
-                to="/tools/material-selector"
-                className="inline-flex items-center gap-2 px-4 py-2 text-xs sm:text-sm border border-white/20 text-white/80 font-normal hover:bg-white/10 transition-colors duration-200"
-              >
-                <PenLine className="w-3.5 h-3.5" /> Material Selector
-              </Link>
-            </div>
+  <Link
+    to="/tools/material-selector"
+    className="inline-flex w-[172px] sm:w-auto items-center justify-center gap-2 px-3 sm:px-4 py-2 text-xs sm:text-sm border border-white/20 text-white/80 font-normal hover:bg-white/10 transition-colors duration-200 rounded-lg whitespace-nowrap"
+  >
+    <PenLine className="w-3.5 h-3.5 shrink-0" />
+    Material Selector
+  </Link>
+</div>
             {/* Trust badges */}
             <div
               className="flex flex-wrap gap-4 mt-10 animate-fade-in"
