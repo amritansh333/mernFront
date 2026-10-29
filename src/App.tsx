@@ -6,6 +6,7 @@ import ScrollToTop from "@/components/ScrollToTop";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
 import CallButton from "@/components/CallButton";
 import { CookieConsentManager } from "@/components/cookie-consent";
+import ScrollProgressBar from "@/components/ScrollProgressBar";
 
 import Index from "@/pages/Index";
 import AboutPage from "@/pages/AboutPage";
@@ -31,6 +32,7 @@ function App() {
     <Router>
       <MachineComponentsDataProvider>
         <ScrollToTop />
+        <ScrollProgressBar />
         <Header />
 
         <Routes>

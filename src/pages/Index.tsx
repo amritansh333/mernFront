@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
+import { motion, useScroll, useTransform, type MotionValue } from "framer-motion";
 import { Link } from "react-router-dom";
 import {
   ArrowRight,
@@ -80,7 +81,7 @@ import kaylon from "@/assets/kaylon.png";
 import plasconV from "@/assets/plasconV.png";
 
 import polymerImg from "@/assets/polymer-materials.jpeg";
-
+import isoBadge from "@/assets/iso-badge.png";
 import certImg from "@/assets/isoCertificate2015.jpg";
 
 /* ─── Data ─────────────────────────────────────────────── */
@@ -518,54 +519,258 @@ function StatSection() {
   );
 }
 
-/* Why Polyrib */
+/* =========================================================
+   WHY POLYRIB — SKIPER16-INSPIRED SCROLL ANIMATION
+
+   Desktop:
+   Sticky split layout with an animated card stack.
+
+   Mobile:
+   Same pinned layout, with the facility image in the
+   upper portion and full-width animated cards below.
+   ========================================================= */
+
+function WhyUsStackCard({
+  item,
+  index,
+  progress,
+}: {
+  item: (typeof whyPoints)[number];
+  index: number;
+  progress: MotionValue<number>;
+}) {
+  const distance = useTransform(
+    progress,
+    (value) => index - value * (whyPoints.length - 1)
+  );
+
+  const y = useTransform(distance, (value) => {
+    const width =
+      typeof window !== "undefined" ? window.innerWidth : 1280;
+
+    const step =
+      width <= 380
+        ? 112
+        : width <= 639
+          ? 122
+          : width <= 1023
+            ? 150
+            : 166;
+
+    return value * step;
+  });
+
+  const scale = useTransform(distance, (value) =>
+    Math.max(0.68, 1.045 - Math.abs(value) * 0.175)
+  );
+
+  const opacity = useTransform(distance, (value) => {
+    const absoluteDistance = Math.abs(value);
+
+    return Math.max(
+      0,
+      1 - Math.max(0, absoluteDistance - 1) * 2.5
+    );
+  });
+
+  const zIndex = useTransform(
+    distance,
+    (value) => 100 - Math.round(Math.abs(value) * 10)
+  );
+
+  const boxShadow = useTransform(distance, (value) => {
+    const activeStrength = Math.max(0, 1 - Math.abs(value));
+
+    return `
+      0 ${10 + activeStrength * 10}px
+      ${24 + activeStrength * 18}px
+      rgba(30, 41, 59, ${0.07 + activeStrength * 0.07}),
+      0 2px 6px rgba(30, 41, 59, 0.04),
+      inset 0 1px 0 rgba(255, 255, 255, 0.65)
+    `;
+  });
+
+  const { icon: Icon, title, desc } = item;
+
+  return (
+    <motion.article
+      className="why-us-card"
+      aria-label={title}
+      style={{
+        y,
+        scale,
+        opacity,
+        zIndex,
+        boxShadow,
+      }}
+    >
+      <Link
+        to="/about"
+        className="why-us-card-link"
+        aria-label={`Learn more about Khanna Polyrib: ${title}`}
+      >
+        <div className="why-us-card-topline">
+          <span className="why-us-card-index">
+            WHY POLYRIB{" "}
+            <span>{String(index + 1).padStart(2, "0")}</span>
+          </span>
+
+          <span
+            className="why-us-card-indicator"
+            aria-hidden="true"
+          />
+        </div>
+
+        <div className="why-us-card-content">
+          <div className="why-us-card-icon">
+            <Icon
+              size={23}
+              strokeWidth={1.8}
+              aria-hidden="true"
+            />
+          </div>
+
+          <div className="why-us-card-copy">
+            <h3 className="font-heading">{title}</h3>
+            <p>{desc}</p>
+          </div>
+        </div>
+
+        <div
+          className="why-us-card-bottomline"
+          aria-hidden="true"
+        >
+          <span>KHANNA POLYRIB PVT. LTD.</span>
+
+          <span className="why-us-card-arrow">
+            <ArrowRight size={17} />
+          </span>
+        </div>
+      </Link>
+    </motion.article>
+  );
+}
+
+/* =========================================================
+   FACILITY IMAGE AND CHECKLIST
+   ========================================================= */
+
+function WhyUsFacility() {
+  return (
+    <div className="why-us-facility relative min-h-0 overflow-hidden">
+      {/* Rotating facility images */}
+      <div className="absolute inset-0 animate-fade-slider">
+        {[slider1, slider2, slider3, slider4, slider5].map(
+          (img, index) => (
+            <img
+              key={index}
+              src={img}
+              alt={`Khanna Polyrib manufacturing facility ${index + 1}`}
+              className="absolute inset-0 w-full h-full object-cover opacity-0 animate-slide-fade"
+              style={{
+                animationDelay: `${index * 6}s`,
+              }}
+            />
+          )
+        )}
+      </div>
+
+      {/* Dark overlay for readable text */}
+      <div className="why-us-facility-overlay absolute inset-0 bg-gradient-to-t from-charcoal/95 via-charcoal/50 to-transparent" />
+
+      {/* Facility details */}
+      <div className="why-us-facility-content absolute bottom-0 left-0 right-0 p-4 sm:p-6 bg-black/10">
+        <p className="text-white/70 text-sm tracking-widest uppercase font-semibold mb-3">
+          Established 1985
+        </p>
+
+        <div className="space-y-2">
+          {whyChecks.map((check, index) => (
+            <div
+              key={index}
+              className="flex items-center gap-2"
+            >
+              <CheckCircle2 className="w-4 h-4 text-primary-light shrink-0" />
+
+              <span className="text-white/90 text-sm font-medium leading-snug">
+                {check}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* =========================================================
+   CARD STACK AND PROGRESS INDICATOR
+   ========================================================= */
+
+function WhyUsCardPanel({
+  progress,
+}: {
+  progress: MotionValue<number>;
+}) {
+  const progressWidth = useTransform(
+    progress,
+    [0, 1],
+    [0, 1]
+  );
+
+  return (
+    <div className="why-us-card-panel">
+      <div
+        className="why-us-card-stage"
+        aria-label="Why choose Khanna Polyrib"
+      >
+        <div
+          className="why-us-card-grid-glow"
+          aria-hidden="true"
+        />
+
+        {whyPoints.map((item, index) => (
+          <WhyUsStackCard
+            key={item.title}
+            item={item}
+            index={index}
+            progress={progress}
+          />
+        ))}
+      </div>
+
+      <div
+        className="why-us-progress"
+        aria-hidden="true"
+      >
+        <motion.span
+          className="why-us-progress-fill"
+          style={{
+            scaleX: progressWidth,
+          }}
+        />
+      </div>
+    </div>
+  );
+}
+
+/* =========================================================
+   MAIN WHY US SECTION
+   One shared layout for every screen size.
+   ========================================================= */
+
 function WhyUsSection() {
   const sectionRef = useRef<HTMLElement | null>(null);
-  const pinRef = useRef<HTMLDivElement | null>(null);
-  const [cardProgress, setCardProgress] = useState(0);
-  const [viewportWidth, setViewportWidth] = useState(1280);
 
-  useEffect(() => {
-    const section = sectionRef.current;
-    const pin = pinRef.current;
-    if (!section || !pin) return;
-
-    let frame = 0;
-    setViewportWidth(window.innerWidth);
-
-    const updateProgress = () => {
-      setViewportWidth(window.innerWidth);
-      cancelAnimationFrame(frame);
-
-      frame = requestAnimationFrame(() => {
-        const sectionRect = section.getBoundingClientRect();
-        const stickyTop = window.innerWidth <= 639 ? 60 : 72;
-        const travelDistance = Math.max(
-          1,
-          section.offsetHeight - pin.offsetHeight,
-        );
-        const progress = Math.min(
-          1,
-          Math.max(0, (stickyTop - sectionRect.top) / travelDistance),
-        );
-
-        setCardProgress(progress * (whyPoints.length - 1));
-      });
-    };
-
-    updateProgress();
-    window.addEventListener("scroll", updateProgress, { passive: true });
-    window.addEventListener("resize", updateProgress);
-
-    return () => {
-      cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", updateProgress);
-      window.removeEventListener("resize", updateProgress);
-    };
-  }, []);
-
-  const cardStep =
-    viewportWidth <= 639 ? 88 : viewportWidth <= 1023 ? 112 : 142;
+  /*
+   * The entire section drives the animation.
+   * On mobile, the sticky container remains in place,
+   * displaying the image above the animated cards.
+   */
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end end"],
+  });
 
   return (
     <section
@@ -573,133 +778,37 @@ function WhyUsSection() {
       className="why-us-scroll-section bg-white border-y border-divider"
       aria-label="Why choose Khanna Polyrib"
     >
-      <div ref={pinRef} className="why-us-pin">
+      <div className="why-us-pin">
         <div className="container max-w-7xl mx-auto px-6 why-us-pin-container">
+          {/* Section heading */}
           <div className="why-us-heading flex flex-col md:flex-row justify-between items-start md:items-end">
             <div>
               <h2 className="font-heading text-3xl text-charcoal">
                 One-Stop Polymer Engineering Solutions
               </h2>
             </div>
-            <Link to="/about" className="cta-link mt-3 md:mt-0">
+
+            <Link
+              to="/about"
+              className="cta-link mt-3 md:mt-0"
+            >
               About Us <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
 
-          <div className="why-us-layout grid grid-cols-1 lg:grid-cols-2 gap-0 border border-divider">
-            {/* Facility photo and whyChecks remain unchanged */}
-            <div className="why-us-facility relative min-h-0 overflow-hidden">
-              {/* Image Slider */}
-              <div className="absolute inset-0 animate-fade-slider">
-                {[slider1, slider2, slider3, slider4, slider5].map(
-                  (img, index) => (
-                    <img
-                      key={index}
-                      src={img}
-                      alt={`Engineered To Perform ${index + 1}`}
-                      className="absolute inset-0 w-full h-full object-cover opacity-0 animate-slide-fade"
-                      style={{
-                        animationDelay: `${index * 6}s`,
-                      }}
-                    />
-                  ),
-                )}
-              </div>
+          {/* Shared layout: image + animated cards */}
+          <div className="why-us-layout grid rounded-2xl">
+            <WhyUsFacility />
 
-              {/* Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-charcoal/95 via-charcoal/50 to-transparent" />
-
-              {/* Existing whyChecks content preserved */}
-              <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 bg-black/10">
-                <p className="text-white/60 text-sm tracking-widest uppercase font-semibold mb-3">
-                  Established 1985
-                </p>
-                <div className="space-y-2">
-                  {whyChecks.map((c, i) => (
-                    <div key={i} className="flex items-center gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-primary-light shrink-0" />
-                      <span className="text-white/80 text-sm sm:text-sm font-medium leading-snug">
-                        {c}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Six vertically scrolling cards with a zoomed centre card */}
-            <div className="why-us-card-panel">
-              <div className="why-us-card-stage" aria-label="Why choose Khanna Polyrib">
-                <div className="why-us-card-grid-glow" aria-hidden="true" />
-                {whyPoints.map(({ icon: Icon, title, desc }, index) => {
-                  const distance = index - cardProgress;
-                  const distanceFromCenter = Math.abs(distance);
-                  const scale = Math.max(0.76, 1 - distanceFromCenter * 0.13);
-                  const opacity = Math.max(0, 1 - distanceFromCenter * 0.43);
-                  const isActive = distanceFromCenter < 0.5;
-                  const verticalOffset = distance * cardStep;
-                  const verticalTransform =
-                    verticalOffset >= 0
-                      ? `calc(-50% + ${verticalOffset}px)`
-                      : `calc(-50% - ${Math.abs(verticalOffset)}px)`;
-
-                  return (
-                    <article
-                      key={title}
-                      className={`why-us-card ${isActive ? "why-us-card-active" : ""}`}
-                      aria-current={isActive ? "step" : undefined}
-                      style={
-                        {
-                          transform: `translate3d(0, ${verticalTransform}, 0) scale(${scale})`,
-                          opacity,
-                          zIndex: 100 - Math.round(distanceFromCenter * 10),
-                          "--why-card-index": index,
-                        } as React.CSSProperties
-                      }
-                    >
-                      <div className="why-us-card-topline">
-                        <span className="why-us-card-index">
-                          WHY POLYRIB <span>{String(index + 1).padStart(2, "0")}</span>
-                        </span>
-                        <span className="why-us-card-indicator" aria-hidden="true" />
-                      </div>
-
-                      <div className="why-us-card-content">
-                        <div className="why-us-card-icon">
-                          <Icon size={23} strokeWidth={1.8} aria-hidden="true" />
-                        </div>
-                        <div className="why-us-card-copy">
-                          <h3 className="font-heading">{title}</h3>
-                          <p>{desc}</p>
-                        </div>
-                      </div>
-
-                      <div className="why-us-card-bottomline" aria-hidden="true">
-                        <span>ENGINEERING EXCELLENCE</span>
-                        <span className="why-us-card-arrow">
-                          <ArrowRight size={17} />
-                        </span>
-                      </div>
-                    </article>
-                  );
-                })}
-              </div>
-              <div className="why-us-progress" aria-hidden="true">
-                <span
-                  className="why-us-progress-fill"
-                  style={{
-                    transform: `scaleX(${whyPoints.length > 1 ? cardProgress / (whyPoints.length - 1) : 1})`,
-                  }}
-                />
-              </div>
-            </div>
+            <WhyUsCardPanel
+              progress={scrollYProgress}
+            />
           </div>
         </div>
       </div>
     </section>
   );
 }
-
 
 function ProductCategoryCard({
   title,
@@ -746,35 +855,57 @@ function ProductCategoryCard({
 
   return (
     <Link to={href} className="category-card block group rounded-2xl">
-      {/* Image viewport: original dimensions and aspect ratio preserved */}
-      <div className="card-image relative aspect-[2/1] overflow-hidden bg-surface-subtle">
-        {images.map((image, index) => {
-          const isActive = index === activeIndex;
+      {/* Image with a matching wavy blue border */}
+      <div className="card-image relative aspect-[2/1] bg-surface-subtle">
+        <div className="product-image-wave-clip">
+          {images.map((image, index) => {
+            const isActive = index === activeIndex;
 
-          return (
-            <img
-              key={image}
-              src={image}
-              alt={`${title} - Image ${index + 1}`}
-              loading={index === 0 ? "eager" : "lazy"}
-              draggable={false}
-              className={`product-gallery-image absolute inset-0 w-full h-full object-cover ${
-                isActive ? "product-gallery-image-active" : ""
-              }`}
-              style={{
-                transform: isActive
-                  ? "translateX(0)"
-                  : index < activeIndex
-                    ? "translateX(-100%)"
-                    : "translateX(100%)",
-                transition: reduceMotion
-                  ? "none"
-                  : "transform 650ms cubic-bezier(0.22, 1, 0.36, 1)",
-                zIndex: isActive ? 2 : 1,
-              }}
-            />
-          );
-        })}
+            return (
+              <img
+                key={image}
+                src={image}
+                alt={`${title} - Image ${index + 1}`}
+                loading={index === 0 ? "eager" : "lazy"}
+                draggable={false}
+                className={`product-gallery-image absolute inset-0 w-full h-full object-cover ${
+                  isActive ? "product-gallery-image-active" : ""
+                }`}
+                style={{
+                  transform: isActive
+                    ? "translateX(0)"
+                    : index < activeIndex
+                      ? "translateX(-100%)"
+                      : "translateX(100%)",
+                  transition: reduceMotion
+                    ? "none"
+                    : "transform 650ms cubic-bezier(0.22, 1, 0.36, 1)",
+                  zIndex: isActive ? 2 : 1,
+                }}
+              />
+            );
+          })}
+        </div>
+
+        {/* Two closely spaced blue strokes trace the clipped image edge. */}
+        <svg
+          className="product-image-wave-border"
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          {/* Primary line follows the clip-path boundary exactly. */}
+          <path
+            className="product-image-wave-primary"
+            d="M0 96 L5 95.5 L12 96 L20 97.5 L28 99 L36 98.5 L44 96.5 L52 95 L60 95.5 L68 97 L76 98.5 L84 98 L92 96.5 L100 95"
+          />
+
+          {/* Secondary line sits just below the primary line. */}
+          <path
+            className="product-image-wave-secondary"
+            d="M0 97 L5 96.5 L12 97 L20 98.5 L28 100 L36 99.5 L44 97.5 L52 96 L60 96.5 L68 98 L76 99.5 L84 99 L92 97.5 L100 96"
+          />
+        </svg>
       </div>
 
       {/* Existing card content preserved */}
@@ -791,12 +922,14 @@ function ProductCategoryCard({
           {description}
         </p>
 
-        <div className="cta-link pt-2 border-t border-divider">
-          Explore Range
-          <ArrowRight className="w-4 h-4 explore-arrow" />
-        </div>
+        
 
-        <div className="card-border-bottom mt-1" />
+<div className="cta-link category-card-cta">
+  Explore Range
+  <ArrowRight className="w-4 h-4 explore-arrow" />
+</div>
+
+<div className="card-border-bottom mt-1" />
       </div>
     </Link>
   );
@@ -1463,7 +1596,7 @@ function InfrastructureSection() {
             <div className="infrastructure-card-footer">
               <span className="infrastructure-card-status">
                 <span className="infrastructure-status-dot" />
-                MANUFACTURING CAPABILITY
+                Khanna Polyrib Pvt. Ltd.
               </span>
 
               <span className="infrastructure-card-arrow">
@@ -1522,48 +1655,48 @@ function CertificationSection() {
 
   return (
     <>
-      <section
-        ref={sectionRef}
-        className={`certification-motion-section py-8 bg-surface-subtle border-b border-divider ${
-          isVisible ? "certification-visible" : ""
-        }`}
+<section
+  ref={sectionRef}
+  className={`certification-motion-section py-8 bg-surface-subtle border-b border-divider ${
+    isVisible ? "certification-visible" : ""
+  }`}
+>
+  <div className="container max-w-7xl mx-auto px-6">
+    <div className="text-center mb-8 certification-heading">
+      <h2 className="font-heading text-3xl text-charcoal">
+        Certifications & Standards
+      </h2>
+
+      <p className="text-muted-foreground text-sm mt-3 max-w-xl mx-auto">
+        Khanna Polyrib Pvt. Ltd. holds
+        <span className="font-semibold text-base text-primary">
+          {" "}
+          ISO 9001:2015 Certification
+        </span>{" "}
+        — demonstrating commitment to consistent quality management,
+        process control, and customer satisfaction across all product
+        lines.
+      </p>
+    </div>
+
+    <div className="flex justify-center">
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        aria-label="View ISO 9001:2015 certification"
+        className="iso-badge-button"
       >
-        <div className="container max-w-7xl mx-auto px-6">
-          <div className="text-center mb-8 certification-heading">
-            <h2 className="font-heading text-3xl text-charcoal">
-              Certifications & Standards
-            </h2>
-
-            <p className="text-muted-foreground text-sm mt-3 max-w-xl mx-auto">
-              Khanna Polyrib Pvt. Ltd. holds
-              <span className="font-semibold text-base text-primary">
-                {" "}
-                ISO 9001:2015 Certification
-              </span>{" "}
-              — demonstrating commitment to consistent quality management,
-              process control, and customer satisfaction across all product
-              lines.
-            </p>
-          </div>
-
-          <div className="flex justify-center">
-            <button
-              type="button"
-              onClick={() => setOpen(true)}
-              aria-label="View ISO 9001:2015 certification"
-              className="certification-bubble-card border border-border bg-card p-4 text-center hover:border-primary/40 transition-colors duration-200 cursor-pointer w-full max-w-[250px] overflow-hidden rounded-xl"
-            >
-              <div className="certification-icon w-8 h-8 bg-primary/10 flex items-center justify-center mx-auto mb-2">
-                <Award className="w-4 h-4 text-primary" />
-              </div>
-
-              <div className="text-sm font-semibold text-charcoal">
-                ISO 9001:2015 Certified
-              </div>
-            </button>
-          </div>
-        </div>
-      </section>
+        <img
+          src={isoBadge}
+          alt="ISO 9001:2015 certification badge"
+          className="iso-badge-image"
+          width={740}
+          height={740}
+        />
+      </button>
+    </div>
+  </div>
+</section>
 
       {/* Certificate modal — functionality preserved */}
       {open && (
@@ -1580,7 +1713,7 @@ function CertificationSection() {
               type="button"
               onClick={() => setOpen(false)}
               aria-label="Close certificate"
-              className="absolute top-6 right-6 bg-white rounded-full p-2 shadow-md hover:bg-gray-200"
+              className="absolute top-6 right-6 bg-white rounded-full p-2 shadow-md hover:bg-blue-200"
             >
               <X className="w-5 h-5 text-black" />
             </button>

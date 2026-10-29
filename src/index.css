@@ -2320,267 +2320,532 @@
 
 
 /* =========================================================
-   WHY POLYRIB — PINNED VERTICAL CARD SCROLL
-   Six cards travel vertically; the centre card scales up.
-   Scoped exclusively to the About Us / Why Polyrib section.
+   WHY POLYRIB — SKIPER16-INSPIRED SCROLL ANIMATION
+
+   DESKTOP:
+   Sticky two-column layout: facility image + animated cards.
+
+   MOBILE:
+   One sticky viewport:
+   - Heading at the top
+   - Facility image in the upper portion
+   - Animated cards in the lower portion
+
+   IMPORTANT:
+   This CSS is designed for the single-layout WhyUsSection
+   TSX component provided in the previous response.
+   ========================================================= */
+
+
+/* =========================================================
+   1. MAIN SECTION AND SCROLL CONTAINER
    ========================================================= */
 
 .why-us-scroll-section {
   --why-sticky-top: 72px;
+
   position: relative;
-  height: 600svh;
-  margin-top: 0 !important;
-  margin-bottom: 0 !important;
-  padding: 0 !important;
-  overflow: clip;
+  width: 100%;
+  height: 440svh;
+
+  margin: 0;
+  padding: 0;
+
+  overflow: visible;
   isolation: isolate;
+
+  background: #FFFFFF;
+  border-top: 1px solid #E2E8F0;
+  border-bottom: 1px solid #E2E8F0;
 }
+
+
+/* =========================================================
+   2. STICKY VIEWPORT
+   ========================================================= */
 
 .why-us-pin {
   position: sticky;
   top: var(--why-sticky-top);
-  height: calc(100svh - var(--why-sticky-top));
-  box-sizing: border-box;
-  padding: 18px 0 20px;
+
   display: flex;
   flex-direction: column;
+
+  width: 100%;
+  height: calc(100svh - var(--why-sticky-top));
+
+  box-sizing: border-box;
+
+  padding: 14px 0 18px;
+
+  overflow: hidden;
 }
 
 .why-us-pin-container {
   display: flex;
   flex: 1;
   flex-direction: column;
+
+  width: 100%;
+  min-width: 0;
   min-height: 0;
+
+  margin-left: auto;
+  margin-right: auto;
 }
 
+
+/* =========================================================
+   3. SECTION HEADING
+   ========================================================= */
+
 .why-us-heading {
+  display: flex;
   flex: 0 0 auto;
-  gap: 12px;
-  margin-bottom: 16px;
+
+  align-items: flex-end;
+  justify-content: space-between;
+
+  gap: 16px;
+  margin-bottom: 14px;
 }
 
 .why-us-heading h2 {
+  max-width: 760px;
+  margin: 0;
+
+  color: #17212F;
+
+  font-size: clamp(25px, 3vw, 38px);
+  font-weight: 700;
   line-height: 1.08;
+  letter-spacing: -0.035em;
 }
+
+.why-us-heading .cta-link {
+  display: inline-flex;
+  flex-shrink: 0;
+
+  align-items: center;
+  gap: 7px;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   4. MAIN LAYOUT
+   ========================================================= */
 
 .why-us-layout {
+  display: grid;
   flex: 1;
+
+  width: 100%;
+  min-width: 0;
   min-height: 0;
-  /* Keep the original facility image dominant: 60% image / 40% cards. */
-  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+
+  grid-template-columns:
+    minmax(0, 1.5fr)
+    minmax(0, 1fr);
+
+  grid-template-rows: minmax(0, 1fr);
+
   overflow: hidden;
-  background: #e5f3f8;
+
+  border: 1px solid #E2E8F0;
+  background: #F8FAFC;
 }
 
+
+/* =========================================================
+   5. FACILITY IMAGE
+   ========================================================= */
+
 .why-us-facility {
-  min-width: 0;
+  position: relative;
+
+  width: 100%;
   height: 100%;
-  background: #152331;
+
+  min-width: 0;
+  min-height: 0;
+
+  overflow: hidden;
+
+  background: #1E293B;
 }
+
+.why-us-facility > div:first-child {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+}
+
+.why-us-facility img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center;
+}
+
+.why-us-facility-overlay {
+  position: absolute;
+  inset: 0;
+
+  z-index: 1;
+  pointer-events: none;
+}
+
+.why-us-facility-content {
+  position: absolute;
+  inset: auto 0 0;
+
+  z-index: 2;
+
+  padding: 20px 22px;
+}
+
+.why-us-facility-content > p {
+  margin: 0 0 14px;
+
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.why-us-facility-content .space-y-2 {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.why-us-facility-content .space-y-2 > div {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+}
+
+.why-us-facility-content .space-y-2 svg {
+  flex: 0 0 auto;
+
+  width: 17px;
+  height: 17px;
+
+  margin-top: 2px;
+}
+
+.why-us-facility-content .space-y-2 span {
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+
+/* =========================================================
+   6. CARD PANEL
+   ========================================================= */
 
 .why-us-card-panel {
   position: relative;
-  min-width: 0;
-  min-height: 0;
-  overflow: hidden;
+
   display: flex;
   flex-direction: column;
-  background:
-    radial-gradient(ellipse at 50% 48%, rgb(33 155 204 / 18%), transparent 58%),
-    linear-gradient(145deg, #e6f5fa 0%, #d9edf5 52%, #edf8fb 100%);
+
+  width: 100%;
+  height: 100%;
+
+  min-width: 0;
+  min-height: 0;
+
+  overflow: hidden;
+
+  background: #FFFFFF;
 }
 
 .why-us-card-stage {
   position: relative;
+
   flex: 1;
+
+  width: 100%;
+  min-width: 0;
   min-height: 0;
+
   overflow: hidden;
+
   isolation: isolate;
-  perspective: 1100px;
+  perspective: 1000px;
 }
+
+
+/* =========================================================
+   7. SUBTLE GRID BACKGROUND
+   ========================================================= */
 
 .why-us-card-grid-glow {
   position: absolute;
   inset: 0;
+
+  z-index: 0;
   pointer-events: none;
-  opacity: 0.5;
+
+  opacity: 0.28;
+
   background-image:
-    linear-gradient(rgb(33 155 204 / 5%) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(33 155 204 / 5%) 1px, transparent 1px);
+    linear-gradient(
+      rgba(148, 163, 184, 0.13) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(148, 163, 184, 0.13) 1px,
+      transparent 1px
+    );
+
   background-size: 28px 28px;
-  mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 82%, transparent);
+
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    #000 15%,
+    #000 85%,
+    transparent
+  );
 }
+
+
+/* =========================================================
+   8. CARD BASE STYLING
+   Keep Framer Motion in control of transform, opacity,
+   z-index, and the animated shadow.
+   ========================================================= */
 
 .why-us-card {
   position: absolute;
-  top: 50%;
-  left: 5%;
-  width: 90%;
-  min-height: 206px;
+
+  top: calc(50% - 100px);
+  left: 4%;
+
+  width: 92%;
+  min-height: 200px;
+
   box-sizing: border-box;
-  padding: 20px 22px 15px;
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  margin: 0;
+  padding: 19px 20px 14px;
+
   overflow: hidden;
-  border: 1px solid rgb(33 155 204 / 19%);
-  border-radius: 16px;
-  color: hsl(var(--charcoal));
-  background:
-    radial-gradient(ellipse at 100% 0%, rgb(33 155 204 / 19%), transparent 48%),
-    linear-gradient(135deg, #ccecf5 0%, #b8e3ef 100%);
-  box-shadow:
-    0 18px 42px rgb(18 55 76 / 13%),
-    0 3px 8px rgb(18 55 76 / 7%),
-    inset 0 1px 0 rgb(255 255 255 / 78%);
+  isolation: isolate;
+
+  border: 1px solid rgba(40, 55, 75, 0.2);
+  border-radius: 15px;
+
+  color: #263445;
+
+  background-color: #B9E6FF;
+  background-image: none;
+
   transform-origin: center center;
   backface-visibility: hidden;
+
   will-change: transform, opacity;
-  transition:
-    transform 520ms cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 420ms ease,
-    border-color 420ms ease,
-    box-shadow 420ms ease,
-    background 420ms ease,
-    filter 420ms ease;
 }
+
+
+/* =========================================================
+   9. SOLID CARD COLORS
+   nth-of-type targets the article elements rendered by
+   WhyUsStackCard, keeping their individual colors.
+   ========================================================= */
+
+/* Card 1 — Sky blue */
+.why-us-card:nth-of-type(1) {
+  background-color: #B1ADA1;
+  border-color: #8BD5FA;
+}
+
+/* Card 2 — Mint green */
+.why-us-card:nth-of-type(2) {
+  background-color: #23AE8F;
+  border-color: #8CE5AC;
+}
+
+/* Card 3 — Warm yellow */
+.why-us-card:nth-of-type(3) {
+  background-color: #FFE49A;
+  border-color: #F5CE65;
+}
+
+/* Card 4 — Lavender */
+.why-us-card:nth-of-type(4) {
+  background-color: #05B1B7;
+  border-color: #B9A6FA;
+}
+
+/* Card 5 — Coral pink */
+.why-us-card:nth-of-type(5) {
+  background-color: #BFCACB;
+  border-color: #F5A998;
+}
+
+/* Card 6 — Aqua */
+.why-us-card:nth-of-type(6) {
+  background-color: #AEEFEA;
+  border-color: #7ADBD3;
+}
+
+/* Additional cards */
+.why-us-card:nth-of-type(n + 7) {
+  background-color: #FFD4A8;
+  border-color: #F6B975;
+}
+
+
+/* =========================================================
+   10. CONTOUR PATTERN
+   One pseudo-element definition only.
+   The solid card backgrounds remain unchanged.
+   ========================================================= */
 
 .why-us-card::before {
   content: "";
+
   position: absolute;
-  top: 0;
-  left: 22px;
-  width: 54px;
-  height: 3px;
-  background: hsl(var(--primary));
-  border-radius: 0 0 4px 4px;
-  opacity: 0.75;
-  transition: width 420ms ease, opacity 420ms ease;
+  inset: 0;
+
+  z-index: 0;
+  pointer-events: none;
+
+  border-radius: inherit;
+
+  background: repeating-radial-gradient(
+    ellipse at 100% 0%,
+    transparent 0,
+    transparent 17px,
+    rgba(255, 255, 255, 0.28) 18px,
+    rgba(255, 255, 255, 0.28) 19px,
+    transparent 20px,
+    transparent 29px
+  );
+
+  opacity: 0.68;
+
+  mask-image: linear-gradient(
+    115deg,
+    transparent 0%,
+    transparent 8%,
+    rgba(0, 0, 0, 0.35) 35%,
+    #000 100%
+  );
 }
 
-.why-us-card:nth-of-type(1) {
-  background:
-    radial-gradient(ellipse at 100% 0%, rgb(33 155 204 / 18%), transparent 48%),
-    linear-gradient(135deg, #d3edf5 0%, #bfe5f0 100%);
+
+/* Inner outline */
+.why-us-card::after {
+  content: "";
+
+  position: absolute;
+  inset: 5px;
+
+  z-index: 0;
+  pointer-events: none;
+
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  border-radius: 10px;
 }
 
-.why-us-card:nth-of-type(2) {
-  background:
-    radial-gradient(ellipse at 100% 0%, rgb(255 255 255 / 25%), transparent 48%),
-    linear-gradient(135deg, #b5e8f4 0%, #9ddced 100%);
-}
 
-.why-us-card:nth-of-type(3) {
-  background:
-    radial-gradient(ellipse at 100% 0%, rgb(33 155 204 / 17%), transparent 48%),
-    linear-gradient(135deg, #c4eaf3 0%, #abddea 100%);
-}
-
-.why-us-card:nth-of-type(4) {
-  background:
-    radial-gradient(ellipse at 100% 0%, rgb(255 255 255 / 30%), transparent 48%),
-    linear-gradient(135deg, #d7f0f7 0%, #b9e4ef 100%);
-}
-
-.why-us-card:nth-of-type(5) {
-  background:
-    radial-gradient(ellipse at 100% 0%, rgb(255 255 255 / 24%), transparent 48%),
-    linear-gradient(135deg, #a9e1ef 0%, #91d4e8 100%);
-}
-
-.why-us-card:nth-of-type(6) {
-  background:
-    radial-gradient(ellipse at 100% 0%, rgb(33 155 204 / 17%), transparent 48%),
-    linear-gradient(135deg, #cdebf4 0%, #b6e1ed 100%);
-}
-
-.why-us-card.why-us-card-active {
-  border-color: #168fb9;
-  background:
-    radial-gradient(ellipse at 100% 0%, rgb(255 255 255 / 30%), transparent 48%),
-    linear-gradient(128deg, #28b9df 0%, #1c9fc9 58%, #168db8 100%);
-  box-shadow:
-    0 28px 62px rgb(10 91 122 / 26%),
-    0 9px 22px rgb(18 55 76 / 12%),
-    inset 0 1px 0 rgb(255 255 255 / 48%);
-}
-
-.why-us-card-active::before {
-  width: 96px;
-  opacity: 1;
-}
+/* =========================================================
+   11. CARD CONTENT
+   ========================================================= */
 
 .why-us-card-topline,
+.why-us-card-content,
 .why-us-card-bottomline {
+  position: relative;
+  z-index: 1;
+}
+
+.why-us-card-topline {
   display: flex;
+
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 10px;
+
+  padding-bottom: 9px;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.45);
 }
 
 .why-us-card-index {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  color: #315c6e;
-  font-family: "DM Sans", system-ui, sans-serif;
-  font-size: 10px;
+  gap: 9px;
+
+  color: #52677B;
+
+  font-size: 9px;
   font-weight: 700;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.12em;
 }
 
-.why-us-card-index span {
-  color: hsl(var(--primary));
-  font-size: 11px;
-  letter-spacing: 0.08em;
+.why-us-card-index > span {
+  color: #395A73;
 }
 
 .why-us-card-indicator {
-  width: 7px;
-  height: 7px;
-  flex: 0 0 7px;
+  display: block;
+
+  flex: 0 0 auto;
+
+  width: 8px;
+  height: 8px;
+
   border-radius: 50%;
-  background: #6ba9bf;
-  box-shadow: 0 0 0 4px rgb(33 155 204 / 12%);
-  transition: background 300ms ease, box-shadow 300ms ease;
+
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.16);
 }
 
-.why-us-card-active .why-us-card-indicator {
-  background: #ffffff;
-  box-shadow: 0 0 0 5px rgb(255 255 255 / 24%), 0 0 15px rgb(255 255 255 / 38%);
-}
 
+/* Main card content */
 .why-us-card-content {
   display: grid;
-  grid-template-columns: 46px minmax(0, 1fr);
+
+  grid-template-columns: 42px minmax(0, 1fr);
   align-items: start;
-  gap: 15px;
-  margin: 15px 0 17px;
+
+  gap: 12px;
+  margin: 12px 0;
 }
 
 .why-us-card-icon {
-  width: 46px;
-  height: 46px;
   display: flex;
+
   align-items: center;
   justify-content: center;
-  border: 1px solid rgb(33 155 204 / 27%);
-  border-radius: 11px;
-  color: #087fa8;
-  background: linear-gradient(145deg, rgb(255 255 255 / 70%), rgb(33 155 204 / 16%));
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 80%);
-  transition:
-    color 350ms ease,
-    background 350ms ease,
-    transform 350ms ease;
-}
 
-.why-us-card-active .why-us-card-icon {
-  color: #ffffff;
-  background: linear-gradient(145deg, #123f55, #0c5874);
-  border-color: rgb(255 255 255 / 42%);
-  transform: translateY(-2px);
-  box-shadow: 0 7px 17px rgb(5 69 94 / 26%);
+  width: 42px;
+  height: 42px;
+
+  box-sizing: border-box;
+
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 11px;
+
+  background: rgba(255, 255, 255, 0.24);
+  color: #345B73;
 }
 
 .why-us-card-copy {
@@ -2588,322 +2853,617 @@
 }
 
 .why-us-card-copy h3 {
-  margin: 0 0 7px;
-  color: hsl(var(--charcoal));
-  font-size: clamp(19px, 1.65vw, 24px);
-  line-height: 1.12;
-  letter-spacing: -0.025em;
+  margin: 1px 0 5px;
+
+  color: #243548;
+
+  font-size: clamp(16px, 1.35vw, 20px);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
 }
 
 .why-us-card-copy p {
   margin: 0;
-  max-width: 54ch;
-  color: #31596b;
-  font-size: 13px;
-  line-height: 1.58;
+
+  color: #3F5367;
+
+  font-size: 12px;
+  line-height: 1.5;
 }
 
-.why-us-card-active .why-us-card-copy p {
-  color: #103f53;
-}
 
+/* Card footer */
 .why-us-card-bottomline {
-  padding-top: 11px;
-  border-top: 1px solid rgb(15 70 94 / 20%);
-  color: #477789;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.13em;
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+
+  padding-top: 9px;
+
+  border-top: 1px solid rgba(45, 60, 80, 0.15);
+
+  color: #53687B;
+
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
 }
 
 .why-us-card-arrow {
-  display: inline-flex;
+  display: flex;
+
+  flex: 0 0 auto;
+
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
-  flex: 0 0 28px;
-  border: 1px solid rgb(17 102 132 / 24%);
-  border-radius: 50%;
-  color: #0e7297;
-  background: rgb(255 255 255 / 36%);
-  transition:
-    color 300ms ease,
-    background 300ms ease,
-    transform 300ms ease;
+
+  color: #38566E;
 }
 
-.why-us-card-active .why-us-card-arrow {
-  color: #168fb9;
-  background: #ffffff;
-  border-color: #ffffff;
-  transform: translateX(2px);
-}
+
+/* =========================================================
+   12. PROGRESS INDICATOR
+   ========================================================= */
 
 .why-us-progress {
   position: relative;
+
   z-index: 2;
-  height: 3px;
   flex: 0 0 3px;
+
+  width: 100%;
+  height: 3px;
+
   overflow: hidden;
-  background: rgb(33 155 204 / 10%);
+
+  background: #E8EDF2;
 }
 
 .why-us-progress-fill {
   display: block;
+
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, hsl(var(--primary-dark)), hsl(var(--primary-light)));
+
+  background: linear-gradient(
+    90deg,
+    #557DA5,
+    #786A96,
+    #527C68
+  );
+
   transform-origin: left center;
-  transition: transform 120ms linear;
 }
 
-/* Laptop / shorter desktop screens */
-@media (max-height: 760px) and (min-width: 1024px) {
+
+/* =========================================================
+   13. TABLET
+   ========================================================= */
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .why-us-scroll-section {
+    --why-sticky-top: 68px;
+  }
+
   .why-us-pin {
     padding-top: 12px;
     padding-bottom: 12px;
   }
 
   .why-us-heading {
-    margin-bottom: 10px;
-  }
-
-  .why-us-card {
-    min-height: 188px;
-    padding: 16px 18px 12px;
-  }
-
-  .why-us-card-content {
-    gap: 12px;
-    margin: 11px 0 12px;
-  }
-
-  .why-us-card-copy p {
-    font-size: 12px;
-    line-height: 1.48;
-  }
-}
-
-/* Tablet */
-@media (max-width: 1023px) {
-  .why-us-scroll-section {
-    --why-sticky-top: 68px;
-  }
-
-  .why-us-pin {
-    padding-top: 14px;
-    padding-bottom: 14px;
+    margin-bottom: 11px;
   }
 
   .why-us-heading h2 {
-    font-size: clamp(24px, 3.2vw, 30px);
+    font-size: clamp(24px, 3vw, 30px);
   }
 
   .why-us-layout {
-    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    grid-template-columns:
+      minmax(0, 1.15fr)
+      minmax(0, 1fr);
   }
 
   .why-us-card {
-    left: 4%;
-    width: 92%;
-    min-height: 194px;
-    padding: 17px 17px 13px;
-  }
+    top: calc(50% - 92px);
 
-  .why-us-card-content {
-    grid-template-columns: 40px minmax(0, 1fr);
-    gap: 12px;
-  }
-
-  .why-us-card-icon {
-    width: 40px;
-    height: 40px;
-  }
-
-  .why-us-card-copy h3 {
-    font-size: clamp(17px, 2.2vw, 21px);
-  }
-
-  .why-us-card-copy p {
-    font-size: 12px;
-    line-height: 1.5;
-  }
-}
-
-/* Mobile: keep the whole About section pinned, with the photo/checks
-   above the vertical card stack so both remain readable. */
-@media (max-width: 639px) {
-  .why-us-scroll-section {
-    --why-sticky-top: 60px;
-    height: 620svh;
-  }
-
-  .why-us-pin {
-    padding: 10px 0 12px;
-  }
-
-  .why-us-pin-container {
-    padding-left: 14px;
-    padding-right: 14px;
-  }
-
-  .why-us-heading {
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
-  }
-
-  .why-us-heading h2 {
-    max-width: 265px;
-    font-size: clamp(22px, 5.7vw, 28px);
-    line-height: 1.04;
-  }
-
-  .why-us-heading .cta-link {
-    flex: 0 0 auto;
-    margin-top: 0;
-    font-size: 12px;
-    white-space: nowrap;
-  }
-
-  .why-us-layout {
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: minmax(0, 0.78fr) minmax(0, 1.22fr);
-  }
-
-  .why-us-facility {
-    min-height: 0;
-  }
-
-  .why-us-facility > div:last-child {
-    padding: 12px 13px;
-  }
-
-  .why-us-facility > div:last-child > p {
-    margin-bottom: 7px;
-    font-size: 10px;
-    letter-spacing: 0.12em;
-  }
-
-  .why-us-facility > div:last-child .space-y-2 {
-    gap: 5px;
-  }
-
-  .why-us-facility > div:last-child .space-y-2 > div {
-    gap: 6px;
-  }
-
-  .why-us-facility > div:last-child .space-y-2 svg {
-    width: 12px;
-    height: 12px;
-  }
-
-  .why-us-facility > div:last-child .space-y-2 span {
-    font-size: 10px;
-    line-height: 1.2;
-  }
-
-  .why-us-card {
     left: 3%;
     width: 94%;
-    min-height: 166px;
-    padding: 13px 14px 10px;
-    border-radius: 12px;
-  }
 
-  .why-us-card::before {
-    left: 14px;
-    width: 38px;
-  }
-
-  .why-us-card-active::before {
-    width: 70px;
-  }
-
-  .why-us-card-index {
-    gap: 7px;
-    font-size: 8px;
-    letter-spacing: 0.12em;
-  }
-
-  .why-us-card-index span {
-    font-size: 9px;
+    min-height: 184px;
+    padding: 15px 14px 11px;
   }
 
   .why-us-card-content {
-    grid-template-columns: 32px minmax(0, 1fr);
-    gap: 10px;
+    grid-template-columns: 34px minmax(0, 1fr);
+    gap: 9px;
+
     margin: 10px 0;
   }
 
   .why-us-card-icon {
-    width: 32px;
-    height: 32px;
-    border-radius: 8px;
-  }
-
-  .why-us-card-icon svg {
-    width: 18px;
-    height: 18px;
+    width: 34px;
+    height: 34px;
   }
 
   .why-us-card-copy h3 {
-    margin-bottom: 5px;
-    font-size: clamp(16px, 4.2vw, 19px);
-    line-height: 1.08;
+    font-size: 16px;
   }
 
   .why-us-card-copy p {
     font-size: 11px;
     line-height: 1.4;
   }
-
-  .why-us-card-bottomline {
-    padding-top: 7px;
-    font-size: 7px;
-    letter-spacing: 0.1em;
-  }
-
-  .why-us-card-arrow {
-    width: 22px;
-    height: 22px;
-    flex-basis: 22px;
-  }
-
-  .why-us-card-arrow svg {
-    width: 13px;
-    height: 13px;
-  }
 }
 
-/* Very small phones */
-@media (max-width: 380px) {
+
+/* =========================================================
+   14. MOBILE LAYOUT
+   The image and cards share ONE sticky viewport.
+   No separate mobile card section or blank spacer.
+   ========================================================= */
+
+@media (max-width: 767px) {
+  /* A longer scroll area drives the card animation */
+  .why-us-scroll-section {
+    --why-sticky-top: 0px;
+
+    height: 620svh;
+    min-height: 0;
+
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Fill the mobile viewport */
+  .why-us-pin {
+    top: 0;
+
+    width: 100%;
+    height: 100svh;
+    min-height: 0;
+
+    padding: 10px 0 12px;
+    overflow: hidden;
+  }
+
+  /* Remove desktop container padding */
+  .why-us-pin-container {
+    width: 100%;
+    max-width: none;
+
+    padding-left: 14px;
+    padding-right: 14px;
+
+    overflow: hidden;
+  }
+
+  /* Compact heading above the two rows */
+  .why-us-heading {
+    flex: 0 0 auto;
+
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .why-us-heading > div {
+    min-width: 0;
+  }
+
   .why-us-heading h2 {
-    max-width: 218px;
-    font-size: 21px;
+    max-width: 310px;
+
+    font-size: clamp(24px, 6.3vw, 30px);
+    line-height: 1.08;
   }
 
   .why-us-heading .cta-link {
-    gap: 3px;
+    flex: 0 0 auto;
+
+    gap: 4px;
+    margin-top: 4px;
+
+    font-size: 12px;
+  }
+
+  .why-us-heading .cta-link svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  /*
+   * CRITICAL MOBILE FIX:
+   * One column, two rows.
+   * The facility stays above the cards.
+   */
+  .why-us-layout {
+    display: grid;
+    flex: 1;
+
+    width: 100%;
+    min-width: 0;
+    min-height: 0;
+
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows:
+      minmax(0, 0.78fr)
+      minmax(0, 1.22fr);
+
+    overflow: hidden;
+
+    border: 1px solid #E2E8F0;
+    background: #F8FAFC;
+  }
+
+
+  /* -------------------------
+     UPPER ROW: FACILITY IMAGE
+     ------------------------- */
+
+  .why-us-layout > .why-us-facility {
+    grid-column: 1;
+    grid-row: 1;
+
+    width: 100%;
+    height: 100%;
+
+    min-width: 0;
+    min-height: 0;
+
+    aspect-ratio: auto;
+
+    overflow: hidden;
+  }
+
+  .why-us-facility img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .why-us-facility-content {
+    padding: 12px 12px 14px;
+  }
+
+  .why-us-facility-content > p {
+    margin-bottom: 9px;
+
+    font-size: 10px;
+    letter-spacing: 0.12em;
+  }
+
+  .why-us-facility-content .space-y-2 {
+    gap: 7px;
+  }
+
+  .why-us-facility-content .space-y-2 > div {
+    gap: 7px;
+  }
+
+  .why-us-facility-content .space-y-2 svg {
+    width: 14px;
+    height: 14px;
+
+    margin-top: 1px;
+  }
+
+  .why-us-facility-content .space-y-2 span {
+    font-size: clamp(10px, 2.8vw, 12px);
+    line-height: 1.35;
+  }
+
+
+  /* -------------------------
+     LOWER ROW: CARD PANEL
+     ------------------------- */
+
+  .why-us-layout > .why-us-card-panel {
+    grid-column: 1;
+    grid-row: 2;
+
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    height: 100%;
+
+    min-width: 0;
+    min-height: 0;
+
+    overflow: hidden;
+
+    background: #F8FAFC;
+  }
+
+  .why-us-card-stage {
+    position: relative;
+
+    flex: 1;
+
+    width: 100%;
+    height: 100%;
+
+    min-width: 0;
+    min-height: 0;
+
+    overflow: hidden;
+
+    isolation: isolate;
+    perspective: 1000px;
+  }
+
+  .why-us-card-grid-glow {
+    opacity: 0.25;
+    background-size: 24px 24px;
+  }
+
+
+  /* -------------------------
+     MOBILE CARD SIZES
+     ------------------------- */
+
+  .why-us-card {
+    position: absolute;
+
+    top: calc(50% - 86px);
+    left: 3%;
+
+    width: 94%;
+    min-height: 172px;
+
+    box-sizing: border-box;
+
+    margin: 0;
+    padding: 14px 13px 11px;
+
+    border-radius: 13px;
+
+    /*
+     * Keep the solid color, texture, and animation.
+     * Do not set transform, opacity, or z-index here.
+     */
+    will-change: transform, opacity;
+  }
+
+  .why-us-card::before {
+    opacity: 0.58;
+
+    background-size: auto;
+  }
+
+  .why-us-card::after {
+    inset: 4px;
+    border-radius: 9px;
+  }
+
+
+  /* Card top label */
+  .why-us-card-topline {
+    gap: 8px;
+    padding-bottom: 7px;
+  }
+
+  .why-us-card-index {
+    gap: 7px;
+
+    font-size: 8px;
+    letter-spacing: 0.1em;
+  }
+
+  .why-us-card-indicator {
+    width: 7px;
+    height: 7px;
+  }
+
+
+  /* Card content */
+  .why-us-card-content {
+    grid-template-columns: 33px minmax(0, 1fr);
+
+    align-items: start;
+    gap: 9px;
+
+    margin: 10px 0;
+  }
+
+  .why-us-card-icon {
+    width: 33px;
+    height: 33px;
+
+    border-radius: 9px;
+  }
+
+  .why-us-card-icon svg {
+    width: 19px;
+    height: 19px;
+  }
+
+  .why-us-card-copy h3 {
+    margin: 1px 0 5px;
+
+    font-size: clamp(15px, 4.2vw, 18px);
+    line-height: 1.22;
+  }
+
+  .why-us-card-copy p {
+    font-size: clamp(10px, 2.9vw, 12px);
+    line-height: 1.42;
+  }
+
+
+  /* Card footer */
+  .why-us-card-bottomline {
+    gap: 7px;
+
+    padding-top: 7px;
+
+    font-size: 7px;
+    letter-spacing: 0.025em;
+  }
+
+  .why-us-card-arrow svg {
+    width: 15px;
+    height: 15px;
+  }
+
+
+  /* Progress indicator */
+  .why-us-progress {
+    flex: 0 0 3px;
+    height: 3px;
+  }
+}
+
+
+/* =========================================================
+   15. SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 380px) {
+  .why-us-pin {
+    padding-top: 8px;
+    padding-bottom: 10px;
+  }
+
+  .why-us-pin-container {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .why-us-heading {
+    gap: 5px;
+    margin-bottom: 9px;
+  }
+
+  .why-us-heading h2 {
+    font-size: clamp(22px, 6vw, 26px);
+  }
+
+  .why-us-heading .cta-link {
     font-size: 11px;
   }
 
+  .why-us-layout {
+    grid-template-rows:
+      minmax(0, 0.78fr)
+      minmax(0, 1.22fr);
+  }
+
+  .why-us-facility-content {
+    padding: 10px 9px 11px;
+  }
+
+  .why-us-facility-content > p {
+    margin-bottom: 7px;
+    font-size: 9px;
+  }
+
+  .why-us-facility-content .space-y-2 {
+    gap: 6px;
+  }
+
+  .why-us-facility-content .space-y-2 svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .why-us-facility-content .space-y-2 span {
+    font-size: 9px;
+    line-height: 1.3;
+  }
+
   .why-us-card {
-    min-height: 158px;
-    padding: 11px 12px 9px;
+    top: calc(50% - 82px);
+
+    left: 2.5%;
+    width: 95%;
+
+    min-height: 164px;
+    padding: 12px 10px 9px;
+  }
+
+  .why-us-card-content {
+    grid-template-columns: 29px minmax(0, 1fr);
+    gap: 7px;
+
+    margin: 8px 0;
+  }
+
+  .why-us-card-icon {
+    width: 29px;
+    height: 29px;
+  }
+
+  .why-us-card-icon svg {
+    width: 17px;
+    height: 17px;
+  }
+
+  .why-us-card-copy h3 {
+    font-size: 14px;
   }
 
   .why-us-card-copy p {
     font-size: 10px;
+    line-height: 1.38;
+  }
+
+  .why-us-card-bottomline {
+    padding-top: 6px;
+    font-size: 6px;
   }
 }
 
-/* Accessibility: preserve the scroll sequence but remove easing effects. */
+
+/* =========================================================
+   16. SHORT DESKTOP VIEWPORTS
+   ========================================================= */
+
+@media (min-width: 1024px) and (max-height: 760px) {
+  .why-us-pin {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .why-us-heading {
+    margin-bottom: 9px;
+  }
+
+  .why-us-card {
+    top: calc(50% - 92px);
+
+    min-height: 184px;
+    padding: 15px 17px 11px;
+  }
+
+  .why-us-card-content {
+    gap: 11px;
+    margin: 9px 0 10px;
+  }
+
+  .why-us-card-copy p {
+    font-size: 11px;
+    line-height: 1.4;
+  }
+}
+
+
+/* =========================================================
+   17. REDUCED MOTION ACCESSIBILITY
+   ========================================================= */
+
 @media (prefers-reduced-motion: reduce) {
-  .why-us-card,
+  .why-us-facility img,
   .why-us-card::before,
+  .why-us-card::after,
   .why-us-card-icon,
   .why-us-card-indicator,
   .why-us-card-arrow,
@@ -2912,3 +3472,312 @@
   }
 }
 
+
+/* =========================================
+   GLOBAL PAGE SCROLL PROGRESS BAR
+   ========================================= */
+
+.scroll-progress-track {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  z-index: 99999;
+
+  background: rgba(22, 31, 45, 0.12);
+
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.scroll-progress-fill {
+  width: 100%;
+  height: 100%;
+
+  background: linear-gradient(
+    90deg,
+    #279ece 0%,
+    #2082ac 45%,
+    #161f2d 100%
+  );
+
+  transform-origin: left center;
+  will-change: transform;
+}
+
+
+/* Make the entire card clickable */
+.why-us-card-link {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+
+  width: 100%;
+  min-width: 0;
+  min-height: 100%;
+
+  color: inherit;
+  text-decoration: none;
+
+  cursor: pointer;
+}
+
+/* Preserve the existing card layout */
+.why-us-card-link .why-us-card-topline,
+.why-us-card-link .why-us-card-content,
+.why-us-card-link .why-us-card-bottomline {
+  flex-shrink: 0;
+}
+
+/* Visible keyboard focus */
+.why-us-card-link:focus-visible {
+  outline: 3px solid #168FC0;
+  outline-offset: -5px;
+  border-radius: 12px;
+}
+
+/* Subtle hover feedback without overriding Framer Motion */
+@media (hover: hover) and (pointer: fine) {
+  .why-us-card-link:hover .why-us-card-arrow {
+    color: #087FAF;
+  }
+}
+
+
+
+/* =========================================
+   ISO BADGE — TRANSPARENT WITH EDGE GLOW
+   ========================================= */
+
+.iso-badge-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 180px;
+  max-width: 100%;
+  padding: 0;
+  margin: 0;
+
+  appearance: none;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+
+  cursor: pointer;
+  overflow: visible;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Badge image */
+.iso-badge-image {
+  display: block;
+  width: 100%;
+  height: auto;
+
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+
+  transform: scale(1);
+  transform-origin: center;
+
+  /* Glow follows the PNG's transparent edges */
+  filter: drop-shadow(0 0 5px rgba(39, 158, 206, 0.18));
+
+  transition:
+    transform 350ms cubic-bezier(0.2, 0.7, 0.3, 1),
+    filter 350ms ease;
+}
+
+/* Zoom + glow around the spikes */
+@media (hover: hover) and (pointer: fine) {
+  .iso-badge-button:hover .iso-badge-image {
+    transform: scale(1.08);
+
+    filter:
+      drop-shadow(0 0 7px rgba(39, 158, 206, 0.55))
+      drop-shadow(0 0 18px rgba(32, 130, 172, 0.28));
+  }
+}
+
+/* Click feedback */
+.iso-badge-button:active .iso-badge-image {
+  transform: scale(1.03);
+}
+
+/* Keyboard accessibility */
+.iso-badge-button:focus-visible {
+  outline: 2px solid #279ece;
+  outline-offset: 5px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .iso-badge-image {
+    transition: none;
+  }
+}
+
+
+
+/* =========================================
+   CATEGORY CARD — WAVY IMAGE BOUNDARY
+   Smooth curves between image and content
+   ========================================= */
+
+/* Main category card */
+.category-card {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #fff;
+}
+
+/* Image viewport */
+.category-card .card-image {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  overflow: hidden;
+  isolation: isolate;
+  background: #fff;
+}
+
+/* Image wrapper with smooth curved lower edge */
+
+
+/* Carousel images */
+.category-card .product-image-wave-clip img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* White content area */
+.category-card > div:not(.card-image) {
+  position: relative;
+  z-index: 1;
+  background: #fff;
+}
+
+/* ==========================================
+   PRODUCT CATEGORY CARD — DOUBLE BLUE WAVE
+   Both strokes follow the same image boundary.
+   ========================================== */
+
+.category-card .card-image {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  aspect-ratio: 2 / 1;
+  background: #fff;
+}
+
+/* The image is clipped to this exact lower-edge shape. */
+.category-card .product-image-wave-clip {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  clip-path: polygon(
+    0 96%,
+    5% 95.5%,
+    12% 96%,
+    20% 97.5%,
+    28% 99%,
+    36% 98.5%,
+    44% 96.5%,
+    52% 95%,
+    60% 95.5%,
+    68% 97%,
+    76% 98.5%,
+    84% 98%,
+    92% 96.5%,
+    100% 95%,
+    100% 0,
+    0 0
+  );
+}
+
+.category-card .product-image-wave-clip img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* SVG uses the same 0–100 coordinate space as the clip-path. */
+.category-card .product-image-wave-border {
+  position: absolute;
+  z-index: 5;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.category-card .product-image-wave-primary,
+.category-card .product-image-wave-secondary {
+  fill: none;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  transition: stroke 250ms ease;
+}
+
+.category-card .product-image-wave-primary {
+  stroke: hsl(var(--primary) / 0.78);
+  stroke-width: 1.1;
+}
+
+.category-card .product-image-wave-secondary {
+  stroke: hsl(var(--primary) / 0.42);
+  stroke-width: 0.9;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .category-card:hover .product-image-wave-primary {
+    stroke: hsl(var(--primary) / 0.95);
+  }
+
+  .category-card:hover .product-image-wave-secondary {
+    stroke: hsl(var(--primary) / 0.58);
+  }
+}
+
+/* CTA and bottom accent */
+.category-card .category-card-cta {
+  border-top: none !important;
+}
+
+.category-card .card-border-bottom {
+  height: 2px;
+  width: 0;
+  background: hsl(var(--primary));
+  transition: width 500ms ease;
+}
+
+.category-card:hover .card-border-bottom {
+  width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .category-card .product-image-wave-primary,
+  .category-card .product-image-wave-secondary,
+  .category-card .card-border-bottom,
+  .category-card .explore-arrow {
+    transition: none !important;
+  }
+}
