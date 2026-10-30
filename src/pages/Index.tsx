@@ -1258,7 +1258,8 @@ function PolymersSection() {
                   src={polymerImg}
                   alt="Polymer materials in different colours"
                   className="materials-feature-image w-full h-[180px] sm:h-[220px] lg:h-[260px] object-cover"
-                  loading="lazy"
+                  loading="eager"
+                  decoding="async"
                 />
               </div>
 

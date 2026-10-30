@@ -729,7 +729,7 @@
 
 /* =========================================
    MATERIALS — PRECISION REVEAL
-   ========================================= */
+========================================= */
 
 /* Intro entrance */
 .materials-intro {
@@ -742,29 +742,39 @@
     forwards;
 }
 
-/* Featured image */
+/* Featured polymer image */
 
 .materials-feature-image {
+  display: block;
+  width: 100%;
   opacity: 0;
   transform: scale(1.045);
+  object-fit: cover;
+
   transition:
     transform 600ms cubic-bezier(0.22, 1, 0.36, 1),
     border-color 300ms ease;
 }
 
+/* FIX: Explicitly define the previously missing animation */
+
 .materials-motion-visible .materials-feature-image {
-  animation: materials-image-reveal 900ms ease-out 150ms forwards;
+  animation: materials-image-reveal 900ms cubic-bezier(0.22, 1, 0.36, 1)
+    150ms forwards;
 }
 
-/* Fine blue line along image bottom */
+@keyframes materials-image-reveal {
+  from {
+    opacity: 0;
+    transform: scale(1.045);
+  }
 
-/* Material card entrance */
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
 
-/* Blue accent moves from left to right */
-
-/* Refined hover effect */
-
-/* Keyframes */
 @keyframes materials-intro-reveal {
   from {
     opacity: 0;
@@ -778,6 +788,7 @@
 }
 
 /* Accessibility */
+
 @media (prefers-reduced-motion: reduce) {
   .materials-intro,
   .materials-feature-image {
@@ -3919,18 +3930,32 @@
 }
 
 /* ==========================================
-   MATERIAL CARDS — COLOURED HOVER GLOW
-   ========================================== */
+   MATERIAL CARDS — PERMANENT MULTI-COLOUR GLOW
+   Subtle glow normally, stronger on hover
+========================================== */
+
+/* Base card glow */
 
 .material-family-card {
   --glow-color: 39, 158, 206;
 
+  position: relative;
+  isolation: isolate;
+
+  border-color: rgba(var(--glow-color), 0.22);
+
+  box-shadow:
+    0 0 0 1px rgba(var(--glow-color), 0.07),
+    0 0 8px rgba(var(--glow-color), 0.10),
+    0 4px 14px rgba(var(--glow-color), 0.09);
+
   transition:
-    box-shadow 300ms ease,
-    border-color 300ms ease;
+    box-shadow 300ms cubic-bezier(0.2, 0.7, 0.3, 1),
+    border-color 300ms ease,
+    transform 300ms ease;
 }
 
-/* Individual badge colours */
+/* Individual material colours */
 
 .material-family-card[data-material-glow="uhmwpe"] {
   --glow-color: 59, 130, 246;
@@ -3964,41 +3989,69 @@
   --glow-color: 20, 184, 166;
 }
 
-/* Hover glow */
+
+/* ==========================================
+   PERMANENT COLOURED GLOW
+========================================== */
+
+.material-family-card {
+  box-shadow:
+    0 0 0 1px rgba(var(--glow-color), 0.09),
+    0 0 9px rgba(var(--glow-color), 0.12),
+    0 4px 16px rgba(var(--glow-color), 0.10);
+}
+
+
+/* ==========================================
+   STRONGER GLOW ON HOVER
+========================================== */
 
 @media (hover: hover) and (pointer: fine) {
   .material-family-card:hover {
-    border-color: rgba(var(--glow-color), 0.55);
+    border-color: rgba(var(--glow-color), 0.65);
 
     box-shadow:
-      0 0 0 1px rgba(var(--glow-color), 0.12),
-      0 0 10px rgba(var(--glow-color), 0.22),
-      0 5px 18px rgba(var(--glow-color), 0.18),
-      0 10px 28px rgba(var(--glow-color), 0.1);
+      0 0 0 1px rgba(var(--glow-color), 0.20),
+      0 0 12px rgba(var(--glow-color), 0.28),
+      0 0 24px rgba(var(--glow-color), 0.20),
+      0 6px 20px rgba(var(--glow-color), 0.17);
+
+    transform: translate3d(0, -3px, 0);
   }
 }
 
-/* Mobile touch feedback */
+
+/* ==========================================
+   MOBILE TOUCH FEEDBACK
+========================================== */
 
 .material-family-card:active {
-  border-color: rgba(var(--glow-color), 0.55);
+  border-color: rgba(var(--glow-color), 0.65);
 
   box-shadow:
-    0 0 0 1px rgba(var(--glow-color), 0.15),
+    0 0 0 1px rgba(var(--glow-color), 0.20),
     0 0 12px rgba(var(--glow-color), 0.25),
     0 5px 18px rgba(var(--glow-color), 0.18);
 }
 
-/* Keyboard accessibility */
+
+/* ==========================================
+   KEYBOARD ACCESSIBILITY
+========================================== */
 
 .material-family-card:focus-visible {
   outline: 2px solid rgba(var(--glow-color), 0.7);
   outline-offset: 3px;
 
-  box-shadow: 0 0 12px rgba(var(--glow-color), 0.25);
+  box-shadow:
+    0 0 0 1px rgba(var(--glow-color), 0.20),
+    0 0 12px rgba(var(--glow-color), 0.25);
 }
 
-/* Reduced motion */
+
+/* ==========================================
+   REDUCED MOTION
+========================================== */
 
 @media (prefers-reduced-motion: reduce) {
   .material-family-card {
