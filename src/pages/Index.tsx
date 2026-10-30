@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import { motion, useScroll, useTransform, type MotionValue } from "framer-motion";
+import { motion, useScroll, useSpring, useTransform, type MotionValue } from "framer-motion";
 import { Link } from "react-router-dom";
 import {
   ArrowRight,
@@ -524,14 +524,14 @@ function StatSection() {
 }
 
 /* =========================================================
-   WHY POLYRIB — SKIPER16-INSPIRED SCROLL ANIMATION
+   WHY POLYRIB — OPTIMIZED CARD STACK
 
-   Desktop:
-   Sticky split layout with an animated card stack.
-
-   Mobile:
-   Same pinned layout, with the facility image in the
-   upper portion and full-width animated cards below.
+   Performance improvements:
+   - GPU-friendly transforms
+   - No continuously animated box-shadow
+   - Lightweight scroll-linked transformations
+   - Responsive card movement
+   - Smooth stacking and scaling
    ========================================================= */
 
 function WhyUsStackCard({
@@ -543,11 +543,13 @@ function WhyUsStackCard({
   index: number;
   progress: MotionValue<number>;
 }) {
+  // Calculate card distance from the active position.
   const distance = useTransform(
     progress,
     (value) => index - value * (whyPoints.length - 1)
   );
 
+  // Responsive vertical movement.
   const y = useTransform(distance, (value) => {
     const width =
       typeof window !== "undefined" ? window.innerWidth : 1280;
@@ -564,10 +566,17 @@ function WhyUsStackCard({
     return value * step;
   });
 
-  const scale = useTransform(distance, (value) =>
-    Math.max(0.68, 1.045 - Math.abs(value) * 0.175)
-  );
+  // Card scaling.
+  const scale = useTransform(distance, (value) => {
+    const absoluteDistance = Math.abs(value);
 
+    return Math.max(
+      0.68,
+      1.045 - absoluteDistance * 0.175
+    );
+  });
+
+  // Card visibility.
   const opacity = useTransform(distance, (value) => {
     const absoluteDistance = Math.abs(value);
 
@@ -577,22 +586,11 @@ function WhyUsStackCard({
     );
   });
 
+  // Maintain correct stacking order.
   const zIndex = useTransform(
     distance,
     (value) => 100 - Math.round(Math.abs(value) * 10)
   );
-
-  const boxShadow = useTransform(distance, (value) => {
-    const activeStrength = Math.max(0, 1 - Math.abs(value));
-
-    return `
-      0 ${10 + activeStrength * 10}px
-      ${24 + activeStrength * 18}px
-      rgba(30, 41, 59, ${0.07 + activeStrength * 0.07}),
-      0 2px 6px rgba(30, 41, 59, 0.04),
-      inset 0 1px 0 rgba(255, 255, 255, 0.65)
-    `;
-  });
 
   const { icon: Icon, title, desc } = item;
 
@@ -605,7 +603,6 @@ function WhyUsStackCard({
         scale,
         opacity,
         zIndex,
-        boxShadow,
       }}
     >
       <Link
@@ -613,6 +610,7 @@ function WhyUsStackCard({
         className="why-us-card-link"
         aria-label={`Learn more about Khanna Polyrib: ${title}`}
       >
+        {/* Top line */}
         <div className="why-us-card-topline">
           <span className="why-us-card-index">
             WHY POLYRIB{" "}
@@ -625,6 +623,7 @@ function WhyUsStackCard({
           />
         </div>
 
+        {/* Main content */}
         <div className="why-us-card-content">
           <div className="why-us-card-icon">
             <Icon
@@ -640,6 +639,7 @@ function WhyUsStackCard({
           </div>
         </div>
 
+        {/* Bottom line */}
         <div
           className="why-us-card-bottomline"
           aria-hidden="true"
@@ -715,7 +715,7 @@ function WhyUsFacility() {
 }
 
 /* =========================================================
-   CARD STACK AND PROGRESS INDICATOR
+   CARD PANEL AND PROGRESS INDICATOR
    ========================================================= */
 
 function WhyUsCardPanel({
@@ -723,12 +723,6 @@ function WhyUsCardPanel({
 }: {
   progress: MotionValue<number>;
 }) {
-  const progressWidth = useTransform(
-    progress,
-    [0, 1],
-    [0, 1]
-  );
-
   return (
     <div className="why-us-card-panel">
       <div
@@ -757,7 +751,7 @@ function WhyUsCardPanel({
         <motion.span
           className="why-us-progress-fill"
           style={{
-            scaleX: progressWidth,
+            scaleX: progress,
           }}
         />
       </div>
@@ -767,20 +761,35 @@ function WhyUsCardPanel({
 
 /* =========================================================
    MAIN WHY US SECTION
-   One shared layout for every screen size.
+   Optimized scroll-linked animation
    ========================================================= */
 
 function WhyUsSection() {
   const sectionRef = useRef<HTMLElement | null>(null);
 
-  /*
-   * The entire section drives the animation.
-   * On mobile, the sticky container remains in place,
-   * displaying the image above the animated cards.
-   */
+  // Track section scrolling.
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end end"],
+  });
+
+  /*
+   * Lightweight spring smoothing.
+   *
+   * High stiffness:
+   * Responds quickly to scrolling.
+   *
+   * High damping:
+   * Prevents unnecessary oscillation.
+   *
+   * Low mass:
+   * Keeps the animation responsive.
+   */
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 300,
+    damping: 45,
+    mass: 0.15,
+    restDelta: 0.001,
   });
 
   return (
@@ -791,6 +800,7 @@ function WhyUsSection() {
     >
       <div className="why-us-pin">
         <div className="container max-w-7xl mx-auto px-6 why-us-pin-container">
+
           {/* Section heading */}
           <div className="why-us-heading flex flex-col md:flex-row justify-between items-start md:items-end">
             <div>
@@ -803,17 +813,20 @@ function WhyUsSection() {
               to="/about"
               className="cta-link mt-3 md:mt-0"
             >
-              About Us <ArrowRight className="w-4 h-4" />
+              About Us
+              <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
 
-          {/* Shared layout: image + animated cards */}
+          {/* Facility + Animated Cards */}
           <div className="why-us-layout grid rounded-2xl">
+
             <WhyUsFacility />
 
             <WhyUsCardPanel
-              progress={scrollYProgress}
+              progress={smoothProgress}
             />
+
           </div>
         </div>
       </div>
@@ -1795,52 +1808,63 @@ function CertificationSection() {
 
   return (
     <>
-<section
-  ref={sectionRef}
-  className={`certification-motion-section py-8 bg-white border-b border-divider ${
-    isVisible ? "certification-visible" : ""
-  }`}
->
-  <div className="container max-w-7xl mx-auto px-6">
-    <div className="text-center mb-8 certification-heading">
-      <h2 className="font-heading text-3xl text-charcoal">
-        Certifications & Standards
-      </h2>
-
-      <p className="text-muted-foreground text-sm mt-3 max-w-xl mx-auto">
-        Khanna Polyrib Pvt. Ltd. holds
-        <span className="font-semibold text-base text-primary">
-          {" "}
-          ISO 9001:2015 Certification
-        </span>{" "}
-        — demonstrating commitment to consistent quality management,
-        process control, and customer satisfaction across all product
-        lines.
-      </p>
-    </div>
-
-    <div className="flex justify-center">
-      <button
-        type="button"
-        onClick={() => setOpen(true)}
-        aria-label="View ISO 9001:2015 certification"
-        className="iso-badge-button"
+      <section
+        ref={sectionRef}
+        className={`certification-motion-section py-8 bg-white border-b border-divider ${
+          isVisible ? "certification-visible" : ""
+        }`}
       >
-        <img
-          src={isoBadge}
-          alt="ISO 9001:2015 certification badge"
-          className="iso-badge-image"
-          width={740}
-          height={740}
-        />
-      </button>
-    </div>
-  </div>
-</section>
+        <div className="container max-w-7xl mx-auto px-6">
 
-      {/* Certificate modal — functionality preserved */}
+          {/* Heading */}
+          <div className="text-center mb-8 certification-heading">
+            <h2 className="font-heading text-3xl text-charcoal">
+              Certifications & Standards
+            </h2>
+
+            <p className="text-muted-foreground text-sm mt-3 max-w-xl mx-auto">
+              Khanna Polyrib Pvt. Ltd. holds
+              <span className="font-semibold text-base text-primary">
+                {" "}
+                ISO 9001:2015 Certification
+              </span>{" "}
+              — demonstrating commitment to consistent quality management,
+              process control, and customer satisfaction across all product
+              lines.
+            </p>
+          </div>
+
+          {/* Animated ISO Badge */}
+          <div className="flex justify-center items-center iso-badge-container">
+            <button
+              type="button"
+              onClick={() => setOpen(true)}
+              aria-label="View ISO 9001:2015 certification"
+              aria-haspopup="dialog"
+              className={`iso-badge-button ${
+                isVisible ? "iso-badge-active" : ""
+              }`}
+            >
+              <img
+                src={isoBadge}
+                alt="ISO 9001:2015 certification badge"
+                className="iso-badge-image"
+                width={740}
+                height={740}
+              />
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Certificate Modal */}
       {open && (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center">
+        <div
+          className="fixed inset-0 z-[9999] flex items-center justify-center"
+          role="dialog"
+          aria-modal="true"
+          aria-label="ISO 9001:2015 certificate preview"
+        >
           <button
             type="button"
             aria-label="Close certificate preview"
@@ -1853,7 +1877,7 @@ function CertificationSection() {
               type="button"
               onClick={() => setOpen(false)}
               aria-label="Close certificate"
-              className="absolute top-6 right-6 bg-white rounded-full p-2 shadow-md hover:bg-blue-200"
+              className="absolute top-6 right-6 bg-white rounded-full p-2 shadow-md hover:bg-blue-200 transition-colors"
             >
               <X className="w-5 h-5 text-black" />
             </button>

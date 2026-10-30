@@ -429,358 +429,7 @@
 }
 
 
-/* ==========================================
-   BRAND PORTFOLIO — RESPONSIVE CARD ANIMATION
-   Desktop: layered stacking
-   Mobile: scroll-triggered card entrance
-   ========================================== */
 
-.brand-portfolio-section {
-  position: relative;
-  overflow: clip;
-  isolation: isolate;
-}
-
-.brand-portfolio-section > .container {
-  position: relative;
-  width: 100%;
-}
-
-/* ==========================================
-   HEADING
-   ========================================== */
-
-.brand-portfolio-heading {
-  position: sticky;
-  top: 72px;
-  z-index: 50;
-
-  padding-top: 16px;
-  padding-bottom: 16px;
-
-  background: #fff;
-}
-
-.brand-portfolio-heading.brand-heading-release {
-  position: relative;
-  top: auto;
-  z-index: 1;
-}
-
-/* ==========================================
-   DESKTOP STACKING
-   ========================================== */
-
-.brand-stack-sequence {
-  position: relative;
-  padding-bottom: 24px;
-}
-
-.brand-stack-row {
-  position: sticky;
-  top: 160px;
-
-  z-index: calc(10 + var(--brand-row-index));
-
-  padding-bottom: 18px;
-  isolation: isolate;
-}
-
-.brand-stack-grid {
-  --brand-stack-scale: 0.985;
-  --brand-stack-y: 0px;
-  --brand-stack-shadow: 0.035;
-  --brand-stack-depth: 0;
-
-  position: relative;
-  align-items: stretch;
-
-  transform:
-    translate3d(0, var(--brand-stack-y), 0)
-    scale(var(--brand-stack-scale));
-
-  transform-origin: center top;
-
-  filter: drop-shadow(
-    0 9px 15px
-    rgb(15 35 55 / var(--brand-stack-shadow))
-  );
-
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-
-  will-change: transform;
-}
-
-.brand-stack-grid > a {
-  display: block;
-  min-width: 0;
-  height: 100%;
-}
-
-.brand-stack-grid > a > div:first-child {
-  height: 160px;
-  min-height: 160px;
-}
-
-.brand-stack-grid img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.brand-stack-grid.brand-row-active {
-  z-index: 5;
-}
-
-.brand-stack-grid.brand-row-depth-1 {
-  filter: drop-shadow(
-    0 7px 12px rgb(15 35 55 / 0.065)
-  );
-}
-
-.brand-stack-grid.brand-row-depth-2 {
-  filter: drop-shadow(
-    0 6px 11px rgb(15 35 55 / 0.055)
-  );
-}
-
-.brand-stack-grid.brand-row-depth-3 {
-  filter: drop-shadow(
-    0 5px 10px rgb(15 35 55 / 0.045)
-  );
-}
-
-.brand-stack-grid.brand-row-depth-4 {
-  filter: drop-shadow(
-    0 4px 9px rgb(15 35 55 / 0.035)
-  );
-}
-
-/* ==========================================
-   TABLET AND DESKTOP
-   ========================================== */
-
-@media (min-width: 640px) {
-  .brand-portfolio-heading {
-    top: 72px;
-  }
-
-  .brand-stack-row {
-    top: 160px;
-    padding-bottom: 18px;
-  }
-
-  .brand-stack-grid {
-    column-gap: 24px;
-    row-gap: 24px;
-  }
-}
-
-/* ==========================================
-   MOBILE — ANIMATED, SEPARATED CARDS
-   ========================================== */
-
-@media (max-width: 639px) {
-  /* Keep the heading in normal document flow. */
-
-  .brand-portfolio-heading,
-  .brand-portfolio-heading.brand-heading-release {
-    position: relative;
-    top: auto;
-    z-index: auto;
-
-    padding-top: 12px;
-    padding-bottom: 16px;
-
-    background: #fff;
-  }
-
-  /* Never overlap mobile rows. */
-
-  .brand-stack-sequence {
-    padding-bottom: 24px;
-  }
-
-  .brand-stack-row {
-    position: relative;
-    top: auto;
-    z-index: auto;
-
-    padding-bottom: 20px;
-    isolation: auto;
-  }
-
-  /*
-   * Override desktop stacking transforms.
-   * Mobile animation is applied to individual cards.
-   */
-
-  .brand-stack-grid,
-  .brand-stack-grid.brand-row-active,
-  .brand-stack-grid.brand-row-passed,
-  .brand-stack-grid.brand-row-depth-1,
-  .brand-stack-grid.brand-row-depth-2,
-  .brand-stack-grid.brand-row-depth-3,
-  .brand-stack-grid.brand-row-depth-4 {
-    display: grid;
-
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-
-    column-gap: 12px;
-    row-gap: 16px;
-
-    transform: none !important;
-    filter: none !important;
-
-    will-change: auto;
-  }
-
-  /* Each card remains in normal document flow. */
-
-  .brand-stack-grid > a {
-    position: relative;
-
-    display: block;
-
-    width: 100%;
-    min-width: 0;
-    height: 100%;
-
-    overflow: hidden;
-
-    opacity: 0.7;
-
-    transform: translate3d(0, 14px, 0) scale(0.965);
-
-    transform-origin: center center;
-
-    box-shadow: 0 2px 7px rgb(15 35 55 / 0.045);
-
-    transition:
-      opacity 420ms ease,
-      transform 520ms cubic-bezier(0.22, 1, 0.36, 1),
-      box-shadow 420ms ease;
-
-    transition-delay: 0ms, 0ms, 0ms;
-
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-  }
-
-  /*
-   * Animate each card into view.
-   * The scale increase remains subtle enough that
-   * neighboring cards do not collide.
-   */
-
-  .brand-stack-grid > a.brand-mobile-in-view {
-    opacity: 1;
-
-    transform: translate3d(0, 0, 0) scale(1);
-
-    box-shadow:
-      0 5px 13px rgb(15 35 55 / 0.075),
-      0 1px 3px rgb(15 35 55 / 0.035);
-
-    transition-delay:
-      var(--brand-mobile-delay, 0ms);
-  }
-
-  /* Preserve the image and ensure the whole logo is visible. */
-
-  .brand-stack-grid > a > div:first-child {
-    width: 100%;
-    height: 135px;
-    min-height: 135px;
-    overflow: hidden;
-  }
-
-  .brand-stack-grid img {
-    display: block;
-
-    width: 100%;
-    height: 100%;
-
-    object-fit: contain;
-  }
-
-  /* Compact content for two-column cards. */
-
-  .brand-stack-grid .p-4 {
-    padding: 12px;
-  }
-
-  .brand-stack-grid h3 {
-    font-size: 15px;
-    line-height: 1.4;
-  }
-
-  .brand-stack-grid p {
-    overflow-wrap: anywhere;
-  }
-}
-
-/* ==========================================
-   EXTRA-SMALL PHONES
-   ========================================== */
-
-@media (max-width: 380px) {
-  .brand-portfolio-section > .container {
-    padding-left: 12px;
-    padding-right: 12px;
-  }
-
-  .brand-stack-row {
-    padding-bottom: 16px;
-  }
-
-  .brand-stack-grid,
-  .brand-stack-grid.brand-row-active,
-  .brand-stack-grid.brand-row-passed {
-    column-gap: 9px;
-    row-gap: 12px;
-  }
-
-  .brand-stack-grid > a > div:first-child {
-    height: 110px;
-    min-height: 110px;
-  }
-
-  .brand-stack-grid .p-4 {
-    padding: 9px;
-  }
-
-  .brand-stack-grid h3 {
-    font-size: 13px;
-  }
-
-  .brand-stack-grid p {
-    font-size: 11px;
-    line-height: 1.45;
-  }
-}
-
-/* ==========================================
-   ACCESSIBILITY
-   ========================================== */
-
-@media (prefers-reduced-motion: reduce) {
-  .brand-stack-grid,
-  .brand-stack-grid img,
-  .brand-stack-grid > a {
-    scroll-behavior: auto;
-    transition: none !important;
-    animation: none !important;
-    will-change: auto;
-  }
-
-  .brand-stack-grid > a {
-    opacity: 1 !important;
-    transform: none !important;
-  }
-}
 
 
 /* ==========================================
@@ -1009,12 +658,7 @@
    ISO CERTIFICATION — BUBBLE POP ANIMATION
    ========================================== */
 
-.certification-bubble-card {
-  opacity: 1;
-  transform: scale(1);
-  transform-origin: center center;
-  backface-visibility: hidden;
-}
+
 
 /* Initial state */
 
@@ -1024,11 +668,7 @@
   transform: translateY(8px);
 }
 
-.certification-motion-section:not(.certification-visible)
-  .certification-bubble-card {
-  opacity: 0;
-  transform: scale(0.8);
-}
+
 
 /* Animate heading and certification card */
 
@@ -1037,10 +677,7 @@
     cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.certification-visible .certification-bubble-card {
-  animation: certification-bubble-pop 750ms
-    cubic-bezier(0.22, 1.35, 0.45, 1) 180ms both;
-}
+
 
 @keyframes certification-heading-enter {
   from {
@@ -1054,54 +691,26 @@
   }
 }
 
-@keyframes certification-bubble-pop {
-  0% {
-    opacity: 0;
-    transform: scale(0.8);
-  }
 
-  55% {
-    opacity: 1;
-    transform: scale(1.055);
-  }
-
-  78% {
-    transform: scale(0.985);
-  }
-
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
 
 /* Subtle hover interaction */
 
 @media (hover: hover) and (pointer: fine) {
-  .certification-bubble-card:hover {
-    box-shadow: 0 8px 24px rgb(33 155 204 / 12%);
-  }
+  
 
-  .certification-icon {
-    transition: transform 300ms
-      cubic-bezier(0.22, 1, 0.36, 1);
-  }
+  
 
-  .certification-bubble-card:hover .certification-icon {
-    transform: scale(1.1);
-  }
+  
 }
 
 /* Accessibility */
 
 @media (prefers-reduced-motion: reduce) {
-  .certification-visible .certification-heading,
-  .certification-visible .certification-bubble-card {
+  .certification-visible .certification-heading {
     animation: none !important;
   }
 
-  .certification-motion-section .certification-heading,
-  .certification-motion-section .certification-bubble-card {
+  .certification-motion-section .certification-heading {
     opacity: 1 !important;
     transform: none !important;
   }
@@ -1122,68 +731,26 @@
   animation: infrastructure-heading-reveal 650ms ease-out forwards;
 }
 
-.infrastructure-motion-card {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  opacity: 0;
-  transform: translateY(22px) scale(0.97);
-  transition:
-    transform 300ms ease,
-    box-shadow 300ms ease,
-    background-color 300ms ease;
-}
 
-.infrastructure-motion-visible .infrastructure-motion-card {
-  animation: infrastructure-card-reveal 650ms
-    cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  animation-delay: var(--infrastructure-delay);
-}
+
+
 
 /* Subtle industrial blue accent */
-.infrastructure-motion-accent {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: hsl(var(--primary));
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 350ms ease;
-}
+
 
 /* Icon background and icon animation */
-.infrastructure-motion-icon {
-  transition:
-    background-color 300ms ease,
-    transform 300ms ease;
-}
 
-.infrastructure-motion-card:hover {
-  transform: translateY(-4px);
-  background-color: hsl(var(--card));
-  box-shadow: 0 8px 22px rgb(0 0 0 / 6%);
-  z-index: 1;
-}
 
-.infrastructure-motion-card:hover .infrastructure-motion-icon {
-  background-color: hsl(var(--primary) / 0.14);
-  transform: scale(1.07);
-}
 
-.infrastructure-motion-card:hover .infrastructure-motion-accent {
-  transform: scaleX(1);
-}
+
+
+
+
 
 /* Value responds gently to hover */
-.infrastructure-motion-value {
-  transition: letter-spacing 300ms ease;
-}
 
-.infrastructure-motion-card:hover .infrastructure-motion-value {
-  letter-spacing: 0.01em;
-}
+
+
 
 /* Entrance animations */
 @keyframes infrastructure-heading-reveal {
@@ -1198,37 +765,18 @@
   }
 }
 
-@keyframes infrastructure-card-reveal {
-  0% {
-    opacity: 0;
-    transform: translateY(22px) scale(0.97);
-  }
 
-  70% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
 
 /* Accessibility: disable movement when requested */
 @media (prefers-reduced-motion: reduce) {
-  .infrastructure-motion-section .infrastructure-motion-heading,
-  .infrastructure-motion-section .infrastructure-motion-card {
+  .infrastructure-motion-section .infrastructure-motion-heading {
     opacity: 1;
     transform: none;
     animation: none;
     transition: none;
   }
 
-  .infrastructure-motion-accent,
-  .infrastructure-motion-icon,
-  .infrastructure-motion-value {
-    transition: none;
-  }
+  
 }
 
 
@@ -1249,10 +797,7 @@
 }
 
 /* Featured image */
-.materials-image-frame {
-  position: relative;
-  overflow: hidden;
-}
+
 
 .materials-feature-image {
   opacity: 0;
@@ -1266,84 +811,29 @@
   animation: materials-image-reveal 900ms ease-out 150ms forwards;
 }
 
-.materials-image-frame:hover .materials-feature-image {
-  transform: scale(1.025);
-  border-color: hsl(var(--primary) / 0.45);
-}
+
 
 /* Fine blue line along image bottom */
-.materials-image-accent {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 2px;
-  width: 100%;
-  background: hsl(var(--primary));
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 450ms ease;
-}
 
-.materials-image-frame:hover .materials-image-accent {
-  transform: scaleX(1);
-}
+
+
 
 /* Material card entrance */
-.material-motion-card {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  opacity: 0;
-  transform: translateY(18px) scale(0.985);
-  transition:
-    transform 280ms ease,
-    border-color 280ms ease,
-    box-shadow 280ms ease,
-    background-color 280ms ease;
-}
 
-.materials-motion-visible .material-motion-card {
-  animation: material-card-reveal 6 00ms
-    cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  animation-delay: var(--material-delay);
-}
+
+
 
 /* Blue accent moves from left to right */
-.material-card-accent {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: hsl(var(--primary));
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 350ms ease;
-}
+
 
 /* Refined hover effect */
-.material-motion-card:hover {
-  transform: translateY(-3px);
-  border-color: hsl(var(--primary) / 0.45);
-  box-shadow: 0 7px 20px rgb(25 70 100 / 7%);
-  background-color: hsl(var(--card));
-  z-index: 1;
-}
 
-.material-motion-card:hover .material-card-accent {
-  transform: scaleX(1);
-}
 
-.material-motion-abbr {
-  transition:
-    transform 280ms ease,
-    color 280ms ease;
-}
 
-.material-motion-card:hover .material-motion-abbr {
-  transform: translateX(3px);
-  color: hsl(var(--primary));
-}
+
+
+
+
 
 /* Keyframes */
 @keyframes materials-intro-reveal {
@@ -1358,46 +848,21 @@
   }
 }
 
-@keyframes materials-image-reveal {
-  from {
-    opacity: 0;
-    transform: scale(1.045);
-  }
 
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
 
-@keyframes material-card-reveal {
-  0% {
-    opacity: 0;
-    transform: translateY(18px) scale(0.985);
-  }
 
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
 
 /* Accessibility */
 @media (prefers-reduced-motion: reduce) {
   .materials-intro,
-  .materials-feature-image,
-  .material-motion-card {
+  .materials-feature-image {
     opacity: 1;
     transform: none;
     animation: none;
     transition: none;
   }
 
-  .materials-image-accent,
-  .material-card-accent,
-  .material-motion-abbr {
-    transition: none;
-  }
+  
 }
 
 
@@ -2207,161 +1672,46 @@
 
 /* Individual cards */
 
-.infrastructure-motion-card {
-  position: relative;
-  isolation: isolate;
-  min-width: 0;
 
-  background:
-    radial-gradient(
-      circle at 100% 0%,
-      rgba(29, 111, 155, 0.13),
-      transparent 48%
-    ),
-    linear-gradient(
-      145deg,
-      #17283b 0%,
-      #122033 58%,
-      #101b2b 100%
-    );
-
-  border: 1px solid rgba(117, 165, 198, 0.15);
-
-  box-shadow:
-    0 8px 20px rgba(0, 0, 0, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.035);
-
-  transition:
-    border-color 250ms ease,
-    background 250ms ease,
-    box-shadow 250ms ease,
-    transform 250ms ease;
-}
 
 /* Subtle cyan accent along the bottom */
 
-.infrastructure-motion-accent {
-  position: absolute;
-  left: 0;
-  bottom: 0;
 
-  width: 0;
-  height: 3px;
-
-  background: linear-gradient(
-    90deg,
-    #0876a8,
-    #36c5f0,
-    #7ce7ff
-  );
-
-  opacity: 0.9;
-
-  transition: width 350ms cubic-bezier(0.22, 1, 0.36, 1);
-}
 
 /* Icon container */
 
-.infrastructure-motion-icon {
-  width: 44px;
-  height: 44px;
 
-  color: #45c3f3;
 
-  background: linear-gradient(
-    135deg,
-    rgba(25, 157, 211, 0.19),
-    rgba(25, 157, 211, 0.07)
-  );
 
-  border: 1px solid rgba(69, 195, 243, 0.18);
-  border-radius: 10px;
-
-  transition:
-    background 250ms ease,
-    border-color 250ms ease,
-    transform 250ms ease;
-}
-
-.infrastructure-motion-icon svg {
-  color: #45c3f3;
-}
 
 /* Main values */
 
-.infrastructure-motion-value {
-  color: #f1f7fc;
-  letter-spacing: -0.035em;
 
-  transition: color 250ms ease;
-}
 
 /* Card titles */
 
-.infrastructure-motion-card > div:nth-of-type(2) {
-  color: #b6c7d9;
-  line-height: 1.6;
-}
+
 
 /* Card descriptions */
 
-.infrastructure-motion-card > div:nth-of-type(3) {
-  color: #879bb1;
-  line-height: 1.7;
-}
+
 
 /* Hover: preserve the dark theme */
 
 @media (hover: hover) and (pointer: fine) {
-  .infrastructure-motion-card:hover {
-    background:
-      radial-gradient(
-        circle at 100% 0%,
-        rgba(33, 158, 210, 0.17),
-        transparent 52%
-      ),
-      linear-gradient(
-        145deg,
-        #1c3045 0%,
-        #14263a 58%,
-        #112035 100%
-      );
+  
 
-    border-color: rgba(69, 195, 243, 0.42);
+  
 
-    box-shadow:
-      0 14px 28px rgba(0, 0, 0, 0.2),
-      0 0 0 1px rgba(69, 195, 243, 0.04),
-      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  
 
-    transform: translateY(-4px);
-  }
-
-  .infrastructure-motion-card:hover .infrastructure-motion-accent {
-    width: 100%;
-  }
-
-  .infrastructure-motion-card:hover .infrastructure-motion-icon {
-    background: rgba(25, 157, 211, 0.2);
-    border-color: rgba(69, 195, 243, 0.4);
-    transform: translateY(-2px);
-  }
-
-  .infrastructure-motion-card:hover .infrastructure-motion-value {
-    color: #58cdf7;
-  }
+  
 }
 
 /* Reduced-motion accessibility */
 
 @media (prefers-reduced-motion: reduce) {
-  .infrastructure-motion-card,
-  .infrastructure-motion-icon,
-  .infrastructure-motion-value,
-  .infrastructure-motion-accent {
-    transition: none !important;
-    transform: none !important;
-  }
+  
 }
 
 
@@ -3117,6 +2467,10 @@
   background: #FFFFFF;
 }
 
+/* =========================================================
+   OPTIMIZED CARD STAGE
+   ========================================================= */
+
 .why-us-card-stage {
   position: relative;
 
@@ -3129,7 +2483,11 @@
   overflow: hidden;
 
   isolation: isolate;
-  perspective: 1000px;
+
+  /* Avoid unnecessary expensive 3D rendering */
+  perspective: none;
+
+  transform: translateZ(0);
 }
 
 
@@ -3170,9 +2528,8 @@
 
 
 /* =========================================================
-   8. CARD BASE STYLING
-   Keep Framer Motion in control of transform, opacity,
-   z-index, and the animated shadow.
+   OPTIMIZED CARD BASE
+   GPU-FRIENDLY ANIMATION
    ========================================================= */
 
 .why-us-card {
@@ -3202,12 +2559,25 @@
   color: #263445;
 
   background-color: #B9E6FF;
-  background-image: none;
+
+  /* Static shadow instead of continuously animated shadow */
+  box-shadow:
+    0 12px 28px rgba(30, 41, 59, 0.10),
+    0 2px 6px rgba(30, 41, 59, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65);
 
   transform-origin: center center;
-  backface-visibility: hidden;
 
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+
+  /*
+   * Only the properties controlled by Framer Motion
+   * are allowed to change during scrolling.
+   */
   will-change: transform, opacity;
+
+  contain: layout style;
 }
 
 
@@ -3472,6 +2842,10 @@
   background: #E8EDF2;
 }
 
+/* =========================================================
+   OPTIMIZED PROGRESS INDICATOR
+   ========================================================= */
+
 .why-us-progress-fill {
   display: block;
 
@@ -3486,8 +2860,71 @@
   );
 
   transform-origin: left center;
+
+  will-change: transform;
 }
 
+/* =========================================================
+   WHY POLYRIB — SCROLL PERFORMANCE OPTIMIZATION
+   ========================================================= */
+
+/* Prevent unnecessary transitions during scroll animation */
+
+.why-us-card {
+  transition: none !important;
+}
+
+/* Avoid expensive visual effects during card movement */
+
+.why-us-card::before,
+.why-us-card::after {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Tablet and mobile optimization */
+
+@media (max-width: 1023px) {
+
+  .why-us-card {
+    box-shadow:
+      0 8px 20px rgba(30, 41, 59, 0.10),
+      0 2px 5px rgba(30, 41, 59, 0.04);
+
+    contain: layout style;
+  }
+
+  .why-us-card-stage {
+    perspective: none;
+  }
+
+}
+
+/* Smaller mobile screens */
+
+@media (max-width: 480px) {
+
+  .why-us-card {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+}
+
+/* Respect reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .why-us-card {
+    will-change: auto;
+    transition: none !important;
+  }
+
+  .why-us-card-stage {
+    perspective: none;
+  }
+
+}
 
 /* =========================================================
    13. TABLET
@@ -4107,145 +3544,316 @@
   color: #ffffff !important;
 }
 
-/* =========================================
-   ISO BADGE — SCROLL ZOOM + HOVER EDGE GLOW
-   ========================================= */
+/* =====================================================
+   ISO CERTIFICATION BADGE
+   CONTINUOUS ZOOM + BLUE EDGE GLOW + HOVER INTERACTION
+   ===================================================== */
+
+
+/* =====================================================
+   BADGE CONTAINER
+   ===================================================== */
+
+.iso-badge-container {
+  width: 100%;
+  padding: 12px 0 22px;
+  overflow: visible;
+}
+
+
+/* =====================================================
+   BADGE BUTTON
+   ===================================================== */
 
 .iso-badge-button {
   display: flex;
   align-items: center;
   justify-content: center;
 
-  width: 180px;
+  width: clamp(130px, 18vw, 190px);
   max-width: 100%;
+
   padding: 0;
   margin: 0;
 
   appearance: none;
+  -webkit-appearance: none;
+
   border: none;
+  outline: none;
   border-radius: 0;
+
   background: transparent;
   box-shadow: none;
 
   cursor: pointer;
+
   overflow: visible;
+
   -webkit-tap-highlight-color: transparent;
+
+  transform: translateY(0) scale(1);
+
+  transition:
+    transform 450ms cubic-bezier(0.2, 0.7, 0.3, 1);
+
+  will-change: transform;
 }
 
-/* =========================================
-   BADGE IMAGE — DEFAULT APPEARANCE
-   ========================================= */
+
+/* =====================================================
+   BADGE IMAGE
+   ===================================================== */
 
 .iso-badge-image {
   display: block;
+
   width: 100%;
   height: auto;
+
+  object-fit: contain;
 
   background: transparent;
   border: none;
   border-radius: 0;
-  box-shadow: none;
+
+  /*
+    Initial appearance.
+    Drop-shadow follows the actual transparent PNG edges.
+  */
+
+  filter:
+    drop-shadow(0 0 5px rgba(39, 158, 206, 0.25))
+    drop-shadow(0 5px 10px rgba(32, 130, 172, 0.10));
 
   transform: scale(1);
-  transform-origin: center;
-
-  /* Glow follows the transparent edges of the PNG */
-  filter: drop-shadow(0 0 5px rgba(39, 158, 206, 0.18));
-
-  transition:
-    transform 350ms cubic-bezier(0.2, 0.7, 0.3, 1),
-    filter 350ms ease;
+  transform-origin: center center;
 
   will-change: transform, filter;
 }
 
-/* =========================================
-   SCROLL-TRIGGERED ZOOM ANIMATION
-   Uses the existing certification-visible class
-   ========================================= */
 
-.certification-motion-section.certification-visible .iso-badge-image {
-  animation: certificationBadgeZoom
-    900ms
-    cubic-bezier(0.16, 1, 0.3, 1);
+/* =====================================================
+   CONTINUOUS ANIMATION
+   Activates when certification section becomes visible.
+   ===================================================== */
+
+.certification-visible .iso-badge-image {
+  animation:
+    isoBadgeContinuousGlow
+    2s
+    ease-in-out
+    infinite;
 }
 
-/* Zoom in, briefly overshoot, then settle naturally */
-@keyframes certificationBadgeZoom {
+
+/* =====================================================
+   CONTINUOUS ZOOM + BLUE GLOW KEYFRAMES
+   ===================================================== */
+
+@keyframes isoBadgeContinuousGlow {
+
+  /* Normal size */
   0% {
-    transform: scale(0.78);
-    filter: drop-shadow(0 0 2px rgba(39, 158, 206, 0.08));
-  }
+    transform: scale(1);
 
-  65% {
-    transform: scale(1.09);
     filter:
-      drop-shadow(0 0 10px rgba(39, 158, 206, 0.42))
-      drop-shadow(0 8px 18px rgba(32, 130, 172, 0.2));
+      drop-shadow(0 0 5px rgba(39, 158, 206, 0.22))
+      drop-shadow(0 5px 10px rgba(32, 130, 172, 0.10));
   }
 
-  85% {
-    transform: scale(0.98);
+
+  /* Gradual zoom and stronger blue glow */
+  50% {
+    transform: scale(1.065);
+
     filter:
-      drop-shadow(0 0 7px rgba(39, 158, 206, 0.3))
-      drop-shadow(0 4px 10px rgba(32, 130, 172, 0.12));
+      drop-shadow(0 0 9px rgba(39, 158, 206, 0.65))
+      drop-shadow(0 0 20px rgba(32, 130, 172, 0.38))
+      drop-shadow(0 9px 16px rgba(32, 130, 172, 0.18));
   }
 
+
+  /* Return to original size */
   100% {
     transform: scale(1);
-    filter: drop-shadow(0 0 5px rgba(39, 158, 206, 0.18));
-  }
-}
-
-/* =========================================
-   HOVER — ZOOM + STRONGER BLUE EDGE GLOW
-   ========================================= */
-
-@media (hover: hover) and (pointer: fine) {
-  .iso-badge-button:hover .iso-badge-image {
-    /*
-     * Stop the entrance animation if the user hovers
-     * while it is running. This lets hover take control
-     * of transform and filter without conflicts.
-     */
-    animation: none;
-
-    transform: scale(1.08);
 
     filter:
-      drop-shadow(0 0 7px rgba(39, 158, 206, 0.55))
-      drop-shadow(0 0 18px rgba(32, 130, 172, 0.28));
+      drop-shadow(0 0 5px rgba(39, 158, 206, 0.22))
+      drop-shadow(0 5px 10px rgba(32, 130, 172, 0.10));
   }
+
 }
 
-/* =========================================
-   CLICK FEEDBACK
-   ========================================= */
 
-.iso-badge-button:active .iso-badge-image {
-  animation: none;
-  transform: scale(1.03);
+/* =====================================================
+   HOVER INTERACTION
+   Slightly lifts and enlarges the complete badge.
+   The continuous image animation remains active.
+   ===================================================== */
+
+@media (hover: hover) and (pointer: fine) {
+
+  .iso-badge-button:hover {
+
+    transform:
+      translateY(-6px)
+      scale(1.07);
+
+  }
+
+
+  .iso-badge-button:hover .iso-badge-image {
+
+    filter:
+      drop-shadow(0 0 11px rgba(39, 158, 206, 0.85))
+      drop-shadow(0 0 25px rgba(32, 130, 172, 0.48))
+      drop-shadow(0 12px 22px rgba(32, 130, 172, 0.22));
+
+  }
+
 }
 
-/* =========================================
+
+/* =====================================================
+   CLICK / PRESS FEEDBACK
+   ===================================================== */
+
+.iso-badge-button:active {
+
+  transform:
+    translateY(-1px)
+    scale(0.97);
+
+  transition-duration: 120ms;
+
+}
+
+
+/* =====================================================
    KEYBOARD ACCESSIBILITY
-   ========================================= */
+   ===================================================== */
 
 .iso-badge-button:focus-visible {
+
   outline: 2px solid #279ece;
-  outline-offset: 5px;
+  outline-offset: 7px;
+
 }
 
-/* =========================================
-   REDUCED-MOTION ACCESSIBILITY
-   ========================================= */
+
+/* =====================================================
+   TABLET RESPONSIVENESS
+   ===================================================== */
+
+@media (max-width: 768px) {
+
+  .iso-badge-container {
+    padding: 10px 0 18px;
+  }
+
+  .iso-badge-button {
+    width: clamp(135px, 25vw, 170px);
+  }
+
+  @keyframes isoBadgeContinuousGlow {
+
+    0% {
+      transform: scale(1);
+
+      filter:
+        drop-shadow(0 0 4px rgba(39, 158, 206, 0.22))
+        drop-shadow(0 4px 8px rgba(32, 130, 172, 0.10));
+    }
+
+    50% {
+      transform: scale(1.045);
+
+      filter:
+        drop-shadow(0 0 8px rgba(39, 158, 206, 0.65))
+        drop-shadow(0 0 17px rgba(32, 130, 172, 0.35));
+    }
+
+    100% {
+      transform: scale(1);
+
+      filter:
+        drop-shadow(0 0 4px rgba(39, 158, 206, 0.22))
+        drop-shadow(0 4px 8px rgba(32, 130, 172, 0.10));
+    }
+
+  }
+
+}
+
+
+/* =====================================================
+   MOBILE RESPONSIVENESS
+   ===================================================== */
+
+@media (max-width: 480px) {
+
+  .iso-badge-container {
+    padding: 8px 0 16px;
+  }
+
+  .iso-badge-button {
+    width: 140px;
+  }
+
+  .certification-visible .iso-badge-image {
+    animation-duration: 3.5s;
+  }
+
+}
+
+
+/* =====================================================
+   SMALL MOBILE DEVICES
+   ===================================================== */
+
+@media (max-width: 360px) {
+
+  .iso-badge-button {
+    width: 125px;
+  }
+
+}
+
+
+/* =====================================================
+   TOUCH DEVICE FEEDBACK
+   ===================================================== */
+
+@media (hover: none) {
+
+  .iso-badge-button:active {
+    transform: scale(1.06);
+  }
+
+}
+
+
+/* =====================================================
+   REDUCED MOTION ACCESSIBILITY
+   ===================================================== */
 
 @media (prefers-reduced-motion: reduce) {
+
   .iso-badge-image {
     animation: none !important;
     transition: none !important;
-    transform: none;
+    transform: none !important;
+
+    filter:
+      drop-shadow(0 0 7px rgba(39, 158, 206, 0.45))
+      drop-shadow(0 0 13px rgba(32, 130, 172, 0.20));
   }
+
+  .iso-badge-button {
+    transition: none !important;
+  }
+
 }
 
 
@@ -4333,14 +3941,7 @@
   );
 }
 
-.category-card .product-image-wave-clip img {
-  position: absolute;
-  inset: 0;
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+
 
 /* SVG uses the same 0–100 coordinate space as the clip-path. */
 .category-card .product-image-wave-border {
