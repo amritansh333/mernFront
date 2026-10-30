@@ -4071,4 +4071,233 @@
   }
 }
 
+/* =========================================================
+   HOMEPAGE — CONSISTENT SOFT BLUE CARD GLOW
+   Matches the Our Brands card treatment.
+   Keeps existing layouts, colors and animations unchanged.
+   ========================================================= */
 
+:root {
+  --polyrib-glow-blue: 39, 158, 206;
+  --polyrib-glow-deep: 32, 130, 172;
+
+  --polyrib-card-glow:
+    0 0 0 1px rgba(var(--polyrib-glow-blue), 0.055),
+    0 3px 12px rgba(var(--polyrib-glow-blue), 0.085),
+    0 5px 18px rgba(var(--polyrib-glow-deep), 0.045);
+
+  --polyrib-card-glow-strong:
+    0 0 0 1px rgba(var(--polyrib-glow-blue), 0.18),
+    0 0 10px rgba(var(--polyrib-glow-blue), 0.20),
+    0 5px 18px rgba(var(--polyrib-glow-blue), 0.15),
+    0 10px 28px rgba(var(--polyrib-glow-deep), 0.11);
+}
+
+/* Light-background cards */
+.product-card,
+.category-card,
+.stats-card,
+.industries-motion-card,
+.promise-bubble-card,
+.material-family-card {
+  box-shadow: var(--polyrib-card-glow);
+  transition:
+    box-shadow 300ms cubic-bezier(0.2, 0.7, 0.3, 1),
+    border-color 300ms ease;
+}
+
+/* Give scroll-revealed cards a slightly clearer blue edge.
+   No transform is applied, so existing scroll animations remain intact. */
+.stats-panel-visible .stats-card,
+.industries-motion-visible .industries-motion-card,
+.promise-visible .promise-bubble-card {
+  box-shadow: var(--polyrib-card-glow);
+}
+
+/* Dark industrial cards retain their original dark surfaces. */
+.infrastructure-marquee-card,
+.polymer-lab-card {
+  box-shadow:
+    var(--polyrib-card-glow),
+    0 12px 28px rgba(0, 0, 0, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+/* Technical panel inside the Polymer Lab card */
+.polymer-lab-card .lab-technical-panel {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.035),
+    0 0 0 1px rgba(var(--polyrib-glow-blue), 0.035),
+    0 3px 12px rgba(var(--polyrib-glow-blue), 0.07);
+}
+
+/* Scroll-stacked Why Polyrib cards.
+   Keep the existing solid card colors and Framer Motion transforms. */
+.why-us-card {
+  box-shadow:
+    0 0 0 1px rgba(var(--polyrib-glow-blue), 0.10),
+    0 0 10px rgba(var(--polyrib-glow-blue), 0.14),
+    0 10px 26px rgba(var(--polyrib-glow-deep), 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65);
+}
+
+/* Stronger blue glow on pointer hover */
+@media (hover: hover) and (pointer: fine) {
+  .product-card:hover,
+  .category-card:hover,
+  .stats-card:hover,
+  .industries-motion-card:hover,
+  .promise-bubble-card:hover,
+  .material-family-card-visible:hover {
+    border-color: rgba(var(--polyrib-glow-blue), 0.62);
+    box-shadow: var(--polyrib-card-glow-strong);
+  }
+
+  .infrastructure-marquee-card:hover,
+  .polymer-lab-card:hover {
+    border-color: rgba(70, 195, 245, 0.62);
+    box-shadow:
+      0 0 0 1px rgba(var(--polyrib-glow-blue), 0.20),
+      0 0 13px rgba(var(--polyrib-glow-blue), 0.24),
+      0 16px 36px rgba(5, 18, 35, 0.24),
+      inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  }
+
+  .polymer-lab-card .lab-technical-panel:hover {
+    border-color: rgba(70, 195, 245, 0.42);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.05),
+      0 0 10px rgba(var(--polyrib-glow-blue), 0.15),
+      0 0 18px rgba(var(--polyrib-glow-deep), 0.09);
+  }
+}
+
+/* Touch feedback */
+.product-card:active,
+.category-card:active,
+.stats-card:active,
+.industries-motion-card:active,
+.promise-bubble-card:active,
+.material-family-card:active {
+  border-color: rgba(var(--polyrib-glow-blue), 0.58);
+  box-shadow: var(--polyrib-card-glow-strong);
+}
+
+/* Keyboard accessibility */
+.product-card:focus-visible,
+.category-card:focus-visible,
+.industries-motion-card:focus-visible,
+.promise-bubble-card:focus-visible,
+.material-family-card:focus-visible {
+  outline: 2px solid #279ece;
+  outline-offset: 3px;
+  box-shadow: var(--polyrib-card-glow-strong);
+}
+
+/* The brand portfolio already has its own tuned card glow.
+   Keep its more specific ScrollStack styling in control. */
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .product-card,
+  .category-card,
+  .stats-card,
+  .industries-motion-card,
+  .promise-bubble-card,
+  .material-family-card,
+  .infrastructure-marquee-card,
+  .polymer-lab-card,
+  .polymer-lab-card .lab-technical-panel {
+    transition: none !important;
+  }
+}
+
+
+/* ==========================================
+   MATERIAL CARDS — COLOURED HOVER GLOW
+   ========================================== */
+
+.material-family-card {
+  --glow-color: 39, 158, 206;
+
+  transition:
+    box-shadow 300ms ease,
+    border-color 300ms ease;
+}
+
+/* Individual badge colours */
+
+.material-family-card[data-material-glow="uhmwpe"] {
+  --glow-color: 59, 130, 246;
+}
+
+.material-family-card[data-material-glow="pc"] {
+  --glow-color: 14, 165, 233;
+}
+
+.material-family-card[data-material-glow="pp"] {
+  --glow-color: 249, 115, 22;
+}
+
+.material-family-card[data-material-glow="hdpe"] {
+  --glow-color: 34, 197, 94;
+}
+
+.material-family-card[data-material-glow="pa6"] {
+  --glow-color: 168, 85, 247;
+}
+
+.material-family-card[data-material-glow="acetal"] {
+  --glow-color: 239, 68, 68;
+}
+
+.material-family-card[data-material-glow="abs"] {
+  --glow-color: 234, 179, 8;
+}
+
+.material-family-card[data-material-glow="pe"] {
+  --glow-color: 20, 184, 166;
+}
+
+/* Hover glow */
+
+@media (hover: hover) and (pointer: fine) {
+  .material-family-card:hover {
+    border-color: rgba(var(--glow-color), 0.55);
+
+    box-shadow:
+      0 0 0 1px rgba(var(--glow-color), 0.12),
+      0 0 10px rgba(var(--glow-color), 0.22),
+      0 5px 18px rgba(var(--glow-color), 0.18),
+      0 10px 28px rgba(var(--glow-color), 0.10);
+  }
+}
+
+/* Mobile touch feedback */
+
+.material-family-card:active {
+  border-color: rgba(var(--glow-color), 0.55);
+
+  box-shadow:
+    0 0 0 1px rgba(var(--glow-color), 0.15),
+    0 0 12px rgba(var(--glow-color), 0.25),
+    0 5px 18px rgba(var(--glow-color), 0.18);
+}
+
+/* Keyboard accessibility */
+
+.material-family-card:focus-visible {
+  outline: 2px solid rgba(var(--glow-color), 0.7);
+  outline-offset: 3px;
+
+  box-shadow:
+    0 0 12px rgba(var(--glow-color), 0.25);
+}
+
+/* Reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+  .material-family-card {
+    transition: none !important;
+  }
+}

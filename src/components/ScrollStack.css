@@ -200,18 +200,65 @@
   min-width: 0;
   box-sizing: border-box;
   overflow: hidden;
-  border: 1px solid #dce5eb;
+
+  border: 1px solid #d3e6f1;
   border-radius: 14px;
+
   background: #fff;
-  box-shadow: 0 3px 10px rgb(20 40 60 / 0.045);
+
+  /* Normal subtle blue border glow */
+  box-shadow:
+    0 0 0 1px rgba(39, 158, 206, 0.06),
+    0 3px 12px rgba(39, 158, 206, 0.09),
+    0 5px 18px rgba(32, 130, 172, 0.045);
+
   transition:
-    box-shadow 250ms ease,
-    border-color 250ms ease;
+    box-shadow 300ms cubic-bezier(0.2, 0.7, 0.3, 1),
+    border-color 300ms ease;
 }
 
-.polyrib-brand-stack .category-card:hover {
-  border-color: #b7d9e9;
-  box-shadow: 0 8px 22px rgb(20 40 60 / 0.09);
+/* ==========================================
+   BLUE GLOW — HOVER
+   ========================================== */
+
+@media (hover: hover) and (pointer: fine) {
+
+  .polyrib-brand-stack .category-card:hover {
+
+    border-color: #72c5eb;
+
+    box-shadow:
+      0 0 0 1px rgba(39, 158, 206, 0.20),
+      0 0 10px rgba(39, 158, 206, 0.22),
+      0 5px 18px rgba(39, 158, 206, 0.16),
+      0 10px 28px rgba(32, 130, 172, 0.12);
+
+  }
+
+}
+
+/* Touch feedback */
+.polyrib-brand-stack .category-card:active {
+
+  border-color: #72c5eb;
+
+  box-shadow:
+    0 0 0 1px rgba(39, 158, 206, 0.22),
+    0 0 12px rgba(39, 158, 206, 0.28),
+    0 5px 18px rgba(32, 130, 172, 0.15);
+
+}
+
+/* Keyboard accessibility */
+.polyrib-brand-stack .category-card:focus-visible {
+
+  outline: 2px solid #279ece;
+  outline-offset: 3px;
+
+  box-shadow:
+    0 0 0 2px rgba(39, 158, 206, 0.16),
+    0 0 14px rgba(39, 158, 206, 0.25);
+
 }
 
 /* ==========================================
@@ -241,7 +288,6 @@
   max-height: 100%;
   object-fit: contain;
   object-position: center;
-  /* Enlarge the logo artwork while preserving the source aspect ratio. */
   transform: scale(1.38);
   transform-origin: center;
   transition: transform 300ms ease;
@@ -280,18 +326,22 @@
   overflow-wrap: anywhere;
 }
 
+/* Brand description — maximum two lines */
 .polyrib-brand-stack .category-card p.text-sm {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   overflow: hidden;
   line-height: 1.45;
 }
 
+/* Brand properties — maximum two lines */
 .polyrib-brand-stack .category-card p.text-xs {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   overflow: hidden;
   line-height: 1.4;
 }
@@ -521,8 +571,10 @@
   }
 }
 
+/* ==========================================
+   FINAL LOGO-FIT SAFEGUARDS
+   ========================================== */
 
-/* Final logo-fit safeguards: preserve aspect ratio at every breakpoint. */
 .polyrib-brand-stack .polyrib-brand-image {
   display: flex;
   align-items: center;

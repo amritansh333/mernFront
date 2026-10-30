@@ -1436,9 +1436,10 @@ function PolymersSection() {
               <Link
                 key={m.slug}
                 to={`/materials/${m.slug}`}
-                className={`material-family-card group block text-left p-5 border-2 border-border bg-card hover:border-primary/40 hover:shadow-card transition-all duration-200 rounded-xl ${
+                className={`material-family-card group block text-left p-5 border-2 border-border bg-card transition-all duration-300 rounded-xl ${
                   isVisible ? "material-family-card-visible" : ""
                 }`}
+                data-material-glow={m.slug}
                 style={
                   {
                     "--material-index": index,
