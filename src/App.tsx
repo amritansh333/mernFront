@@ -1,12 +1,23 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useCallback, useLayoutEffect, useRef, useState } from "react";
+
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
+
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { MachineComponentsDataProvider } from "@/contexts/MachineComponentsDataContext";
+
 import ScrollToTop from "@/components/ScrollToTop";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
 import CallButton from "@/components/CallButton";
 import { CookieConsentManager } from "@/components/cookie-consent";
 import ScrollProgressBar from "@/components/ScrollProgressBar";
+
+import SplashScreen from "@/components/splash/SplashScreen";
 
 import Index from "@/pages/Index";
 import AboutPage from "@/pages/AboutPage";
@@ -24,15 +35,65 @@ import MaterialSelectorPage from "@/pages/MaterialSelectorPage";
 import ResourcesPage from "@/pages/ResourcesPage";
 
 import ProductExperienceRouter from "@/pages/ProductExperienceRouter";
-
 import NotFound from "@/pages/NotFound";
 
-function App() {
+function AppContent() {
+  const location = useLocation();
+
+  const [splashComplete, setSplashComplete] = useState(false);
+
+  const siteContentRef = useRef<HTMLDivElement>(null);
+  const previousPathRef = useRef(location.pathname);
+
+  // Show splash whenever the user enters the homepage.
+  useLayoutEffect(() => {
+    const enteredHomepage =
+      location.pathname === "/" && previousPathRef.current !== "/";
+
+    previousPathRef.current = location.pathname;
+
+    if (enteredHomepage) {
+      setSplashComplete(false);
+    }
+  }, [location.pathname]);
+
+  // Pause/resume website animations during the splash.
+  useLayoutEffect(() => {
+    const siteContent = siteContentRef.current;
+
+    if (!siteContent) return;
+
+    const animations = siteContent.getAnimations({
+      subtree: true,
+    });
+
+    if (!splashComplete) {
+      animations.forEach((animation) => {
+        animation.pause();
+      });
+    } else {
+      animations.forEach((animation) => {
+        animation.play();
+      });
+    }
+  }, [splashComplete, location.pathname]);
+
+  const handleSplashComplete = useCallback(() => {
+    setSplashComplete(true);
+  }, []);
+
   return (
-    <Router>
-      <MachineComponentsDataProvider>
+    <MachineComponentsDataProvider>
+      {/* Website remains visible behind the glass splash */}
+      <div
+        ref={siteContentRef}
+        className={`site-content ${
+          !splashComplete ? "site-content--paused" : ""
+        }`}
+      >
         <ScrollToTop />
         <ScrollProgressBar />
+
         <Header />
 
         <Routes>
@@ -49,10 +110,12 @@ function App() {
           <Route path="/industries" element={<IndustriesPage />} />
           <Route path="/industries/:slug" element={<IndustryDetailPage />} />
           <Route path="/materials/:slug?" element={<MaterialsPage />} />
+
           <Route
             path="/tools/material-selector"
             element={<MaterialSelectorPage />}
           />
+
           <Route path="/resources" element={<ResourcesPage />} />
 
           {/* PRODUCT FLOW */}
@@ -61,12 +124,24 @@ function App() {
           {/* 404 */}
           <Route path="*" element={<NotFound />} />
         </Routes>
+
         <CallButton />
         <ScrollToTopButton />
         <CookieConsentManager />
 
         <Footer />
-      </MachineComponentsDataProvider>
+      </div>
+
+      {/* Global splash overlay */}
+      {!splashComplete && <SplashScreen onComplete={handleSplashComplete} />}
+    </MachineComponentsDataProvider>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <AppContent />
     </Router>
   );
 }

@@ -21,9 +21,7 @@ function BrandImageCarousel({
 
   // Respect the visitor's motion preference.
   useEffect(() => {
-    const mediaQuery = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    );
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
     const updateMotionPreference = () => {
       setReduceMotion(mediaQuery.matches);
@@ -50,8 +48,7 @@ function BrandImageCarousel({
     const directory = image.slice(0, lastSlash + 1);
     const filename = image.slice(lastSlash + 1);
     const extensionIndex = filename.lastIndexOf(".");
-    const extension =
-      extensionIndex >= 0 ? filename.slice(extensionIndex) : "";
+    const extension = extensionIndex >= 0 ? filename.slice(extensionIndex) : "";
 
     const candidates = [
       image,
@@ -82,9 +79,7 @@ function BrandImageCarousel({
 
       const validImages = Array.from(
         new Set(
-          results
-            .filter((result) => result.exists)
-            .map((result) => result.src),
+          results.filter((result) => result.exists).map((result) => result.src),
         ),
       );
 
@@ -136,36 +131,36 @@ function BrandImageCarousel({
       })}
 
       {/* Image Progress Line — matches SubcategoriesPage.tsx */}
-{galleryImages.length > 1 && (
-  <div
-    className="absolute bottom-0 left-0 right-0 z-10 flex h-1.5 gap-0.5"
-    role="group"
-    aria-label="Brand image progress"
-  >
-    {galleryImages.map((src, index) => (
-      <button
-        key={src}
-        type="button"
-        onClick={(event) => {
-          event.preventDefault();
-          event.stopPropagation();
-          setActiveIndex(index);
-        }}
-        aria-label={`Show image ${index + 1} of ${galleryImages.length}`}
-        aria-current={index === activeIndex ? "true" : undefined}
-        className="relative h-full min-w-0 flex-1 overflow-hidden bg-white/60 transition-colors hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#279ECE]"
-      >
-        <span
-          className={`absolute inset-0 origin-left transition-transform duration-300 ease-out ${
-            index === activeIndex
-              ? "scale-x-100 bg-[#279ECE]"
-              : "scale-x-0 bg-[#279ECE]"
-          }`}
-        />
-      </button>
-    ))}
-  </div>
-)}
+      {galleryImages.length > 1 && (
+        <div
+          className="absolute bottom-0 left-0 right-0 z-10 flex h-1.5 gap-0.5"
+          role="group"
+          aria-label="Brand image progress"
+        >
+          {galleryImages.map((src, index) => (
+            <button
+              key={src}
+              type="button"
+              onClick={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                setActiveIndex(index);
+              }}
+              aria-label={`Show image ${index + 1} of ${galleryImages.length}`}
+              aria-current={index === activeIndex ? "true" : undefined}
+              className="relative h-full min-w-0 flex-1 overflow-hidden bg-white/60 transition-colors hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#279ECE]"
+            >
+              <span
+                className={`absolute inset-0 origin-left transition-transform duration-300 ease-out ${
+                  index === activeIndex
+                    ? "scale-x-100 bg-[#279ECE]"
+                    : "scale-x-0 bg-[#279ECE]"
+                }`}
+              />
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
@@ -304,10 +299,10 @@ export default function BrandsPage() {
                     className="product-card block group"
                   >
                     <BrandImageCarousel
-  image={brand.image}
-  slug={brand.slug}
-  name={brand.name}
-/>
+                      image={brand.image}
+                      slug={brand.slug}
+                      name={brand.name}
+                    />
 
                     <div className="p-5">
                       <h3 className="font-heading font-bold text-charcoal text-md mb-2 group-hover:text-primary transition-colors duration-200">

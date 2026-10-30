@@ -23,9 +23,7 @@ function ProductImageCarousel({
 
   // Respect the user's motion preference.
   useEffect(() => {
-    const mediaQuery = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    );
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
     const updateMotionPreference = () => {
       setReduceMotion(mediaQuery.matches);
@@ -82,17 +80,15 @@ function ProductImageCarousel({
               img.onload = () => resolve(src);
               img.onerror = () => resolve(null);
               img.src = src;
-            })
-        )
+            }),
+        ),
       );
 
       if (cancelled) return;
 
       setGalleryImages([
         primaryImage,
-        ...discoveredImages.filter(
-          (src): src is string => src !== null
-        ),
+        ...discoveredImages.filter((src): src is string => src !== null),
       ]);
 
       setActiveIndex(0);
@@ -327,10 +323,10 @@ export default function BrandProductsPage() {
                     className="product-card block group"
                   >
                     <ProductImageCarousel
-  image={product.image}
-  slug={product.slug}
-  name={product.name}
-/>
+                      image={product.image}
+                      slug={product.slug}
+                      name={product.name}
+                    />
 
                     <div className="p-5">
                       <h3 className="font-heading font-bold text-charcoal text-md mb-2 group-hover:text-primary transition-colors duration-200">

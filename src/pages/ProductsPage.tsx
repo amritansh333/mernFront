@@ -104,7 +104,6 @@ const BRAND_QUICK_LINKS = [
   },
 ];
 
-
 function ProductImageCarousel({
   images,
   alt,
@@ -116,9 +115,7 @@ function ProductImageCarousel({
   const [reduceMotion, setReduceMotion] = useState(false);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    );
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
     const updateMotionPreference = () => {
       setReduceMotion(mediaQuery.matches);
@@ -170,8 +167,6 @@ function ProductImageCarousel({
   );
 }
 
-
-
 export default function ProductsPage() {
   const ref = useScrollFade() as React.RefObject<HTMLElement>;
   const machineComponents = useMachineComponentRouting();
@@ -211,7 +206,8 @@ export default function ProductsPage() {
           </h1>
           <p className="text-muted-foreground max-w-2xl leading-relaxed">
             Two comprehensive product divisions - Thermoplastic Semi-Finished
-            materials across all Polyrib brand families, and precision Thermoplastic Engineered Products for industrial applications.
+            materials across all Polyrib brand families, and precision
+            Thermoplastic Engineered Products for industrial applications.
           </p>
         </div>
       </div>
@@ -227,25 +223,25 @@ export default function ProductsPage() {
                 className="category-card block group"
               >
                 <ProductImageCarousel
-  images={
-    cat.slug.includes("semi")
-      ? [
-          semiFinishedImage1,
-          semiFinishedImage2,
-          semiFinishedImage3,
-          semiFinishedImage4,
-          semiFinishedImage5,
-        ]
-      : [
-          machineComponentsImage1,
-          machineComponentsImage2,
-          machineComponentsImage3,
-          machineComponentsImage4,
-          machineComponentsImage5,
-        ]
-  }
-  alt={cat.name}
-/>
+                  images={
+                    cat.slug.includes("semi")
+                      ? [
+                          semiFinishedImage1,
+                          semiFinishedImage2,
+                          semiFinishedImage3,
+                          semiFinishedImage4,
+                          semiFinishedImage5,
+                        ]
+                      : [
+                          machineComponentsImage1,
+                          machineComponentsImage2,
+                          machineComponentsImage3,
+                          machineComponentsImage4,
+                          machineComponentsImage5,
+                        ]
+                  }
+                  alt={cat.name}
+                />
 
                 <div className="p-8">
                   <span className="section-label block mb-3">{cat.name}</span>

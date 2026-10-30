@@ -25,9 +25,7 @@ function SubcategoryImageCarousel({
   );
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    );
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
     const updateMotionPreference = () => {
       setReduceMotion(mediaQuery.matches);
@@ -52,8 +50,7 @@ function SubcategoryImageCarousel({
 
     const directory = image.slice(0, image.lastIndexOf("/") + 1);
     const extensionIndex = image.lastIndexOf(".");
-    const extension =
-      extensionIndex >= 0 ? image.slice(extensionIndex) : "";
+    const extension = extensionIndex >= 0 ? image.slice(extensionIndex) : "";
     const filename = image.slice(
       image.lastIndexOf("/") + 1,
       extensionIndex >= 0 ? extensionIndex : undefined,
@@ -117,65 +114,65 @@ function SubcategoryImageCarousel({
 
     return () => window.clearInterval(interval);
   }, [galleryImages.length, reduceMotion]);
-  
-return (
-  <div className="card-image product-gallery relative aspect-[4/3] overflow-hidden">
-    {galleryImages.map((src, index) => {
-      const isActive = index === activeIndex;
 
-      return (
-        <img
-          key={src}
-          src={`${API_BASE_URL}${src}`}
-          alt={`${name} — image ${index + 1}`}
-          aria-hidden={!isActive}
-          className={`product-gallery-image absolute inset-0 h-full w-full object-cover ${
-            isActive ? "product-gallery-image-active" : ""
-          }`}
-          style={
-            {
-              "--gallery-index": index,
-            } as React.CSSProperties
-          }
-          loading={index === 0 ? "eager" : "lazy"}
-          decoding="async"
-        />
-      );
-    })}
+  return (
+    <div className="card-image product-gallery relative aspect-[4/3] overflow-hidden">
+      {galleryImages.map((src, index) => {
+        const isActive = index === activeIndex;
 
-    {/* Image Progress Line */}
-    {galleryImages.length > 1 && (
-      <div
-        className="absolute bottom-0 left-0 right-0 z-10 flex h-1.5 gap-0.5"
-        role="group"
-        aria-label="Subcategory image progress"
-      >
-        {galleryImages.map((src, index) => (
-          <button
+        return (
+          <img
             key={src}
-            type="button"
-            onClick={(event) => {
-              event.preventDefault();
-              event.stopPropagation();
-              setActiveIndex(index);
-            }}
-            aria-label={`Show image ${index + 1} of ${galleryImages.length}`}
-            aria-current={index === activeIndex ? "true" : undefined}
-            className="relative h-full min-w-0 flex-1 overflow-hidden bg-white/60 transition-colors hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#279ECE]"
-          >
-            <span
-              className={`absolute inset-0 origin-left transition-transform duration-300 ease-out ${
-                index === activeIndex
-                  ? "scale-x-100 bg-[#279ECE]"
-                  : "scale-x-0 bg-[#279ECE]"
-              }`}
-            />
-          </button>
-        ))}
-      </div>
-    )}
-  </div>
-);
+            src={`${API_BASE_URL}${src}`}
+            alt={`${name} — image ${index + 1}`}
+            aria-hidden={!isActive}
+            className={`product-gallery-image absolute inset-0 h-full w-full object-cover ${
+              isActive ? "product-gallery-image-active" : ""
+            }`}
+            style={
+              {
+                "--gallery-index": index,
+              } as React.CSSProperties
+            }
+            loading={index === 0 ? "eager" : "lazy"}
+            decoding="async"
+          />
+        );
+      })}
+
+      {/* Image Progress Line */}
+      {galleryImages.length > 1 && (
+        <div
+          className="absolute bottom-0 left-0 right-0 z-10 flex h-1.5 gap-0.5"
+          role="group"
+          aria-label="Subcategory image progress"
+        >
+          {galleryImages.map((src, index) => (
+            <button
+              key={src}
+              type="button"
+              onClick={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                setActiveIndex(index);
+              }}
+              aria-label={`Show image ${index + 1} of ${galleryImages.length}`}
+              aria-current={index === activeIndex ? "true" : undefined}
+              className="relative h-full min-w-0 flex-1 overflow-hidden bg-white/60 transition-colors hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#279ECE]"
+            >
+              <span
+                className={`absolute inset-0 origin-left transition-transform duration-300 ease-out ${
+                  index === activeIndex
+                    ? "scale-x-100 bg-[#279ECE]"
+                    : "scale-x-0 bg-[#279ECE]"
+                }`}
+              />
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default function SubcategoriesPage() {
@@ -295,10 +292,10 @@ export default function SubcategoriesPage() {
                     className="product-card block group"
                   >
                     <SubcategoryImageCarousel
-  image={sub.image}
-  slug={sub.slug}
-  name={sub.name}
-/>
+                      image={sub.image}
+                      slug={sub.slug}
+                      name={sub.name}
+                    />
 
                     <div className="p-5">
                       <h3 className="font-heading font-bold text-charcoal text-md mb-2 group-hover:text-primary transition-colors duration-200">

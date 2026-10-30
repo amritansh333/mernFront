@@ -7,8 +7,7 @@ const ScrollProgressBar: React.FC = () => {
     let ticking = false;
 
     const updateProgress = () => {
-      const scrollTop =
-        window.scrollY || document.documentElement.scrollTop;
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
 
       const docHeight =
         document.documentElement.scrollHeight -

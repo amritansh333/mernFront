@@ -20,8 +20,7 @@ const resolveOffset = (value, size) => {
   return parseFloat(text) || 0;
 };
 
-const toLength = (value) =>
-  typeof value === "number" ? `${value}px` : value;
+const toLength = (value) => (typeof value === "number" ? `${value}px` : value);
 
 const scrollsInside = (node, stop, delta) => {
   for (
@@ -41,8 +40,7 @@ const scrollsInside = (node, stop, delta) => {
 
     if (
       delta > 0
-        ? element.scrollTop + element.clientHeight <
-          element.scrollHeight - 1
+        ? element.scrollTop + element.clientHeight < element.scrollHeight - 1
         : element.scrollTop > 0
     ) {
       return true;
@@ -52,21 +50,11 @@ const scrollsInside = (node, stop, delta) => {
   return false;
 };
 
-export const ScrollStackItem = ({
-  children,
-  itemClassName = "",
-  style,
-}) => (
-  <div
-    className={`scroll-stack-card ${itemClassName}`.trim()}
-    style={style}
-  >
+export const ScrollStackItem = ({ children, itemClassName = "", style }) => (
+  <div className={`scroll-stack-card ${itemClassName}`.trim()} style={style}>
     {children}
 
-    <span
-      className="scroll-stack-card__shade"
-      aria-hidden="true"
-    />
+    <span className="scroll-stack-card__shade" aria-hidden="true" />
   </div>
 );
 
@@ -127,9 +115,7 @@ const ScrollStack = ({
     const windowed = useWindowScroll;
     const target = windowed ? window : root;
 
-    const motion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    );
+    const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
     const cache = new Map();
 
@@ -149,13 +135,11 @@ const ScrollStack = ({
     let points = [];
     let reach = 0;
 
-    const readScroll = () =>
-      windowed ? window.scrollY : root.scrollTop;
+    const readScroll = () => (windowed ? window.scrollY : root.scrollTop);
 
     const maxScroll = () =>
       windowed
-        ? document.documentElement.scrollHeight -
-          window.innerHeight
+        ? document.documentElement.scrollHeight - window.innerHeight
         : root.scrollHeight - root.clientHeight;
 
     const writeScroll = (value) => {
@@ -188,37 +172,27 @@ const ScrollStack = ({
 
       const settings = settingsRef.current;
 
-      const slots = Array.from(inner.children).filter(
-        (child) => child.hasAttribute("data-stack-slot"),
+      const slots = Array.from(inner.children).filter((child) =>
+        child.hasAttribute("data-stack-slot"),
       );
 
       if (!settings || !slots.length) return;
 
-      const viewHeight = windowed
-        ? window.innerHeight
-        : root.clientHeight;
+      const viewHeight = windowed ? window.innerHeight : root.clientHeight;
 
       const viewTop = windowed
         ? 0
         : root.getBoundingClientRect().top + root.clientTop;
 
-      const stackTop = resolveOffset(
-        settings.stackPosition,
-        viewHeight,
-      );
+      const stackTop = resolveOffset(settings.stackPosition, viewHeight);
 
       const offset = settings.itemStackDistance;
 
-      const heights = slots.map(
-        (slot) => slot.offsetHeight,
-      );
+      const heights = slots.map((slot) => slot.offsetHeight);
 
-      const tops = slots.map(
-        (slot) => slot.getBoundingClientRect().top,
-      );
+      const tops = slots.map((slot) => slot.getBoundingClientRect().top);
 
-      const lastPin =
-        stackTop + (slots.length - 1) * offset;
+      const lastPin = stackTop + (slots.length - 1) * offset;
 
       const padTop = windowed ? 0 : stackTop;
 
@@ -226,75 +200,42 @@ const ScrollStack = ({
         settings.holdDistance +
         (windowed
           ? 0
-          : Math.max(
-              0,
-              viewHeight -
-                lastPin -
-                heights[heights.length - 1],
-            ));
+          : Math.max(0, viewHeight - lastPin - heights[heights.length - 1]));
 
-      let moved = write(
-        "padTop",
-        padTop,
-        (value) => {
-          inner.style.paddingTop = `${value}px`;
-        },
-      );
+      let moved = write("padTop", padTop, (value) => {
+        inner.style.paddingTop = `${value}px`;
+      });
 
       moved =
-        write(
-          "endHeight",
-          endHeight,
-          (value) => {
-            end.style.height = `${value}px`;
-          },
-        ) || moved;
+        write("endHeight", endHeight, (value) => {
+          end.style.height = `${value}px`;
+        }) || moved;
 
       let flow =
-        inner.getBoundingClientRect().top -
-        viewTop +
-        readScroll() +
-        padTop;
+        inner.getBoundingClientRect().top - viewTop + readScroll() + padTop;
 
       points = heights.map((height, index) => {
-        const point =
-          flow - stackTop - index * offset;
+        const point = flow - stackTop - index * offset;
 
         flow += height + settings.itemDistance;
 
         return point;
       });
 
-      reach = Math.max(
-        40,
-        (heights[0] +
-          settings.itemDistance -
-          offset) /
-          2,
-      );
+      reach = Math.max(40, (heights[0] + settings.itemDistance - offset) / 2);
 
       const depths = slots.map(() => 0);
 
       let lastCover = 0;
 
       for (let j = 1; j < slots.length; j++) {
-        const pinBefore =
-          viewTop + stackTop + (j - 1) * offset;
+        const pinBefore = viewTop + stackTop + (j - 1) * offset;
 
         const start = pinBefore + heights[j - 1];
 
-        const span = Math.max(
-          1,
-          start - pinBefore - offset,
-        );
+        const span = Math.max(1, start - pinBefore - offset);
 
-        const cover = Math.min(
-          1,
-          Math.max(
-            0,
-            (start - tops[j]) / span,
-          ),
-        );
+        const cover = Math.min(1, Math.max(0, (start - tops[j]) / span));
 
         for (let i = 0; i < j; i++) {
           depths[i] += cover;
@@ -303,10 +244,7 @@ const ScrollStack = ({
         lastCover = cover;
       }
 
-      const dimStep = Math.min(
-        Math.max(settings.dimAmount, 0),
-        1,
-      );
+      const dimStep = Math.min(Math.max(settings.dimAmount, 0), 1);
 
       slots.forEach((slot, index) => {
         const card = slot.firstElementChild;
@@ -323,57 +261,37 @@ const ScrollStack = ({
 
         const tilt = -lean * settings.tiltAmount;
 
-        const turn =
-          lean *
-          settings.rotationAmount *
-          (index % 2 ? -1 : 1);
+        const turn = lean * settings.rotationAmount * (index % 2 ? -1 : 1);
 
         const blur = depth * settings.blurAmount;
 
-        const dim =
-          1 - Math.pow(1 - dimStep, depth);
+        const dim = 1 - Math.pow(1 - dimStep, depth);
 
         const transform =
           depth < 0.0005
             ? ""
             : `perspective(1200px) rotateX(${tilt.toFixed(
                 2,
-              )}deg) rotate(${turn.toFixed(
-                2,
-              )}deg) scale(${scale.toFixed(4)})`;
+              )}deg) rotate(${turn.toFixed(2)}deg) scale(${scale.toFixed(4)})`;
 
-        write(
-          `transform-${index}`,
-          transform,
-          (value) => {
-            card.style.transform = value;
-          },
-        );
+        write(`transform-${index}`, transform, (value) => {
+          card.style.transform = value;
+        });
 
         write(
           `filter-${index}`,
-          blur > 0.01
-            ? `blur(${blur.toFixed(2)}px)`
-            : "",
+          blur > 0.01 ? `blur(${blur.toFixed(2)}px)` : "",
           (value) => {
             card.style.filter = value;
           },
         );
 
-        write(
-          `dim-${index}`,
-          dim.toFixed(3),
-          (value) => {
-            card.style.setProperty(
-              "--scroll-stack-dim",
-              value,
-            );
-          },
-        );
+        write(`dim-${index}`, dim.toFixed(3), (value) => {
+          card.style.setProperty("--scroll-stack-dim", value);
+        });
       });
 
-      const done =
-        slots.length > 1 && lastCover >= 0.999;
+      const done = slots.length > 1 && lastCover >= 0.999;
 
       if (done !== complete) {
         complete = done;
@@ -393,10 +311,7 @@ const ScrollStack = ({
     };
 
     const step = (now) => {
-      const dt = Math.min(
-        0.05,
-        (now - last) / 1000,
-      );
+      const dt = Math.min(0.05, (now - last) / 1000);
 
       last = now;
 
@@ -408,9 +323,7 @@ const ScrollStack = ({
         return;
       }
 
-      current +=
-        (goal - current) *
-        (1 - Math.pow(0.9, dt * 60));
+      current += (goal - current) * (1 - Math.pow(0.9, dt * 60));
 
       if (Math.abs(goal - current) < 0.5) {
         current = goal;
@@ -430,10 +343,7 @@ const ScrollStack = ({
     };
 
     const glideTo = (value) => {
-      goal = Math.min(
-        Math.max(value, 0),
-        maxScroll(),
-      );
+      goal = Math.min(Math.max(value, 0), maxScroll());
 
       if (motion.matches) {
         writeScroll(goal);
@@ -453,23 +363,14 @@ const ScrollStack = ({
     const settle = () => {
       rest = 0;
 
-      if (
-        !settingsRef.current?.snap ||
-        gliding ||
-        pressed ||
-        !points.length
-      ) {
+      if (!settingsRef.current?.snap || gliding || pressed || !points.length) {
         return;
       }
 
       const now = readScroll();
 
-      const nearest = points.reduce(
-        (best, point) =>
-          Math.abs(point - now) <
-          Math.abs(best - now)
-            ? point
-            : best,
+      const nearest = points.reduce((best, point) =>
+        Math.abs(point - now) < Math.abs(best - now) ? point : best,
       );
 
       const gap = Math.abs(nearest - now);
@@ -503,32 +404,19 @@ const ScrollStack = ({
         return;
       }
 
-      if (
-        Math.abs(event.deltaX) >
-        Math.abs(event.deltaY)
-      ) {
+      if (Math.abs(event.deltaX) > Math.abs(event.deltaY)) {
         return;
       }
 
-      const page = windowed
-        ? window.innerHeight
-        : root.clientHeight;
+      const page = windowed ? window.innerHeight : root.clientHeight;
 
       const delta =
         event.deltaY *
-        (event.deltaMode === 1
-          ? 16
-          : event.deltaMode === 2
-            ? page
-            : 1);
+        (event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? page : 1);
 
       if (
         !delta ||
-        scrollsInside(
-          event.target,
-          windowed ? document.body : root,
-          delta,
-        )
+        scrollsInside(event.target, windowed ? document.body : root, delta)
       ) {
         return;
       }
@@ -606,10 +494,7 @@ const ScrollStack = ({
       target.removeEventListener("pointerdown", onPress);
 
       window.removeEventListener("pointerup", onRelease);
-      window.removeEventListener(
-        "pointercancel",
-        onRelease,
-      );
+      window.removeEventListener("pointercancel", onRelease);
 
       window.removeEventListener("resize", schedule);
 
@@ -621,27 +506,16 @@ const ScrollStack = ({
     <div
       ref={rootRef}
       className={`scroll-stack ${
-        useWindowScroll
-          ? "scroll-stack--window"
-          : "scroll-stack--contained"
+        useWindowScroll ? "scroll-stack--window" : "scroll-stack--contained"
       } ${className}`.trim()}
     >
-      <div
-        ref={innerRef}
-        className="scroll-stack__inner"
-      >
+      <div ref={innerRef} className="scroll-stack__inner">
         {items.map((child, index) => {
-          const gap =
-            itemDistance -
-            (items.length - index) * itemStackDistance;
+          const gap = itemDistance - (items.length - index) * itemStackDistance;
 
           return (
             <Fragment
-              key={
-                isValidElement(child)
-                  ? child.key ?? index
-                  : index
-              }
+              key={isValidElement(child) ? (child.key ?? index) : index}
             >
               {index > 0 && (
                 <div
@@ -657,14 +531,10 @@ const ScrollStack = ({
                 data-stack-slot=""
                 className="scroll-stack__slot"
                 style={{
-                  top: `calc(${toLength(
-                    stackPosition,
-                  )} + ${
+                  top: `calc(${toLength(stackPosition)} + ${
                     index * itemStackDistance
                   }px)`,
-                  marginBottom:
-                    (items.length - 1 - index) *
-                    itemStackDistance,
+                  marginBottom: (items.length - 1 - index) * itemStackDistance,
                   zIndex: index + 1,
                 }}
               >
@@ -674,11 +544,7 @@ const ScrollStack = ({
           );
         })}
 
-        <div
-          ref={endRef}
-          className="scroll-stack__end"
-          aria-hidden="true"
-        />
+        <div ref={endRef} className="scroll-stack__end" aria-hidden="true" />
       </div>
     </div>
   );

@@ -483,7 +483,10 @@ export function Header() {
                   >
                     <div className="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-divider">
                       {item.columns?.map((column) => (
-                        <div key={column.heading} className="p-3 sm:p-4 min-w-0">
+                        <div
+                          key={column.heading}
+                          className="p-3 sm:p-4 min-w-0"
+                        >
                           <Link
                             to={column.headingHref}
                             onClick={() => {
@@ -501,9 +504,7 @@ export function Header() {
                                 column.heading,
                                 sub.label,
                               );
-                              const hasChildren = Boolean(
-                                sub.children?.length,
-                              );
+                              const hasChildren = Boolean(sub.children?.length);
                               const isSubmenuOpen =
                                 openProductSubmenu === submenuKey;
 
@@ -720,9 +721,7 @@ export function Header() {
                             column.heading,
                             sub.label,
                           );
-                          const hasChildren = Boolean(
-                            sub.children?.length,
-                          );
+                          const hasChildren = Boolean(sub.children?.length);
                           const isExpanded =
                             mobileProductSubmenu === submenuKey;
 

@@ -1,5 +1,11 @@
 import React, { useRef, useState, useEffect } from "react";
-import { motion, useScroll, useSpring, useTransform, type MotionValue } from "framer-motion";
+import {
+  motion,
+  useScroll,
+  useSpring,
+  useTransform,
+  type MotionValue,
+} from "framer-motion";
 import { Link } from "react-router-dom";
 import {
   ArrowRight,
@@ -84,9 +90,7 @@ import polymerImg from "@/assets/polymer-materials.jpeg";
 import isoBadge from "@/assets/iso-badge.png";
 import certImg from "@/assets/isoCertificate2015.jpg";
 
-import ScrollStack, {
-  ScrollStackItem,
-} from "@/components/ScrollStack";
+import ScrollStack, { ScrollStackItem } from "@/components/ScrollStack";
 
 /* ─── Data ─────────────────────────────────────────────── */
 
@@ -238,7 +242,6 @@ const trustPoints = [
   { icon: Zap, label: "Fast Delivery" },
   { icon: Globe, label: "Export to 50+ Countries" },
 ];
-
 
 const infrastructure = [
   {
@@ -473,18 +476,14 @@ function StatSection() {
   return (
     <div
       ref={ref}
-      className={`stats-panel ${
-        isVisible ? "stats-panel-visible" : ""
-      }`}
+      className={`stats-panel ${isVisible ? "stats-panel-visible" : ""}`}
       aria-label="Khanna Polyrib company statistics"
     >
       {statItems.map((item, index) => {
         const Icon = item.icon;
 
         const displayValue =
-          index === 3
-            ? item.value
-            : `${counts[index]}${item.suffix}`;
+          index === 3 ? item.value : `${counts[index]}${item.suffix}`;
 
         return (
           <article
@@ -498,11 +497,7 @@ function StatSection() {
           >
             <div className="stats-card-top">
               <span className="stats-icon">
-                <Icon
-                  aria-hidden="true"
-                  size={21}
-                  strokeWidth={2.2}
-                />
+                <Icon aria-hidden="true" size={21} strokeWidth={2.2} />
               </span>
             </div>
 
@@ -546,22 +541,15 @@ function WhyUsStackCard({
   // Calculate card distance from the active position.
   const distance = useTransform(
     progress,
-    (value) => index - value * (whyPoints.length - 1)
+    (value) => index - value * (whyPoints.length - 1),
   );
 
   // Responsive vertical movement.
   const y = useTransform(distance, (value) => {
-    const width =
-      typeof window !== "undefined" ? window.innerWidth : 1280;
+    const width = typeof window !== "undefined" ? window.innerWidth : 1280;
 
     const step =
-      width <= 380
-        ? 112
-        : width <= 639
-          ? 122
-          : width <= 1023
-            ? 150
-            : 166;
+      width <= 380 ? 112 : width <= 639 ? 122 : width <= 1023 ? 150 : 166;
 
     return value * step;
   });
@@ -570,26 +558,20 @@ function WhyUsStackCard({
   const scale = useTransform(distance, (value) => {
     const absoluteDistance = Math.abs(value);
 
-    return Math.max(
-      0.68,
-      1.045 - absoluteDistance * 0.175
-    );
+    return Math.max(0.68, 1.045 - absoluteDistance * 0.175);
   });
 
   // Card visibility.
   const opacity = useTransform(distance, (value) => {
     const absoluteDistance = Math.abs(value);
 
-    return Math.max(
-      0,
-      1 - Math.max(0, absoluteDistance - 1) * 2.5
-    );
+    return Math.max(0, 1 - Math.max(0, absoluteDistance - 1) * 2.5);
   });
 
   // Maintain correct stacking order.
   const zIndex = useTransform(
     distance,
-    (value) => 100 - Math.round(Math.abs(value) * 10)
+    (value) => 100 - Math.round(Math.abs(value) * 10),
   );
 
   const { icon: Icon, title, desc } = item;
@@ -613,24 +595,16 @@ function WhyUsStackCard({
         {/* Top line */}
         <div className="why-us-card-topline">
           <span className="why-us-card-index">
-            WHY POLYRIB{" "}
-            <span>{String(index + 1).padStart(2, "0")}</span>
+            WHY POLYRIB <span>{String(index + 1).padStart(2, "0")}</span>
           </span>
 
-          <span
-            className="why-us-card-indicator"
-            aria-hidden="true"
-          />
+          <span className="why-us-card-indicator" aria-hidden="true" />
         </div>
 
         {/* Main content */}
         <div className="why-us-card-content">
           <div className="why-us-card-icon">
-            <Icon
-              size={23}
-              strokeWidth={1.8}
-              aria-hidden="true"
-            />
+            <Icon size={23} strokeWidth={1.8} aria-hidden="true" />
           </div>
 
           <div className="why-us-card-copy">
@@ -640,10 +614,7 @@ function WhyUsStackCard({
         </div>
 
         {/* Bottom line */}
-        <div
-          className="why-us-card-bottomline"
-          aria-hidden="true"
-        >
+        <div className="why-us-card-bottomline" aria-hidden="true">
           <span>KHANNA POLYRIB PVT. LTD.</span>
 
           <span className="why-us-card-arrow">
@@ -664,19 +635,17 @@ function WhyUsFacility() {
     <div className="why-us-facility relative min-h-0 overflow-hidden">
       {/* Facility images sliding from right to left */}
       <div className="why-us-slider absolute inset-0">
-        {[slider1, slider2, slider3, slider4, slider5].map(
-          (img, index) => (
-            <img
-              key={index}
-              src={img}
-              alt={`Khanna Polyrib manufacturing facility ${index + 1}`}
-              className="why-us-slide absolute inset-0 h-full w-full object-cover"
-              style={{
-                animationDelay: `${index * 6}s`,
-              }}
-            />
-          )
-        )}
+        {[slider1, slider2, slider3, slider4, slider5].map((img, index) => (
+          <img
+            key={index}
+            src={img}
+            alt={`Khanna Polyrib manufacturing facility ${index + 1}`}
+            className="why-us-slide absolute inset-0 h-full w-full object-cover"
+            style={{
+              animationDelay: `${index * 6}s`,
+            }}
+          />
+        ))}
       </div>
 
       {/* Dark overlay for readable text */}
@@ -685,30 +654,30 @@ function WhyUsFacility() {
       {/* Facility details */}
       <div className="why-us-facility-content absolute bottom-0 left-0 right-0 p-4 sm:p-6 bg-black/10">
         {/* Established year — first */}
-<p
-  className="why-us-typewriter why-us-established"
-  style={{ animationDelay: "0s" }}
->
-  Established 1985
-</p>
+        <p
+          className="why-us-typewriter why-us-established"
+          style={{ animationDelay: "0s" }}
+        >
+          Established 1985
+        </p>
 
-{/* Checklist — sequential typing */}
-<div className="space-y-2">
-  {whyChecks.map((check, index) => (
-    <div key={index} className="flex items-start gap-2">
-      <CheckCircle2 className="w-4 h-4 text-primary-light shrink-0 mt-0.5" />
+        {/* Checklist — sequential typing */}
+        <div className="space-y-2">
+          {whyChecks.map((check, index) => (
+            <div key={index} className="flex items-start gap-2">
+              <CheckCircle2 className="w-4 h-4 text-primary-light shrink-0 mt-0.5" />
 
-      <span
-        className="why-us-typewriter why-us-check-text"
-        style={{
-          animationDelay: `${(index + 1) * 1.5}s`,
-        }}
-      >
-        {check}
-      </span>
-    </div>
-  ))}
-</div>
+              <span
+                className="why-us-typewriter why-us-check-text"
+                style={{
+                  animationDelay: `${(index + 1) * 1.5}s`,
+                }}
+              >
+                {check}
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -718,21 +687,11 @@ function WhyUsFacility() {
    CARD PANEL AND PROGRESS INDICATOR
    ========================================================= */
 
-function WhyUsCardPanel({
-  progress,
-}: {
-  progress: MotionValue<number>;
-}) {
+function WhyUsCardPanel({ progress }: { progress: MotionValue<number> }) {
   return (
     <div className="why-us-card-panel">
-      <div
-        className="why-us-card-stage"
-        aria-label="Why choose Khanna Polyrib"
-      >
-        <div
-          className="why-us-card-grid-glow"
-          aria-hidden="true"
-        />
+      <div className="why-us-card-stage" aria-label="Why choose Khanna Polyrib">
+        <div className="why-us-card-grid-glow" aria-hidden="true" />
 
         {whyPoints.map((item, index) => (
           <WhyUsStackCard
@@ -744,10 +703,7 @@ function WhyUsCardPanel({
         ))}
       </div>
 
-      <div
-        className="why-us-progress"
-        aria-hidden="true"
-      >
+      <div className="why-us-progress" aria-hidden="true">
         <motion.span
           className="why-us-progress-fill"
           style={{
@@ -800,7 +756,6 @@ function WhyUsSection() {
     >
       <div className="why-us-pin">
         <div className="container max-w-7xl mx-auto px-6 why-us-pin-container">
-
           {/* Section heading */}
           <div className="why-us-heading flex flex-col md:flex-row justify-between items-start md:items-end">
             <div>
@@ -809,10 +764,7 @@ function WhyUsSection() {
               </h2>
             </div>
 
-            <Link
-              to="/about"
-              className="cta-link mt-3 md:mt-0"
-            >
+            <Link to="/about" className="cta-link mt-3 md:mt-0">
               About Us
               <ArrowRight className="w-4 h-4" />
             </Link>
@@ -820,13 +772,9 @@ function WhyUsSection() {
 
           {/* Facility + Animated Cards */}
           <div className="why-us-layout grid rounded-2xl">
-
             <WhyUsFacility />
 
-            <WhyUsCardPanel
-              progress={smoothProgress}
-            />
-
+            <WhyUsCardPanel progress={smoothProgress} />
           </div>
         </div>
       </div>
@@ -851,9 +799,7 @@ function ProductCategoryCard({
   const [reduceMotion, setReduceMotion] = useState(false);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    );
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
     const updateMotionPreference = () => {
       setReduceMotion(mediaQuery.matches);
@@ -934,9 +880,7 @@ function ProductCategoryCard({
 
       {/* Existing card content preserved */}
       <div className="p-4">
-        <span className="section-label text-xs block mb-2">
-          {tag}
-        </span>
+        <span className="section-label text-xs block mb-2">{tag}</span>
 
         <h3 className="font-heading text-xl text-charcoal mb-2 group-hover:text-primary transition-colors duration-200">
           {title}
@@ -946,14 +890,12 @@ function ProductCategoryCard({
           {description}
         </p>
 
-        
+        <div className="cta-link category-card-cta">
+          Explore Range
+          <ArrowRight className="w-4 h-4 explore-arrow" />
+        </div>
 
-<div className="cta-link category-card-cta">
-  Explore Range
-  <ArrowRight className="w-4 h-4 explore-arrow" />
-</div>
-
-<div className="card-border-bottom mt-1" />
+        <div className="card-border-bottom mt-1" />
       </div>
     </Link>
   );
@@ -991,12 +933,10 @@ function MaterialsSection() {
    *
    * The original visual ordering is preserved across rows.
    */
-  const brandColumns = Array.from(
-    { length: columns },
-    (_, columnIndex) =>
-      brandFamilies.filter(
-        (_, brandIndex) => brandIndex % columns === columnIndex,
-      ),
+  const brandColumns = Array.from({ length: columns }, (_, columnIndex) =>
+    brandFamilies.filter(
+      (_, brandIndex) => brandIndex % columns === columnIndex,
+    ),
   );
 
   const isMobile = columns === 2;
@@ -1009,14 +949,9 @@ function MaterialsSection() {
       <div className="container max-w-7xl mx-auto px-6">
         {/* Keep the heading and link together. */}
         <div className="brand-portfolio-heading flex flex-col md:flex-row md:items-center md:justify-between">
-          <h2 className="font-heading text-3xl text-charcoal">
-            Our Brands
-          </h2>
+          <h2 className="font-heading text-3xl text-charcoal">Our Brands</h2>
 
-          <Link
-            to="/products"
-            className="cta-link mt-3 md:mt-0"
-          >
+          <Link to="/products" className="cta-link mt-3 md:mt-0">
             Explore Brands
             <ArrowRight className="w-4 h-4 inline ml-1" />
           </Link>
@@ -1128,9 +1063,7 @@ function PolymersSection() {
 
     if (!section) return;
 
-    const reduceMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    );
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
     if (reduceMotion.matches) {
       setIsVisible(true);
@@ -1182,11 +1115,14 @@ function PolymersSection() {
       speed: number,
     ): number => {
       for (let i = 1; i <= text.length; i++) {
-        const timer = setTimeout(() => {
-          if (!cancelled) {
-            setter(text.slice(0, i));
-          }
-        }, delay + i * speed);
+        const timer = setTimeout(
+          () => {
+            if (!cancelled) {
+              setter(text.slice(0, i));
+            }
+          },
+          delay + i * speed,
+        );
 
         timers.push(timer);
       }
@@ -1195,12 +1131,7 @@ function PolymersSection() {
     };
 
     // Heading types first.
-    const headingDuration = typeText(
-      headingText,
-      setTypedHeading,
-      250,
-      42,
-    );
+    const headingDuration = typeText(headingText, setTypedHeading, 250, 42);
 
     // Description follows the heading.
     const descriptionStart = headingDuration + 180;
@@ -1215,21 +1146,11 @@ function PolymersSection() {
     // Technical information follows the description.
     const resinStart = descriptionStart + descriptionDuration + 180;
 
-    const resinDuration = typeText(
-      resinText,
-      setTypedResin,
-      resinStart,
-      38,
-    );
+    const resinDuration = typeText(resinText, setTypedResin, resinStart, 38);
 
     const standardsStart = resinStart + resinDuration + 140;
 
-    typeText(
-      standardsText,
-      setTypedStandards,
-      standardsStart,
-      38,
-    );
+    typeText(standardsText, setTypedStandards, standardsStart, 38);
 
     return () => {
       cancelled = true;
@@ -1315,7 +1236,6 @@ function PolymersSection() {
     >
       <div className="container max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-stretch">
-
           {/* ───────────── LEFT COLUMN ───────────── */}
 
           <div className="materials-intro flex flex-col gap-6">
@@ -1332,7 +1252,6 @@ function PolymersSection() {
 
             {/* Polymer Compounding Lab */}
             <div className="polymer-lab-card w-full p-4 sm:p-5 rounded-xl overflow-hidden">
-
               {/* Polymer image */}
               <div className="w-full overflow-hidden rounded-lg border border-slate-700/60">
                 <img
@@ -1345,7 +1264,6 @@ function PolymersSection() {
 
               {/* Typewriter content */}
               <div className="pt-5">
-
                 <h3
                   className="font-heading text-lg font-bold text-white mb-2"
                   aria-label={headingText}
@@ -1353,10 +1271,7 @@ function PolymersSection() {
                   {typedHeading}
 
                   {isVisible && typedHeading.length < headingText.length && (
-                    <span
-                      className="lab-typewriter-cursor"
-                      aria-hidden="true"
-                    >
+                    <span className="lab-typewriter-cursor" aria-hidden="true">
                       |
                     </span>
                   )}
@@ -1382,7 +1297,6 @@ function PolymersSection() {
 
                 {/* Technical information */}
                 <div className="lab-technical-panel mt-5 p-3 sm:p-4 rounded-lg space-y-3">
-
                   <div className="flex flex-wrap items-start justify-between gap-2">
                     <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-sky-400">
                       Resin Grade:
@@ -1422,7 +1336,6 @@ function PolymersSection() {
                         )}
                     </span>
                   </div>
-
                 </div>
               </div>
             </div>
@@ -1431,7 +1344,6 @@ function PolymersSection() {
           {/* ───────────── RIGHT COLUMN ───────────── */}
 
           <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
-
             {materials.map((m, index) => (
               <Link
                 key={m.slug}
@@ -1473,15 +1385,12 @@ function PolymersSection() {
                 </p>
               </Link>
             ))}
-
           </div>
         </div>
       </div>
     </section>
   );
 }
-
-
 
 /* Industries */
 function IndustriesSection() {
@@ -1533,32 +1442,32 @@ function IndustriesSection() {
 
         {/* Original layout: unchanged */}
         <div className="flex flex-wrap justify-center gap-3">
-  {allIndustries.map((ind, index) => {
-    const Icon = industryIcons[ind.slug as keyof typeof industryIcons];
+          {allIndustries.map((ind, index) => {
+            const Icon = industryIcons[ind.slug as keyof typeof industryIcons];
 
-    return (
-      <Link
-        key={ind.abbr}
-        to={`/industries/${ind.slug}`}
-        className="industries-motion-card group flex items-center gap-2.5 px-4 py-2.5 border border-border bg-card hover:border-primary hover:text-primary text-sm font-medium text-charcoal-light transition-all duration-200 rounded-lg"
-        style={
-          {
-            "--industry-index": index,
-            "--industry-delay": `${180 + index * 150}ms`,
-          } as React.CSSProperties
-        }
-      >
-        <Icon
-          className="w-4 h-4 text-primary shrink-0 transition-transform duration-200 group-hover:scale-110"
-          strokeWidth={1.8}
-          aria-hidden="true"
-        />
+            return (
+              <Link
+                key={ind.abbr}
+                to={`/industries/${ind.slug}`}
+                className="industries-motion-card group flex items-center gap-2.5 px-4 py-2.5 border border-border bg-card hover:border-primary hover:text-primary text-sm font-medium text-charcoal-light transition-all duration-200 rounded-lg"
+                style={
+                  {
+                    "--industry-index": index,
+                    "--industry-delay": `${180 + index * 150}ms`,
+                  } as React.CSSProperties
+                }
+              >
+                <Icon
+                  className="w-4 h-4 text-primary shrink-0 transition-transform duration-200 group-hover:scale-110"
+                  strokeWidth={1.8}
+                  aria-hidden="true"
+                />
 
-        <span>{ind.abbr}</span>
-      </Link>
-    );
-  })}
-</div>
+                <span>{ind.abbr}</span>
+              </Link>
+            );
+          })}
+        </div>
 
         {/* Footer */}
         <div className="industries-motion-footer text-center mt-8">
@@ -1571,7 +1480,6 @@ function IndustriesSection() {
   );
 }
 
-
 /* Infrastructure */
 function InfrastructureSection() {
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -1581,9 +1489,7 @@ function InfrastructureSection() {
     const section = sectionRef.current;
     if (!section) return;
 
-    const mediaQuery = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    );
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
     if (mediaQuery.matches) {
       setIsVisible(true);
@@ -1610,169 +1516,145 @@ function InfrastructureSection() {
 
   return (
     <section
-  ref={sectionRef}
-  className={`infrastructure-motion-section py-8 border-b border-divider bg-[#161F2D] ${
-    isVisible ? "infrastructure-motion-visible" : ""
-  }`}
->
-  <div className="container max-w-7xl mx-auto px-6">
-    {/* Heading and description */}
-    <div className="infrastructure-motion-heading text-center mb-8">
-      <h2 className="font-heading text-3xl text-white">
-        Infrastructure Built for Scale
-      </h2>
-
-      <p className="text-muted-foreground text-sm mt-3 max-w-xl mx-auto">
-        From extrusion to precision CNC machining —{" "}
-        <span className="font-semibold text-base text-primary">
-          Fully equipped to deliver any polymer component at any volume.
-        </span>
-      </p>
-    </div>
-
-    {/* Grid layout with increased gap and separate rounded cards */}
-
-{/* Continuous Infrastructure Card Marquee */}
-<div
-  className="infrastructure-marquee"
-  role="region"
-  aria-label="Manufacturing infrastructure and capabilities"
->
-  <div className="infrastructure-marquee-track">
-
-    {/* First set of six cards */}
-    <div className="infrastructure-marquee-group">
-
-      {infrastructure.map((item) => {
-        const Icon = item.icon;
-
-        return (
-          <article
-            key={item.number}
-            className="infrastructure-marquee-card"
-          >
-            {/* Top row */}
-            <div className="infrastructure-card-top">
-              <div className="infrastructure-card-icon">
-                <Icon
-                  className="w-5 h-5"
-                  strokeWidth={1.7}
-                  aria-hidden="true"
-                />
-              </div>
-
-              <span className="infrastructure-card-number">
-                CAPABILITY / {item.number}
-              </span>
-            </div>
-
-            {/* Main information */}
-            <div className="infrastructure-card-content">
-
-              <p className="infrastructure-card-label">
-                {item.label}
-              </p>
-
-              <h3 className="infrastructure-card-value">
-                {item.value}
-              </h3>
-
-              <p className="infrastructure-card-description">
-                {item.sub}
-              </p>
-
-            </div>
-
-            {/* Bottom accent */}
-            <div className="infrastructure-card-footer">
-              <span className="infrastructure-card-status">
-                <span className="infrastructure-status-dot" />
-                KHANNA POLYRIB PVT. LTD.
-              </span>
-
-              <span className="infrastructure-card-arrow">
-                ↗
-              </span>
-            </div>
-
-            {/* Decorative gradient glow */}
-            <div
-              className="infrastructure-card-glow"
-              aria-hidden="true"
-            />
-          </article>
-        );
-      })}
-
-    </div>
-
-    {/* Duplicate set for seamless infinite scrolling */}
-    <div
-      className="infrastructure-marquee-group"
-      aria-hidden="true"
+      ref={sectionRef}
+      className={`infrastructure-motion-section py-8 border-b border-divider bg-[#161F2D] ${
+        isVisible ? "infrastructure-motion-visible" : ""
+      }`}
     >
+      <div className="container max-w-7xl mx-auto px-6">
+        {/* Heading and description */}
+        <div className="infrastructure-motion-heading text-center mb-8">
+          <h2 className="font-heading text-3xl text-white">
+            Infrastructure Built for Scale
+          </h2>
 
-      {infrastructure.map((item) => {
-        const Icon = item.icon;
+          <p className="text-muted-foreground text-sm mt-3 max-w-xl mx-auto">
+            From extrusion to precision CNC machining —{" "}
+            <span className="font-semibold text-base text-primary">
+              Fully equipped to deliver any polymer component at any volume.
+            </span>
+          </p>
+        </div>
 
-        return (
-          <article
-            key={`duplicate-${item.number}`}
-            className="infrastructure-marquee-card"
-          >
-            <div className="infrastructure-card-top">
-              <div className="infrastructure-card-icon">
-                <Icon
-                  className="w-5 h-5"
-                  strokeWidth={1.7}
-                />
-              </div>
+        {/* Grid layout with increased gap and separate rounded cards */}
 
-              <span className="infrastructure-card-number">
-                CAPABILITY / {item.number}
-              </span>
+        {/* Continuous Infrastructure Card Marquee */}
+        <div
+          className="infrastructure-marquee"
+          role="region"
+          aria-label="Manufacturing infrastructure and capabilities"
+        >
+          <div className="infrastructure-marquee-track">
+            {/* First set of six cards */}
+            <div className="infrastructure-marquee-group">
+              {infrastructure.map((item) => {
+                const Icon = item.icon;
+
+                return (
+                  <article
+                    key={item.number}
+                    className="infrastructure-marquee-card"
+                  >
+                    {/* Top row */}
+                    <div className="infrastructure-card-top">
+                      <div className="infrastructure-card-icon">
+                        <Icon
+                          className="w-5 h-5"
+                          strokeWidth={1.7}
+                          aria-hidden="true"
+                        />
+                      </div>
+
+                      <span className="infrastructure-card-number">
+                        CAPABILITY / {item.number}
+                      </span>
+                    </div>
+
+                    {/* Main information */}
+                    <div className="infrastructure-card-content">
+                      <p className="infrastructure-card-label">{item.label}</p>
+
+                      <h3 className="infrastructure-card-value">
+                        {item.value}
+                      </h3>
+
+                      <p className="infrastructure-card-description">
+                        {item.sub}
+                      </p>
+                    </div>
+
+                    {/* Bottom accent */}
+                    <div className="infrastructure-card-footer">
+                      <span className="infrastructure-card-status">
+                        <span className="infrastructure-status-dot" />
+                        KHANNA POLYRIB PVT. LTD.
+                      </span>
+
+                      <span className="infrastructure-card-arrow">↗</span>
+                    </div>
+
+                    {/* Decorative gradient glow */}
+                    <div
+                      className="infrastructure-card-glow"
+                      aria-hidden="true"
+                    />
+                  </article>
+                );
+              })}
             </div>
 
-            <div className="infrastructure-card-content">
-              <p className="infrastructure-card-label">
-                {item.label}
-              </p>
+            {/* Duplicate set for seamless infinite scrolling */}
+            <div className="infrastructure-marquee-group" aria-hidden="true">
+              {infrastructure.map((item) => {
+                const Icon = item.icon;
 
-              <h3 className="infrastructure-card-value">
-                {item.value}
-              </h3>
+                return (
+                  <article
+                    key={`duplicate-${item.number}`}
+                    className="infrastructure-marquee-card"
+                  >
+                    <div className="infrastructure-card-top">
+                      <div className="infrastructure-card-icon">
+                        <Icon className="w-5 h-5" strokeWidth={1.7} />
+                      </div>
 
-              <p className="infrastructure-card-description">
-                {item.sub}
-              </p>
+                      <span className="infrastructure-card-number">
+                        CAPABILITY / {item.number}
+                      </span>
+                    </div>
+
+                    <div className="infrastructure-card-content">
+                      <p className="infrastructure-card-label">{item.label}</p>
+
+                      <h3 className="infrastructure-card-value">
+                        {item.value}
+                      </h3>
+
+                      <p className="infrastructure-card-description">
+                        {item.sub}
+                      </p>
+                    </div>
+
+                    <div className="infrastructure-card-footer">
+                      <span className="infrastructure-card-status">
+                        <span className="infrastructure-status-dot" />
+                        Khanna Polyrib Pvt. Ltd.
+                      </span>
+
+                      <span className="infrastructure-card-arrow">↗</span>
+                    </div>
+
+                    <div className="infrastructure-card-glow" />
+                  </article>
+                );
+              })}
             </div>
-
-            <div className="infrastructure-card-footer">
-              <span className="infrastructure-card-status">
-                <span className="infrastructure-status-dot" />
-                Khanna Polyrib Pvt. Ltd.
-              </span>
-
-              <span className="infrastructure-card-arrow">
-                ↗
-              </span>
-            </div>
-
-            <div className="infrastructure-card-glow" />
-          </article>
-        );
-      })}
-
-    </div>
-
-  </div>
-</div>
-
-  </div>
-</section>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
-
 
 /* COMPLIANCE */
 function CertificationSection() {
@@ -1816,7 +1698,6 @@ function CertificationSection() {
         }`}
       >
         <div className="container max-w-7xl mx-auto px-6">
-
           {/* Heading */}
           <div className="text-center mb-8 certification-heading">
             <h2 className="font-heading text-3xl text-charcoal">
@@ -1895,8 +1776,6 @@ function CertificationSection() {
   );
 }
 
-
-
 /* Polyrib Promise */
 function PolyribPromiseSection() {
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -1955,10 +1834,7 @@ function PolyribPromiseSection() {
               }
             >
               <div className="promise-icon w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-5 group-hover:bg-primary/20 transition-colors duration-200">
-                <Icon
-                  className="w-6 h-6 text-primary"
-                  strokeWidth={1.5}
-                />
+                <Icon className="w-6 h-6 text-primary" strokeWidth={1.5} />
               </div>
 
               <h3 className="font-heading font-bold text-charcoal text-base mb-3">
@@ -1975,7 +1851,6 @@ function PolyribPromiseSection() {
     </section>
   );
 }
-
 
 /* ─── Page ──────────────────────────────────────────────── */
 
@@ -2014,33 +1889,36 @@ const Index = () => {
 
   const [typedText, setTypedText] = useState(["", "", ""]);
 
-useEffect(() => {
-  const lines = [
-    "Best Engineering",
-    "Thermoplastics Solutions",
-    "Built For Performance",
-  ];
+  useEffect(() => {
+    const lines = [
+      "Best Engineering",
+      "Thermoplastics Solutions",
+      "Built For Performance",
+    ];
 
-  const timers: ReturnType<typeof setTimeout>[] = [];
+    const timers: ReturnType<typeof setTimeout>[] = [];
 
-  lines.forEach((line, lineIndex) => {
-    for (let charIndex = 1; charIndex <= line.length; charIndex++) {
-      const timer = setTimeout(() => {
-        setTypedText((previous) => {
-          const updated = [...previous];
-          updated[lineIndex] = line.slice(0, charIndex);
-          return updated;
-        });
-      }, 300 + charIndex * 65);
+    lines.forEach((line, lineIndex) => {
+      for (let charIndex = 1; charIndex <= line.length; charIndex++) {
+        const timer = setTimeout(
+          () => {
+            setTypedText((previous) => {
+              const updated = [...previous];
+              updated[lineIndex] = line.slice(0, charIndex);
+              return updated;
+            });
+          },
+          300 + charIndex * 65,
+        );
 
-      timers.push(timer);
-    }
-  });
+        timers.push(timer);
+      }
+    });
 
-  return () => {
-    timers.forEach(clearTimeout);
-  };
-}, []);
+    return () => {
+      timers.forEach(clearTimeout);
+    };
+  }, []);
 
   return (
     <div>
@@ -2059,54 +1937,47 @@ useEffect(() => {
           {/* Overlay gradients — unchanged effect */}
           <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/50 to-charcoal/20" />
           <div className="absolute inset-0 bg-gradient-to-r from-charcoal/35 to-transparent" />
-          
         </div>
         <div className="relative container max-w-7xl mx-auto px-6 pb-20 pt-32">
           <div className="max-w-2xl">
             {/* Hero Heading — Mask Reveal + Cyan Highlight Sweep */}
 
-<h1 className="hero-cyan-heading font-heading text-3xl sm:text-4xl lg:text-4xl leading-tight mb-6">
-  <span className="block pt-12 sm:pt-8">
-    Best Engineering
-  </span>
+            <h1 className="hero-cyan-heading font-heading text-3xl sm:text-4xl lg:text-4xl leading-tight mb-6">
+              <span className="block pt-12 sm:pt-8">Best Engineering</span>
 
-  <span className="block">
-    Thermoplastics Solutions
-  </span>
+              <span className="block">Thermoplastics Solutions</span>
 
-  <span className="block">
-    Built For Performance
-  </span>
-</h1>
+              <span className="block">Built For Performance</span>
+            </h1>
 
             <div
-  className="flex flex-col items-start sm:flex-row sm:items-center gap-2 sm:gap-3 animate-fade-in"
-  style={{ animationDelay: "300ms" }}
->
-  <Link
-    to="/products"
-    className="inline-flex w-[172px] sm:w-auto items-center justify-center gap-2 px-3 sm:px-4 py-2 text-xs sm:text-sm bg-primary text-primary-foreground font-normal hover:bg-primary-light transition-colors duration-200 rounded-lg whitespace-nowrap"
-  >
-    Explore Products
-    <ArrowRight className="w-3.5 h-3.5 shrink-0" />
-  </Link>
+              className="flex flex-col items-start sm:flex-row sm:items-center gap-2 sm:gap-3 animate-fade-in"
+              style={{ animationDelay: "300ms" }}
+            >
+              <Link
+                to="/products"
+                className="inline-flex w-[172px] sm:w-auto items-center justify-center gap-2 px-3 sm:px-4 py-2 text-xs sm:text-sm bg-primary text-primary-foreground font-normal hover:bg-primary-light transition-colors duration-200 rounded-lg whitespace-nowrap"
+              >
+                Explore Products
+                <ArrowRight className="w-3.5 h-3.5 shrink-0" />
+              </Link>
 
-  <Link
-    to="/contact?tab=drawing"
-    className="inline-flex w-[172px] sm:w-auto items-center justify-center gap-2 px-3 sm:px-4 py-2 text-xs sm:text-sm bg-white/10 border border-white/30 text-white font-normal hover:bg-white/20 transition-colors duration-200 rounded-lg whitespace-nowrap"
-  >
-    <Send className="w-3.5 h-3.5 shrink-0" />
-    Send Your Drawing
-  </Link>
+              <Link
+                to="/contact?tab=drawing"
+                className="inline-flex w-[172px] sm:w-auto items-center justify-center gap-2 px-3 sm:px-4 py-2 text-xs sm:text-sm bg-white/10 border border-white/30 text-white font-normal hover:bg-white/20 transition-colors duration-200 rounded-lg whitespace-nowrap"
+              >
+                <Send className="w-3.5 h-3.5 shrink-0" />
+                Send Your Drawing
+              </Link>
 
-  <Link
-    to="/tools/material-selector"
-    className="inline-flex w-[172px] sm:w-auto items-center justify-center gap-2 px-3 sm:px-4 py-2 text-xs sm:text-sm border border-white/20 text-white/80 font-normal hover:bg-white/10 transition-colors duration-200 rounded-lg whitespace-nowrap"
-  >
-    <PenLine className="w-3.5 h-3.5 shrink-0" />
-    Material Selector
-  </Link>
-</div>
+              <Link
+                to="/tools/material-selector"
+                className="inline-flex w-[172px] sm:w-auto items-center justify-center gap-2 px-3 sm:px-4 py-2 text-xs sm:text-sm border border-white/20 text-white/80 font-normal hover:bg-white/10 transition-colors duration-200 rounded-lg whitespace-nowrap"
+              >
+                <PenLine className="w-3.5 h-3.5 shrink-0" />
+                Material Selector
+              </Link>
+            </div>
             {/* Trust badges */}
             <div
               className="flex flex-wrap gap-4 mt-10 animate-fade-in"
@@ -2124,12 +1995,13 @@ useEffect(() => {
           </div>
         </div>
       </section>
-
-      {/* Floating Stats Bar */} <div className="container max-w-7xl mx-auto px-6 -mt-8 sm:-mt-10 lg:-mt-12 relative z-20"> <StatSection /> </div>
-
+      {/* Floating Stats Bar */}{" "}
+      <div className="container max-w-7xl mx-auto px-6 -mt-8 sm:-mt-10 lg:-mt-12 relative z-20">
+        {" "}
+        <StatSection />{" "}
+      </div>
       {/* Why Polyrib */}
       <WhyUsSection />
-
       {/* Product Categories */}
       <section className="py-8">
         <div className="container max-w-7xl mx-auto px-6">
@@ -2145,85 +2017,77 @@ useEffect(() => {
             </Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-  <ProductCategoryCard
-    title="Thermoplastic Semi-Finished Products"
-    description="Extruded and Compression-moulded Sheets, Blocks, Rods, Tubes, Welding Rods and Rolls across our full brand portfolio — POLYRIB V, H, P; DIPRA, PCCLEAR, KAYLON, PAKETAL, HITECH, ARETE, POLYLIMB and more. Available ex-stock in standard dimensions — Custom Sizes on request."
-    href="/products/thermoplastics-semi-finished-products"
-    images={[
-      semiFinishedImage1,
-      semiFinishedImage2,
-      semiFinishedImage3,
-      semiFinishedImage4,
-      semiFinishedImage5,
-    ]}
-    tag="Semi-Finished"
-  />
+            <ProductCategoryCard
+              title="Thermoplastic Semi-Finished Products"
+              description="Extruded and Compression-moulded Sheets, Blocks, Rods, Tubes, Welding Rods and Rolls across our full brand portfolio — POLYRIB V, H, P; DIPRA, PCCLEAR, KAYLON, PAKETAL, HITECH, ARETE, POLYLIMB and more. Available ex-stock in standard dimensions — Custom Sizes on request."
+              href="/products/thermoplastics-semi-finished-products"
+              images={[
+                semiFinishedImage1,
+                semiFinishedImage2,
+                semiFinishedImage3,
+                semiFinishedImage4,
+                semiFinishedImage5,
+              ]}
+              tag="Semi-Finished"
+            />
 
-  <ProductCategoryCard
-    title="Thermoplastic Engineered Products"
-    description="RIPLA cutting boards, CUTRITE chopping boards, ARETE composite liners, POLYLIMB Orthopaedic Sheets, Strips & Profiles, Vacuum Formed Parts and Precision Machined Plastic Components — all manufactured in Polyrib's proprietary grades."
-    href={machineComponents.rootPath}
-    images={[
-      machineComponentsImage1,
-      machineComponentsImage2,
-      machineComponentsImage3,
-      machineComponentsImage4,
-      machineComponentsImage5,
-    ]}
-    tag="Engineered Products"
-  />
-</div>
+            <ProductCategoryCard
+              title="Thermoplastic Engineered Products"
+              description="RIPLA cutting boards, CUTRITE chopping boards, ARETE composite liners, POLYLIMB Orthopaedic Sheets, Strips & Profiles, Vacuum Formed Parts and Precision Machined Plastic Components — all manufactured in Polyrib's proprietary grades."
+              href={machineComponents.rootPath}
+              images={[
+                machineComponentsImage1,
+                machineComponentsImage2,
+                machineComponentsImage3,
+                machineComponentsImage4,
+                machineComponentsImage5,
+              ]}
+              tag="Engineered Products"
+            />
+          </div>
         </div>
       </section>
-
       {/* Brand Portfolio */}
       <MaterialsSection />
-
       {/* Polymers We Work With */}
       <PolymersSection />
-
       {/* Industries */}
       <IndustriesSection />
-
       {/* Infrastructure */}
       <InfrastructureSection />
-
       {/* COMPLIANCE */}
       <CertificationSection />
-
       {/* Polyrib Promise */}
       <PolyribPromiseSection />
-
       {/* CTA Banner */}
-      
-{/* CTA Banner */}
-<section
-  ref={ctaRef}
-  className={`polyrib-cta-section bg-primary py-8 ${
-    ctaVisible ? "cta-visible" : ""
-  }`}
->
-  <div className="container max-w-7xl mx-auto px-6 text-center">
-    <h2 className="polyrib-cta-heading font-heading text-3xl text-primary-foreground mb-4">
-      Upgrade to smarter thermoplastics. Partner with Polyrib
-    </h2>
-
-    <p className="polyrib-cta-description text-primary-foreground/70 mb-8 max-w-xl mx-auto text-sm leading-relaxed">
-      Precision-engineered plastic sheets and components that deliver
-      long-term performance in demanding applications. Our engineering
-      team responds within 24 hours.
-    </p>
-
-    <div className="polyrib-cta-button-wrapper flex flex-col sm:flex-row gap-3 justify-center">
-      <Link
-        to="/contact?tab=quote"
-        className="inline-flex items-center gap-2 px-7 py-3 bg-primary-foreground text-primary text-sm font-bold hover:bg-surface-subtle transition-colors duration-200 rounded-lg"
+      {/* CTA Banner */}
+      <section
+        ref={ctaRef}
+        className={`polyrib-cta-section bg-primary py-8 ${
+          ctaVisible ? "cta-visible" : ""
+        }`}
       >
-        Request a Quote <PenLine className="w-4 h-4" />
-      </Link>
-    </div>
-  </div>
-</section>
+        <div className="container max-w-7xl mx-auto px-6 text-center">
+          <h2 className="polyrib-cta-heading font-heading text-3xl text-primary-foreground mb-4">
+            Upgrade to smarter thermoplastics. Partner with Polyrib
+          </h2>
+
+          <p className="polyrib-cta-description text-primary-foreground/70 mb-8 max-w-xl mx-auto text-sm leading-relaxed">
+            Precision-engineered plastic sheets and components that deliver
+            long-term performance in demanding applications. Our engineering
+            team responds within 24 hours.
+          </p>
+
+          <div className="polyrib-cta-button-wrapper flex flex-col sm:flex-row gap-3 justify-center">
+            <Link
+              to="/contact?tab=quote"
+              className="inline-flex items-center gap-2 px-7 py-3 bg-primary-foreground text-primary text-sm font-bold hover:bg-surface-subtle transition-colors duration-200 rounded-lg"
+            >
+              Request a Quote <PenLine className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };

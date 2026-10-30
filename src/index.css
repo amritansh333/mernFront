@@ -326,7 +326,6 @@
   }
 }
 
-
 /* =========================================
    SEQUENTIAL TYPEWRITER
    Desktop + Mobile
@@ -371,7 +370,6 @@
 
 /* Sequential delays are supplied by the JSX */
 
-
 /* Type from left to right */
 
 @keyframes why-us-typewriter-reveal {
@@ -383,7 +381,6 @@
     width: 100%;
   }
 }
-
 
 /* =========================================
    RESPONSIVE TEXT
@@ -406,7 +403,6 @@
   }
 }
 
-
 /* =========================================
    REDUCED MOTION ACCESSIBILITY
 ========================================= */
@@ -427,10 +423,6 @@
     color: #ffffff !important;
   }
 }
-
-
-
-
 
 /* ==========================================
    INDUSTRIES — SEQUENTIAL POP-IN ANIMATION
@@ -466,24 +458,21 @@
 /* Heading enters first */
 
 .industries-motion-visible .industries-motion-heading {
-  animation: industry-heading-enter 550ms
-    cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: industry-heading-enter 550ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 /* Cards pop sequentially without changing their layout */
 
 .industries-motion-visible .industries-motion-card {
-  animation: industry-card-pop 480ms
-    cubic-bezier(0.16, 1, 0.3, 1)
+  animation: industry-card-pop 480ms cubic-bezier(0.16, 1, 0.3, 1)
     var(--industry-delay, 180ms) both;
 }
 
 /* Footer appears after the cards */
 
 .industries-motion-visible .industries-motion-footer {
-  animation: industry-footer-enter 500ms
-    cubic-bezier(0.16, 1, 0.3, 1)
-    1900ms both;
+  animation: industry-footer-enter 500ms cubic-bezier(0.16, 1, 0.3, 1) 1900ms
+    both;
 }
 
 @keyframes industry-heading-enter {
@@ -548,8 +537,6 @@
   }
 }
 
-
-
 /* ==========================================
    POLYRIB PROMISE — SEQUENTIAL BUBBLE POP
    ========================================== */
@@ -565,8 +552,7 @@
 
 /* Initial state before entering the viewport. */
 
-.polyrib-promise-section:not(.promise-visible)
-  .promise-bubble-card {
+.polyrib-promise-section:not(.promise-visible) .promise-bubble-card {
   opacity: 0;
   transform: scale(0.82);
 }
@@ -574,16 +560,14 @@
 /* Reveal cards one after another. */
 
 .promise-visible .promise-bubble-card {
-  animation: promise-bubble-pop 720ms
-    cubic-bezier(0.22, 1.35, 0.45, 1)
+  animation: promise-bubble-pop 720ms cubic-bezier(0.22, 1.35, 0.45, 1)
     var(--promise-delay, 0ms) both;
 }
 
 /* Subtle heading entrance. */
 
 .promise-visible .promise-heading {
-  animation: promise-heading-enter 500ms
-    cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: promise-heading-enter 500ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 @keyframes promise-bubble-pop {
@@ -628,8 +612,7 @@
   }
 
   .promise-bubble-card .promise-icon {
-    transition: transform 300ms
-      cubic-bezier(0.22, 1, 0.36, 1);
+    transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .promise-bubble-card:hover .promise-icon {
@@ -652,13 +635,9 @@
   }
 }
 
-
-
 /* ==========================================
    ISO CERTIFICATION — BUBBLE POP ANIMATION
    ========================================== */
-
-
 
 /* Initial state */
 
@@ -668,16 +647,12 @@
   transform: translateY(8px);
 }
 
-
-
 /* Animate heading and certification card */
 
 .certification-visible .certification-heading {
-  animation: certification-heading-enter 500ms
-    cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: certification-heading-enter 500ms cubic-bezier(0.16, 1, 0.3, 1)
+    both;
 }
-
-
 
 @keyframes certification-heading-enter {
   from {
@@ -691,16 +666,9 @@
   }
 }
 
-
-
 /* Subtle hover interaction */
 
 @media (hover: hover) and (pointer: fine) {
-  
-
-  
-
-  
 }
 
 /* Accessibility */
@@ -716,7 +684,6 @@
   }
 }
 
-
 /* =========================================
    INFRASTRUCTURE — INDUSTRIAL REVEAL
    ========================================= */
@@ -731,26 +698,11 @@
   animation: infrastructure-heading-reveal 650ms ease-out forwards;
 }
 
-
-
-
-
 /* Subtle industrial blue accent */
-
 
 /* Icon background and icon animation */
 
-
-
-
-
-
-
-
 /* Value responds gently to hover */
-
-
-
 
 /* Entrance animations */
 @keyframes infrastructure-heading-reveal {
@@ -765,8 +717,6 @@
   }
 }
 
-
-
 /* Accessibility: disable movement when requested */
 @media (prefers-reduced-motion: reduce) {
   .infrastructure-motion-section .infrastructure-motion-heading {
@@ -775,11 +725,7 @@
     animation: none;
     transition: none;
   }
-
-  
 }
-
-
 
 /* =========================================
    MATERIALS — PRECISION REVEAL
@@ -792,12 +738,11 @@
 }
 
 .materials-motion-visible .materials-intro {
-  animation: materials-intro-reveal 700ms
-    cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: materials-intro-reveal 700ms cubic-bezier(0.22, 1, 0.36, 1)
+    forwards;
 }
 
 /* Featured image */
-
 
 .materials-feature-image {
   opacity: 0;
@@ -811,29 +756,13 @@
   animation: materials-image-reveal 900ms ease-out 150ms forwards;
 }
 
-
-
 /* Fine blue line along image bottom */
-
-
-
 
 /* Material card entrance */
 
-
-
-
 /* Blue accent moves from left to right */
 
-
 /* Refined hover effect */
-
-
-
-
-
-
-
 
 /* Keyframes */
 @keyframes materials-intro-reveal {
@@ -848,10 +777,6 @@
   }
 }
 
-
-
-
-
 /* Accessibility */
 @media (prefers-reduced-motion: reduce) {
   .materials-intro,
@@ -861,11 +786,7 @@
     animation: none;
     transition: none;
   }
-
-  
 }
-
-
 
 /* Product gallery: preserve the existing image dimensions */
 .product-gallery {
@@ -915,8 +836,6 @@
     z-index: 1;
   }
 }
-
-
 
 /* =========================================
    POLYRIB CTA — TYPEWRITER ANIMATION
@@ -990,9 +909,6 @@
   }
 }
 
-
-
-
 /* ==========================================
    KHANNA POLYRIB — INDUSTRIAL STATISTICS PANEL
    Dark-to-light blue gradient + subtle texture
@@ -1019,15 +935,14 @@
   overflow: hidden;
 
   /* Dark top blending smoothly into a light blue bottom */
-  background:
-    linear-gradient(
-      180deg,
-      #172a40 0%,
-      #25465f 24%,
-      #477c99 52%,
-      #a9d4e7 80%,
-      #e4f3fa 100%
-    );
+  background: linear-gradient(
+    180deg,
+    #172a40 0%,
+    #25465f 24%,
+    #477c99 52%,
+    #a9d4e7 80%,
+    #e4f3fa 100%
+  );
 
   border: 1px solid rgba(255, 255, 255, 0.55);
   border-radius: 17px;
@@ -1052,13 +967,12 @@
   z-index: -1;
   pointer-events: none;
 
-  background:
-    repeating-radial-gradient(
-      ellipse at 8% 0%,
-      transparent 0 24px,
-      rgba(255, 255, 255, 0.12) 25px 26px,
-      transparent 27px 43px
-    );
+  background: repeating-radial-gradient(
+    ellipse at 8% 0%,
+    transparent 0 24px,
+    rgba(255, 255, 255, 0.12) 25px 26px,
+    transparent 27px 43px
+  );
 
   opacity: 0.7;
 }
@@ -1072,15 +986,8 @@
   pointer-events: none;
 
   background-image:
-    linear-gradient(
-      rgba(255, 255, 255, 0.055) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0.055) 1px,
-      transparent 1px
-    );
+    linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
 
   background-size: 32px 32px;
 
@@ -1147,13 +1054,12 @@
   z-index: -1;
   pointer-events: none;
 
-  background:
-    repeating-radial-gradient(
-      ellipse at 100% 100%,
-      transparent 0 19px,
-      rgba(7, 143, 190, 0.075) 20px 21px,
-      transparent 22px 34px
-    );
+  background: repeating-radial-gradient(
+    ellipse at 100% 100%,
+    transparent 0 19px,
+    rgba(7, 143, 190, 0.075) 20px 21px,
+    transparent 22px 34px
+  );
 
   opacity: 0.7;
 }
@@ -1379,10 +1285,10 @@
 .stats-card-green {
   background: linear-gradient(
     180deg,
-    #C2D9E8 0%,
-    #D5E7F1 35%,
-    #E7F2F8 75%,
-    #E7F2F8 100%
+    #c2d9e8 0%,
+    #d5e7f1 35%,
+    #e7f2f8 75%,
+    #e7f2f8 100%
   ) !important;
 }
 
@@ -1391,16 +1297,13 @@
   .stats-card:hover {
     background: linear-gradient(
       180deg,
-      #CCDFEC 0%,
-      #DCEBF3 35%,
-      #F4F8FB 75%,
-      #F4F8FB 100%
+      #ccdfec 0%,
+      #dcebf3 35%,
+      #f4f8fb 75%,
+      #f4f8fb 100%
     ) !important;
   }
 }
-
-
-
 
 /* ==========================================
    POLYRIB — INDUSTRIAL MATERIAL TEXTURE
@@ -1416,14 +1319,8 @@
       rgba(0, 174, 239, 0.22) 0%,
       transparent 48%
     ),
-
     /* Deep blue metallic gradient */
-    linear-gradient(
-      145deg,
-      #132e4a 0%,
-      #0c1d35 42%,
-      #081326 100%
-    );
+    linear-gradient(145deg, #132e4a 0%, #0c1d35 42%, #081326 100%);
 
   border: 1px solid rgba(92, 190, 230, 0.3);
 
@@ -1449,7 +1346,6 @@
       rgba(255, 255, 255, 0.018) 6px,
       transparent 7px
     ),
-
     repeating-linear-gradient(
       0deg,
       transparent 0px,
@@ -1557,8 +1453,7 @@
 
 /* Animate cards one after another. */
 .materials-motion-visible .material-family-card-visible {
-  animation: material-card-enter 650ms
-    cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: material-card-enter 650ms cubic-bezier(0.22, 1, 0.36, 1) both;
 
   animation-delay: calc(var(--material-index, 0) * 350ms);
 }
@@ -1599,7 +1494,6 @@
   }
 }
 
-
 /* ==========================================
    POLYRIB INFRASTRUCTURE — PREMIUM DARK THEME
 ========================================== */
@@ -1615,12 +1509,7 @@
       rgba(0, 153, 214, 0.11),
       transparent 55%
     ),
-    linear-gradient(
-      135deg,
-      #172334 0%,
-      #111c2b 48%,
-      #0c1725 100%
-    );
+    linear-gradient(135deg, #172334 0%, #111c2b 48%, #0c1725 100%);
 
   border-bottom: 1px solid rgba(91, 174, 218, 0.2);
 }
@@ -1635,23 +1524,12 @@
   pointer-events: none;
 
   background-image:
-    linear-gradient(
-      rgba(150, 200, 230, 0.025) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      90deg,
-      rgba(150, 200, 230, 0.025) 1px,
-      transparent 1px
-    );
+    linear-gradient(rgba(150, 200, 230, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(150, 200, 230, 0.025) 1px, transparent 1px);
 
   background-size: 36px 36px;
 
-  mask-image: linear-gradient(
-    to bottom,
-    black,
-    transparent 95%
-  );
+  mask-image: linear-gradient(to bottom, black, transparent 95%);
 }
 
 /* Heading */
@@ -1672,48 +1550,25 @@
 
 /* Individual cards */
 
-
-
 /* Subtle cyan accent along the bottom */
-
-
 
 /* Icon container */
 
-
-
-
-
 /* Main values */
-
-
 
 /* Card titles */
 
-
-
 /* Card descriptions */
-
-
 
 /* Hover: preserve the dark theme */
 
 @media (hover: hover) and (pointer: fine) {
-  
-
-  
-
-  
-
-  
 }
 
 /* Reduced-motion accessibility */
 
 @media (prefers-reduced-motion: reduce) {
-  
 }
-
 
 /* ==============================================
    POLYRIB — INFINITE INFRASTRUCTURE MARQUEE
@@ -1756,8 +1611,7 @@
   width: max-content;
   align-items: stretch;
 
-  animation: polyrib-infrastructure-scroll
-    var(--marquee-speed) linear infinite;
+  animation: polyrib-infrastructure-scroll var(--marquee-speed) linear infinite;
 
   will-change: transform;
 }
@@ -1798,12 +1652,7 @@
       rgba(0, 174, 239, 0.15),
       transparent 48%
     ),
-    linear-gradient(
-      145deg,
-      #1b3045 0%,
-      #142438 48%,
-      #101c2c 100%
-    );
+    linear-gradient(145deg, #1b3045 0%, #142438 48%, #101c2c 100%);
 
   box-shadow:
     0 12px 28px rgba(0, 0, 0, 0.15),
@@ -1826,31 +1675,16 @@
   pointer-events: none;
 
   background-image:
-    linear-gradient(
-      rgba(124, 195, 226, 0.035) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      90deg,
-      rgba(124, 195, 226, 0.035) 1px,
-      transparent 1px
-    );
+    linear-gradient(rgba(124, 195, 226, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(124, 195, 226, 0.035) 1px, transparent 1px);
 
   background-size: 28px 28px;
 
   opacity: 0.6;
 
-  -webkit-mask-image: linear-gradient(
-    135deg,
-    #000,
-    transparent 85%
-  );
+  -webkit-mask-image: linear-gradient(135deg, #000, transparent 85%);
 
-  mask-image: linear-gradient(
-    135deg,
-    #000,
-    transparent 85%
-  );
+  mask-image: linear-gradient(135deg, #000, transparent 85%);
 }
 
 /* Card top row */
@@ -2070,12 +1904,7 @@
         rgba(0, 174, 239, 0.23),
         transparent 52%
       ),
-      linear-gradient(
-        145deg,
-        #203b54 0%,
-        #172d43 50%,
-        #122238 100%
-      );
+      linear-gradient(145deg, #203b54 0%, #172d43 50%, #122238 100%);
 
     box-shadow:
       0 18px 38px rgba(0, 0, 0, 0.24),
@@ -2083,8 +1912,7 @@
       inset 0 1px 0 rgba(255, 255, 255, 0.08);
   }
 
-  .infrastructure-marquee-card:hover
-  .infrastructure-card-icon {
+  .infrastructure-marquee-card:hover .infrastructure-card-icon {
     color: #a5edff;
 
     background: linear-gradient(
@@ -2098,13 +1926,11 @@
     transform: translateY(-2px);
   }
 
-  .infrastructure-marquee-card:hover
-  .infrastructure-card-value {
+  .infrastructure-marquee-card:hover .infrastructure-card-value {
     color: #63d5ff;
   }
 
-  .infrastructure-marquee-card:hover
-  .infrastructure-card-arrow {
+  .infrastructure-marquee-card:hover .infrastructure-card-arrow {
     transform: translate(2px, -2px);
 
     background: rgba(0, 174, 239, 0.12);
@@ -2112,8 +1938,7 @@
     border-color: rgba(75, 208, 255, 0.4);
   }
 
-  .infrastructure-marquee-card:hover
-  .infrastructure-card-glow {
+  .infrastructure-marquee-card:hover .infrastructure-card-glow {
     opacity: 0.85;
     background: rgba(0, 174, 239, 0.2);
   }
@@ -2218,7 +2043,6 @@
   }
 }
 
-
 /* =========================================================
    WHY POLYRIB — SKIPER16-INSPIRED SCROLL ANIMATION
 
@@ -2235,7 +2059,6 @@
    This CSS is designed for the single-layout WhyUsSection
    TSX component provided in the previous response.
    ========================================================= */
-
 
 /* =========================================================
    1. MAIN SECTION AND SCROLL CONTAINER
@@ -2254,11 +2077,10 @@
   overflow: visible;
   isolation: isolate;
 
-  background: #FFFFFF;
-  border-top: 1px solid #E2E8F0;
-  border-bottom: 1px solid #E2E8F0;
+  background: #ffffff;
+  border-top: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
 }
-
 
 /* =========================================================
    2. STICKY VIEWPORT
@@ -2293,7 +2115,6 @@
   margin-left: auto;
   margin-right: auto;
 }
-
 
 /* =========================================================
    3. SECTION HEADING
@@ -2331,7 +2152,6 @@
   white-space: nowrap;
 }
 
-
 /* =========================================================
    4. MAIN LAYOUT
    ========================================================= */
@@ -2352,10 +2172,9 @@
 
   overflow: hidden;
 
-  border: 1px solid #E2E8F0;
-  background: #F8FAFC;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
 }
-
 
 /* =========================================================
    5. FACILITY IMAGE
@@ -2372,7 +2191,7 @@
 
   overflow: hidden;
 
-  background: #1E293B;
+  background: #1e293b;
 }
 
 .why-us-facility > div:first-child {
@@ -2445,7 +2264,6 @@
   line-height: 1.45;
 }
 
-
 /* =========================================================
    6. CARD PANEL
    ========================================================= */
@@ -2464,7 +2282,7 @@
 
   overflow: hidden;
 
-  background: #FFFFFF;
+  background: #ffffff;
 }
 
 /* =========================================================
@@ -2490,7 +2308,6 @@
   transform: translateZ(0);
 }
 
-
 /* =========================================================
    7. SUBTLE GRID BACKGROUND
    ========================================================= */
@@ -2505,15 +2322,8 @@
   opacity: 0.28;
 
   background-image:
-    linear-gradient(
-      rgba(148, 163, 184, 0.13) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      90deg,
-      rgba(148, 163, 184, 0.13) 1px,
-      transparent 1px
-    );
+    linear-gradient(rgba(148, 163, 184, 0.13) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.13) 1px, transparent 1px);
 
   background-size: 28px 28px;
 
@@ -2525,7 +2335,6 @@
     transparent
   );
 }
-
 
 /* =========================================================
    OPTIMIZED CARD BASE
@@ -2558,11 +2367,11 @@
 
   color: #263445;
 
-  background-color: #B9E6FF;
+  background-color: #b9e6ff;
 
   /* Static shadow instead of continuously animated shadow */
   box-shadow:
-    0 12px 28px rgba(30, 41, 59, 0.10),
+    0 12px 28px rgba(30, 41, 59, 0.1),
     0 2px 6px rgba(30, 41, 59, 0.04),
     inset 0 1px 0 rgba(255, 255, 255, 0.65);
 
@@ -2580,7 +2389,6 @@
   contain: layout style;
 }
 
-
 /* =========================================================
    9. SOLID CARD COLORS
    nth-of-type targets the article elements rendered by
@@ -2589,47 +2397,45 @@
 
 /* Card 1 — Sky blue */
 .why-us-card:nth-of-type(1) {
-  background-color: #279ece
-;
-  border-color: #8BD5FA;
+  background-color: #279ece;
+  border-color: #8bd5fa;
 }
 
 /* Card 2 — Mint green */
 .why-us-card:nth-of-type(2) {
   background-color: #134f67;
-  border-color: #8CE5AC;
+  border-color: #8ce5ac;
 }
 
 /* Card 3 — Warm yellow */
 .why-us-card:nth-of-type(3) {
   background-color: #279ece;
-  border-color: #F5CE65;
+  border-color: #f5ce65;
 }
 
 /* Card 4 — Lavender */
 .why-us-card:nth-of-type(4) {
   background-color: #134f67;
-  border-color: #B9A6FA;
+  border-color: #b9a6fa;
 }
 
 /* Card 5 — Coral pink */
 .why-us-card:nth-of-type(5) {
   background-color: #279ece;
-  border-color: #F5A998;
+  border-color: #f5a998;
 }
 
 /* Card 6 — Aqua */
 .why-us-card:nth-of-type(6) {
   background-color: #134f67;
-  border-color: #7ADBD3;
+  border-color: #7adbd3;
 }
 
 /* Additional cards */
 .why-us-card:nth-of-type(n + 7) {
-  background-color: #FFD4A8;
-  border-color: #F6B975;
+  background-color: #ffd4a8;
+  border-color: #f6b975;
 }
-
 
 /* =========================================================
    10. CONTOUR PATTERN
@@ -2669,7 +2475,6 @@
   );
 }
 
-
 /* Inner outline */
 .why-us-card::after {
   content: "";
@@ -2683,7 +2488,6 @@
   border: 1px solid rgba(255, 255, 255, 0.32);
   border-radius: 10px;
 }
-
 
 /* =========================================================
    11. CARD CONTENT
@@ -2713,7 +2517,7 @@
   align-items: center;
   gap: 9px;
 
-  color: #52677B;
+  color: #52677b;
 
   font-size: 9px;
   font-weight: 700;
@@ -2721,7 +2525,7 @@
 }
 
 .why-us-card-index > span {
-  color: #395A73;
+  color: #395a73;
 }
 
 .why-us-card-indicator {
@@ -2737,7 +2541,6 @@
   background: rgba(255, 255, 255, 0.9);
   box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.16);
 }
-
 
 /* Main card content */
 .why-us-card-content {
@@ -2765,7 +2568,7 @@
   border-radius: 11px;
 
   background: rgba(255, 255, 255, 0.24);
-  color: #345B73;
+  color: #345b73;
 }
 
 .why-us-card-copy {
@@ -2786,12 +2589,11 @@
 .why-us-card-copy p {
   margin: 0;
 
-  color: #3F5367;
+  color: #3f5367;
 
   font-size: 12px;
   line-height: 1.5;
 }
-
 
 /* Card footer */
 .why-us-card-bottomline {
@@ -2805,7 +2607,7 @@
 
   border-top: 1px solid rgba(45, 60, 80, 0.15);
 
-  color: #53687B;
+  color: #53687b;
 
   font-size: 8px;
   font-weight: 600;
@@ -2820,9 +2622,8 @@
   align-items: center;
   justify-content: center;
 
-  color: #38566E;
+  color: #38566e;
 }
-
 
 /* =========================================================
    12. PROGRESS INDICATOR
@@ -2839,7 +2640,7 @@
 
   overflow: hidden;
 
-  background: #E8EDF2;
+  background: #e8edf2;
 }
 
 /* =========================================================
@@ -2852,12 +2653,7 @@
   width: 100%;
   height: 100%;
 
-  background: linear-gradient(
-    90deg,
-    #557DA5,
-    #786A96,
-    #527C68
-  );
+  background: linear-gradient(90deg, #557da5, #786a96, #527c68);
 
   transform-origin: left center;
 
@@ -2885,10 +2681,9 @@
 /* Tablet and mobile optimization */
 
 @media (max-width: 1023px) {
-
   .why-us-card {
     box-shadow:
-      0 8px 20px rgba(30, 41, 59, 0.10),
+      0 8px 20px rgba(30, 41, 59, 0.1),
       0 2px 5px rgba(30, 41, 59, 0.04);
 
     contain: layout style;
@@ -2897,24 +2692,20 @@
   .why-us-card-stage {
     perspective: none;
   }
-
 }
 
 /* Smaller mobile screens */
 
 @media (max-width: 480px) {
-
   .why-us-card {
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
   }
-
 }
 
 /* Respect reduced motion */
 
 @media (prefers-reduced-motion: reduce) {
-
   .why-us-card {
     will-change: auto;
     transition: none !important;
@@ -2923,7 +2714,6 @@
   .why-us-card-stage {
     perspective: none;
   }
-
 }
 
 /* =========================================================
@@ -2985,7 +2775,6 @@
     line-height: 1.4;
   }
 }
-
 
 /* =========================================================
    14. MOBILE LAYOUT
@@ -3084,10 +2873,9 @@
 
     overflow: hidden;
 
-    border: 1px solid #E2E8F0;
-    background: #F8FAFC;
+    border: 1px solid #e2e8f0;
+    background: #f8fafc;
   }
-
 
   /* -------------------------
      UPPER ROW: FACILITY IMAGE
@@ -3147,7 +2935,6 @@
     line-height: 1.35;
   }
 
-
   /* -------------------------
      LOWER ROW: CARD PANEL
      ------------------------- */
@@ -3167,7 +2954,7 @@
 
     overflow: hidden;
 
-    background: #F8FAFC;
+    background: #f8fafc;
   }
 
   .why-us-card-stage {
@@ -3191,7 +2978,6 @@
     opacity: 0.25;
     background-size: 24px 24px;
   }
-
 
   /* -------------------------
      MOBILE CARD SIZES
@@ -3231,7 +3017,6 @@
     border-radius: 9px;
   }
 
-
   /* Card top label */
   .why-us-card-topline {
     gap: 8px;
@@ -3249,7 +3034,6 @@
     width: 7px;
     height: 7px;
   }
-
 
   /* Card content */
   .why-us-card-content {
@@ -3285,7 +3069,6 @@
     line-height: 1.42;
   }
 
-
   /* Card footer */
   .why-us-card-bottomline {
     gap: 7px;
@@ -3301,14 +3084,12 @@
     height: 15px;
   }
 
-
   /* Progress indicator */
   .why-us-progress {
     flex: 0 0 3px;
     height: 3px;
   }
 }
-
 
 /* =========================================================
    15. SMALL PHONES
@@ -3409,7 +3190,6 @@
   }
 }
 
-
 /* =========================================================
    16. SHORT DESKTOP VIEWPORTS
    ========================================================= */
@@ -3442,7 +3222,6 @@
   }
 }
 
-
 /* =========================================================
    17. REDUCED MOTION ACCESSIBILITY
    ========================================================= */
@@ -3458,7 +3237,6 @@
     transition: none !important;
   }
 }
-
 
 /* =========================================
    GLOBAL PAGE SCROLL PROGRESS BAR
@@ -3482,17 +3260,11 @@
   width: 100%;
   height: 100%;
 
-  background: linear-gradient(
-    90deg,
-    #279ece 0%,
-    #2082ac 45%,
-    #161f2d 100%
-  );
+  background: linear-gradient(90deg, #279ece 0%, #2082ac 45%, #161f2d 100%);
 
   transform-origin: left center;
   will-change: transform;
 }
-
 
 /* Make the entire card clickable */
 .why-us-card-link {
@@ -3520,7 +3292,7 @@
 
 /* Visible keyboard focus */
 .why-us-card-link:focus-visible {
-  outline: 3px solid #168FC0;
+  outline: 3px solid #168fc0;
   outline-offset: -5px;
   border-radius: 12px;
 }
@@ -3528,7 +3300,7 @@
 /* Subtle hover feedback without overriding Framer Motion */
 @media (hover: hover) and (pointer: fine) {
   .why-us-card-link:hover .why-us-card-arrow {
-    color: #087FAF;
+    color: #087faf;
   }
 }
 
@@ -3549,7 +3321,6 @@
    CONTINUOUS ZOOM + BLUE EDGE GLOW + HOVER INTERACTION
    ===================================================== */
 
-
 /* =====================================================
    BADGE CONTAINER
    ===================================================== */
@@ -3559,7 +3330,6 @@
   padding: 12px 0 22px;
   overflow: visible;
 }
-
 
 /* =====================================================
    BADGE BUTTON
@@ -3594,12 +3364,10 @@
 
   transform: translateY(0) scale(1);
 
-  transition:
-    transform 450ms cubic-bezier(0.2, 0.7, 0.3, 1);
+  transition: transform 450ms cubic-bezier(0.2, 0.7, 0.3, 1);
 
   will-change: transform;
 }
-
 
 /* =====================================================
    BADGE IMAGE
@@ -3622,9 +3390,8 @@
     Drop-shadow follows the actual transparent PNG edges.
   */
 
-  filter:
-    drop-shadow(0 0 5px rgba(39, 158, 206, 0.25))
-    drop-shadow(0 5px 10px rgba(32, 130, 172, 0.10));
+  filter: drop-shadow(0 0 5px rgba(39, 158, 206, 0.25))
+    drop-shadow(0 5px 10px rgba(32, 130, 172, 0.1));
 
   transform: scale(1);
   transform-origin: center center;
@@ -3632,59 +3399,45 @@
   will-change: transform, filter;
 }
 
-
 /* =====================================================
    CONTINUOUS ANIMATION
    Activates when certification section becomes visible.
    ===================================================== */
 
 .certification-visible .iso-badge-image {
-  animation:
-    isoBadgeContinuousGlow
-    2s
-    ease-in-out
-    infinite;
+  animation: isoBadgeContinuousGlow 2s ease-in-out infinite;
 }
-
 
 /* =====================================================
    CONTINUOUS ZOOM + BLUE GLOW KEYFRAMES
    ===================================================== */
 
 @keyframes isoBadgeContinuousGlow {
-
   /* Normal size */
   0% {
     transform: scale(1);
 
-    filter:
-      drop-shadow(0 0 5px rgba(39, 158, 206, 0.22))
-      drop-shadow(0 5px 10px rgba(32, 130, 172, 0.10));
+    filter: drop-shadow(0 0 5px rgba(39, 158, 206, 0.22))
+      drop-shadow(0 5px 10px rgba(32, 130, 172, 0.1));
   }
-
 
   /* Gradual zoom and stronger blue glow */
   50% {
     transform: scale(1.065);
 
-    filter:
-      drop-shadow(0 0 9px rgba(39, 158, 206, 0.65))
+    filter: drop-shadow(0 0 9px rgba(39, 158, 206, 0.65))
       drop-shadow(0 0 20px rgba(32, 130, 172, 0.38))
       drop-shadow(0 9px 16px rgba(32, 130, 172, 0.18));
   }
-
 
   /* Return to original size */
   100% {
     transform: scale(1);
 
-    filter:
-      drop-shadow(0 0 5px rgba(39, 158, 206, 0.22))
-      drop-shadow(0 5px 10px rgba(32, 130, 172, 0.10));
+    filter: drop-shadow(0 0 5px rgba(39, 158, 206, 0.22))
+      drop-shadow(0 5px 10px rgba(32, 130, 172, 0.1));
   }
-
 }
-
 
 /* =====================================================
    HOVER INTERACTION
@@ -3693,61 +3446,41 @@
    ===================================================== */
 
 @media (hover: hover) and (pointer: fine) {
-
   .iso-badge-button:hover {
-
-    transform:
-      translateY(-6px)
-      scale(1.07);
-
+    transform: translateY(-6px) scale(1.07);
   }
-
 
   .iso-badge-button:hover .iso-badge-image {
-
-    filter:
-      drop-shadow(0 0 11px rgba(39, 158, 206, 0.85))
+    filter: drop-shadow(0 0 11px rgba(39, 158, 206, 0.85))
       drop-shadow(0 0 25px rgba(32, 130, 172, 0.48))
       drop-shadow(0 12px 22px rgba(32, 130, 172, 0.22));
-
   }
-
 }
-
 
 /* =====================================================
    CLICK / PRESS FEEDBACK
    ===================================================== */
 
 .iso-badge-button:active {
-
-  transform:
-    translateY(-1px)
-    scale(0.97);
+  transform: translateY(-1px) scale(0.97);
 
   transition-duration: 120ms;
-
 }
-
 
 /* =====================================================
    KEYBOARD ACCESSIBILITY
    ===================================================== */
 
 .iso-badge-button:focus-visible {
-
   outline: 2px solid #279ece;
   outline-offset: 7px;
-
 }
-
 
 /* =====================================================
    TABLET RESPONSIVENESS
    ===================================================== */
 
 @media (max-width: 768px) {
-
   .iso-badge-container {
     padding: 10px 0 18px;
   }
@@ -3757,42 +3490,34 @@
   }
 
   @keyframes isoBadgeContinuousGlow {
-
     0% {
       transform: scale(1);
 
-      filter:
-        drop-shadow(0 0 4px rgba(39, 158, 206, 0.22))
-        drop-shadow(0 4px 8px rgba(32, 130, 172, 0.10));
+      filter: drop-shadow(0 0 4px rgba(39, 158, 206, 0.22))
+        drop-shadow(0 4px 8px rgba(32, 130, 172, 0.1));
     }
 
     50% {
       transform: scale(1.045);
 
-      filter:
-        drop-shadow(0 0 8px rgba(39, 158, 206, 0.65))
+      filter: drop-shadow(0 0 8px rgba(39, 158, 206, 0.65))
         drop-shadow(0 0 17px rgba(32, 130, 172, 0.35));
     }
 
     100% {
       transform: scale(1);
 
-      filter:
-        drop-shadow(0 0 4px rgba(39, 158, 206, 0.22))
-        drop-shadow(0 4px 8px rgba(32, 130, 172, 0.10));
+      filter: drop-shadow(0 0 4px rgba(39, 158, 206, 0.22))
+        drop-shadow(0 4px 8px rgba(32, 130, 172, 0.1));
     }
-
   }
-
 }
-
 
 /* =====================================================
    MOBILE RESPONSIVENESS
    ===================================================== */
 
 @media (max-width: 480px) {
-
   .iso-badge-container {
     padding: 8px 0 16px;
   }
@@ -3804,60 +3529,46 @@
   .certification-visible .iso-badge-image {
     animation-duration: 3.5s;
   }
-
 }
-
 
 /* =====================================================
    SMALL MOBILE DEVICES
    ===================================================== */
 
 @media (max-width: 360px) {
-
   .iso-badge-button {
     width: 125px;
   }
-
 }
-
 
 /* =====================================================
    TOUCH DEVICE FEEDBACK
    ===================================================== */
 
 @media (hover: none) {
-
   .iso-badge-button:active {
     transform: scale(1.06);
   }
-
 }
-
 
 /* =====================================================
    REDUCED MOTION ACCESSIBILITY
    ===================================================== */
 
 @media (prefers-reduced-motion: reduce) {
-
   .iso-badge-image {
     animation: none !important;
     transition: none !important;
     transform: none !important;
 
-    filter:
-      drop-shadow(0 0 7px rgba(39, 158, 206, 0.45))
-      drop-shadow(0 0 13px rgba(32, 130, 172, 0.20));
+    filter: drop-shadow(0 0 7px rgba(39, 158, 206, 0.45))
+      drop-shadow(0 0 13px rgba(32, 130, 172, 0.2));
   }
 
   .iso-badge-button {
     transition: none !important;
   }
-
 }
-
-
-
 
 /* =========================================
    CATEGORY CARD — WAVY IMAGE BOUNDARY
@@ -3884,7 +3595,6 @@
 }
 
 /* Image wrapper with smooth curved lower edge */
-
 
 /* Carousel images */
 .category-card .product-image-wave-clip img {
@@ -3940,8 +3650,6 @@
     0 0
   );
 }
-
-
 
 /* SVG uses the same 0–100 coordinate space as the clip-path. */
 .category-card .product-image-wave-border {
@@ -4008,8 +3716,6 @@
     transition: none !important;
   }
 }
-
-
 
 /* ==========================================
    POLYRIB HERO — CYAN HIGHLIGHT SWEEP
@@ -4088,7 +3794,7 @@
 
   --polyrib-card-glow-strong:
     0 0 0 1px rgba(var(--polyrib-glow-blue), 0.18),
-    0 0 10px rgba(var(--polyrib-glow-blue), 0.20),
+    0 0 10px rgba(var(--polyrib-glow-blue), 0.2),
     0 5px 18px rgba(var(--polyrib-glow-blue), 0.15),
     0 10px 28px rgba(var(--polyrib-glow-deep), 0.11);
 }
@@ -4135,7 +3841,7 @@
    Keep the existing solid card colors and Framer Motion transforms. */
 .why-us-card {
   box-shadow:
-    0 0 0 1px rgba(var(--polyrib-glow-blue), 0.10),
+    0 0 0 1px rgba(var(--polyrib-glow-blue), 0.1),
     0 0 10px rgba(var(--polyrib-glow-blue), 0.14),
     0 10px 26px rgba(var(--polyrib-glow-deep), 0.12),
     inset 0 1px 0 rgba(255, 255, 255, 0.65);
@@ -4157,7 +3863,7 @@
   .polymer-lab-card:hover {
     border-color: rgba(70, 195, 245, 0.62);
     box-shadow:
-      0 0 0 1px rgba(var(--polyrib-glow-blue), 0.20),
+      0 0 0 1px rgba(var(--polyrib-glow-blue), 0.2),
       0 0 13px rgba(var(--polyrib-glow-blue), 0.24),
       0 16px 36px rgba(5, 18, 35, 0.24),
       inset 0 1px 0 rgba(255, 255, 255, 0.14);
@@ -4211,7 +3917,6 @@
     transition: none !important;
   }
 }
-
 
 /* ==========================================
    MATERIAL CARDS — COLOURED HOVER GLOW
@@ -4269,7 +3974,7 @@
       0 0 0 1px rgba(var(--glow-color), 0.12),
       0 0 10px rgba(var(--glow-color), 0.22),
       0 5px 18px rgba(var(--glow-color), 0.18),
-      0 10px 28px rgba(var(--glow-color), 0.10);
+      0 10px 28px rgba(var(--glow-color), 0.1);
   }
 }
 
@@ -4290,8 +3995,7 @@
   outline: 2px solid rgba(var(--glow-color), 0.7);
   outline-offset: 3px;
 
-  box-shadow:
-    0 0 12px rgba(var(--glow-color), 0.25);
+  box-shadow: 0 0 12px rgba(var(--glow-color), 0.25);
 }
 
 /* Reduced motion */
@@ -4300,4 +4004,15 @@
   .material-family-card {
     transition: none !important;
   }
+}
+
+/* =========================================
+   PAUSE WEBSITE ANIMATIONS DURING SPLASH
+========================================= */
+
+.site-content--paused *,
+.site-content--paused *::before,
+.site-content--paused *::after {
+  animation-play-state: paused !important;
+  transition: none !important;
 }

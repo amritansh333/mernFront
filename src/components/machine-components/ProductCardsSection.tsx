@@ -18,9 +18,10 @@ interface ProductCardsSectionProps {
   onCardClick?: (product: ProductCard) => void;
 }
 
-const API_BASE_URL = (
-  import.meta.env.VITE_API_BASE_URL ?? ""
-).replace(/\/+$/, "");
+const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL ?? "").replace(
+  /\/+$/,
+  "",
+);
 
 const AUTOPLAY_INTERVAL = 1500;
 const MAX_IMAGE_COUNT = 1000;
@@ -41,7 +42,8 @@ function resolveImageUrl(path?: string): string {
 }
 
 function getImageExtensions(image?: string): string[] {
-  const extension = image?.match(/\.([a-z0-9]+)(?:\?.*)?$/i)?.[1]
+  const extension = image
+    ?.match(/\.([a-z0-9]+)(?:\?.*)?$/i)?.[1]
     ?.toLowerCase();
 
   return Array.from(
@@ -187,7 +189,7 @@ export default function ProductCardsSection({
           {products.map((product, productIndex) => {
             const useCustom = Boolean(
               shouldUseCustomClick?.(product) &&
-                typeof onCardClick === "function",
+              typeof onCardClick === "function",
             );
 
             const key = product.slug || `${product.name}-${productIndex}`;
@@ -245,55 +247,52 @@ function ProductCardItem({
     }
   };
 
+  const imageContent = (
+    <div className="card-image product-gallery relative aspect-[4/3] overflow-hidden bg-slate-50">
+      {availableImages.map((src, index) => {
+        const isActive = src === activeImage;
 
-const imageContent = (
-  <div className="card-image product-gallery relative aspect-[4/3] overflow-hidden bg-slate-50">
-    {availableImages.map((src, index) => {
-      const isActive = src === activeImage;
-
-      return (
-        <img
-          key={src}
-          src={src}
-          alt={`${product.name ?? "Product"} — image ${index + 1}`}
-          aria-hidden={!isActive}
-          loading={index === 0 ? "eager" : "lazy"}
-          decoding="async"
-          onError={() => {
-            setFailedImages((previous) => {
-              const next = new Set(previous);
-              next.add(src);
-              return next;
-            });
-          }}
-          className={`product-gallery-image absolute inset-0 h-full w-full object-cover ${
-            isActive ? "product-gallery-image-active" : ""
-          }`}
-          style={
-            {
-              "--gallery-index": index,
-            } as React.CSSProperties
-          }
-        />
-      );
-    })}
-
-    {availableImages.length > 1 && (
-      <div className="absolute bottom-2 right-2 z-10 flex items-center gap-1 rounded-full bg-black/45 px-2 py-1">
-        {availableImages.map((src) => (
-          <span
+        return (
+          <img
             key={src}
-            className={`h-1.5 rounded-full transition-all duration-300 ${
-              src === activeImage
-                ? "w-4 bg-white"
-                : "w-1.5 bg-white/60"
+            src={src}
+            alt={`${product.name ?? "Product"} — image ${index + 1}`}
+            aria-hidden={!isActive}
+            loading={index === 0 ? "eager" : "lazy"}
+            decoding="async"
+            onError={() => {
+              setFailedImages((previous) => {
+                const next = new Set(previous);
+                next.add(src);
+                return next;
+              });
+            }}
+            className={`product-gallery-image absolute inset-0 h-full w-full object-cover ${
+              isActive ? "product-gallery-image-active" : ""
             }`}
+            style={
+              {
+                "--gallery-index": index,
+              } as React.CSSProperties
+            }
           />
-        ))}
-      </div>
-    )}
-  </div>
-);
+        );
+      })}
+
+      {availableImages.length > 1 && (
+        <div className="absolute bottom-2 right-2 z-10 flex items-center gap-1 rounded-full bg-black/45 px-2 py-1">
+          {availableImages.map((src) => (
+            <span
+              key={src}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                src === activeImage ? "w-4 bg-white" : "w-1.5 bg-white/60"
+              }`}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
 
   const cardContent = (
     <>
