@@ -40,7 +40,7 @@ export default function EventCard({ item }: EventCardProps) {
         shadow-sm
         transition-all duration-500 ease-out
         hover:-translate-y-1
-        hover:shadow-xl
+        hover:shadow-xl rounded-xl
       "
     >
       <Link
@@ -86,7 +86,7 @@ export default function EventCard({ item }: EventCardProps) {
                 inline-flex items-center gap-1.5
                 border border-white/20 bg-black/55 px-3 py-1.5
                 text-[11px] font-semibold uppercase tracking-[0.12em]
-                text-white backdrop-blur-md
+                text-white backdrop-blur-md rounded-xl
               "
             >
               <CalendarDays className="h-3.5 w-3.5" />
@@ -115,7 +115,7 @@ export default function EventCard({ item }: EventCardProps) {
               justify-center border border-white/20
               bg-black/45 text-white backdrop-blur-md
               transition-all duration-300
-              group-hover:translate-x-0.5 group-hover:-translate-y-0.5
+              group-hover:translate-x-0.5 group-hover:-translate-y-0.5 rounded-xl
             "
           >
             <ArrowUpRight className="h-5 w-5" />
@@ -181,13 +181,13 @@ export default function EventCard({ item }: EventCardProps) {
           {(item.event?.venue || item.event?.booth) && (
             <div className="mt-4 flex flex-wrap gap-2">
               {item.event?.venue && (
-                <span className="bg-surface-subtle px-2.5 py-1.5 text-xs text-muted-foreground">
+                <span className="bg-surface-subtle px-2.5 py-1.5 text-xs text-muted-foreground rounded-xl">
                   {item.event.venue}
                 </span>
               )}
 
               {item.event?.booth && (
-                <span className="bg-surface-subtle px-2.5 py-1.5 text-xs font-medium text-charcoal">
+                <span className="bg-surface-subtle px-2.5 py-1.5 text-xs font-medium text-charcoal rounded-xl">
                   Booth {item.event.booth}
                 </span>
               )}
@@ -205,7 +205,7 @@ export default function EventCard({ item }: EventCardProps) {
                     bg-background px-2.5 py-1
                     text-[11px] font-medium text-muted-foreground
                     transition-colors
-                    group-hover:border-primary/30
+                    group-hover:border-primary/30 rounded-xl
                   "
                 >
                   #{tag}

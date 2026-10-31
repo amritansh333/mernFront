@@ -28,6 +28,32 @@ import {
 } from "@/lib/newsEventsApi";
 
 import { resolveApiAssetUrl } from "@/lib/assetUrl";
+import PageHeroBanner from "@/components/hero-banner/PageHeroBanner";
+import manufacturingImage from "@/assets/csr-slider1.jpeg";
+
+/* =========================================================
+   TYPES
+========================================================= */
+
+type EventGalleryImage = NonNullable<NewsEventDetail["gallery"]>[number];
+
+type EventVideo = NonNullable<NewsEventDetail["videos"]>[number];
+
+type RelatedEvent = {
+  id: string;
+  slug: string;
+  title: string;
+  coverImage?: string;
+  coverAlt?: string;
+};
+
+type EventDetailWithRelated = NewsEventDetail & {
+  related?: RelatedEvent[];
+};
+
+/* =========================================================
+   HELPERS
+========================================================= */
 
 function formatDate(value?: string) {
   if (!value) return null;
@@ -49,6 +75,10 @@ function formatLongDate(value?: string) {
   }
 }
 
+/* =========================================================
+   DETAIL ROW
+========================================================= */
+
 function DetailRow({
   icon,
   label,
@@ -60,7 +90,7 @@ function DetailRow({
 }) {
   return (
     <div className="flex gap-3">
-      <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center  bg-primary/10 text-primary">
+      <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
         {icon}
       </div>
 
@@ -77,12 +107,16 @@ function DetailRow({
   );
 }
 
-function VideoEmbed({ video }: { video: any }) {
+/* =========================================================
+   VIDEO EMBED
+========================================================= */
+
+function VideoEmbed({ video }: { video: EventVideo }) {
   if (!video?.videoId) return null;
 
   if (video.provider === "youtube") {
     return (
-      <div className="aspect-video overflow-hidden  bg-black">
+      <div className="aspect-video overflow-hidden rounded-xl bg-black">
         <iframe
           src={`https://www.youtube.com/embed/${video.videoId}`}
           title={video.title || "Event video"}
@@ -97,7 +131,7 @@ function VideoEmbed({ video }: { video: any }) {
 
   if (video.provider === "vimeo") {
     return (
-      <div className="aspect-video overflow-hidden  bg-black">
+      <div className="aspect-video overflow-hidden rounded-xl bg-black">
         <iframe
           src={`https://player.vimeo.com/video/${video.videoId}`}
           title={video.title || "Event video"}
@@ -112,7 +146,7 @@ function VideoEmbed({ video }: { video: any }) {
 
   if (video.provider === "hosted") {
     return (
-      <div className="overflow-hidden  bg-black">
+      <div className="overflow-hidden rounded-xl bg-black">
         <video
           src={video.videoId}
           poster={video.poster || undefined}
@@ -129,17 +163,23 @@ function VideoEmbed({ video }: { video: any }) {
   return null;
 }
 
-export default function EventDetailPage() {
-  const { slug } = useParams();
+/* =========================================================
+   EVENT DETAIL PAGE
+========================================================= */
 
-  const [item, setItem] = useState<
-    (NewsEventDetail & { related?: any[] }) | null
-  >(null);
+export default function EventDetailPage() {
+  const { slug } = useParams<{ slug: string }>();
+
+  const [item, setItem] = useState<EventDetailWithRelated | null>(null);
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   const [activeImage, setActiveImage] = useState<number | null>(null);
+
+  /* =========================================================
+     FETCH EVENT
+  ========================================================= */
 
   useEffect(() => {
     let cancelled = false;
@@ -153,7 +193,7 @@ export default function EventDetailPage() {
 
         if (cancelled) return;
 
-        setItem(data);
+        setItem(data as EventDetailWithRelated);
       } catch (err) {
         console.error(err);
 
@@ -176,13 +216,21 @@ export default function EventDetailPage() {
     };
   }, [slug]);
 
-  const gallery = useMemo(() => {
+  /* =========================================================
+     GALLERY
+  ========================================================= */
+
+  const gallery = useMemo<EventGalleryImage[]>(() => {
     if (!item?.gallery) return [];
 
     return [...item.gallery].sort(
-      (a: any, b: any) => (a.sortOrder || 0) - (b.sortOrder || 0),
+      (a, b) => (a.sortOrder || 0) - (b.sortOrder || 0),
     );
   }, [item?.gallery]);
+
+  /* =========================================================
+     LIGHTBOX KEYBOARD CONTROLS
+  ========================================================= */
 
   useEffect(() => {
     if (activeImage === null) return;
@@ -206,31 +254,41 @@ export default function EventDetailPage() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [activeImage, gallery.length]);
 
+  /* =========================================================
+     LOADING STATE
+  ========================================================= */
+
   if (loading) {
     return (
       <main className="min-h-screen bg-background">
         <div className="container mx-auto px-5 py-10 sm:px-6 sm:py-16">
-          <div className="h-5 w-32 animate-pulse bg-muted" />
+          <div className="h-5 w-32 animate-pulse rounded-xl bg-muted" />
 
           <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_360px]">
             <div>
-              <div className="h-12 w-4/5 animate-pulse bg-muted" />
-              <div className="mt-4 h-6 w-3/5 animate-pulse bg-muted" />
-              <div className="mt-8 aspect-video animate-pulse  bg-muted" />
+              <div className="h-12 w-4/5 animate-pulse rounded-xl bg-muted" />
+
+              <div className="mt-4 h-6 w-3/5 animate-pulse rounded-xl bg-muted" />
+
+              <div className="mt-8 aspect-video animate-pulse rounded-xl bg-muted" />
             </div>
 
-            <div className="h-[420px] animate-pulse  bg-muted" />
+            <div className="h-[420px] animate-pulse rounded-xl bg-muted" />
           </div>
         </div>
       </main>
     );
   }
 
+  /* =========================================================
+     ERROR STATE
+  ========================================================= */
+
   if (error || !item) {
     return (
       <main className="min-h-screen bg-background">
         <div className="container mx-auto px-5 py-16 text-center sm:px-6 sm:py-24">
-          <div className="mx-auto flex h-16 w-16 items-center justify-center  bg-surface-subtle">
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-xl bg-surface-subtle">
             <CalendarDays className="h-7 w-7 text-muted-foreground" />
           </div>
 
@@ -245,12 +303,7 @@ export default function EventDetailPage() {
 
           <Link
             to="/events"
-            className="
-              mt-7 inline-flex items-center gap-2 
-              bg-primary px-5 py-3 text-sm font-semibold
-              text-primary-foreground transition-all
-              hover:-translate-y-0.5 hover:shadow-lg
-            "
+            className="mt-7 inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-all hover:-translate-y-0.5 hover:shadow-lg"
           >
             <ArrowLeft className="h-4 w-4" />
             Back to events
@@ -259,6 +312,10 @@ export default function EventDetailPage() {
       </main>
     );
   }
+
+  /* =========================================================
+     EVENT DATA
+  ========================================================= */
 
   const ev = item.event || {};
 
@@ -290,127 +347,100 @@ export default function EventDetailPage() {
 
   const coverImageUrl = resolveApiAssetUrl(item.coverImage);
 
+  /* =========================================================
+     PAGE
+  ========================================================= */
+
   return (
-    <main className="min-h-screen bg-background">
-      {/* Hero */}
-      {/* Hero */}
-      <section className="relative overflow-hidden border-b border-border">
-        {/* Cover Image from Backend */}
-        {coverImageUrl && (
-          <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-            style={{
-              backgroundImage: `url("${coverImageUrl}")`,
-            }}
-          />
-        )}
+    <main className="min-h-screen min-w-0 overflow-x-hidden bg-background">
+      {/* =========================================================
+          PAGE HERO BANNER
+      ========================================================= */}
 
-        {/* Image readability overlay */}
-        <div className="absolute inset-0 bg-white/98" />
+      <div className="pt-16">
+        <PageHeroBanner
+          eyebrow={item.type || "News & Events"}
+          title={item.title}
+          image={coverImageUrl || manufacturingImage}
+          imageAlt={item.title || "Khanna Polyrib event"}
+          imagePosition="center center"
+          breadcrumbs={[
+            { label: "Home", to: "/" },
+            { label: "Events", to: "/events" },
+            { label: item.title },
+          ]}
+        />
+      </div>
 
-        {/* Subtle left-to-right fade */}
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-white/50 via-white/75 to-transparent" />
+      {/* =========================================================
+          EVENT INTRO
+      ========================================================= */}
 
-        {/* Hero Content */}
-        <div className="container relative mx-auto px-5 py-8 sm:px-6 sm:py-12 lg:py-14">
-          <Link
-            to="/events"
-            className="
-        mb-7 inline-flex items-center gap-2
-        text-sm font-medium text-muted-foreground
-        transition-colors hover:text-primary
-      "
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Back to events
-          </Link>
+      <section className="border-b border-border bg-white py-7 sm:py-9">
+        <div className="container mx-auto max-w-7xl px-5 sm:px-6">
+          {/* Badges */}
 
-          <div className="max-w-4xl">
-            {/* Badges */}
-            <div className="flex flex-wrap items-center gap-2">
-              <span
-                className="
-            inline-flex items-center gap-1.5
-            border border-primary/20 bg-white/80
-            px-3 py-1.5 text-xs font-semibold
-            uppercase tracking-[0.1em] text-primary
-            backdrop-blur-sm
-          "
-              >
-                <CalendarDays className="h-3.5 w-3.5" />
-                {item.type}
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="inline-flex items-center gap-1.5 rounded-xl border border-primary/20 bg-primary/5 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.1em] text-primary">
+              <CalendarDays className="h-3.5 w-3.5" />
+              {item.type}
+            </span>
+
+            {item.featured && (
+              <span className="inline-flex items-center gap-1.5 rounded-xl border border-primary/20 bg-primary/10 px-3 py-1.5 text-xs font-semibold text-primary">
+                <Check className="h-3.5 w-3.5" />
+                Featured
               </span>
+            )}
+          </div>
 
-              {item.featured && (
-                <span
-                  className="
-              inline-flex items-center gap-1.5
-              border border-primary/20 bg-primary/10
-              px-3 py-1.5 text-xs font-semibold
-              text-primary backdrop-blur-sm
-            "
-                >
-                  <Check className="h-3.5 w-3.5" />
-                  Featured
-                </span>
-              )}
-            </div>
+          {/* Excerpt */}
 
-            {/* Title */}
-            <h1
-              className="
-          mt-5 font-heading text-4xl font-semibold
-          leading-[1.05] tracking-tight text-charcoal
-          sm:text-5xl lg:text-6xl
-        "
-            >
-              {item.title}
-            </h1>
+          {item.excerpt && (
+            <p className="mt-5 max-w-4xl text-base leading-7 text-charcoal sm:text-lg sm:leading-8">
+              {item.excerpt}
+            </p>
+          )}
 
-            {/* Excerpt */}
-            {item.excerpt && (
-              <p
-                className="
-            mt-5 max-w-3xl text-base leading-7
-            text-charcoal sm:text-lg sm:leading-8
-          "
-              >
-                {item.excerpt}
-              </p>
+          {/* Date + Location */}
+
+          <div className="mt-6 flex flex-wrap gap-x-5 gap-y-3 text-sm text-charcoal">
+            {eventDate && (
+              <span className="inline-flex items-center gap-2">
+                <CalendarDays className="h-4 w-4 text-primary" />
+                {eventDate}
+              </span>
             )}
 
-            {/* Date + Location */}
-            <div className="mt-6 flex flex-wrap gap-x-5 gap-y-3 text-sm text-charcoal">
-              {eventDate && (
-                <span className="inline-flex items-center gap-2">
-                  <CalendarDays className="h-4 w-4 text-primary" />
-                  {eventDate}
-                </span>
-              )}
-
-              {location && (
-                <span className="inline-flex items-center gap-2">
-                  <MapPin className="h-4 w-4 text-primary text-charcoal" />
-                  {location}
-                </span>
-              )}
-            </div>
+            {location && (
+              <span className="inline-flex items-center gap-2">
+                <MapPin className="h-4 w-4 text-primary" />
+                {location}
+              </span>
+            )}
           </div>
         </div>
       </section>
 
-      {/* Main content */}
-      <section className="container mx-auto px-5 py-10 sm:px-6 sm:py-14">
-        <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_360px]">
-          {/* Main column */}
+      {/* =========================================================
+          MAIN CONTENT
+      ========================================================= */}
+
+      <section className="container mx-auto max-w-7xl px-5 py-10 sm:px-6 sm:py-14">
+        <div className="grid min-w-0 items-start gap-8 lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-10">
+          {/* =====================================================
+              MAIN COLUMN
+          ===================================================== */}
+
           <div className="min-w-0">
             {/* Event quick information */}
+
             {hasEventDetails && (
               <div className="mb-10 grid gap-4 sm:grid-cols-2">
                 {longStartDate && (
-                  <div className=" border border-border bg-card p-5">
+                  <div className="rounded-xl border border-border bg-card p-5">
                     <div className="flex items-start gap-3">
-                      <div className="flex h-10 w-10 shrink-0 items-center justify-center  bg-primary/10 text-primary">
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
                         <CalendarDays className="h-5 w-5" />
                       </div>
 
@@ -428,9 +458,9 @@ export default function EventDetailPage() {
                 )}
 
                 {location && (
-                  <div className=" border border-border bg-card p-5">
+                  <div className="rounded-xl border border-border bg-card p-5">
                     <div className="flex items-start gap-3">
-                      <div className="flex h-10 w-10 shrink-0 items-center justify-center  bg-primary/10 text-primary">
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
                         <MapPin className="h-5 w-5" />
                       </div>
 
@@ -450,6 +480,7 @@ export default function EventDetailPage() {
             )}
 
             {/* Article */}
+
             {item.body && (
               <article
                 className="
@@ -463,7 +494,8 @@ export default function EventDetailPage() {
                   prose-a:text-primary
                   prose-a:no-underline
                   hover:prose-a:underline
-                  prose-img:
+                  prose-img:rounded-xl
+                  prose-img:max-w-full
                 "
                 dangerouslySetInnerHTML={{
                   __html: item.body,
@@ -471,10 +503,13 @@ export default function EventDetailPage() {
               />
             )}
 
-            {/* Gallery */}
+            {/* =====================================================
+                GALLERY
+            ===================================================== */}
+
             {gallery.length > 0 && (
               <section className="mt-14 border-t border-border pt-10">
-                <div className="mb-6 flex items-end justify-between gap-4">
+                <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
                   <div>
                     <p className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-primary">
                       <ImageIcon className="h-4 w-4" />
@@ -491,66 +526,37 @@ export default function EventDetailPage() {
                   </span>
                 </div>
 
-                <div
-                  className="
-                    grid grid-cols-2 gap-3
-                    sm:grid-cols-3 sm:gap-4
-                  "
-                >
-                  {gallery.map((image: any, index: number) => (
+                <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
+                  {gallery.map((image, index) => (
                     <button
                       key={`${image.url}-${index}`}
                       type="button"
                       onClick={() => setActiveImage(index)}
-                      className="
-                        group relative aspect-[4/3]
-                        overflow-hidden 
-                        bg-muted text-left
-                        focus:outline-none focus-visible:ring-2
-                        focus-visible:ring-primary
-                      "
+                      className="group relative aspect-[4/3] overflow-hidden rounded-xl bg-muted text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-primary border border-primary"
                       aria-label={`View image ${index + 1}`}
                     >
                       <img
                         src={image.url}
                         alt={image.alt || image.caption || item.title}
                         loading="lazy"
-                        className="
-                          h-full w-full object-cover
-                          transition-transform duration-500
-                          group-hover:scale-105
-                        "
+                        className="h-full w-full rounded-xl object-cover transition-transform duration-500 group-hover:scale-105"
                       />
 
-                      <div
-                        className="
-                          absolute inset-0 bg-black/0
-                          transition-colors duration-300
-                          group-hover:bg-black/25
-                        "
-                      />
+                      <div className="absolute inset-0 rounded-xl bg-black/0 transition-colors duration-300 group-hover:bg-black/25" />
 
-                      <span
-                        className="
-                          absolute bottom-3 right-3 flex h-9 w-9
-                          items-center justify-center 
-                          bg-black/50 text-white opacity-0
-                          backdrop-blur-sm transition-opacity
-                          group-hover:opacity-100
-                        "
-                      >
+                      <span className="absolute bottom-3 right-3 flex h-9 w-9 items-center justify-center rounded-xl bg-black/50 text-white opacity-0 backdrop-blur-sm transition-opacity group-hover:opacity-100">
                         <Maximize2 className="h-4 w-4" />
                       </span>
                     </button>
                   ))}
                 </div>
 
-                {gallery.some((image: any) => image.caption) && (
+                {gallery.some((image) => image.caption) && (
                   <div className="mt-5 space-y-1">
                     {gallery
-                      .filter((image: any) => image.caption)
+                      .filter((image) => image.caption)
                       .slice(0, 1)
-                      .map((image: any, index: number) => (
+                      .map((image, index) => (
                         <p
                           key={index}
                           className="text-sm text-muted-foreground"
@@ -563,7 +569,10 @@ export default function EventDetailPage() {
               </section>
             )}
 
-            {/* Videos */}
+            {/* =====================================================
+                VIDEOS
+            ===================================================== */}
+
             {item.videos && item.videos.length > 0 && (
               <section className="mt-14 border-t border-border pt-10">
                 <div className="mb-6">
@@ -578,7 +587,7 @@ export default function EventDetailPage() {
                 </div>
 
                 <div className="space-y-8">
-                  {item.videos.map((video: any, index: number) => (
+                  {item.videos.map((video, index) => (
                     <div key={`${video.videoId}-${index}`}>
                       <VideoEmbed video={video} />
 
@@ -603,20 +612,19 @@ export default function EventDetailPage() {
               </section>
             )}
 
-            {/* Tags */}
+            {/* =====================================================
+                TAGS
+            ===================================================== */}
+
             {item.tags && item.tags.length > 0 && (
               <section className="mt-12 border-t border-border pt-8">
                 <div className="flex flex-wrap items-center gap-2">
                   <Tag className="mr-1 h-4 w-4 text-primary" />
 
-                  {item.tags.map((tag: string) => (
+                  {item.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="
-                         border border-border
-                        bg-surface-subtle px-3 py-1.5
-                        text-xs font-medium text-muted-foreground
-                      "
+                      className="rounded-xl border border-border bg-surface-subtle px-3 py-1.5 text-xs font-medium text-muted-foreground"
                     >
                       #{tag}
                     </span>
@@ -626,9 +634,14 @@ export default function EventDetailPage() {
             )}
           </div>
 
-          {/* Sidebar */}
-          <aside className="lg:sticky lg:top-24">
-            <div className="overflow-hidden  border border-border bg-card shadow-sm">
+          {/* =====================================================
+              SIDEBAR
+          ===================================================== */}
+
+          <aside className="min-w-0 lg:sticky lg:top-24">
+            {/* Event details card */}
+
+            <div className="overflow-hidden rounded-xl border border-border bg-card shadow-sm">
               <div className="border-b border-border bg-surface-subtle px-5 py-4">
                 <h2 className="font-heading text-lg font-semibold text-charcoal">
                   Event Details
@@ -710,13 +723,7 @@ export default function EventDetailPage() {
                       href={ev.registrationUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="
-                        flex w-full items-center justify-center
-                        gap-2  bg-primary px-4 py-3
-                        text-sm font-semibold text-primary-foreground
-                        transition-all
-                        hover:-translate-y-0.5 hover:shadow-lg
-                      "
+                      className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground transition-all hover:-translate-y-0.5 hover:shadow-lg"
                     >
                       <Ticket className="h-4 w-4" />
                       Register for event
@@ -729,15 +736,7 @@ export default function EventDetailPage() {
                       href={ev.eventWebsite}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="
-                        flex w-full items-center justify-center
-                        gap-2  border border-border
-                        bg-background px-4 py-3
-                        text-sm font-semibold text-charcoal
-                        transition-all
-                        hover:border-primary/30
-                        hover:text-primary
-                      "
+                      className="flex w-full items-center justify-center gap-2 rounded-xl border border-border bg-background px-4 py-3 text-sm font-semibold text-charcoal transition-all hover:border-primary/30 hover:text-primary"
                     >
                       <Globe2 className="h-4 w-4" />
                       Visit event website
@@ -749,8 +748,9 @@ export default function EventDetailPage() {
             </div>
 
             {/* Contact CTA */}
-            <div className="mt-5  border border-primary/20 bg-primary/5 p-5">
-              <div className="flex h-10 w-10 items-center justify-center  bg-primary text-primary-foreground">
+
+            <div className="mt-5 rounded-xl border border-primary/20 bg-primary/5 p-5">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-primary-foreground">
                 <Users className="h-5 w-5" />
               </div>
 
@@ -765,11 +765,7 @@ export default function EventDetailPage() {
 
               <Link
                 to="/contact"
-                className="
-                  mt-4 inline-flex items-center gap-2
-                  text-sm font-semibold text-primary
-                  hover:underline
-                "
+                className="mt-4 inline-flex items-center gap-2 rounded-xl text-sm font-semibold text-primary hover:underline"
               >
                 Contact our team
                 <ArrowRight className="h-4 w-4" />
@@ -779,11 +775,14 @@ export default function EventDetailPage() {
         </div>
       </section>
 
-      {/* Related events */}
+      {/* =========================================================
+          RELATED EVENTS
+      ========================================================= */}
+
       {item.related && item.related.length > 0 && (
         <section className="border-t border-border bg-surface-subtle">
-          <div className="container mx-auto px-5 py-12 sm:px-6 sm:py-16">
-            <div className="mb-7 flex items-end justify-between gap-4">
+          <div className="container mx-auto max-w-7xl px-5 py-12 sm:px-6 sm:py-16">
+            <div className="mb-7 flex flex-wrap items-end justify-between gap-4">
               <div>
                 <p className="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-primary">
                   Explore more
@@ -796,10 +795,7 @@ export default function EventDetailPage() {
 
               <Link
                 to="/events"
-                className="
-                  hidden items-center gap-2 text-sm
-                  font-semibold text-primary sm:inline-flex
-                "
+                className="hidden items-center gap-2 rounded-xl text-sm font-semibold text-primary sm:inline-flex"
               >
                 All events
                 <ArrowRight className="h-4 w-4" />
@@ -807,28 +803,19 @@ export default function EventDetailPage() {
             </div>
 
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {item.related.slice(0, 3).map((related: any) => (
+              {item.related.slice(0, 3).map((related) => (
                 <Link
                   key={related.id}
                   to={`/events/${related.slug}`}
-                  className="
-                    group overflow-hidden 
-                    border border-border bg-card
-                    transition-all duration-300
-                    hover:-translate-y-1 hover:shadow-xl
-                  "
+                  className="group flex flex-col overflow-hidden rounded-xl border border-border bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
                 >
                   {related.coverImage && (
-                    <div className="aspect-video overflow-hidden">
+                    <div className="aspect-video overflow-hidden rounded-t-xl">
                       <img
-                        src={related.coverImage}
+                        src={resolveApiAssetUrl(related.coverImage)}
                         alt={related.coverAlt || related.title}
                         loading="lazy"
-                        className="
-                          h-full w-full object-cover
-                          transition-transform duration-500
-                          group-hover:scale-105
-                        "
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                     </div>
                   )}
@@ -842,7 +829,7 @@ export default function EventDetailPage() {
                       {related.title}
                     </h3>
 
-                    <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-primary">
+                    <span className="mt-4 inline-flex items-center gap-2 rounded-xl text-sm font-semibold text-primary">
                       View event
                       <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                     </span>
@@ -854,14 +841,13 @@ export default function EventDetailPage() {
         </section>
       )}
 
-      {/* Image Lightbox */}
+      {/* =========================================================
+          IMAGE LIGHTBOX
+      ========================================================= */}
+
       {currentGalleryItem && activeImage !== null && (
         <div
-          className="
-            fixed inset-0 z-[100]
-            flex items-center justify-center
-            bg-black/90 p-4 backdrop-blur-sm
-          "
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm"
           role="dialog"
           aria-modal="true"
           aria-label="Image viewer"
@@ -870,12 +856,7 @@ export default function EventDetailPage() {
           <button
             type="button"
             onClick={() => setActiveImage(null)}
-            className="
-              absolute right-4 top-4 z-10 flex h-11 w-11
-              items-center justify-center 
-              bg-white/10 text-white backdrop-blur-md
-              transition-colors hover:bg-white/20
-            "
+            className="absolute right-4 top-4 z-10 flex h-11 w-11 items-center justify-center rounded-xl bg-white/10 text-white backdrop-blur-md transition-colors hover:bg-white/20"
             aria-label="Close image viewer"
           >
             <X className="h-5 w-5" />
@@ -892,14 +873,7 @@ export default function EventDetailPage() {
                     (activeImage - 1 + gallery.length) % gallery.length,
                   );
                 }}
-                className="
-                  absolute left-3 top-1/2 z-10
-                  flex h-11 w-11 -translate-y-1/2
-                  items-center justify-center 
-                  bg-white/10 text-white backdrop-blur-md
-                  transition-colors hover:bg-white/20
-                  sm:left-6
-                "
+                className="absolute left-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-xl bg-white/10 text-white backdrop-blur-md transition-colors hover:bg-white/20 sm:left-6"
                 aria-label="Previous image"
               >
                 <ChevronLeft className="h-6 w-6" />
@@ -912,14 +886,7 @@ export default function EventDetailPage() {
 
                   setActiveImage((activeImage + 1) % gallery.length);
                 }}
-                className="
-                  absolute right-3 top-1/2 z-10
-                  flex h-11 w-11 -translate-y-1/2
-                  items-center justify-center 
-                  bg-white/10 text-white backdrop-blur-md
-                  transition-colors hover:bg-white/20
-                  sm:right-6
-                "
+                className="absolute right-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-xl bg-white/10 text-white backdrop-blur-md transition-colors hover:bg-white/20 sm:right-6"
                 aria-label="Next image"
               >
                 <ChevronRight className="h-6 w-6" />
@@ -938,11 +905,7 @@ export default function EventDetailPage() {
                 currentGalleryItem.caption ||
                 item.title
               }
-              className="
-                max-h-[78vh] max-w-[92vw]
-                 object-contain
-                shadow-2xl
-              "
+              className="max-h-[78vh] max-w-[92vw] rounded-xl object-contain shadow-2xl"
             />
 
             {(currentGalleryItem.caption || gallery.length > 1) && (

@@ -8,10 +8,13 @@ import {
   Share2,
   Tag,
 } from "lucide-react";
+
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 import { getBlogPostBySlug, getBlogPosts } from "@/lib/blogApi";
 import type { BlogPost, PostType } from "@/lib/blogApi";
+import PageHeroBanner from "@/components/hero-banner/PageHeroBanner";
+import manufacturingImage from "@/assets/csr-slider1.jpeg";
 
 const TYPE_COLOURS: Record<PostType, string> = {
   Blog: "bg-blue-50 text-blue-700",
@@ -137,91 +140,162 @@ export default function BlogDetailPage() {
   return (
     <div className="min-w-0 overflow-x-hidden bg-background">
       {/* =========================================================
-          HERO
+          BLOG DETAIL HERO
       ========================================================= */}
-      <section className="relative isolate flex min-h-[300px] sm:min-h-[315px] lg:min-h-[330px] items-end overflow-hidden">
-        <img
-          src={post.image}
-          alt=""
-          aria-hidden="true"
-          className="absolute inset-0 h-full w-full object-cover"
-        />
 
-        {/* Industrial dark overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#071321]/45 via-[#071321]/60 to-[#071321]/90" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#071321]/85 via-[#071321]/45 to-transparent" />
+      <style>{`
+        /* Blog detail banner - scoped styles only */
 
-        <div className="relative z-10 w-full">
-          <div className="container max-w-7xl mx-auto px-4 sm:px-6 pb-8 sm:pb-9 lg:pb-10">
-            <div className="max-w-5xl min-w-0">
-              {/* Breadcrumb */}
-              <nav
-                aria-label="Breadcrumb"
-                className="mb-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] sm:text-xs text-white/75"
-              >
-                <Link to="/" className="transition-colors hover:text-white">
-                  Home
-                </Link>
+        .blog-detail-hero {
+          height: auto !important;
+          min-height: 0 !important;
+          overflow: hidden;
+        }
 
-                <span>/</span>
+        .blog-detail-hero .page-hero-brand {
+          align-items: stretch;
+          min-height: 0;
+        }
 
-                <Link to="/blog" className="transition-colors hover:text-white">
-                  Blog & Gallery
-                </Link>
+        .blog-detail-hero .page-hero-content {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          min-height: 100%;
+          padding-top: 28px;
+          padding-bottom: 28px;
+        }
 
-                <span>/</span>
+        .blog-detail-hero .page-hero-breadcrumb {
+          display: flex !important;
+          flex-wrap: wrap;
+          align-items: center;
+          position: relative;
+          z-index: 5;
+          visibility: visible !important;
+          opacity: 1 !important;
+          margin-bottom: 18px;
+          line-height: 1.6;
+          color: #647b80;
+        }
 
-                <span className="max-w-full break-words text-white/90">
-                  {post.title}
-                </span>
-              </nav>
+        .blog-detail-hero .page-hero-heading {
+          min-width: 0;
+          max-width: 650px;
+        }
 
-              {/* Type / Date / Read time / Category */}
-              <div className="mb-3 flex flex-wrap items-center gap-x-3 gap-y-2">
-                <span
-                  className={`px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide ${
-                    isGallery
-                      ? "bg-orange-50 text-orange-700"
-                      : "bg-blue-50 text-blue-700"
-                  }`}
-                >
-                  {post.type}
-                </span>
+        .blog-detail-hero .page-hero-heading h1 {
+          overflow-wrap: anywhere;
+          word-break: normal;
+        }
 
-                <span className="inline-flex items-center gap-1.5 text-xs text-white/75">
-                  <Calendar className="h-3.5 w-3.5" />
-                  {post.date}
-                </span>
+        @media (min-width: 1025px) {
+          .blog-detail-hero {
+            min-height: 300px !important;
+          }
 
-                <span className="inline-flex items-center gap-1.5 text-xs text-white/75">
-                  <Clock3 className="h-3.5 w-3.5" />
-                  {post.readTime}
-                </span>
+          .blog-detail-hero .page-hero-content {
+            padding-top: 30px;
+            padding-bottom: 30px;
+          }
 
-                <span className="text-xs text-white/60">{post.category}</span>
-              </div>
+          .blog-detail-hero .page-hero-breadcrumb {
+            margin-bottom: 20px;
+            font-size: 12px;
+          }
 
-              {/* Compact title */}
-              <h1 className="max-w-4xl break-words text-2xl sm:text-3xl md:text-4xl lg:text-[38px] font-heading font-semibold leading-[1.08] tracking-tight text-white">
-                {post.title}
-              </h1>
-            </div>
-          </div>
-        </div>
-      </section>
+          .blog-detail-hero .page-hero-heading h1 {
+            font-size: clamp(28px, 3vw, 42px);
+          }
+        }
+
+        @media (max-width: 1024px) {
+          .blog-detail-hero {
+            min-height: 270px !important;
+          }
+
+          .blog-detail-hero .page-hero-content {
+            padding-top: 24px;
+            padding-bottom: 24px;
+          }
+
+          .blog-detail-hero .page-hero-breadcrumb {
+            gap: 6px;
+            margin-bottom: 15px;
+            font-size: 10px;
+          }
+        }
+
+        @media (max-width: 640px) {
+          .blog-detail-hero {
+            min-height: 250px !important;
+          }
+
+          .blog-detail-hero .page-hero-content {
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-left: clamp(20px, 6.4vw, 24px);
+          }
+
+          .blog-detail-hero .page-hero-breadcrumb {
+            gap: 4px;
+            margin-bottom: 13px;
+            font-size: 8px;
+          }
+
+          .blog-detail-hero .page-hero-heading h1 {
+            font-size: clamp(17px, 4.6vw, 25px);
+            line-height: 1.16;
+          }
+        }
+
+        @media (max-width: 380px) {
+          .blog-detail-hero {
+            min-height: 240px !important;
+          }
+
+          .blog-detail-hero .page-hero-content {
+            padding-left: 20px;
+            padding-right: 7px;
+          }
+
+          .blog-detail-hero .page-hero-breadcrumb {
+            font-size: 7px;
+            gap: 3px;
+          }
+
+          .blog-detail-hero .page-hero-heading h1 {
+            font-size: 17px;
+          }
+        }
+      `}</style>
+
+      <PageHeroBanner
+        className="blog-detail-hero"
+        eyebrow={post.category || "Knowledge & Updates"}
+        title={post.title}
+        image={manufacturingImage}
+        imageAlt="Khanna Polyrib manufacturing facility"
+        imagePosition="center center"
+        height="auto"
+        breadcrumbs={[
+          { label: "Home", to: "/" },
+          { label: "Blog & Gallery", to: "/blog" },
+          { label: post.title },
+        ]}
+      />
 
       {/* =========================================================
           ARTICLE AREA
       ========================================================= */}
+
       <main className="container max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-6 lg:py-8">
         <div className="grid min-w-0 gap-8 lg:grid-cols-[minmax(0,1fr)_300px] xl:grid-cols-[minmax(0,1fr)_340px] lg:items-start">
-          {/* =====================================================
-              MAIN ARTICLE
-          ===================================================== */}
+          {/* MAIN ARTICLE */}
+
           <article className="min-w-0">
-            {/* =====================================================
-                ARTICLE INTRO / OVERVIEW
-            ===================================================== */}
+            {/* ARTICLE INTRO / OVERVIEW */}
+
             <section className="mb-8 sm:mb-10">
               <p className="section-label text-primary">Article Overview</p>
 
@@ -235,7 +309,7 @@ export default function BlogDetailPage() {
                 {post.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="inline-flex items-center gap-1.5 border border-primary/20 bg-primary/5 px-3 py-1.5 text-xs font-semibold text-primary"
+                    className="inline-flex items-center gap-1.5 border border-primary/20 bg-primary/5 px-3 py-1.5 text-xs font-semibold text-primary rounded-xl"
                   >
                     <Tag className="h-3 w-3 shrink-0" />
                     {tag}
@@ -245,7 +319,8 @@ export default function BlogDetailPage() {
             </section>
 
             {/* Hero image */}
-            <div className="overflow-hidden border border-border bg-card shadow-sm">
+
+            <div className="overflow-hidden border border-primary bg-card shadow-sm rounded-xl">
               <div className="aspect-[16/9] sm:aspect-[16/8] overflow-hidden">
                 <img
                   src={post.image}
@@ -279,6 +354,7 @@ export default function BlogDetailPage() {
             </div>
 
             {/* Intro */}
+
             <div className="mt-8 sm:mt-10">
               <p className="text-base sm:text-lg lg:text-xl leading-relaxed text-charcoal-light">
                 {post.intro}
@@ -286,9 +362,10 @@ export default function BlogDetailPage() {
             </div>
 
             {/* Key takeaways */}
-            <section className="mt-8 sm:mt-10 border border-primary/20 bg-primary/[0.045] p-5 sm:p-7">
+
+            <section className="mt-8 sm:mt-10 border border-primary/20 bg-primary/[0.045] p-5 sm:p-7 rounded-xl">
               <div className="flex items-center gap-3">
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center bg-primary text-white">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center bg-primary text-white rounded-xl">
                   <CheckCircle2 className="h-4.5 w-4.5" />
                 </span>
 
@@ -305,7 +382,7 @@ export default function BlogDetailPage() {
                 {post.keyTakeaways.map((takeaway) => (
                   <div
                     key={takeaway}
-                    className="flex min-w-0 gap-3 border border-border bg-card p-4"
+                    className="flex min-w-0 gap-3 border border-border bg-card p-4 rounded-xl"
                   >
                     <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
 
@@ -318,11 +395,12 @@ export default function BlogDetailPage() {
             </section>
 
             {/* Article content */}
+
             <div className="mt-10 sm:mt-12 space-y-10 sm:space-y-12">
               {post.sections.map((section, index) => (
                 <section key={section.heading} className="min-w-0">
                   <div className="mb-4 flex items-start gap-3">
-                    <span className="mt-1 flex h-7 w-7 shrink-0 items-center justify-center border border-primary/30 bg-primary/5 text-[10px] font-bold text-primary">
+                    <span className="mt-1 flex h-7 w-7 shrink-0 items-center justify-center border border-primary/30 bg-primary/5 text-[10px] font-bold text-primary rounded-xl">
                       {String(index + 1).padStart(2, "0")}
                     </span>
 
@@ -363,6 +441,7 @@ export default function BlogDetailPage() {
             </div>
 
             {/* Gallery */}
+
             {isGallery &&
               post.galleryImages &&
               post.galleryImages.length > 0 && (
@@ -379,7 +458,7 @@ export default function BlogDetailPage() {
                     {post.galleryImages.map((image, index) => (
                       <div
                         key={`${image}-${index}`}
-                        className={`group overflow-hidden border border-border bg-card ${
+                        className={`group overflow-hidden border border-border bg-card rounded-xl ${
                           index === 0 ? "sm:col-span-2" : ""
                         }`}
                       >
@@ -403,13 +482,13 @@ export default function BlogDetailPage() {
               )}
           </article>
 
-          {/* =====================================================
-              SIDEBAR
-          ===================================================== */}
+          {/* SIDEBAR */}
+
           <aside className="min-w-0 lg:sticky lg:top-24">
             <div className="space-y-5">
               {/* Article information */}
-              <div className="border border-border bg-card">
+
+              <div className="border border-border bg-card rounded-xl">
                 <div className="border-b border-divider px-5 py-4">
                   <p className="section-label">Article Information</p>
 
@@ -423,7 +502,7 @@ export default function BlogDetailPage() {
                     <span className="text-xs text-muted-foreground">Type</span>
 
                     <span
-                      className={`shrink-0 px-2.5 py-1 text-[10px] font-bold ${
+                      className={`shrink-0 px-2.5 py-1 text-[10px] font-bold rounded-xl ${
                         TYPE_COLOURS[post.type]
                       }`}
                     >
@@ -464,7 +543,8 @@ export default function BlogDetailPage() {
               </div>
 
               {/* On this page */}
-              <div className="hidden lg:block border border-border bg-card">
+
+              <div className="hidden lg:block border border-border bg-card rounded-xl">
                 <div className="border-b border-divider px-5 py-4">
                   <p className="section-label">On This Page</p>
                 </div>
@@ -490,11 +570,12 @@ export default function BlogDetailPage() {
               </div>
 
               {/* Technical enquiry CTA */}
-              <div className="relative overflow-hidden border border-primary/20 bg-[#edf9fd] p-5 sm:p-6">
+
+              <div className="relative overflow-hidden border border-primary/20 bg-[#edf9fd] p-5 sm:p-6 rounded-xl">
                 <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-primary/10" />
 
                 <div className="relative">
-                  <span className="flex h-10 w-10 items-center justify-center bg-primary text-white">
+                  <span className="flex h-10 w-10 items-center justify-center bg-primary text-white rounded-xl">
                     {isGallery ? (
                       <Camera className="h-5 w-5" />
                     ) : (
@@ -515,7 +596,7 @@ export default function BlogDetailPage() {
 
                   <Link
                     to="/contact?tab=quote"
-                    className="mt-5 inline-flex w-full items-center justify-center gap-2 bg-primary px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
+                    className="mt-5 inline-flex w-full items-center justify-center gap-2 bg-primary px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-primary-dark rounded-xl"
                   >
                     Technical Enquiry
                     <ArrowRight className="h-4 w-4" />
@@ -530,6 +611,7 @@ export default function BlogDetailPage() {
       {/* =========================================================
           RELATED CONTENT
       ========================================================= */}
+
       {relatedPosts.length > 0 && (
         <section className="border-t border-divider bg-surface-subtle">
           <div className="container max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
@@ -553,7 +635,7 @@ export default function BlogDetailPage() {
                 <Link
                   key={related.slug}
                   to={`/blog/${related.slug}`}
-                  className="product-card group flex min-w-0 flex-col"
+                  className="product-card group flex min-w-0 flex-col rounded-xl"
                 >
                   <div className="aspect-video overflow-hidden">
                     <img
@@ -566,7 +648,7 @@ export default function BlogDetailPage() {
                   <div className="flex flex-1 flex-col p-5">
                     <div className="mb-3 flex flex-wrap items-center gap-2">
                       <span
-                        className={`px-2.5 py-1 text-[10px] font-bold ${
+                        className={`px-2.5 py-1 text-[10px] font-bold rounded-xl ${
                           TYPE_COLOURS[related.type]
                         }`}
                       >
@@ -575,6 +657,7 @@ export default function BlogDetailPage() {
 
                       <span className="inline-flex items-center gap-1 text-[10px] text-muted-foreground">
                         <Calendar className="h-3 w-3" />
+
                         {related.date}
                       </span>
                     </div>

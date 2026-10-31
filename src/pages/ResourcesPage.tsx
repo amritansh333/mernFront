@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Download, FileText, Package } from "lucide-react";
+import PageHeroBanner from "@/components/hero-banner/PageHeroBanner";
+import manufacturingImage from "@/assets/csr-slider1.jpeg";
 
 /* ─── Catalog / Brochure cards ────────────────────────── */
 const CATALOGS = [
@@ -134,36 +136,24 @@ export default function ResourcesPage() {
   return (
     <div className="pt-16">
       {/* Page Header */}
-      <div className="bg-surface-subtle border-b border-divider py-12">
-        <div className="container max-w-7xl mx-auto px-6">
-          <nav className="text-xs text-muted-foreground mb-4 flex items-center gap-1.5">
-            <Link to="/" className="hover:text-primary">
-              Home
-            </Link>
-            <span>/</span>
-            <Link to="/about" className="hover:text-primary">
-              Company
-            </Link>
-            <span>/</span>
-            <span className="text-charcoal">Resources & Downloads</span>
-          </nav>
-          <p className="section-label mb-3">Downloads</p>
-          <h1 className="font-heading text-4xl text-charcoal mb-3">
-            Catalogues & Brochures
-          </h1>
-          <p className="text-muted-foreground max-w-2xl leading-relaxed">
-            Download our product catalogues and brand brochures to explore the
-            full range of Polyrib thermoplastic grades, specifications, and
-            application guidance.
-          </p>
-        </div>
-      </div>
+      <PageHeroBanner
+        eyebrow="Downloadable Resources"
+        title="Catalogues"
+        highlight="& Resources"
+        image={manufacturingImage}
+        imageAlt="Khanna Polyrib manufacturing facility"
+        imagePosition="center center"
+        breadcrumbs={[
+          { label: "Home", to: "/" },
+          { label: "Resources & Downloads" },
+        ]}
+      />
 
       {/* ── Catalogues & Brochures Grid ── */}
       <section className="py-16">
         <div className="container max-w-7xl mx-auto px-6">
           <div className="flex items-center gap-3 mb-10">
-            <div className="w-9 h-9 bg-primary/10 flex items-center justify-center">
+            <div className="w-9 h-9 bg-primary/10 flex items-center justify-center rounded-xl">
               <Package className="w-5 h-5 text-primary" />
             </div>
             <div>
@@ -180,7 +170,7 @@ export default function ResourcesPage() {
             {CATALOGS.map((doc) => (
               <div
                 key={doc.id}
-                className="product-card flex flex-col group border border-border hover:border-primary/40 transition-all duration-300 hover:shadow-card-hover"
+                className="product-card flex flex-col group border border-border hover:border-primary/40 transition-all duration-300 hover:shadow-card-hover rounded-xl"
               >
                 {/* Top stripe */}
                 <div className="h-1 w-full bg-primary" />
@@ -188,18 +178,18 @@ export default function ResourcesPage() {
                   {/* Tag + format */}
                   <div className="flex items-center justify-between mb-4">
                     <span
-                      className={`text-[10px] font-semibold px-2.5 py-1 border ${TAG_COLORS[doc.tag] ?? "bg-surface-subtle text-muted-foreground border-divider"}`}
+                      className={`text-[10px] font-semibold px-2.5 py-1 border rounded-xl ${TAG_COLORS[doc.tag] ?? "bg-surface-subtle text-muted-foreground border-divider"}`}
                     >
                       {doc.tag}
                     </span>
-                    <span className="text-[10px] px-2 py-0.5 bg-surface-subtle border border-divider text-muted-foreground font-mono">
+                    <span className="text-[10px] px-2 py-0.5 bg-surface-subtle border border-divider rounded-xl text-muted-foreground font-mono">
                       {doc.format} · {doc.size}
                     </span>
                   </div>
 
                   {/* Icon + Title */}
                   <div className="flex items-start gap-3 mb-3">
-                    <div className="w-10 h-10 bg-primary/10 group-hover:bg-primary/20 transition-colors flex items-center justify-center shrink-0 mt-0.5">
+                    <div className="w-10 h-10 bg-primary/10 group-hover:bg-primary/20 transition-colors flex items-center justify-center shrink-0 mt-0.5 rounded-xl">
                       <FileText className="w-5 h-5 text-primary" />
                     </div>
                     <h3 className="font-heading font-semibold text-charcoal text-lg leading-snug group-hover:text-primary transition-colors duration-200">
@@ -222,7 +212,7 @@ export default function ResourcesPage() {
                       setSelectedCatalog(doc);
                       setOpen(true);
                     }}
-                    className="inline-flex items-center justify-center gap-2 w-full py-2.5 bg-surface-subtle text-charcoal text-xs font-bold border border-border hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-200 group/btn"
+                    className="inline-flex items-center justify-center gap-2 w-full py-2.5 bg-surface-subtle text-charcoal text-xs font-bold border border-border hover:bg-primary hover:text-primary-foreground hover:border-primary rounded-xl transition-all duration-200 group/btn"
                   >
                     <Download className="w-3.5 h-3.5 group-hover/btn:translate-y-0.5 transition-transform duration-200" />
                     Download Now

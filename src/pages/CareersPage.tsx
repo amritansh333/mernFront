@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Briefcase, MapPin, Clock } from "lucide-react";
-import heroImage from "@/assets/hero-industrial.jpg";
+import PageHeroBanner from "@/components/hero-banner/PageHeroBanner";
+import manufacturingImage from "@/assets/csr-slider1.jpeg";
 import { useScrollFade } from "@/hooks/useScrollFade";
 
 const openRoles = [
@@ -55,27 +56,15 @@ export default function CareersPage() {
 
   return (
     <div className="pt-16">
-      <div className="relative min-h-[40vh] flex items-end overflow-hidden bg-charcoal">
-        <img
-          src={heroImage}
-          alt="Careers at Polyrib"
-          className="absolute inset-0 w-full h-full object-cover opacity-40"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-charcoal/90 to-transparent" />
-        <div className="relative container max-w-7xl mx-auto px-6 py-14">
-          <nav className="text-xs text-white/50 mb-4 flex items-center gap-1.5">
-            <Link to="/" className="hover:text-white/80">
-              Home
-            </Link>
-            <span>/</span>
-            <span className="text-white/80">Careers</span>
-          </nav>
-          <p className="section-label text-white/50 mb-3">Join Our Team</p>
-          <h1 className="font-heading text-4xl text-white">
-            Careers at Polyrib
-          </h1>
-        </div>
-      </div>
+      <PageHeroBanner
+        eyebrow="Join Our Team"
+        title="Careers"
+        highlight="At Polyrib"
+        image={manufacturingImage}
+        imageAlt="Khanna Polyrib manufacturing facility"
+        imagePosition="center center"
+        breadcrumbs={[{ label: "Home", to: "/" }, { label: "Careers" }]}
+      />
 
       {/* Intro */}
       <section className="py-14 border-b border-divider">
@@ -104,7 +93,7 @@ export default function CareersPage() {
                 ))}
               </div>
             </div>
-            <div className="bg-surface-subtle border border-border p-8">
+            <div className="bg-surface-subtle border border-border p-8 rounded-xl">
               <p className="section-label mb-3">Open Applications</p>
               <h3 className="font-heading text-xl text-charcoal mb-3">
                 Don't see a suitable role?
@@ -116,7 +105,7 @@ export default function CareersPage() {
               </p>
               <Link
                 to="https://wa.me/919936794816"
-                className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary-dark transition-colors duration-200"
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary-dark transition-colors duration-200 rounded-xl"
               >
                 Send Speculative Application on WhatsApp
                 <ArrowRight className="w-4 h-4" />
@@ -137,12 +126,12 @@ export default function CareersPage() {
             {openRoles.map((role) => (
               <div
                 key={role.title}
-                className="bg-card border border-border p-6 hover:border-primary/40 transition-colors duration-200 group"
+                className="bg-card border border-border p-6 hover:border-primary/40 transition-colors duration-200 group rounded-xl"
               >
                 <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
                   <div className="flex-1">
                     <div className="flex flex-wrap gap-2 mb-3">
-                      <span className="text-[10px] px-2.5 py-1 bg-primary/10 text-primary font-bold uppercase tracking-wider">
+                      <span className="text-[10px] px-2.5 py-1 bg-primary/10 text-primary font-bold uppercase tracking-wider rounded-xl">
                         {role.dept}
                       </span>
                     </div>
@@ -169,7 +158,7 @@ export default function CareersPage() {
                   </div>
                   <Link
                     to="/contact"
-                    className="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary-dark transition-colors duration-200"
+                    className="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary-dark transition-colors duration-200 rounded-lg"
                   >
                     Apply <ArrowRight className="w-4 h-4" />
                   </Link>

@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Camera, Calendar } from "lucide-react";
-import heroImage from "@/assets/hero-industrial.jpg";
+import PageHeroBanner from "@/components/hero-banner/PageHeroBanner";
+import manufacturingImage from "@/assets/csr-slider1.jpeg";
 import { useScrollFade } from "@/hooks/useScrollFade";
 import { getBlogPosts } from "@/lib/blogApi";
 import type { BlogPost, PostType } from "@/lib/blogApi";
@@ -88,50 +89,19 @@ export default function BlogPage() {
   const filterOptions: FilterType[] = ["All", "Blog", "Gallery"];
 
   return (
-    <div className="min-w-0 overflow-x-hidden bg-background">
+    <div className="pt-16">
       {/* =========================================================
           HERO
       ========================================================= */}
-      <section className="relative isolate flex min-h-[300px] sm:min-h-[315px] lg:min-h-[330px] items-end overflow-hidden">
-        {/* Hero background */}
-        <div className="absolute inset-0">
-          <img
-            src={heroImage}
-            alt="Blog and Gallery"
-            className="absolute inset-0 w-full h-full object-cover opacity-40"
-          />
-        </div>
-
-        {/* Industrial overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#071321]/45 via-[#071321]/60 to-[#071321]/90" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#071321]/85 via-[#071321]/45 to-transparent" />
-
-        <div className="relative z-10 w-full">
-          <div className="container max-w-7xl mx-auto px-4 sm:px-6 pb-8 sm:pb-9 lg:pb-10">
-            <div className="max-w-5xl min-w-0">
-              {/* Breadcrumb */}
-              <nav
-                aria-label="Breadcrumb"
-                className="mb-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] sm:text-xs text-white/75"
-              >
-                <Link to="/" className="transition-colors hover:text-white">
-                  Home
-                </Link>
-
-                <span>/</span>
-
-                <span className="text-white/90">Blog & Gallery</span>
-              </nav>
-
-              <p className="section-label text-white/75">Knowledge & Updates</p>
-
-              <h1 className="font-heading text-4xl text-white">
-                Blog & Gallery
-              </h1>
-            </div>
-          </div>
-        </div>
-      </section>
+      <PageHeroBanner
+        eyebrow="Knowledge & Updates"
+        title="Blogs"
+        highlight="& Gallery"
+        image={manufacturingImage}
+        imageAlt="Khanna Polyrib manufacturing facility"
+        imagePosition="center center"
+        breadcrumbs={[{ label: "Home", to: "/" }, { label: "Blogs & Gallery" }]}
+      />
 
       {/* =========================================================
           CONTENT
@@ -154,7 +124,7 @@ export default function BlogPage() {
                 type="button"
                 onClick={() => setActiveFilter(filter)}
                 disabled={loading}
-                className={`px-4 py-1.5 text-sm font-semibold border transition-all duration-200 ${
+                className={`px-4 py-1.5 text-sm font-semibold border transition-all duration-200 rounded-xl ${
                   activeFilter === filter
                     ? "border-primary bg-primary text-white"
                     : "border-border bg-card text-charcoal-light hover:border-primary hover:text-primary"
@@ -259,7 +229,7 @@ export default function BlogPage() {
               <Link
                 key={post.slug}
                 to={`/blog/${post.slug}`}
-                className="product-card flex flex-col group"
+                className="product-card flex flex-col group rounded-xl"
               >
                 {/* =================================================
                     IMAGE
@@ -280,7 +250,7 @@ export default function BlogPage() {
                   {/* Type + Date */}
                   <div className="flex flex-wrap items-center gap-2 mb-3">
                     <span
-                      className={`text-[10px] px-2.5 py-1 font-bold ${
+                      className={`text-[10px] px-2.5 py-1 font-bold rounded-xl ${
                         TYPE_COLOURS[post.type] || ""
                       }`}
                     >
@@ -310,7 +280,7 @@ export default function BlogPage() {
                       {post.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="text-[10px] px-2 py-0.5 bg-surface-subtle border border-divider text-charcoal-light"
+                          className="text-[10px] px-2 py-0.5 bg-surface-subtle border border-divider text-charcoal-light rounded-xl"
                         >
                           {tag}
                         </span>

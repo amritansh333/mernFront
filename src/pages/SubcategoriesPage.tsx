@@ -4,6 +4,9 @@ import { ArrowRight } from "lucide-react";
 import api from "@/lib/api";
 import type { SubCategory } from "@/types/catalog";
 
+import PageHeroBanner from "@/components/hero-banner/PageHeroBanner";
+import manufacturingImage from "@/assets/csr-slider1.jpeg";
+
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "";
 
 function SubcategoryImageCarousel({
@@ -181,7 +184,7 @@ export default function SubcategoriesPage() {
   const [subcategories, setSubcategories] = useState<SubCategory[]>([]);
   const [loading, setLoading] = useState(true);
 
-  //  Convert slug to readable text
+  // Convert slug to readable text
   const formatText = (slug?: string) => {
     if (!slug) return "";
     return slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
@@ -205,62 +208,31 @@ export default function SubcategoriesPage() {
 
   return (
     <div className="pt-16">
-      {/*  TOP HEADER SECTION */}
-      <div className="bg-surface-subtle border-b border-divider py-12">
-        <div className="container max-w-7xl mx-auto px-6">
-          {/*  Breadcrumb */}
-          <nav className="text-xs text-muted-foreground mb-4 flex items-center gap-1.5 flex-wrap">
-            <Link to="/" className="hover:text-primary">
-              Home
-            </Link>
-            <span>/</span>
-            <Link to="/products" className="hover:text-primary">
-              Products
-            </Link>
-            <span>/</span>
-
-            {loading ? (
-              <div className="h-3 w-28 bg-gray-200 rounded animate-pulse" />
-            ) : (
-              <span className="text-charcoal">{formatText(categorySlug)}</span>
-            )}
-          </nav>
-
-          {loading ? (
-            <>
-              {/*  Label Skeleton */}
-              <div className="h-4 w-32 bg-gray-200 rounded animate-pulse mb-4" />
-
-              {/*  Title Skeleton */}
-              <div className="h-10 w-72 bg-gray-200 rounded animate-pulse mb-4" />
-
-              {/*  Description Skeleton */}
-              <div className="space-y-2 max-w-2xl">
-                <div className="h-4 w-full bg-gray-200 rounded animate-pulse" />
-                <div className="h-4 w-5/6 bg-gray-200 rounded animate-pulse" />
-              </div>
-            </>
-          ) : (
-            <>
-              {/*  Title */}
-              <p className="section-label mb-3">Product Category</p>
-
-              <h1 className="font-heading text-4xl text-charcoal mb-3">
-                {formatText(categorySlug)}
-              </h1>
-
-              {/*  Description */}
-              <p className="text-muted-foreground max-w-2xl leading-relaxed">
-                Browse all subcategories under {formatText(categorySlug)}.
-                Explore different product types and navigate deeper into
-                available brands.
-              </p>
-            </>
-          )}
-        </div>
-      </div>
-
-      {/*  CARDS SECTION */}
+      ```
+      {/* =====================================================
+      REUSABLE PAGE HERO BANNER
+      DYNAMIC CATEGORY INFORMATION
+  ===================================================== */}
+      <PageHeroBanner
+        eyebrow="Browse all subcategories under Thermoplastics Semi Finished Products. Explore different product types and navigate deeper into available brands."
+        title={formatText(categorySlug) || "Products"}
+        image={manufacturingImage}
+        imageAlt="Khanna Polyrib manufacturing facility"
+        imagePosition="center center"
+        breadcrumbs={[
+          { label: "Home", to: "/" },
+          { label: "Products", to: "/products" },
+          {
+            label: loading
+              ? formatText(categorySlug) || "Loading..."
+              : formatText(categorySlug),
+          },
+        ]}
+      />
+      {/* =====================================================
+      CARDS SECTION
+      EXISTING IMPLEMENTATION UNCHANGED
+  ===================================================== */}
       <section className="py-14">
         <div className="container max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">

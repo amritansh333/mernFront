@@ -759,8 +759,8 @@
 /* FIX: Explicitly define the previously missing animation */
 
 .materials-motion-visible .materials-feature-image {
-  animation: materials-image-reveal 900ms cubic-bezier(0.22, 1, 0.36, 1)
-    150ms forwards;
+  animation: materials-image-reveal 900ms cubic-bezier(0.22, 1, 0.36, 1) 150ms
+    forwards;
 }
 
 @keyframes materials-image-reveal {
@@ -3946,7 +3946,7 @@
 
   box-shadow:
     0 0 0 1px rgba(var(--glow-color), 0.07),
-    0 0 8px rgba(var(--glow-color), 0.10),
+    0 0 8px rgba(var(--glow-color), 0.1),
     0 4px 14px rgba(var(--glow-color), 0.09);
 
   transition:
@@ -3989,7 +3989,6 @@
   --glow-color: 20, 184, 166;
 }
 
-
 /* ==========================================
    PERMANENT COLOURED GLOW
 ========================================== */
@@ -3998,9 +3997,8 @@
   box-shadow:
     0 0 0 1px rgba(var(--glow-color), 0.09),
     0 0 9px rgba(var(--glow-color), 0.12),
-    0 4px 16px rgba(var(--glow-color), 0.10);
+    0 4px 16px rgba(var(--glow-color), 0.1);
 }
-
 
 /* ==========================================
    STRONGER GLOW ON HOVER
@@ -4011,15 +4009,14 @@
     border-color: rgba(var(--glow-color), 0.65);
 
     box-shadow:
-      0 0 0 1px rgba(var(--glow-color), 0.20),
+      0 0 0 1px rgba(var(--glow-color), 0.2),
       0 0 12px rgba(var(--glow-color), 0.28),
-      0 0 24px rgba(var(--glow-color), 0.20),
+      0 0 24px rgba(var(--glow-color), 0.2),
       0 6px 20px rgba(var(--glow-color), 0.17);
 
     transform: translate3d(0, -3px, 0);
   }
 }
-
 
 /* ==========================================
    MOBILE TOUCH FEEDBACK
@@ -4029,11 +4026,10 @@
   border-color: rgba(var(--glow-color), 0.65);
 
   box-shadow:
-    0 0 0 1px rgba(var(--glow-color), 0.20),
+    0 0 0 1px rgba(var(--glow-color), 0.2),
     0 0 12px rgba(var(--glow-color), 0.25),
     0 5px 18px rgba(var(--glow-color), 0.18);
 }
-
 
 /* ==========================================
    KEYBOARD ACCESSIBILITY
@@ -4044,10 +4040,9 @@
   outline-offset: 3px;
 
   box-shadow:
-    0 0 0 1px rgba(var(--glow-color), 0.20),
+    0 0 0 1px rgba(var(--glow-color), 0.2),
     0 0 12px rgba(var(--glow-color), 0.25);
 }
-
 
 /* ==========================================
    REDUCED MOTION

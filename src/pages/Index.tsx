@@ -1450,7 +1450,7 @@ function IndustriesSection() {
               <Link
                 key={ind.abbr}
                 to={`/industries/${ind.slug}`}
-                className="industries-motion-card group flex items-center gap-2.5 px-4 py-2.5 border border-border bg-card hover:border-primary hover:text-primary text-sm font-medium text-charcoal-light transition-all duration-200 rounded-lg"
+                className="industries-motion-card group flex items-center gap-2.5 px-4 py-2.5 border border-primary bg-card hover:border-primary hover:text-primary text-sm font-medium text-charcoal-light transition-all duration-200 rounded-xl"
                 style={
                   {
                     "--industry-index": index,
@@ -1827,7 +1827,7 @@ function PolyribPromiseSection() {
           {promise.map(({ icon: Icon, title, desc }, index) => (
             <div
               key={title}
-              className="promise-bubble-card bg-card border border-border p-8 text-center group rounded-xl"
+              className="promise-bubble-card bg-card border border-primary p-8 text-center group rounded-2xl"
               style={
                 {
                   "--promise-delay": `${index * 500}ms`,
@@ -1957,7 +1957,7 @@ const Index = () => {
             >
               <Link
                 to="/products"
-                className="inline-flex w-[172px] sm:w-auto items-center justify-center gap-2 px-3 sm:px-4 py-2 text-xs sm:text-sm bg-primary text-primary-foreground font-normal hover:bg-primary-light transition-colors duration-200 rounded-lg whitespace-nowrap"
+                className="inline-flex w-[172px] sm:w-auto items-center justify-center gap-2 px-3 sm:px-4 py-2 text-xs sm:text-sm bg-primary text-primary-foreground font-normal hover:bg-primary-light transition-colors duration-200 rounded-lg whitespace-nowrap border border-primary"
               >
                 Explore Products
                 <ArrowRight className="w-3.5 h-3.5 shrink-0" />

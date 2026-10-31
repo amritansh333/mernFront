@@ -11,6 +11,10 @@ import {
 import type { Product } from "@/types/product";
 import type { Brand } from "@/types/catalog";
 import api from "@/lib/api";
+
+import PageHeroBanner from "@/components/hero-banner/PageHeroBanner";
+import manufacturingImage from "@/assets/csr-slider1.jpeg";
+
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export default function ProductDetailPage() {
@@ -193,82 +197,41 @@ export default function ProductDetailPage() {
 
   return (
     <div className="pt-16">
-      {/* ---------------- HERO SECTION ---------------- */}
+      {/* ---------------- PAGE HERO BANNER ---------------- */}
+      <PageHeroBanner
+        eyebrow={formatText(subcategorySlug) || "Product Category"}
+        title={product?.name || formatText(productSlug) || "Product"}
+        image={manufacturingImage}
+        imageAlt="Khanna Polyrib manufacturing facility"
+        imagePosition="center center"
+        breadcrumbs={[
+          { label: "Home", to: "/" },
+          { label: "Products", to: "/products" },
+          {
+            label: formatText(categorySlug) || "Products",
+            to: `/products/${categorySlug}`,
+          },
+          {
+            label: formatText(subcategorySlug) || "Subcategory",
+            to: `/products/${categorySlug}/${subcategorySlug}`,
+          },
+          {
+            label: brand?.name || formatText(brandSlug) || "Brand",
+            to: `/products/${categorySlug}/${subcategorySlug}/${brandSlug}`,
+          },
+          {
+            label: product?.name || formatText(productSlug) || "Product",
+          },
+        ]}
+      />
+
+      {/* ---------------- PRODUCT DESCRIPTION + IMAGE SLIDER ---------------- */}
       <div className="bg-surface-subtle border-b border-divider py-8">
         <div className="container max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* LEFT SIDE */}
           <div>
-            {/*  Breadcrumb */}
-            <nav className="text-xs text-muted-foreground mb-4 flex items-center gap-1.5 flex-wrap">
-              <Link to="/" className="hover:text-primary">
-                Home
-              </Link>
-
-              <span>/</span>
-
-              <Link to="/products" className="hover:text-primary">
-                Products
-              </Link>
-
-              <span>/</span>
-
-              {loading ? (
-                <>
-                  <div className="h-3 w-20 bg-gray-200 rounded animate-pulse" />
-
-                  <span>/</span>
-
-                  <div className="h-3 w-24 bg-gray-200 rounded animate-pulse" />
-
-                  <span>/</span>
-
-                  <div className="h-3 w-28 bg-gray-200 rounded animate-pulse" />
-
-                  <span>/</span>
-
-                  <div className="h-3 w-32 bg-gray-200 rounded animate-pulse" />
-                </>
-              ) : (
-                <>
-                  <Link
-                    to={`/products/${categorySlug}`}
-                    className="hover:text-primary"
-                  >
-                    {formatText(categorySlug)}
-                  </Link>
-
-                  <span>/</span>
-
-                  <Link
-                    to={`/products/${categorySlug}/${subcategorySlug}`}
-                    className="hover:text-primary"
-                  >
-                    {formatText(subcategorySlug)}
-                  </Link>
-
-                  <span>/</span>
-
-                  <Link
-                    to={`/products/${categorySlug}/${subcategorySlug}/${brandSlug}`}
-                    className="hover:text-primary"
-                  >
-                    {brand?.name || formatText(brandSlug)}
-                  </Link>
-
-                  <span>/</span>
-
-                  <span className="text-charcoal">
-                    {product?.name || formatText(productSlug)}
-                  </span>
-                </>
-              )}
-            </nav>
-
             {loading ? (
               <>
-                {/* TITLE */}
-                <div className="h-10 w-3/4 bg-gray-200 rounded animate-pulse mb-5" />
-
                 {/* DESCRIPTION BOX */}
                 <div className="bg-white border border-divider p-6 rounded shadow-sm mb-6">
                   <div className="space-y-4">
@@ -286,10 +249,6 @@ export default function ProductDetailPage() {
               </>
             ) : (
               <div>
-                <h1 className="font-heading text-4xl text-charcoal mb-5">
-                  {product.name}
-                </h1>
-
                 {/* DESCRIPTION BOX */}
                 <div className="bg-white border border-divider p-6 rounded shadow-sm mb-6">
                   <div className="space-y-4 text-muted-foreground leading-relaxed">

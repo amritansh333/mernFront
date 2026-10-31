@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ArrowRight, ChevronRight } from "lucide-react";
 import { useScrollFade } from "@/hooks/useScrollFade";
-
+import PageHeroBanner from "@/components/hero-banner/PageHeroBanner";
+import manufacturingImage from "@/assets/csr-slider1.jpeg";
 const MATERIAL_FAMILIES = [
   {
     brand: "POLYRIB V",
@@ -319,26 +320,16 @@ export default function MaterialsPage() {
 
   return (
     <div className="pt-16">
-      <div className="bg-surface-subtle border-b border-divider py-12">
-        <div className="container max-w-7xl mx-auto px-6">
-          <nav className="text-xs text-muted-foreground mb-4 flex items-center gap-1.5">
-            <Link to="/" className="hover:text-primary">
-              Home
-            </Link>
-            <span>/</span>
-            <span className="text-charcoal">Materials</span>
-          </nav>
-          <p className="section-label mb-3">Thermoplastic Brands</p>
-          <h1 className="font-heading text-4xl text-charcoal mb-3">
-            Our Material Families
-          </h1>
-          <p className="text-muted-foreground max-w-2xl leading-relaxed">
-            Polyrib manufactures a comprehensive range of thermoplastics under
-            its brand families. Click any brand to explore its grades,
-            properties, and applications.
-          </p>
-        </div>
-      </div>
+      {/* Page Header */}
+      <PageHeroBanner
+        eyebrow="Polyrib manufactures a comprehensive range of thermoplastics under its brand families. Click any brand to explore its grades, properties, and applications."
+        title="Our Material"
+        highlight="Families"
+        image={manufacturingImage}
+        imageAlt="Khanna Polyrib manufacturing facility"
+        imagePosition="center center"
+        breadcrumbs={[{ label: "Home", to: "/" }, { label: "Materials" }]}
+      />
 
       <div className="container max-w-7xl mx-auto px-6 py-12">
         {/* Brand grid */}
@@ -354,7 +345,7 @@ export default function MaterialsPage() {
                 {/* CARD */}
                 <button
                   onClick={() => setSelected(isSelected ? null : m.slug)}
-                  className={`text-left p-5 border-2 transition-all duration-200 ${
+                  className={`text-left p-5 border-2 transition-all duration-200 rounded-xl ${
                     isSelected
                       ? "border-primary bg-primary/5 shadow-card"
                       : "border-border bg-card hover:border-primary/40"
@@ -362,7 +353,7 @@ export default function MaterialsPage() {
                 >
                   <div className="flex items-start justify-between mb-2">
                     <span
-                      className={`text-[10px] px-2.5 py-1 font-bold border ${m.colour}`}
+                      className={`text-[10px] px-2.5 py-1 font-bold border rounded-2xl ${m.colour}`}
                     >
                       {m.base}
                     </span>
@@ -387,7 +378,7 @@ export default function MaterialsPage() {
 
                 {/* INLINE EXPANDED SECTION */}
                 {isSelected && (
-                  <div className="col-span-1 sm:col-span-2 lg:col-span-3 border border-primary/20 bg-primary/3 p-8 animate-fade-in">
+                  <div className="col-span-1 sm:col-span-2 lg:col-span-3 border border-primary/20 bg-primary/3 p-8 animate-fade-in rounded-xl">
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                       <div className="lg:col-span-2">
                         <div className="flex items-center gap-3 mb-4 flex-wrap">
@@ -395,7 +386,7 @@ export default function MaterialsPage() {
                             {m.brand}
                           </h2>
                           <span
-                            className={`text-xs px-2.5 py-1 border font-bold ${m.colour}`}
+                            className={`text-xs px-2.5 py-1 border font-bold rounded-2xl ${m.colour}`}
                           >
                             {m.base}
                           </span>
@@ -442,7 +433,7 @@ export default function MaterialsPage() {
                       </div>
 
                       <div className="space-y-4">
-                        <div className="bg-card border border-border p-4">
+                        <div className="bg-card border border-border p-4 rounded-xl">
                           <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
                             Temperature Range
                           </p>
@@ -465,7 +456,7 @@ export default function MaterialsPage() {
                             </div>
                           </div>
                         </div>
-                        <div className="bg-card border border-border p-4">
+                        <div className="bg-card border border-border p-4 rounded-xl">
                           <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
                             Industries
                           </p>
@@ -483,14 +474,14 @@ export default function MaterialsPage() {
                         <div className="flex flex-col gap-2">
                           <Link
                             to="/contact"
-                            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-primary text-primary-foreground text-xs font-semibold hover:bg-primary-dark transition-colors duration-200"
+                            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-primary text-primary-foreground text-xs font-semibold hover:bg-primary-dark transition-colors duration-200 rounded-lg"
                           >
                             Request Quote for {mat.brand}{" "}
                             <ArrowRight className="w-3.5 h-3.5" />
                           </Link>
                           <Link
                             to="/resources"
-                            className="inline-flex items-center justify-center gap-2 px-4 py-2 border border-border text-xs font-semibold text-charcoal-light hover:border-primary hover:text-primary transition-colors duration-200"
+                            className="inline-flex items-center justify-center gap-2 px-4 py-2 border border-border text-xs font-semibold text-charcoal-light hover:border-primary hover:text-primary transition-colors duration-200 rounded-lg"
                           >
                             Download Datasheet
                           </Link>
@@ -505,7 +496,7 @@ export default function MaterialsPage() {
         </div>
 
         {/* CTA */}
-        <div className="mt-12 border border-border p-6 flex flex-col md:flex-row items-center justify-between gap-5 bg-surface-subtle">
+        <div className="mt-12 border border-border p-6 flex flex-col md:flex-row items-center justify-between gap-5 bg-white rounded-xl">
           <div>
             <h3 className="font-heading font-semibold text-charcoal mb-1">
               Not sure which grade to specify?
@@ -517,13 +508,13 @@ export default function MaterialsPage() {
           <div className="flex gap-3 shrink-0">
             <Link
               to="/tools/material-selector"
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary-dark transition-colors duration-200"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary-dark transition-colors duration-200 rounded-lg"
             >
               Material Selector <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
               to="/contact?tab=quote"
-              className="inline-flex items-center gap-2 px-5 py-2.5 border border-border text-charcoal-light text-sm font-semibold hover:border-primary hover:text-primary transition-colors duration-200"
+              className="inline-flex items-center gap-2 px-5 py-2.5 border border-border text-charcoal-light text-sm font-semibold hover:border-primary hover:text-primary transition-colors duration-200 rounded-lg"
             >
               Technical Enquiry
             </Link>

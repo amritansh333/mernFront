@@ -404,7 +404,7 @@ export function Header() {
                     )
                   }
                   aria-expanded={openDropdown === item.label}
-                  className={`flex items-center gap-1 px-3 py-2 text-sm font-medium transition-colors duration-200 hover:text-primary rounded-sm ${
+                  className={`flex items-center gap-1 px-3 py-2 text-sm font-medium transition-colors duration-200 hover:text-primary rounded-xl ${
                     openDropdown === item.label
                       ? "text-primary"
                       : location.pathname.startsWith(item.href || "__") ||
@@ -478,7 +478,7 @@ export function Header() {
                 {/* Desktop Products Mega Menu */}
                 {item.megaMenu && openDropdown === item.label && (
                   <div
-                    className="absolute top-full left-0 mt-1 w-[min(520px,calc(100vw-2rem))] max-h-[80vh] overflow-y-auto bg-card border border-border shadow-card-hover z-50"
+                    className="absolute top-full left-0 mt-1 w-[min(520px,calc(100vw-2rem))] max-h-[80vh] overflow-y-auto bg-card border border-border shadow-card-hover z-50 rounded-xl"
                     onMouseLeave={() => setOpenProductSubmenu(null)}
                   >
                     <div className="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-divider">
@@ -607,7 +607,7 @@ export function Header() {
           <div className="hidden lg:flex items-center gap-3 shrink-0">
             <Link
               to="/contact?tab=quote"
-              className="inline-flex items-center justify-center gap-2 px-5 py-2 bg-gradient-to-r from-[#279ECE] to-[#1F7FA8] text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#279ECE]/30 rounded-lg"
+              className="inline-flex items-center justify-center gap-2 px-5 py-2 bg-gradient-to-r from-[#279ECE] to-[#1F7FA8] text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#279ECE]/30 rounded-lg border border-primary"
             >
               <span>Request a Quote</span>
               <ArrowRight className="h-4 w-4" />
@@ -795,7 +795,7 @@ export function Header() {
             <div className="pt-4">
               <Link
                 to="/contact"
-                className="inline-flex w-full items-center justify-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#279ECE] to-[#1F7FA8] text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#279ECE]/30 rounded-lg"
+                className="inline-flex w-full items-center justify-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#279ECE] to-[#1F7FA8] text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#279ECE]/30 rounded-lg border border-primary"
               >
                 <span>Request a Quote</span>
                 <ArrowRight className="h-4 w-4" />

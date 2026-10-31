@@ -11,7 +11,8 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
-import heroImage from "@/assets/csr.jpeg";
+import PageHeroBanner from "@/components/hero-banner/PageHeroBanner";
+import manufacturingImage from "@/assets/csr-slider1.jpeg";
 import csr1 from "@/assets/csr-slider1.jpeg";
 import csr2 from "@/assets/csr-slider2.jpeg";
 import csr3 from "@/assets/csr-slider3.jpeg";
@@ -71,29 +72,21 @@ export default function CSRPage() {
   };
 
   return (
-    <div className="pt-16 bg-white">
-      {/* Header */}
-      <div className="relative h-[40vh] flex items-end overflow-hidden bg-charcoal">
-        <img
-          src={heroImage}
-          alt="Sustainability"
-          className="absolute inset-0 w-full h-full object-cover opacity-40"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-charcoal/90 to-transparent" />
-        <div className="relative container max-w-7xl mx-auto px-6 py-14">
-          <nav className="text-xs text-white/50 mb-4 flex items-center gap-1.5">
-            <Link to="/" className="hover:text-white/80">
-              Home
-            </Link>
-            <span>/</span>
-            <span className="text-white/80">CSR & Sustainability</span>
-          </nav>
-          <p className="section-label text-white/50 mb-3">Responsibility</p>
-          <h1 className="font-heading text-4xl text-white">
-            CSR & Sustainability
-          </h1>
-        </div>
-      </div>
+    <div className="pt-16">
+      {/* ABOUT US HEADER */}
+
+      <PageHeroBanner
+        eyebrow="Responsibility"
+        title="CSR"
+        highlight="& Sustainability"
+        image={manufacturingImage}
+        imageAlt="Khanna Polyrib manufacturing facility"
+        imagePosition="center center"
+        breadcrumbs={[
+          { label: "Home", to: "/" },
+          { label: "CSR & Sustainability" },
+        ]}
+      />
 
       {/* Intro (MODIFIED SECTION ONLY) */}
       <section className="py-8 border-b border-gray-200 bg-white">
@@ -140,13 +133,13 @@ export default function CSRPage() {
 
             {/* RIGHT SIDE SLIDER */}
             <div className="relative group">
-              <div className="relative h-[380px] overflow-hidden shadow-xl">
+              <div className="relative h-[380px] overflow-hidden shadow-xl rounded-2xl">
                 {csrImages.map((img, index) => (
                   <img
                     key={index}
                     src={img}
                     alt="CSR"
-                    className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+                    className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 rounded-2xl border border-primary ${
                       index === current ? "opacity-100" : "opacity-0"
                     }`}
                   />
@@ -185,9 +178,9 @@ export default function CSRPage() {
             {pillars.map((p) => (
               <div
                 key={p.title}
-                className="bg-white border border-gray-200 shadow-sm p-6 hover:border-primary/40 transition-colors duration-200"
+                className="bg-white border border-gray-200 shadow-sm p-6 hover:border-primary/40 transition-colors duration-200 rounded-xl"
               >
-                <div className="w-10 h-10 bg-primary/10 flex items-center justify-center mb-4">
+                <div className="w-10 h-10 bg-primary/10 flex items-center justify-center mb-4 rounded-xl">
                   <p.icon className="w-5 h-5 text-primary" />
                 </div>
 
@@ -221,7 +214,7 @@ export default function CSRPage() {
             ].map((m) => (
               <div
                 key={m.l}
-                className="border border-gray-200 bg-white shadow-sm p-6 text-center"
+                className="border border-primary bg-white shadow-sm p-6 text-center rounded-xl"
               >
                 <div className="font-heading font-bold text-primary text-3xl mb-2">
                   {m.v}
@@ -246,14 +239,14 @@ export default function CSRPage() {
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               to="/resources"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-primary-foreground text-primary text-sm font-bold hover:bg-gray-100 transition-colors duration-200"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-primary-foreground text-primary text-sm font-bold hover:bg-gray-100 transition-colors duration-200 rounded-lg"
             >
               Download Report <ArrowRight className="w-4 h-4" />
             </Link>
 
             <Link
               to="/contact"
-              className="inline-flex items-center gap-2 px-6 py-3 border border-white/30 text-primary-foreground text-sm font-semibold hover:bg-white/10 transition-colors duration-200"
+              className="inline-flex items-center gap-2 px-6 py-3 border border-white/30 text-primary-foreground text-sm font-semibold hover:bg-white/10 transition-colors duration-200 rounded-lg"
             >
               Contact Us
             </Link>

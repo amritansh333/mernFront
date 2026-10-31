@@ -4,8 +4,8 @@ import api from "@/lib/api";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import type { Category } from "@/types/catalog";
-import semiFinishedImage from "@/assets/semi-finished-products.jpeg";
-import machineComponentsImage from "@/assets/machine-components.jpeg";
+import PageHeroBanner from "@/components/hero-banner/PageHeroBanner";
+import manufacturingImage from "@/assets/csr-slider1.jpeg";
 // Semi-finished product gallery
 import semiFinishedImage1 from "@/assets/semi-finished-products_1.jpeg";
 import semiFinishedImage2 from "@/assets/semi-finished-products_2.jpeg";
@@ -191,26 +191,17 @@ export default function ProductsPage() {
   return (
     <div className="pt-16">
       {/* Page header */}
-      <div className="bg-surface-subtle border-b border-divider py-12">
-        <div className="container max-w-7xl mx-auto px-6">
-          <nav className="text-xs text-muted-foreground mb-4 flex items-center gap-1.5">
-            <Link to="/" className="hover:text-primary">
-              Home
-            </Link>
-            <span>/</span>
-            <span className="text-charcoal">Products</span>
-          </nav>
-          <p className="section-label mb-3">Product Portfolio</p>
-          <h1 className="font-heading text-4xl text-charcoal mb-3">
-            Polyrib Products
-          </h1>
-          <p className="text-muted-foreground max-w-2xl leading-relaxed">
-            Two comprehensive product divisions - Thermoplastic Semi-Finished
-            materials across all Polyrib brand families, and precision
-            Thermoplastic Engineered Products for industrial applications.
-          </p>
-        </div>
-      </div>
+      {/* ABOUT US HEADER */}
+
+      <PageHeroBanner
+        eyebrow="Two comprehensive product divisions - Thermoplastic Semi-Finished materials across all Polyrib brand families, and precision Thermoplastic Engineered Products for industrial applications."
+        title="Polyrib"
+        highlight="Products"
+        image={manufacturingImage}
+        imageAlt="Khanna Polyrib manufacturing facility"
+        imagePosition="center center"
+        breadcrumbs={[{ label: "Home", to: "/" }, { label: "Products" }]}
+      />
 
       {/* Category cards */}
       <section className="py-16">

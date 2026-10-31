@@ -9,7 +9,8 @@ import {
   Beaker,
   Zap,
 } from "lucide-react";
-
+import PageHeroBanner from "@/components/hero-banner/PageHeroBanner";
+import manufacturingImage from "@/assets/csr-slider1.jpeg";
 // ─── Data ────────────────────────────────────────────────────────────────────
 
 const TEMP_RANGES = [
@@ -409,31 +410,19 @@ export default function MaterialSelectorPage() {
 
   return (
     <div className="pt-16">
-      {/* Header */}
-      <div className="bg-surface-subtle border-b border-divider py-12">
-        <div className="container max-w-7xl mx-auto px-6">
-          <nav className="text-xs text-muted-foreground mb-4 flex items-center gap-1.5">
-            <Link to="/" className="hover:text-primary">
-              Home
-            </Link>
-            <span>/</span>
-            <Link to="/products" className="hover:text-primary">
-              Products
-            </Link>
-            <span>/</span>
-            <span className="text-charcoal">Material Selector</span>
-          </nav>
-          <p className="section-label mb-3">Engineering Tool</p>
-          <h1 className="font-heading text-4xl text-charcoal mb-3">
-            Material Selector
-          </h1>
-          <p className="text-muted-foreground max-w-2xl leading-relaxed">
-            Answer three questions about your application requirements and we'll
-            rank the most suitable thermoplastic materials for your specific use
-            case.
-          </p>
-        </div>
-      </div>
+      {/* Page Header */}
+      <PageHeroBanner
+        eyebrow="Answer three questions about your application requirements and we'll rank the most suitable thermoplastic materials for your specific use case."
+        title="Material"
+        highlight="Selector"
+        image={manufacturingImage}
+        imageAlt="Khanna Polyrib manufacturing facility"
+        imagePosition="center center"
+        breadcrumbs={[
+          { label: "Home", to: "/" },
+          { label: "Material Selector" },
+        ]}
+      />
 
       <div className="container max-w-5xl mx-auto px-6 py-12">
         {!showResults ? (
@@ -446,7 +435,7 @@ export default function MaterialSelectorPage() {
                     onClick={() => {
                       if (s < step) setStep(s);
                     }}
-                    className={`w-8 h-8 flex items-center justify-center text-sm font-bold border-2 transition-all duration-200 ${s === step ? "bg-primary border-primary text-primary-foreground" : s < step ? "bg-primary/20 border-primary text-primary cursor-pointer" : "border-divider text-muted-foreground"}`}
+                    className={`w-8 h-8 flex items-center justify-center text-sm font-bold border-2 transition-all duration-200 rounded-xl ${s === step ? "bg-primary border-primary text-primary-foreground" : s < step ? "bg-primary/20 border-primary text-primary cursor-pointer" : "border-divider text-muted-foreground"}`}
                   >
                     {s < step ? <CheckCircle2 className="w-4 h-4" /> : s + 1}
                   </button>
@@ -484,7 +473,7 @@ export default function MaterialSelectorPage() {
                     <button
                       key={t.id}
                       onClick={() => setTempId(t.id)}
-                      className={`text-left p-5 border-2 transition-all duration-200 ${tempId === t.id ? "border-primary bg-primary/5" : "border-border bg-card hover:border-primary/40"}`}
+                      className={`text-left p-5 border-2 transition-all duration-200 rounded-xl ${tempId === t.id ? "border-primary bg-primary/5" : "border-border bg-card hover:border-primary/40"}`}
                     >
                       <div className="flex items-start justify-between mb-2">
                         <span className="font-heading font-bold text-charcoal">
@@ -524,7 +513,7 @@ export default function MaterialSelectorPage() {
                     <button
                       key={c.id}
                       onClick={() => toggleChem(c.id)}
-                      className={`text-left p-4 border-2 transition-all duration-200 ${chemIds.includes(c.id) ? "border-primary bg-primary/5" : "border-border bg-card hover:border-primary/40"}`}
+                      className={`text-left p-4 border-2 transition-all duration-200 rounded-xl ${chemIds.includes(c.id) ? "border-primary bg-primary/5" : "border-border bg-card hover:border-primary/40"}`}
                     >
                       <div className="flex items-center justify-between mb-2">
                         <span className="text-2xl">{c.icon}</span>
@@ -562,7 +551,7 @@ export default function MaterialSelectorPage() {
                     <button
                       key={l.id}
                       onClick={() => setLoadId(l.id)}
-                      className={`text-left p-5 border-2 transition-all duration-200 ${loadId === l.id ? "border-primary bg-primary/5" : "border-border bg-card hover:border-primary/40"}`}
+                      className={`text-left p-5 border-2 transition-all duration-200 rounded-xl ${loadId === l.id ? "border-primary bg-primary/5" : "border-border bg-card hover:border-primary/40"}`}
                     >
                       <div className="flex items-start justify-between mb-1">
                         <span className="font-heading font-semibold text-charcoal">
@@ -598,7 +587,7 @@ export default function MaterialSelectorPage() {
                   <button
                     onClick={() => canProceed && setStep(step + 1)}
                     disabled={!canProceed}
-                    className={`inline-flex items-center gap-2 px-6 py-2.5 text-sm font-semibold transition-colors duration-200 ${canProceed ? "bg-primary text-primary-foreground hover:bg-primary-dark" : "bg-muted text-muted-foreground cursor-not-allowed"}`}
+                    className={`inline-flex items-center gap-2 px-6 py-2.5 text-sm font-semibold transition-colors duration-200 rounded-lg ${canProceed ? "bg-primary text-primary-foreground hover:bg-primary-dark" : "bg-muted text-muted-foreground cursor-not-allowed"}`}
                   >
                     Continue <ArrowRight className="w-4 h-4" />
                   </button>
@@ -608,7 +597,7 @@ export default function MaterialSelectorPage() {
                       if (canProceed) setShowResults(true);
                     }}
                     disabled={!canProceed}
-                    className={`inline-flex items-center gap-2 px-6 py-2.5 text-sm font-semibold transition-colors duration-200 ${canProceed ? "bg-primary text-primary-foreground hover:bg-primary-dark" : "bg-muted text-muted-foreground cursor-not-allowed"}`}
+                    className={`inline-flex items-center gap-2 px-6 py-2.5 text-sm font-semibold transition-colors duration-200 rounded-lg ${canProceed ? "bg-primary text-primary-foreground hover:bg-primary-dark" : "bg-muted text-muted-foreground cursor-not-allowed"}`}
                   >
                     Find Materials <ArrowRight className="w-4 h-4" />
                   </button>
@@ -620,7 +609,7 @@ export default function MaterialSelectorPage() {
           /* Results */
           <div className="animate-fade-in">
             {/* Summary bar */}
-            <div className="bg-primary/5 border border-primary/20 p-4 mb-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            <div className="bg-primary/5 border border-primary/20 p-4 mb-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 rounded-xl">
               <div className="flex flex-wrap gap-3 text-xs">
                 <span className="flex items-center gap-1.5 text-charcoal-light">
                   <Thermometer className="w-3.5 h-3.5 text-primary" />
@@ -664,12 +653,12 @@ export default function MaterialSelectorPage() {
                 return (
                   <div
                     key={mat.id}
-                    className={`border p-6 transition-all duration-200 hover:shadow-card ${i === 0 ? "border-primary/40 bg-primary/3" : "border-border bg-card"}`}
+                    className={`border p-6 transition-all duration-200 hover:shadow-card rounded-xl ${i === 0 ? "border-primary/40 bg-primary/3" : "border-border bg-card"}`}
                   >
                     <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
                       <div className="flex items-start gap-4">
                         <div
-                          className={`w-8 h-8 flex items-center justify-center font-heading font-bold text-sm shrink-0 ${i === 0 ? "bg-primary text-primary-foreground" : "bg-surface-subtle text-charcoal-light border border-divider"}`}
+                          className={`w-8 h-8 flex items-center justify-center font-heading font-bold text-sm shrink-0 rounded-xl ${i === 0 ? "bg-primary text-primary-foreground" : "bg-surface-subtle text-charcoal-light border border-divider"}`}
                         >
                           #{i + 1}
                         </div>
@@ -679,12 +668,12 @@ export default function MaterialSelectorPage() {
                               {mat.name}
                             </h3>
                             <span
-                              className={`text-[10px] px-2.5 py-1 border font-bold ${matchInfo.colour}`}
+                              className={`text-[10px] px-2.5 py-1 border font-bold rounded-xl ${matchInfo.colour}`}
                             >
                               {matchInfo.label}
                             </span>
                             {i === 0 && (
-                              <span className="text-[10px] px-2.5 py-1 bg-primary text-primary-foreground font-bold">
+                              <span className="text-[10px] px-2.5 py-1 bg-primary text-primary-foreground font-bold rounded-xl">
                                 TOP RECOMMENDATION
                               </span>
                             )}
@@ -762,7 +751,7 @@ export default function MaterialSelectorPage() {
                       </Link>
                       <Link
                         to="/contact"
-                        className="text-xs px-4 py-1.5 bg-primary text-primary-foreground font-semibold hover:bg-primary-dark transition-colors duration-200 inline-flex items-center gap-1.5"
+                        className="text-xs px-4 py-1.5 bg-primary text-primary-foreground font-semibold hover:bg-primary-dark transition-colors duration-200 inline-flex items-center gap-1.5 rounded-lg"
                       >
                         Request Quote <ArrowRight className="w-3 h-3" />
                       </Link>
@@ -772,7 +761,7 @@ export default function MaterialSelectorPage() {
               })}
             </div>
 
-            <div className="mt-10 p-5 bg-surface-subtle border border-divider">
+            <div className="mt-10 p-5 bg-surface-subtle border border-divider rounded-xl">
               <p className="text-xs text-muted-foreground leading-relaxed">
                 <strong className="text-charcoal">Disclaimer:</strong> This tool
                 provides general material guidance based on typical property

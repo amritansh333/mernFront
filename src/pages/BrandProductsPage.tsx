@@ -4,6 +4,9 @@ import { ArrowRight } from "lucide-react";
 import type { Brand, Product } from "@/types/catalog";
 import api from "@/lib/api";
 
+import PageHeroBanner from "@/components/hero-banner/PageHeroBanner";
+import manufacturingImage from "@/assets/csr-slider1.jpeg";
+
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "";
 
 interface ProductImageCarouselProps {
@@ -178,11 +181,12 @@ function ProductImageCarousel({
 
 export default function BrandProductsPage() {
   const { categorySlug, subcategorySlug, brandSlug } = useParams();
+
   const [products, setProducts] = useState<Product[]>([]);
   const [brand, setBrand] = useState<Brand | null>(null);
   const [loading, setLoading] = useState(true);
 
-  //  Convert slug to readable text
+  // Convert slug to readable text
   const formatText = (slug?: string) => {
     if (!slug) return "";
     return slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
@@ -207,91 +211,41 @@ export default function BrandProductsPage() {
 
   return (
     <div className="pt-16">
-      {/*  TOP HEADER SECTION */}
-      <div className="bg-surface-subtle border-b border-divider py-12">
-        <div className="container max-w-7xl mx-auto px-6">
-          {/*  Breadcrumb */}
-          <nav className="text-xs text-muted-foreground mb-4 flex items-center gap-1.5 flex-wrap">
-            <Link to="/" className="hover:text-primary">
-              Home
-            </Link>
-            <span>/</span>
-            <Link to="/products" className="hover:text-primary">
-              Products
-            </Link>
-            <span>/</span>
+      {/* =====================================================
+          REUSABLE PAGE HERO BANNER
+          DYNAMIC CATEGORY, SUBCATEGORY AND BRAND INFORMATION
+      ===================================================== */}
 
-            {loading ? (
-              <>
-                <div className="h-3 w-20 bg-gray-200 rounded animate-pulse" />
-                <span>/</span>
-                <div className="h-3 w-24 bg-gray-200 rounded animate-pulse" />
-                <span>/</span>
-                <div className="h-3 w-28 bg-gray-200 rounded animate-pulse" />
-              </>
-            ) : (
-              <>
-                <Link
-                  to={`/products/${categorySlug}`}
-                  className="hover:text-primary"
-                >
-                  {formatText(categorySlug)}
-                </Link>
+      <PageHeroBanner
+        eyebrow={
+          "Explore all products under this brand. Browse detailed specifications, applications and available variants."
+        }
+        title={brand?.name || formatText(brandSlug) || "Products"}
+        image={manufacturingImage}
+        imageAlt="Khanna Polyrib manufacturing facility"
+        imagePosition="center center"
+        breadcrumbs={[
+          { label: "Home", to: "/" },
+          { label: "Products", to: "/products" },
+          {
+            label: formatText(categorySlug) || "Products",
+            to: `/products/${categorySlug}`,
+          },
+          {
+            label: formatText(subcategorySlug) || "Subcategory",
+            to: `/products/${categorySlug}/${subcategorySlug}`,
+          },
+          {
+            label: brand?.name || formatText(brandSlug),
+          },
+        ]}
+      />
 
-                <span>/</span>
+      {/* =====================================================
+          PRODUCTS GRID
+          EXISTING IMPLEMENTATION UNCHANGED
+      ===================================================== */}
 
-                <Link
-                  to={`/products/${categorySlug}/${subcategorySlug}`}
-                  className="hover:text-primary"
-                >
-                  {formatText(subcategorySlug)}
-                </Link>
-
-                <span>/</span>
-
-                <span className="text-charcoal">
-                  {brand?.name || formatText(brandSlug)}
-                </span>
-              </>
-            )}
-          </nav>
-
-          {/*  Header Content */}
-          {loading ? (
-            <>
-              <div className="h-4 w-32 bg-gray-200 rounded animate-pulse mb-4" />
-
-              <div className="h-10 w-72 bg-gray-200 rounded animate-pulse mb-4" />
-
-              <div className="space-y-2 max-w-2xl">
-                <div className="h-4 w-full bg-gray-200 rounded animate-pulse" />
-                <div className="h-4 w-5/6 bg-gray-200 rounded animate-pulse" />
-              </div>
-            </>
-          ) : (
-            <>
-              {/*  Label */}
-              <p className="section-label mb-3">
-                {formatText(subcategorySlug)}
-              </p>
-
-              {/*  Title */}
-              <h1 className="font-heading text-4xl text-charcoal mb-3">
-                {brand?.name || formatText(brandSlug)}
-              </h1>
-
-              {/*  Description */}
-              <p className="text-muted-foreground max-w-2xl leading-relaxed">
-                Explore all products under{" "}
-                {brand?.name || formatText(brandSlug)}. Browse detailed
-                specifications, applications and available variants.
-              </p>
-            </>
-          )}
-        </div>
-      </div>
-
-      {/*  PRODUCTS GRID */}
       <section className="py-14">
         <div className="container max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">

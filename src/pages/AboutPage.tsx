@@ -1,20 +1,10 @@
 import React from "react";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  ArrowRight,
-  CheckCircle2,
-  MapPin,
-  Building2,
-  Award,
-  Plus,
-  X,
-} from "lucide-react";
-import heroImage from "@/assets/csr.jpeg";
+import { CheckCircle2, MapPin, Building2, Plus } from "lucide-react";
+import PageHeroBanner from "@/components/hero-banner/PageHeroBanner";
 import manufacturingImage from "@/assets/csr-slider1.jpeg";
 import aboutVideo from "@/assets/about-us.mp4";
-import industriesImage from "@/assets/industriesweserve.jpeg";
-import certImg from "@/assets/isoCertificate2015.jpg";
 import { useScrollFade } from "@/hooks/useScrollFade";
 
 /* ARRAYS (UNCHANGED) */
@@ -162,31 +152,23 @@ export default function AboutPage() {
 
   return (
     <div className="pt-16">
-      {/* HEADER */}
-      <div className="relative min-h-[40vh] flex items-end overflow-hidden bg-charcoal">
-        <img
-          src={heroImage}
-          className="absolute inset-0 w-full h-full object-cover opacity-40"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-charcoal/90 to-transparent" />
-        <div className="relative container max-w-7xl mx-auto px-6 py-14">
-          <nav className="text-xs text-white/50 mb-4 flex items-center gap-1.5">
-            <Link to="/">Home</Link>
-            <span>/</span>
-            <span className="text-white/80">About Us</span>
-          </nav>
-          <p className="section-label text-white/50 mb-3">Our Company</p>
-          <h1 className="font-heading text-4xl text-white">
-            Welcome to Khanna Group
-          </h1>
-        </div>
-      </div>
+      {/* ABOUT US HEADER */}
+
+      <PageHeroBanner
+        eyebrow="Our Company"
+        title="Welcome to"
+        highlight="Khanna Group"
+        image={manufacturingImage}
+        imageAlt="Khanna Polyrib manufacturing facility"
+        imagePosition="center center"
+        breadcrumbs={[{ label: "Home", to: "/" }, { label: "About Us" }]}
+      />
 
       {/* OUR FOUNDATION (FROM PART B) */}
       <section className="py-8 border-b border-divider">
         <div className="container max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-start">
-            <div className="group relative border border-primary/40 overflow-hidden">
+            <div className="group relative border border-primary/40 overflow-hidden rounded-2xl">
               <video
                 ref={videoRef}
                 src={aboutVideo}
@@ -236,7 +218,7 @@ export default function AboutPage() {
       {/* EXPLORE FEATURES (MISSION & VALUES FROM PART B) */}
       <section
         ref={ref4}
-        className="fade-up py-8 border-b border-divider bg-surface-subtle"
+        className="fade-up py-8 border-b border-divider bg-swhite"
       >
         <div className="container max-w-7xl mx-auto px-6 text-center">
           <p className="section-label mb-3">Explore Features</p>
@@ -261,7 +243,7 @@ export default function AboutPage() {
             ].map((item) => (
               <div
                 key={item.title}
-                className="border border-border bg-card p-8 transition-all duration-300 hover:bg-primary hover:text-white hover:shadow-lg group"
+                className="border border-border bg-card p-8 transition-all duration-300 hover:bg-primary hover:text-white hover:shadow-lg group rounded-xl"
               >
                 <Plus className="w-6 h-6 mb-4 text-primary group-hover:text-white transition-colors" />
                 <h3 className="font-heading text-lg mb-3">{item.title}</h3>
@@ -350,7 +332,7 @@ export default function AboutPage() {
             {locations.map((loc) => (
               <div
                 key={loc.city}
-                className="flex gap-4 p-5 bg-card border border-border hover:border-primary/30 transition-colors duration-200"
+                className="flex gap-4 p-5 bg-card border border-border hover:border-primary/30 transition-colors duration-200 rounded-xl"
               >
                 <div className="w-10 h-10 bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
                   <MapPin className="w-5 h-5 text-primary" />

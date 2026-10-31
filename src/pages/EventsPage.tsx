@@ -10,7 +10,8 @@ import {
   Search,
   Sparkles,
 } from "lucide-react";
-
+import PageHeroBanner from "@/components/hero-banner/PageHeroBanner";
+import manufacturingImage from "@/assets/csr-slider1.jpeg";
 import EventCard from "@/components/EventCard";
 import { fetchNewsEvents } from "@/lib/newsEventsApi";
 
@@ -146,53 +147,20 @@ export default function EventsPage() {
     : featuredEvent?.event?.location;
 
   return (
-    <main className="min-h-screen bg-background">
+    <main className="pt-16">
       {/* Hero */}
-      <section className="relative overflow-hidden border-b border-border">
-        {/* Background Image */}
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage:
-              "url('https://polyrib-backend-v2.onrender.com/uploads/events/events-hero.png')",
-          }}
-        />
-
-        {/* Readability overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/60 to-white/10" />
-
-        {/* Bottom fade */}
-        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-background/60 to-transparent" />
-
-        {/* Hero Content */}
-        <div className="container relative mx-auto px-5 py-14 sm:px-6 sm:py-20 lg:py-24">
-          <div className="max-w-3xl">
-            <div className="mb-5 inline-flex items-center gap-2 border border-primary/20 bg-white/80 px-3.5 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-primary backdrop-blur-sm">
-              <CalendarDays className="h-4 w-4" />
-              Events & Exhibitions
-            </div>
-
-            <h1
-              className="
-          font-heading text-4xl font-semibold leading-[1.05]
-          tracking-tight text-charcoal
-          sm:text-5xl lg:text-6xl
-        "
-            >
-              Connecting Ideas,
-              <span className="block text-primary">
-                Engineering & Industry.
-              </span>
-            </h1>
-
-            <p className="mt-6 max-w-2xl text-base leading-7 text-charcoal sm:text-lg">
-              Explore upcoming and past exhibitions, trade fairs and industry
-              events where Khanna PolyRib connects with customers, partners and
-              professionals from across the engineering plastics industry.
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageHeroBanner
+        eyebrow="Updates"
+        title="Events"
+        highlight="& Exhibitions"
+        image={manufacturingImage}
+        imageAlt="Khanna Polyrib manufacturing facility"
+        imagePosition="center center"
+        breadcrumbs={[
+          { label: "Home", to: "/" },
+          { label: "Events & Exhibitions" },
+        ]}
+      />
 
       {/* Featured event */}
       {!loading && !error && featuredEvent && (
@@ -215,7 +183,7 @@ export default function EventsPage() {
             className="
               group relative block overflow-hidden
               border border-border bg-card shadow-sm
-              transition-all duration-500
+              transition-all duration-500 rounded-xl
               hover:-translate-y-1 hover:shadow-2xl
               focus:outline-none focus-visible:ring-2
               focus-visible:ring-primary
@@ -242,7 +210,7 @@ export default function EventsPage() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent lg:bg-gradient-to-r" />
 
                 <div className="absolute left-5 top-5">
-                  <span className="inline-flex items-center gap-2 bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground shadow-lg">
+                  <span className="inline-flex items-center gap-2 bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground shadow-lg rounded-xl">
                     <Sparkles className="h-3.5 w-3.5" />
                     Featured
                   </span>
@@ -287,13 +255,13 @@ export default function EventsPage() {
                 {(featuredEvent.event?.venue || featuredEvent.event?.booth) && (
                   <div className="mt-6 flex flex-wrap gap-2">
                     {featuredEvent.event?.venue && (
-                      <span className="bg-surface-subtle px-3 py-2 text-sm text-muted-foreground">
+                      <span className="bg-surface-subtle px-3 py-2 text-sm text-muted-foreground rounded-xl">
                         {featuredEvent.event.venue}
                       </span>
                     )}
 
                     {featuredEvent.event?.booth && (
-                      <span className="bg-primary/10 px-3 py-2 text-sm font-semibold text-primary">
+                      <span className="bg-primary/10 px-3 py-2 text-sm font-semibold text-primary rounded-xl">
                         Booth {featuredEvent.event.booth}
                       </span>
                     )}
@@ -316,7 +284,7 @@ export default function EventsPage() {
           className="
             flex flex-col gap-3 border border-border
             bg-card p-3 shadow-sm
-            sm:flex-row
+            sm:flex-row rounded-xl
           "
         >
           <div className="relative flex-1">
@@ -339,7 +307,7 @@ export default function EventsPage() {
                 transition-all
                 placeholder:text-muted-foreground
                 focus:border-primary/30 focus:ring-2
-                focus:ring-primary/10
+                focus:ring-primary/10 rounded-xl
               "
             />
           </div>
@@ -354,7 +322,7 @@ export default function EventsPage() {
                 px-4 pr-10 text-sm text-charcoal outline-none
                 transition-all
                 focus:border-primary
-                focus:ring-2 focus:ring-primary/10
+                focus:ring-2 focus:ring-primary/10 rounded-xl
               "
             >
               <option value="All">All years</option>
