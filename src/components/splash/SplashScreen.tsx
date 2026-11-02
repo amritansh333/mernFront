@@ -16,12 +16,14 @@ interface SplashScreenProps {
 }
 
 const ANIMATION_DURATION = 1600;
-const SPLASH_DURATION = 2700;
+const LOGO_HOLD_DURATION = 350;
+const SHUTTER_DURATION = 1200;
 
 export default function SplashScreen({ onComplete }: SplashScreenProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
   const [settled, setSettled] = useState(false);
-  const [exiting, setExiting] = useState(false);
+  const [revealing, setRevealing] = useState(false);
 
   useEffect(() => {
     const reducedMotion = window.matchMedia(
@@ -42,24 +44,48 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
     let animationFrame = 0;
     let isCancelled = false;
 
-    const exitTimer = window.setTimeout(() => {
-      setExiting(true);
-    }, 2200);
+    let revealTimer = 0;
+    let completeTimer = 0;
 
-    const completeTimer = window.setTimeout(() => {
-      onComplete();
-    }, SPLASH_DURATION);
+    // =========================================
+    // CINEMATIC REVEAL
+    // Called only after logo assembly.
+    // =========================================
+
+    const startCinematicReveal = () => {
+      if (isCancelled) return;
+
+      // Display the completed logo.
+      setSettled(true);
+
+      // Give the completed logo time to be seen.
+      revealTimer = window.setTimeout(() => {
+        if (isCancelled) return;
+
+        // Hide the logo and start both shutters.
+        setRevealing(true);
+
+        // Remove splash after shutters finish.
+        completeTimer = window.setTimeout(() => {
+          if (!isCancelled) {
+            onComplete();
+          }
+        }, SHUTTER_DURATION + 50);
+      }, LOGO_HOLD_DURATION);
+    };
+
+    // =========================================
+    // LOAD LOGO
+    // =========================================
 
     const image = new Image();
 
     image.onload = () => {
       if (isCancelled) return;
 
-      // Preserve the existing responsive logo dimensions.
       const width = Math.min(window.innerWidth * 0.58, 300);
       const height = width * (image.height / image.width);
 
-      // Larger transparent canvas for unrestricted particle movement.
       const canvasWidth = width * 2.2;
       const canvasHeight = height * 2.2;
 
@@ -76,7 +102,10 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
 
       context.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      // Create transparent sampling canvas.
+      // =========================================
+      // OFFSCREEN IMAGE SAMPLING
+      // =========================================
+
       const offscreen = document.createElement("canvas");
 
       offscreen.width = Math.round(canvasWidth);
@@ -85,7 +114,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
       const offscreenContext = offscreen.getContext("2d");
 
       if (!offscreenContext) {
-        setSettled(true);
+        startCinematicReveal();
         return;
       }
 
@@ -104,10 +133,13 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
       const centerX = canvasWidth / 2;
       const centerY = canvasHeight / 2;
 
-      // Random phases create an irregular, organic particle cloud.
       const phase1 = Math.random() * Math.PI * 2;
       const phase2 = Math.random() * Math.PI * 2;
       const phase3 = Math.random() * Math.PI * 2;
+
+      // =========================================
+      // PARTICLE GENERATION
+      // =========================================
 
       for (let y = 0; y < height; y += step) {
         for (let x = 0; x < width; x += step) {
@@ -123,30 +155,29 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
 
           if (alpha < 75) continue;
 
-          // Random angular position.
           const angle = Math.random() * Math.PI * 2;
 
-          // Irregular radial boundary: deliberately avoids
-          // a perfect circle, oval, or rectangular distribution.
           const organicShape =
             1 +
             0.12 * Math.sin(angle * 3 + phase1) +
             0.08 * Math.sin(angle * 5 + phase2) +
             0.06 * Math.cos(angle * 7 + phase3);
 
-          const randomRadius = 0.08 + Math.pow(Math.random(), 0.8) * 0.29;
+          const randomRadius =
+            0.08 + Math.pow(Math.random(), 0.8) * 0.29;
 
           const radius = randomRadius * organicShape;
 
-          // Slight independent variation makes the cloud less uniform.
           const randomX = 1 + (Math.random() - 0.5) * 0.12;
           const randomY = 1 + (Math.random() - 0.5) * 0.12;
 
           const startX =
-            centerX + Math.cos(angle) * canvasWidth * 0.46 * radius * randomX;
+            centerX +
+            Math.cos(angle) * canvasWidth * 0.46 * radius * randomX;
 
           const startY =
-            centerY + Math.sin(angle) * canvasHeight * 0.46 * radius * randomY;
+            centerY +
+            Math.sin(angle) * canvasHeight * 0.46 * radius * randomY;
 
           particles.push({
             x: x + offsetX,
@@ -160,6 +191,10 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
         }
       }
 
+      // =========================================
+      // PARTICLE ANIMATION
+      // =========================================
+
       const startTime = performance.now();
 
       const animate = (currentTime: number) => {
@@ -167,7 +202,10 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
 
         const elapsed = currentTime - startTime;
 
-        const progress = Math.min(elapsed / ANIMATION_DURATION, 1);
+        const progress = Math.min(
+          elapsed / ANIMATION_DURATION,
+          1,
+        );
 
         const easedProgress = 1 - Math.pow(1 - progress, 3);
 
@@ -175,17 +213,25 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
 
         particles.forEach((particle) => {
           const currentX =
-            particle.startX + (particle.x - particle.startX) * easedProgress;
+            particle.startX +
+            (particle.x - particle.startX) * easedProgress;
 
           const currentY =
-            particle.startY + (particle.y - particle.startY) * easedProgress;
+            particle.startY +
+            (particle.y - particle.startY) * easedProgress;
 
           context.globalAlpha = particle.alpha;
           context.fillStyle = particle.color;
 
           context.beginPath();
 
-          context.arc(currentX, currentY, particle.size, 0, Math.PI * 2);
+          context.arc(
+            currentX,
+            currentY,
+            particle.size,
+            0,
+            Math.PI * 2,
+          );
 
           context.fill();
         });
@@ -196,27 +242,37 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
           animationFrame = requestAnimationFrame(animate);
         } else {
           context.clearRect(0, 0, canvasWidth, canvasHeight);
-          setSettled(true);
+
+          // Logo assembly successfully completed.
+          startCinematicReveal();
         }
       };
 
       animationFrame = requestAnimationFrame(animate);
     };
 
+    // =========================================
+    // IMAGE ERROR FALLBACK
+    // =========================================
+
     image.onerror = () => {
       if (!isCancelled) {
-        setSettled(true);
+        startCinematicReveal();
       }
     };
 
     image.src = "/polyrib-logo.png";
+
+    // =========================================
+    // CLEANUP
+    // =========================================
 
     return () => {
       isCancelled = true;
 
       cancelAnimationFrame(animationFrame);
 
-      window.clearTimeout(exitTimer);
+      window.clearTimeout(revealTimer);
       window.clearTimeout(completeTimer);
 
       image.onload = null;
@@ -226,20 +282,37 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
 
   return (
     <div
-      className={`polyrib-splash ${exiting ? "splash-exit" : ""}`}
+      className={`polyrib-splash ${
+        revealing ? "splash-revealing" : ""
+      }`}
       aria-label="Loading POLYRIB"
       role="status"
     >
-      <div className="splash-logo-wrapper">
+      {/* Cinematic white shutters */}
+      <div className="splash-shutter splash-shutter-top" />
+
+      <div className="splash-shutter splash-shutter-bottom" />
+
+      {/* Logo and particle animation */}
+      <div
+        className={`splash-logo-wrapper ${
+          revealing ? "splash-logo-exit" : ""
+        }`}
+        aria-hidden={revealing}
+      >
         <canvas
           ref={canvasRef}
-          className={`splash-particles ${settled ? "particles-hidden" : ""}`}
+          className={`splash-particles ${
+            settled ? "particles-hidden" : ""
+          }`}
         />
 
         <img
           src="/polyrib-logo.png"
           alt="POLYRIB"
-          className={`splash-logo ${settled ? "logo-visible" : ""}`}
+          className={`splash-logo ${
+            settled ? "logo-visible" : ""
+          }`}
         />
       </div>
     </div>

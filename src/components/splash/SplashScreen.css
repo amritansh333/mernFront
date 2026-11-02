@@ -1,5 +1,5 @@
 /* =========================================
-   POLYRIB GLASS SPLASH SCREEN
+   POLYRIB CINEMATIC SPLASH SCREEN
 ========================================= */
 
 .polyrib-splash {
@@ -17,17 +17,87 @@
 
   overflow: hidden;
 
-  background: rgba(0, 0, 0, 0.3);
+  background: transparent;
 
-  -webkit-backdrop-filter: blur(13px) saturate(145%);
-  backdrop-filter: blur(13px) saturate(145%);
+  pointer-events: auto;
+}
 
-  opacity: 1;
-  visibility: visible;
+/* =========================================
+   WHITE SHUTTER PANELS
+========================================= */
 
-  transition:
-    opacity 550ms ease,
-    visibility 550ms ease;
+.splash-shutter {
+  position: absolute;
+  left: 0;
+
+  width: 100%;
+  height: 50%;
+
+  background: #ffffff;
+
+  z-index: 2;
+
+  pointer-events: none;
+
+  will-change: transform;
+
+  transform: translate3d(0, 0, 0);
+}
+
+/* Top panel */
+
+.splash-shutter-top {
+  top: 0;
+}
+
+/* Bottom panel */
+
+.splash-shutter-bottom {
+  bottom: 0;
+}
+
+/* =========================================
+   CINEMATIC OPENING
+   Runs exactly once.
+   Starts after logo completion.
+========================================= */
+
+.splash-revealing .splash-shutter-top {
+  animation: cinematic-open-top
+    1200ms
+    cubic-bezier(0.76, 0, 0.24, 1)
+    forwards;
+}
+
+.splash-revealing .splash-shutter-bottom {
+  animation: cinematic-open-bottom
+    1200ms
+    cubic-bezier(0.76, 0, 0.24, 1)
+    forwards;
+}
+
+/* =========================================
+   SHUTTER KEYFRAMES
+========================================= */
+
+@keyframes cinematic-open-top {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(0, -100%, 0);
+  }
+}
+
+@keyframes cinematic-open-bottom {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(0, 100%, 0);
+  }
 }
 
 /* =========================================
@@ -36,6 +106,7 @@
 
 .splash-logo-wrapper {
   position: relative;
+  z-index: 3;
 
   display: flex;
   align-items: center;
@@ -46,6 +117,27 @@
   padding: 0;
 
   overflow: visible;
+
+  opacity: 1;
+  visibility: visible;
+
+  transition:
+    opacity 150ms ease,
+    visibility 0s linear 150ms;
+}
+
+/* =========================================
+   HIDE LOGO WHEN CINEMATIC REVEAL STARTS
+
+   IMPORTANT:
+   Logo disappears before website is revealed.
+========================================= */
+
+.splash-logo-wrapper.splash-logo-exit {
+  opacity: 0;
+  visibility: hidden;
+
+  pointer-events: none;
 }
 
 /* =========================================
@@ -59,11 +151,6 @@
   left: 50%;
 
   display: block;
-
-  /*
-    Canvas dimensions are controlled by SplashScreen.tsx.
-    Do not constrain them to the logo wrapper dimensions.
-  */
 
   max-width: none;
   max-height: none;
@@ -119,18 +206,9 @@
 
   transform: scale(1);
 
-  filter: drop-shadow(0 0 8px rgba(39, 158, 206, 0.22))
-    drop-shadow(0 0 18px rgba(39, 158, 206, 0.12));
-}
-
-/* =========================================
-   SPLASH EXIT
-========================================= */
-
-.polyrib-splash.splash-exit {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
+  filter:
+    drop-shadow(0 0 10px rgba(39, 158, 206, 0.20))
+    drop-shadow(0 0 24px rgba(39, 158, 206, 0.10));
 }
 
 /* =========================================
@@ -140,11 +218,6 @@
 @media (max-width: 768px) {
   .splash-logo-wrapper {
     width: min(62vw, 245px);
-  }
-
-  .polyrib-splash {
-    -webkit-backdrop-filter: blur(11px) saturate(140%);
-    backdrop-filter: blur(11px) saturate(140%);
   }
 }
 
@@ -173,9 +246,11 @@
 ========================================= */
 
 @media (prefers-reduced-motion: reduce) {
-  .polyrib-splash,
+  .splash-shutter,
   .splash-logo,
-  .splash-particles {
+  .splash-particles,
+  .splash-logo-wrapper {
+    animation: none !important;
     transition: none !important;
   }
 }
