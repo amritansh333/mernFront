@@ -110,7 +110,7 @@ function getNavItems(
               children: [
                 {
                   label: "PLASCON V",
-                  href: "/products/thermoplastics-semi-finished-products/rods-tubes/plascon-v",
+                  href: "/products/thermoplastics-semi-finished-products/rods-tubes/plascon-v-rods",
                 },
                 {
                   label: "PAKAYLON",
@@ -185,11 +185,11 @@ function getNavItems(
               href: "/products/thermoplastics-machine-components/vacuum-formed-plastic-parts",
               children: [
                 {
-                  label: "PCCLEAR BASE-PLATE",
+                  label: "Pcclear Base Plate",
                   href: "/products/thermoplastics-machine-components/vacuum-formed-plastic-parts/pcclear-base-plate",
                 },
                 {
-                  label: "PCCLEAR LOUVERS",
+                  label: "Pcclear Louvers",
                   href: "/products/thermoplastics-machine-components/vacuum-formed-plastic-parts/pcclear-louvers",
                 },
               ],
@@ -199,19 +199,19 @@ function getNavItems(
               href: "/products/thermoplastics-machine-components/cutting-board",
               children: [
                 {
-                  label: "POLYRIB RIPLA",
+                  label: "Polyrib Ripla",
                   href: "/products/thermoplastics-machine-components/cutting-board",
                 },
                 {
-                  label: "POLYRIB RIPLA HIH",
+                  label: "Polyrib Ripla HIH",
                   href: "/products/thermoplastics-machine-components/vacuum-formed-plastic-parts/cutting-board",
                 },
                 {
-                  label: "POLYRIB RIPLA HIK",
+                  label: "Polyrib Ripla HIK",
                   href: "/products/thermoplastics-machine-components/vacuum-formed-plastic-parts/cutting-board",
                 },
                 {
-                  label: "POLYRIB RIPLA HITECH",
+                  label: "Polyrib Ripla HITECH",
                   href: "/products/thermoplastics-machine-components/vacuum-formed-plastic-parts/cutting-board",
                 },
               ],
@@ -221,18 +221,120 @@ function getNavItems(
               href: "/products/thermoplastics-machine-components/chopping-board",
               children: [
                 {
-                  label: "POLYRIB CUTRITE",
+                  label: "Polyrib Cutrite",
                   href: "/products/thermoplastics-machine-components/chopping-board",
                 },
                 {
-                  label: "POLYRIB CUTRITE EMB",
+                  label: "Polyrib Cutrite EMB",
                   href: "/products/thermoplastics-machine-components/chopping-board",
                 },
                 {
-                  label: "CUTRITE-L CED",
+                  label: "Cutrite L-CED",
                   href: "/products/thermoplastics-machine-components/chopping-board",
                 },
               ],
+            },
+            {
+              label: "Application Ready Sheets",
+              href: "/products/thermoplastics-machine-components/application-ready-sheets",
+              children: [
+                {
+                  label: "Arete Liners",
+                  href: "/products/thermoplastics-machine-components/application-ready-sheets/arete-liners",
+                },
+                {
+                  label: "Polylimb",
+                  href: "/products/thermoplastics-machine-components/application-ready-sheets/polylimb",
+                },
+                {
+                  label: "MASS",
+                  href: "/products/thermoplastics-machine-components/application-ready-sheets/mass",
+                },
+                {
+                  label: "POCAPP",
+                  href: "/products/thermoplastics-machine-components/application-ready-sheets/pocapp",
+                },
+              ],
+            },
+            {
+              label: "Machined Plastic Parts",
+              href: "/products/thermoplastics-machine-components/machined-plastic-parts",
+              children: [
+                {
+                  label: "P-LPG",
+                  href: "/products/thermoplastics-machine-components/machined-plastic-parts/p-lpg",
+                },
+                {
+                  label: "Plagro",
+                  href: "/products/thermoplastics-machine-components/machined-plastic-parts/plagro",
+                },
+                {
+                  label: "Spur Gears",
+                  href: "/products/thermoplastics-machine-components/machined-plastic-parts/spur-gears",
+                },
+                {
+                  label: "P-Vibrating Screen",
+                  href: "/products/thermoplastics-machine-components/machined-plastic-parts/p-vibrating-screen",
+                },
+                {
+                  label: "Plascon Sealing Strips",
+                  href: "/products/thermoplastics-machine-components/machined-plastic-parts/plascon-sealing-strips",
+                },
+                {
+                  label: "Solution For Headbox",
+                  href: "/products/thermoplastics-machine-components/machined-plastic-parts/solution-for-headbox",
+                },
+                {
+                  label: "Plabott",
+                  href: "/products/thermoplastics-machine-components/machined-plastic-parts/plabott",
+                },
+                {
+                  label: "Placoss",
+                  href: "/products/thermoplastics-machine-components/machined-plastic-parts/placoss",
+                },
+                {
+                  label: "Plamacon",
+                  href: "/products/thermoplastics-machine-components/machined-plastic-parts/plamacon",
+                },
+                {
+                  label: "Plasb",
+                  href: "/products/thermoplastics-machine-components/machined-plastic-parts/plasb",
+                },
+                {
+                  label: "Kaylon-Gears",
+                  href: "/products/thermoplastics-machine-components/machined-plastic-parts/kaylon-gears",
+                },
+                {
+                  label: "Plascon Former Bottom Lip",
+                  href: "/products/thermoplastics-machine-components/machined-plastic-parts/plascon-former-bottom-lip",
+                },
+                {
+                  label: "Metering Bar Holders",
+                  href: "/products/thermoplastics-machine-components/machined-plastic-parts/metering-bar-holders",
+                },
+                {
+                  label: "Polyrib Car Stopper",
+                  href: "/products/thermoplastics-machine-components/machined-plastic-parts/polyrib-car-stopper",
+                },
+                {
+                  label: "CCN",
+                  href: "/products/thermoplastics-machine-components/machined-plastic-parts/ccn",
+                }
+              ],
+            },
+            {
+              label: "Polymarino: Pads",
+              href: "/products/thermoplastics-semi-finished-products/pads",
+              children: [
+                {
+                  label: "Fascia Pads / Marine Fender Panels",
+                  href: "/products/thermoplastics-machine-components/pads",
+                }
+              ],
+            },
+            {
+              label: "POP (Polyrib Outrigger Pads)",
+              href: "/products/thermoplastics-machine-components/pop",
             },
           ],
         },
@@ -444,14 +546,14 @@ export function Header() {
 
                 {/* Standard Dropdown */}
                 {item.children && openDropdown === item.label && (
-                  <div className="absolute top-full left-0 mt-1 w-64 max-h-[75vh] overflow-y-auto bg-card border border-border shadow-card-hover z-50">
+                  <div className="absolute top-full left-0 mt-1 w-64 max-h-[75vh] overflow-y-auto bg-card border border-border shadow-card-hover z-50 rounded-xl">
                     {item.children.map((child, index) => {
                       const isLast = index === item.children!.length - 1;
 
                       return isLast ? (
                         <div
                           key={child.href + child.label}
-                          className="border-t border-divider px-4 py-2.5 bg-surface-subtle"
+                          className="border-t border-divider px-4 py-2.5 bg-white"
                         >
                           <Link
                             to={child.href}
@@ -518,7 +620,7 @@ export function Header() {
                                     );
                                   }}
                                 >
-                                  <div className="flex items-center rounded-sm hover:bg-surface-subtle transition-colors duration-150">
+                                  <div className="flex items-center rounded-xl hover:bg-surface-subtle transition-colors duration-150">
                                     <Link
                                       to={sub.href}
                                       onClick={() => {
@@ -556,7 +658,7 @@ export function Header() {
 
                                   {/* Nested submenu: positioned within the mega menu */}
                                   {hasChildren && isSubmenuOpen && (
-                                    <div className="mt-1 mb-2 ml-2 border-l-2 border-primary/20 bg-surface-subtle">
+                                    <div className="mt-1 mb-2 ml-2 border-l-2 border-primary/20 bg-surface-subtle rounded-xl">
                                       <div className="px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-primary border-b border-divider">
                                         {sub.label}
                                       </div>
@@ -585,7 +687,7 @@ export function Header() {
                       ))}
                     </div>
 
-                    <div className="border-t border-divider px-4 py-2.5 bg-surface-subtle">
+                    <div className="border-t border-divider px-4 py-2.5 bg-white">
                       <Link
                         to="/products"
                         onClick={() => {
@@ -706,7 +808,7 @@ export function Header() {
 
                 {/* Mobile Products Mega Menu */}
                 {item.megaMenu && mobileExpanded === item.label && (
-                  <div className="bg-surface-subtle">
+                  <div className="bg-white rounded-xl">
                     {item.columns?.map((column) => (
                       <div key={column.heading}>
                         <Link
@@ -730,7 +832,7 @@ export function Header() {
                               key={sub.href + sub.label}
                               className="border-b border-divider"
                             >
-                              <div className="flex items-center">
+                              <div className="flex items-center bg-surface-subtle">
                                 <Link
                                   to={sub.href}
                                   className="flex-1 min-w-0 px-6 py-3 text-xs font-medium text-muted-foreground hover:text-primary transition-colors"
