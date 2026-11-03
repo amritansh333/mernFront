@@ -1295,8 +1295,8 @@ function PolymersSection() {
                       </span>
                     )}
                 </p>
-
-                {/* Technical information */}
+                {/*
+                //  Technical information
                 <div className="lab-technical-panel mt-5 p-3 sm:p-4 rounded-lg space-y-3">
                   <div className="flex flex-wrap items-start justify-between gap-2">
                     <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-sky-400">
@@ -1338,6 +1338,7 @@ function PolymersSection() {
                     </span>
                   </div>
                 </div>
+                */}
               </div>
             </div>
           </div>

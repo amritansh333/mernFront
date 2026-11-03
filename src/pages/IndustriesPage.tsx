@@ -393,8 +393,8 @@ export default function IndustriesPage() {
                     {ind.subtitle}
                   </p>
 
-                  {/* Product Stats */}
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 mb-3 sm:mb-4">
+                  {/* Product Stats - Hidden on mobile, visible on tablets and desktops */}
+                  <div className="hidden sm:grid grid-cols-3 gap-2 sm:gap-3 mb-3 sm:mb-4">
                     {ind.stats.map((s) => (
                       <div key={s.l} className="min-w-0">
                         <div className="font-heading font-bold text-primary text-[10px] sm:text-xs lg:text-sm break-words">
@@ -413,7 +413,7 @@ export default function IndustriesPage() {
                     <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 explore-arrow shrink-0" />
                   </div>
 
-                  <div className="card-border-bottom mt-3 sm:mt-4" />
+                  <div className="card-border-bottom mt-1 sm:mt-1" />
                 </div>
               </Link>
             ))}
