@@ -90,7 +90,7 @@ export default function PCClearBasePlateLouversSection({
       <section className="border-t border-divider bg-background px-4 py-12 sm:px-6 lg:px-8 xl:px-10">
         <div className="mx-auto max-w-[1400px]">
           <div className="mb-6">
-            <div className="mb-3 inline-flex items-center border border-[#A9D8EB] bg-[#F5FBFE] px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#258FC0]">
+            <div className="mb-3 inline-flex items-center border border-[#A9D8EB] bg-[#F5FBFE] px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#258FC0] rounded-xl">
               PRODUCTION PROGRAM
             </div>
 
@@ -107,7 +107,7 @@ export default function PCClearBasePlateLouversSection({
           </div>
 
           {/* Production table */}
-          <div className="overflow-hidden rounded-lg border border-[#D9E4EA] bg-white shadow-sm">
+          <div className="overflow-hidden rounded-xl border border-[#D9E4EA] bg-white shadow-sm">
             <div className="overflow-x-auto">
               <table className="w-full min-w-[700px] border-collapse text-left">
                 <thead>

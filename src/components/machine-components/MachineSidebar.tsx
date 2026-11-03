@@ -96,8 +96,18 @@ export default function MachineSidebar({
 
   const hasSearch = search.trim().length > 0;
 
+  const pageTexture = {
+    backgroundColor: "#FFFFFF",
+    backgroundImage: `
+      radial-gradient(circle at 12px 12px, rgba(39, 158, 206, 0.055) 1px, transparent 1.5px),
+      linear-gradient(135deg, rgba(39, 158, 206, 0.025) 25%, transparent 25%),
+      linear-gradient(315deg, rgba(39, 158, 206, 0.025) 25%, transparent 25%)
+    `,
+    backgroundSize: "28px 28px, 56px 56px, 56px 56px",
+  };
+
   return (
-    <aside className="flex h-full flex-col overflow-hidden border-r border-[#279ECE]/15 bg-[#F7FBFE]">
+    <aside className="flex h-full flex-col overflow-hidden border-r border-[#279ECE]/15 bg-white" style={pageTexture}>
       {/* ================= PREMIUM HEADER ================= */}
 
       <div
@@ -234,7 +244,7 @@ export default function MachineSidebar({
         <div className="relative z-10">
           {/* EXPLORE OUR RANGE */}
 
-          <div className="mb-4 inline-flex items-center gap-2 rounded-md border border-white/15 bg-white/20 px-3 py-1.5 backdrop-blur-md">
+          <div className="mb-4 inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/20 px-3 py-1.5 backdrop-blur-md">
             <Sparkles className="h-3.5 w-3.5" />
 
             <span className="text-[9px] font-bold uppercase tracking-[0.18em] ">

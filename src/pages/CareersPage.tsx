@@ -54,8 +54,18 @@ const perks = [
 export default function CareersPage() {
   const ref = useScrollFade() as React.RefObject<HTMLElement>;
 
+  const pageTexture = {
+    backgroundColor: "#FFFFFF",
+    backgroundImage: `
+      radial-gradient(circle at 12px 12px, rgba(39, 158, 206, 0.055) 1px, transparent 1.5px),
+      linear-gradient(135deg, rgba(39, 158, 206, 0.025) 25%, transparent 25%),
+      linear-gradient(315deg, rgba(39, 158, 206, 0.025) 25%, transparent 25%)
+    `,
+    backgroundSize: "28px 28px, 56px 56px, 56px 56px",
+  };
+
   return (
-    <div className="pt-16">
+    <div className="min-h-screen bg-white pt-16" style={pageTexture}>
       <PageHeroBanner
         eyebrow="Join Our Team"
         title="Careers"
@@ -93,7 +103,7 @@ export default function CareersPage() {
                 ))}
               </div>
             </div>
-            <div className="bg-surface-subtle border border-border p-8 rounded-xl">
+            <div className=" border border-primary/60 p-8 rounded-xl bg-[#edf9fd]">
               <p className="section-label mb-3">Open Applications</p>
               <h3 className="font-heading text-xl text-charcoal mb-3">
                 Don't see a suitable role?
@@ -116,7 +126,7 @@ export default function CareersPage() {
       </section>
 
       {/* Roles */}
-      <section ref={ref} className="fade-up py-14 bg-surface-subtle">
+      <section ref={ref} className="fade-up py-14">
         <div className="container max-w-7xl mx-auto px-6">
           <p className="section-label mb-3">Open Positions</p>
           <h2 className="font-heading text-2xl text-charcoal mb-8">

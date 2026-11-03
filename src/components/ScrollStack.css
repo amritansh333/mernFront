@@ -72,7 +72,6 @@
   position: relative;
   overflow: visible;
   isolation: auto;
-  background: #fff;
 }
 
 .brand-portfolio-section > .container {
@@ -93,7 +92,6 @@
   gap: 12px;
   padding-top: 16px;
   padding-bottom: 20px;
-  background: #fff;
 }
 
 .brand-portfolio-heading h2 {

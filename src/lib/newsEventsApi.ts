@@ -21,8 +21,8 @@ export type GalleryItem = {
 };
 
 export type VideoItem = {
-  provider: "youtube" | "vimeo" | "hosted";
-  videoId: string;
+  url: string;
+  alt?: string;
   title?: string;
   caption?: string;
   poster?: string;
@@ -142,17 +142,20 @@ export async function fetchNewsEventBySlug(
       })),
 
     videos: (it.videos || [])
-      .sort(
-        (a: VideoItem, b: VideoItem) => (a.sortOrder || 0) - (b.sortOrder || 0),
-      )
-      .map((v: VideoItem) => ({
-        provider: v.provider,
-        videoId: v.videoId,
-        title: v.title,
-        caption: v.caption,
-        poster: resolveApiAssetUrl(v.poster),
-        sortOrder: v.sortOrder,
-      })),
+  .sort(
+    (a: VideoItem, b: VideoItem) =>
+      (a.sortOrder || 0) - (b.sortOrder || 0),
+  )
+  .map((v: VideoItem) => ({
+    url: resolveApiAssetUrl(v.url),
+    alt: v.alt,
+    title: v.title,
+    caption: v.caption,
+    poster: v.poster
+      ? resolveApiAssetUrl(v.poster)
+      : undefined,
+    sortOrder: v.sortOrder,
+  })),
 
     seo: it.seo
       ? {

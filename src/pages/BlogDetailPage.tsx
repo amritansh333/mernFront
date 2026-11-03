@@ -137,8 +137,18 @@ export default function BlogDetailPage() {
 
   const isGallery = post.type === "Gallery";
 
+  const pageTexture = {
+    backgroundColor: "#FFFFFF",
+    backgroundImage: `
+      radial-gradient(circle at 12px 12px, rgba(39, 158, 206, 0.055) 1px, transparent 1.5px),
+      linear-gradient(135deg, rgba(39, 158, 206, 0.025) 25%, transparent 25%),
+      linear-gradient(315deg, rgba(39, 158, 206, 0.025) 25%, transparent 25%)
+    `,
+    backgroundSize: "28px 28px, 56px 56px, 56px 56px",
+  };
+
   return (
-    <div className="min-w-0 overflow-x-hidden bg-background">
+    <div className="min-h-screen bg-white pt-16" style={pageTexture}>
       {/* =========================================================
           BLOG DETAIL HERO
       ========================================================= */}
@@ -613,7 +623,7 @@ export default function BlogDetailPage() {
       ========================================================= */}
 
       {relatedPosts.length > 0 && (
-        <section className="border-t border-divider bg-surface-subtle">
+        <section className="border-t border-divider">
           <div className="container max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
             <div className="mb-7 sm:mb-9 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
               <div className="min-w-0">

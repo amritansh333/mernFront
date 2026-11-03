@@ -150,8 +150,18 @@ export default function AboutPage() {
     };
   }, []);
 
+  const pageTexture = {
+    backgroundColor: "#FFFFFF",
+    backgroundImage: `
+      radial-gradient(circle at 12px 12px, rgba(39, 158, 206, 0.055) 1px, transparent 1.5px),
+      linear-gradient(135deg, rgba(39, 158, 206, 0.025) 25%, transparent 25%),
+      linear-gradient(315deg, rgba(39, 158, 206, 0.025) 25%, transparent 25%)
+    `,
+    backgroundSize: "28px 28px, 56px 56px, 56px 56px",
+  };
+
   return (
-    <div className="pt-16">
+    <div className="min-h-screen bg-white pt-16" style={pageTexture}>
       {/* ABOUT US HEADER */}
 
       <PageHeroBanner
@@ -218,7 +228,7 @@ export default function AboutPage() {
       {/* EXPLORE FEATURES (MISSION & VALUES FROM PART B) */}
       <section
         ref={ref4}
-        className="fade-up py-8 border-b border-divider bg-swhite"
+        className="fade-up py-8 border-b border-divider"
       >
         <div className="container max-w-7xl mx-auto px-6 text-center">
           <p className="section-label mb-3">Explore Features</p>
@@ -243,7 +253,7 @@ export default function AboutPage() {
             ].map((item) => (
               <div
                 key={item.title}
-                className="border border-border bg-card p-8 transition-all duration-300 hover:bg-primary hover:text-white hover:shadow-lg group rounded-xl"
+                className="border border-primary/60 bg-card p-8 transition-all duration-300 hover:bg-primary hover:text-white hover:shadow-lg group rounded-xl"
               >
                 <Plus className="w-6 h-6 mb-4 text-primary group-hover:text-white transition-colors" />
                 <h3 className="font-heading text-lg mb-3">{item.title}</h3>
@@ -281,7 +291,7 @@ export default function AboutPage() {
             {groupCompanies.map((co) => (
               <div
                 key={co.name}
-                className="border border-border hover:border-primary/40 transition-colors duration-200 flex flex-col"
+                className="border border-primary/60 hover:border-primary/40 transition-colors duration-200 flex flex-col"
               >
                 <div className="h-1 bg-primary" />
                 <div className="p-6 flex flex-col flex-1">
@@ -320,7 +330,7 @@ export default function AboutPage() {
       </section>
 
       {/* OUR LOCATIONS */}
-      <section className="py-8 bg-surface-subtle border-b border-divider">
+      <section className="py-8 border-b border-divider">
         <div className="container max-w-7xl mx-auto px-6">
           <div className="text-center mb-8">
             <p className="section-label mb-3">Our Locations</p>
@@ -332,7 +342,7 @@ export default function AboutPage() {
             {locations.map((loc) => (
               <div
                 key={loc.city}
-                className="flex gap-4 p-5 bg-card border border-border hover:border-primary/30 transition-colors duration-200 rounded-xl"
+                className="flex gap-4 p-5 bg-card border border-primary/60 hover:border-primary/30 transition-colors duration-200 rounded-xl"
               >
                 <div className="w-10 h-10 bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
                   <MapPin className="w-5 h-5 text-primary" />

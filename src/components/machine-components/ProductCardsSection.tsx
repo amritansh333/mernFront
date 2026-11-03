@@ -176,7 +176,7 @@ export default function ProductCardsSection({
 
   return (
     <section className="px-4 py-4 lg:px-8">
-      <div className="mb-4 inline-flex items-center gap-2 rounded-sm border border-[#279ECE]/20 bg-[#279ECE]/10 px-3 py-1.5">
+      <div className="mb-4 inline-flex items-center gap-2 rounded-xl border border-[#279ECE]/20 bg-[#279ECE]/10 px-3 py-1.5">
         <Save className="h-3.5 w-3.5 text-[#276A96]" />
 
         <span className="text-[10px] font-bold uppercase tracking-widest text-[#276A96]">
@@ -234,7 +234,7 @@ function ProductCardItem({
       : "/placeholder-product.jpg";
 
   const wrapperClassName =
-    "group flex flex-col overflow-hidden rounded-sm border border-slate-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-[#2BA6D9] hover:shadow-[0_5px_10px_rgba(39,158,206,0.22)]";
+    "group flex flex-col overflow-hidden rounded-sm border border-slate-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-[#2BA6D9] hover:shadow-[0_5px_10px_rgba(39,158,206,0.22)] rounded-xl";
 
   const handleCustomClick = () => {
     onCardClick?.(product);

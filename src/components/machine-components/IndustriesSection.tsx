@@ -40,10 +40,20 @@ export default function IndustriesSection({
 }: IndustriesSectionProps) {
   if (!industries.length) return null;
 
+  const pageTexture = {
+    backgroundColor: "#FFFFFF",
+    backgroundImage: `
+      radial-gradient(circle at 12px 12px, rgba(39, 158, 206, 0.055) 1px, transparent 1.5px),
+      linear-gradient(135deg, rgba(39, 158, 206, 0.025) 25%, transparent 25%),
+      linear-gradient(315deg, rgba(39, 158, 206, 0.025) 25%, transparent 25%)
+    `,
+    backgroundSize: "28px 28px, 56px 56px, 56px 56px",
+  };
+
   return (
-    <section className="mb-4 border border-[#276A96]/10 bg-[#F8FAFC] px-6 py-6 sm:p-10">
+    <section className="mb-4 border border-[#276A96]/10 bg-white px-6 py-6 sm:p-10" style={pageTexture}>
       {/* Badge */}
-      <div className="mb-3 inline-flex items-center gap-2 rounded-sm border border-[#279ECE]/20 bg-[#279ECE]/10 px-3 py-1.5">
+      <div className="mb-3 inline-flex items-center gap-2 rounded-xl border border-[#279ECE]/20 bg-[#279ECE]/10 px-3 py-1.5">
         <FileUser className="h-3.5 w-3.5 text-[#276A96]" />
 
         <span className="text-[10px] font-bold uppercase tracking-widest text-[#276A96]">
@@ -71,6 +81,7 @@ export default function IndustriesSection({
                 transition-all duration-300
                 hover:-translate-y-1
                 hover:shadow-xl
+                rounded-xl
               "
             >
               <div className="relative z-10 flex items-center gap-2">

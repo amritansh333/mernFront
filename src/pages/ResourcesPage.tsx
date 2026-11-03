@@ -133,8 +133,18 @@ export default function ResourcesPage() {
     }
   };
 
+  const pageTexture = {
+    backgroundColor: "#FFFFFF",
+    backgroundImage: `
+      radial-gradient(circle at 12px 12px, rgba(39, 158, 206, 0.055) 1px, transparent 1.5px),
+      linear-gradient(135deg, rgba(39, 158, 206, 0.025) 25%, transparent 25%),
+      linear-gradient(315deg, rgba(39, 158, 206, 0.025) 25%, transparent 25%)
+    `,
+    backgroundSize: "28px 28px, 56px 56px, 56px 56px",
+  };
+
   return (
-    <div className="pt-16">
+    <div className="min-h-screen bg-white pt-16" style={pageTexture}>
       {/* Page Header */}
       <PageHeroBanner
         eyebrow="Downloadable Resources"

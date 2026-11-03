@@ -273,7 +273,7 @@ export default function MachineComponentsPage() {
     // Render the page shell but do not render the detailed ProductRenderer or DocumentationCTA.
     // The BrochureModal will be open and takes care of the OTP/brochure flow.
     return (
-      <main className="pt-16 bg-background">
+      <main className="pt-16">
         <div className="flex min-h-[calc(100vh-4rem)]">
           <div className="hidden w-72 shrink-0 lg:block xl:w-80">
             <div className="sticky top-16 h-[calc(100vh-4rem)]">
@@ -306,8 +306,18 @@ export default function MachineComponentsPage() {
     );
   }
 
+  const pageTexture = {
+    backgroundColor: "#FFFFFF",
+    backgroundImage: `
+      radial-gradient(circle at 12px 12px, rgba(39, 158, 206, 0.055) 1px, transparent 1.5px),
+      linear-gradient(135deg, rgba(39, 158, 206, 0.025) 25%, transparent 25%),
+      linear-gradient(315deg, rgba(39, 158, 206, 0.025) 25%, transparent 25%)
+    `,
+    backgroundSize: "28px 28px, 56px 56px, 56px 56px",
+  };
+
   return (
-    <main className="pt-16 bg-background">
+    <main className="min-h-screen bg-white pt-16" style={pageTexture}>
       <div className="flex min-h-[calc(100vh-4rem)]">
         <div className="hidden w-72 shrink-0 lg:block xl:w-80">
           <div className="sticky top-16 h-[calc(100vh-4rem)]">
@@ -323,7 +333,7 @@ export default function MachineComponentsPage() {
         </div>
 
         <section className="min-w-0 flex-1">
-          <div className="sticky top-16 z-20 border-b border-divider bg-background px-4 py-3 lg:hidden">
+          <div className="sticky top-16 z-20 border-b border-divider px-4 py-3 lg:hidden">
             {/* ================= TABLET ================= */}
             <div className="hidden sm:flex items-center justify-between">
               {/* Explore */}
@@ -332,7 +342,7 @@ export default function MachineComponentsPage() {
                 <SheetTrigger asChild>
                   <Button
                     variant="outline"
-                    className="h-11 px-5 whitespace-nowrap border-[#A9D8EB] hover:border-[#A9D8EB]"
+                    className="h-11 px-5 whitespace-nowrap border-[#A9D8EB] hover:border-[#A9D8EB] rounded-xl"
                   >
                     <Menu className="mr-2 h-4 w-4" />
                     Explore Our Range
@@ -361,7 +371,7 @@ export default function MachineComponentsPage() {
                 <SheetTrigger asChild>
                   <Button
                     variant="outline"
-                    className="h-11 px-5 whitespace-nowrap border-[#A9D8EB] hover:border-[#A9D8EB]"
+                    className="h-11 px-5 whitespace-nowrap border-[#A9D8EB] hover:border-[#A9D8EB] rounded-xl"
                   >
                     <Search className="mr-2 h-4 w-4" />
                     Search Products
@@ -402,6 +412,7 @@ export default function MachineComponentsPage() {
   justify-center
   border-[#A9D8EB]
   hover:border-[#A9D8EB]
+  rounded-xl
 "
                   >
                     <Menu className="mr-2 h-4 w-4" />
@@ -437,6 +448,7 @@ export default function MachineComponentsPage() {
   justify-center
   border-[#A9D8EB]
   hover:border-[#A9D8EB]
+  rounded-xl
 "
                   >
                     <Search className="mr-2 h-4 w-4" />
@@ -480,6 +492,7 @@ export default function MachineComponentsPage() {
   justify-center
   border-[#A9D8EB]
   hover:border-[#A9D8EB]
+  rounded-xl
 "
                   >
                     <Menu className="mr-2 h-4 w-4" />
@@ -508,7 +521,7 @@ export default function MachineComponentsPage() {
                   <Button
                     variant="outline"
                     size="icon"
-                    className="h-11 w-11 shrink-0 border-[#A9D8EB] hover:border-[#A9D8EB]"
+                    className="h-11 w-11 shrink-0 border-[#A9D8EB] hover:border-[#A9D8EB] rounded-xl"
                   >
                     <Search className="h-5 w-5" />
                   </Button>

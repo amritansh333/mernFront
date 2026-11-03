@@ -198,8 +198,18 @@ export default function BrandsPage() {
     load();
   }, [subcategorySlug]);
 
+const pageTexture = {
+    backgroundColor: "#FFFFFF",
+    backgroundImage: `
+      radial-gradient(circle at 12px 12px, rgba(39, 158, 206, 0.055) 1px, transparent 1.5px),
+      linear-gradient(135deg, rgba(39, 158, 206, 0.025) 25%, transparent 25%),
+      linear-gradient(315deg, rgba(39, 158, 206, 0.025) 25%, transparent 25%)
+    `,
+    backgroundSize: "28px 28px, 56px 56px, 56px 56px",
+  };
+
   return (
-    <div className="pt-16">
+    <div className="min-h-screen bg-white pt-16" style={pageTexture}>
       {/* =====================================================
           REUSABLE PAGE HERO BANNER
           DYNAMIC CATEGORY AND SUBCATEGORY INFORMATION
@@ -234,7 +244,10 @@ export default function BrandsPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {loading
               ? Array.from({ length: 6 }).map((_, index) => (
-                  <div key={index} className="product-card block animate-pulse">
+                  <div
+                    key={index}
+                    className="product-card block animate-pulse rounded-xl overflow-hidden"
+                  >
                     <div className="card-image aspect-[4/3] overflow-hidden bg-gray-200 rounded-t-xl" />
 
                     <div className="p-5">
@@ -257,7 +270,7 @@ export default function BrandsPage() {
                   <Link
                     key={brand._id}
                     to={`/products/${categorySlug}/${subcategorySlug}/${brand.slug}`}
-                    className="product-card block group"
+                    className="product-card block group rounded-xl overflow-hidden"
                   >
                     <BrandImageCarousel
                       image={brand.image}

@@ -318,8 +318,18 @@ export default function MaterialsPage() {
     ? MATERIAL_FAMILIES.find((m) => m.slug === selected)
     : null;
 
+  const pageTexture = {
+    backgroundColor: "#FFFFFF",
+    backgroundImage: `
+      radial-gradient(circle at 12px 12px, rgba(39, 158, 206, 0.055) 1px, transparent 1.5px),
+      linear-gradient(135deg, rgba(39, 158, 206, 0.025) 25%, transparent 25%),
+      linear-gradient(315deg, rgba(39, 158, 206, 0.025) 25%, transparent 25%)
+    `,
+    backgroundSize: "28px 28px, 56px 56px, 56px 56px",
+  };
+
   return (
-    <div className="pt-16">
+    <div className="min-h-screen bg-white pt-16" style={pageTexture}>
       {/* Page Header */}
       <PageHeroBanner
         eyebrow="Polyrib manufactures a comprehensive range of thermoplastics under its brand families. Click any brand to explore its grades, properties, and applications."
@@ -378,7 +388,7 @@ export default function MaterialsPage() {
 
                 {/* INLINE EXPANDED SECTION */}
                 {isSelected && (
-                  <div className="col-span-1 sm:col-span-2 lg:col-span-3 border border-primary/20 bg-primary/3 p-8 animate-fade-in rounded-xl">
+                  <div className="col-span-1 sm:col-span-2 lg:col-span-3 border border-primary/20 bg-primary/3 p-8 animate-fade-in rounded-xl bg-white">
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                       <div className="lg:col-span-2">
                         <div className="flex items-center gap-3 mb-4 flex-wrap">

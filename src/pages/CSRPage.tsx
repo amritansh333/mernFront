@@ -71,8 +71,18 @@ export default function CSRPage() {
     setCurrent((prev) => (prev + 1) % csrImages.length);
   };
 
+  const pageTexture = {
+    backgroundColor: "#FFFFFF",
+    backgroundImage: `
+      radial-gradient(circle at 12px 12px, rgba(39, 158, 206, 0.055) 1px, transparent 1.5px),
+      linear-gradient(135deg, rgba(39, 158, 206, 0.025) 25%, transparent 25%),
+      linear-gradient(315deg, rgba(39, 158, 206, 0.025) 25%, transparent 25%)
+    `,
+    backgroundSize: "28px 28px, 56px 56px, 56px 56px",
+  };
+
   return (
-    <div className="pt-16">
+    <div className="min-h-screen bg-white pt-16" style={pageTexture}>
       {/* ABOUT US HEADER */}
 
       <PageHeroBanner
@@ -89,7 +99,7 @@ export default function CSRPage() {
       />
 
       {/* Intro (MODIFIED SECTION ONLY) */}
-      <section className="py-8 border-b border-gray-200 bg-white">
+      <section className="py-8 border-b border-gray-200">
         <div className="container max-w-7xl mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-8 items-center">
             {/* LEFT SIDE CONTENT */}
@@ -167,7 +177,7 @@ export default function CSRPage() {
       </section>
 
       {/* Pillars */}
-      <section className="py-8 bg-gray-50 border-b border-gray-200">
+      <section className="py-8 border-b border-gray-200">
         <div className="container max-w-7xl mx-auto px-6">
           <p className="section-label mb-3">Key Pillars</p>
           <h2 className="font-heading text-2xl text-charcoal mb-8">
@@ -178,7 +188,7 @@ export default function CSRPage() {
             {pillars.map((p) => (
               <div
                 key={p.title}
-                className="bg-white border border-gray-200 shadow-sm p-6 hover:border-primary/40 transition-colors duration-200 rounded-xl"
+                className="bg-white border border-primary/60 shadow-sm p-6 hover:border-primary/40 transition-colors duration-200 rounded-xl"
               >
                 <div className="w-10 h-10 bg-primary/10 flex items-center justify-center mb-4 rounded-xl">
                   <p.icon className="w-5 h-5 text-primary" />
@@ -198,7 +208,7 @@ export default function CSRPage() {
       </section>
 
       {/* Metrics */}
-      <section className="py-8 border-b border-gray-200 bg-white">
+      <section className="py-8 border-b border-gray-200">
         <div className="container max-w-7xl mx-auto px-6">
           <p className="section-label mb-3">Progress</p>
           <h2 className="font-heading text-2xl text-charcoal mb-8">
@@ -214,7 +224,7 @@ export default function CSRPage() {
             ].map((m) => (
               <div
                 key={m.l}
-                className="border border-primary bg-white shadow-sm p-6 text-center rounded-xl"
+                className="border border-primary/60 bg-white shadow-sm p-6 text-center rounded-xl"
               >
                 <div className="font-heading font-bold text-primary text-3xl mb-2">
                   {m.v}

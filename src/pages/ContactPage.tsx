@@ -642,8 +642,18 @@ export default function ContactPage() {
      RENDER
   ===================================================== */
 
+  const pageTexture = {
+    backgroundColor: "#FFFFFF",
+    backgroundImage: `
+      radial-gradient(circle at 12px 12px, rgba(39, 158, 206, 0.055) 1px, transparent 1.5px),
+      linear-gradient(135deg, rgba(39, 158, 206, 0.025) 25%, transparent 25%),
+      linear-gradient(315deg, rgba(39, 158, 206, 0.025) 25%, transparent 25%)
+    `,
+    backgroundSize: "28px 28px, 56px 56px, 56px 56px",
+  };
+
   return (
-    <div className="pt-16">
+    <div className="min-h-screen bg-white pt-16" style={pageTexture}>
       {/* =================================================
           CONTACT PAGE HERO BANNER
       ================================================= */}
@@ -662,7 +672,7 @@ export default function ContactPage() {
           CONTACT INTRO + ACTION BUTTONS
       ================================================= */}
 
-      <section className="bg-white border-b border-divider">
+      <section className="border-b border-divider">
         <div className="container max-w-7xl mx-auto px-5 sm:px-6 py-8 sm:py-10">
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-7">
             {/* LEFT: INTRODUCTION */}
@@ -769,7 +779,7 @@ export default function ContactPage() {
 
             {/* TECHNICAL TEAM */}
 
-            <div className="border border-primary p-5 rounded-xl">
+            <div className="border border-primary p-5 rounded-xl bg-primary/5">
               <p className="section-label mb-3">Technical Team</p>
 
               <p className="text-sm text-muted-foreground leading-relaxed mb-4">
@@ -847,7 +857,7 @@ export default function ContactPage() {
               ) : (
                 <form
                   onSubmit={handleQuoteSubmit}
-                  className="border border-border p-5 sm:p-8 space-y-6 rounded-xl"
+                  className="border border-border p-5 sm:p-8 space-y-6 rounded-xl bg-primary/5"
                 >
                   <h2 className="font-heading text-xl text-charcoal">
                     Enquiry Details
@@ -1065,7 +1075,7 @@ export default function ContactPage() {
               ) : (
                 <form
                   onSubmit={handleDrawSubmit}
-                  className="border border-border p-5 sm:p-8 space-y-6 rounded-xl"
+                  className="border border-border p-5 sm:p-8 space-y-6 rounded-xl bg-primary/5"
                 >
                   {/* FORM HEADING */}
 

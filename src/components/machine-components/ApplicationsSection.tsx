@@ -39,10 +39,21 @@ export default function ApplicationsSection({
 }: ApplicationsSectionProps) {
   if (!applications.length) return null;
 
+  const pageTexture = {
+    backgroundColor: "#FFFFFF",
+    backgroundImage: `
+      radial-gradient(circle at 12px 12px, rgba(39, 158, 206, 0.055) 1px, transparent 1.5px),
+      linear-gradient(135deg, rgba(39, 158, 206, 0.025) 25%, transparent 25%),
+      linear-gradient(315deg, rgba(39, 158, 206, 0.025) 25%, transparent 25%)
+    `,
+    backgroundSize: "28px 28px, 56px 56px, 56px 56px",
+  };
+
+  
   return (
-    <section className="mb-4 bg-[#F8FAFC] border border-[#276A96]/10 px-6 py-6 sm:p-10">
+    <section className="mb-4 border border-[#276A96]/10 px-6 py-6 sm:p-10 bg-white" style={pageTexture}>
       {/* Badge */}
-      <div className="inline-flex items-center gap-2 rounded-sm border border-[#279ECE]/20 bg-[#279ECE]/10 px-3 py-1.5 mb-3">
+      <div className="inline-flex items-center gap-2 rounded-sm border border-[#279ECE]/20 bg-[#279ECE]/10 px-3 py-1.5 mb-3 rounded-xl">
         <FileUser className="h-3.5 w-3.5 text-[#276A96]" />
 
         <span className="text-[10px] font-bold uppercase tracking-widest text-[#276A96]">
@@ -63,11 +74,11 @@ export default function ApplicationsSection({
           return (
             <div
               key={`${application}-${index}`}
-              className="group relative overflow-hidden border border-[#276A96]/10 border-l-4 border-l-[#279ECE] bg-white p-4 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+              className="group relative overflow-hidden border border-[#276A96]/10 border-l-4 border-l-[#279ECE] p-4 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl rounded-xl bg-white"
             >
               <div className="relative z-10 flex items-center gap-2">
                 {/* Icon */}
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center bg-[#279ECE]/10 transition-colors duration-300 group-hover:bg-[#279ECE]">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center bg-[#279ECE]/10 transition-colors duration-300 group-hover:bg-[#279ECE] rounded-xl">
                   <Icon className="h-6 w-6 text-[#279ECE] transition-colors duration-300 group-hover:text-white" />
                 </div>
 

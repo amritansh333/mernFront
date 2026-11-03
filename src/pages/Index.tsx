@@ -751,7 +751,7 @@ function WhyUsSection() {
   return (
     <section
       ref={sectionRef}
-      className="why-us-scroll-section bg-white border-y border-divider"
+      className="why-us-scroll-section border-y border-divider"
       aria-label="Why choose Khanna Polyrib"
     >
       <div className="why-us-pin">
@@ -944,7 +944,7 @@ function MaterialsSection() {
   return (
     <section
       ref={ref}
-      className="brand-portfolio-section bg-white border-y border-divider"
+      className="brand-portfolio-section border-y border-divider"
     >
       <div className="container max-w-7xl mx-auto px-6">
         {/* Keep the heading and link together. */}
@@ -1230,7 +1230,7 @@ function PolymersSection() {
   return (
     <section
       ref={sectionRef}
-      className={`materials-motion-section py-8 border-b border-divider bg-white ${
+      className={`materials-motion-section py-8 border-b border-divider ${
         isVisible ? "materials-motion-visible" : ""
       }`}
     >
@@ -1430,7 +1430,7 @@ function IndustriesSection() {
   return (
     <section
       ref={sectionRef}
-      className={`industries-motion-section py-8 bg-white border-y border-divider ${
+      className={`industries-motion-section py-8 border-y border-divider ${
         isVisible ? "industries-motion-visible" : ""
       }`}
     >
@@ -1695,7 +1695,7 @@ function CertificationSection() {
     <>
       <section
         ref={sectionRef}
-        className={`certification-motion-section py-8 bg-white border-b border-divider ${
+        className={`certification-motion-section py-8 border-b border-divider ${
           isVisible ? "certification-visible" : ""
         }`}
       >
@@ -1922,8 +1922,18 @@ const Index = () => {
     };
   }, []);
 
+  const pageTexture = {
+    backgroundColor: "#FFFFFF",
+    backgroundImage: `
+      radial-gradient(circle at 12px 12px, rgba(39, 158, 206, 0.055) 1px, transparent 1.5px),
+      linear-gradient(135deg, rgba(39, 158, 206, 0.025) 25%, transparent 25%),
+      linear-gradient(315deg, rgba(39, 158, 206, 0.025) 25%, transparent 25%)
+    `,
+    backgroundSize: "28px 28px, 56px 56px, 56px 56px",
+  };
+
   return (
-    <div>
+    <div className="min-h-screen bg-white pt-16" style={pageTexture}>
       {/* Hero */}
       <section className="relative min-h-[92vh] flex items-end overflow-hidden bg-charcoal">
         <div className="absolute inset-0 overflow-hidden">

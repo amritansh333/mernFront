@@ -2088,7 +2088,6 @@
   overflow: visible;
   isolation: isolate;
 
-  background: #ffffff;
   border-top: 1px solid #e2e8f0;
   border-bottom: 1px solid #e2e8f0;
 }
@@ -2293,7 +2292,6 @@
 
   overflow: hidden;
 
-  background: #ffffff;
 }
 
 /* =========================================================
@@ -2965,7 +2963,6 @@
 
     overflow: hidden;
 
-    background: #f8fafc;
   }
 
   .why-us-card-stage {

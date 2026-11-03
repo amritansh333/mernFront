@@ -1322,8 +1322,18 @@ export default function IndustryDetailPage() {
   //const ref2 = useScrollFade() as React.RefObject<HTMLElement>;
   //const ref3 = useScrollFade() as React.RefObject<HTMLElement>;
 
+  const pageTexture = {
+    backgroundColor: "#FFFFFF",
+    backgroundImage: `
+      radial-gradient(circle at 12px 12px, rgba(39, 158, 206, 0.055) 1px, transparent 1.5px),
+      linear-gradient(135deg, rgba(39, 158, 206, 0.025) 25%, transparent 25%),
+      linear-gradient(315deg, rgba(39, 158, 206, 0.025) 25%, transparent 25%)
+    `,
+    backgroundSize: "28px 28px, 56px 56px, 56px 56px",
+  };
+
   return (
-    <div className="pt-16">
+    <div className="min-h-screen bg-white pt-16" style={pageTexture}>
       <PageHeroBanner
         eyebrow={data.subtitle}
         title={data.title}
@@ -1476,7 +1486,7 @@ export default function IndustryDetailPage() {
       </section>
 
       {/* Explore other industries */}
-      <section className="py-8 sm:py-10 bg-white border-y border-divider">
+      <section className="py-8 sm:py-10 border-y border-divider">
         <div className="container max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-6 sm:mb-8">
             <p className="section-label mb-2">Explore More</p>

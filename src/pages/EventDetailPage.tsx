@@ -52,6 +52,20 @@ type EventDetailWithRelated = NewsEventDetail & {
 };
 
 /* =========================================================
+   PAGE BACKGROUND TEXTURE
+========================================================= */
+
+const pageTexture = {
+  backgroundColor: "#FFFFFF",
+  backgroundImage: `
+    radial-gradient(circle at 12px 12px, rgba(39, 158, 206, 0.055) 1px, transparent 1.5px),
+    linear-gradient(135deg, rgba(39, 158, 206, 0.025) 25%, transparent 25%),
+    linear-gradient(315deg, rgba(39, 158, 206, 0.025) 25%, transparent 25%)
+  `,
+  backgroundSize: "28px 28px, 56px 56px, 56px 56px",
+};
+
+/* =========================================================
    HELPERS
 ========================================================= */
 
@@ -112,55 +126,26 @@ function DetailRow({
 ========================================================= */
 
 function VideoEmbed({ video }: { video: EventVideo }) {
-  if (!video?.videoId) return null;
+  if (!video?.url) return null;
 
-  if (video.provider === "youtube") {
-    return (
-      <div className="aspect-video overflow-hidden rounded-xl bg-black">
-        <iframe
-          src={`https://www.youtube.com/embed/${video.videoId}`}
-          title={video.title || "Event video"}
-          className="h-full w-full"
-          loading="lazy"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowFullScreen
-        />
-      </div>
-    );
-  }
+  return (
+    <div className="group relative overflow-hidden rounded-xl border border-border bg-black shadow-sm transition-shadow duration-300 hover:shadow-lg">
 
-  if (video.provider === "vimeo") {
-    return (
-      <div className="aspect-video overflow-hidden rounded-xl bg-black">
-        <iframe
-          src={`https://player.vimeo.com/video/${video.videoId}`}
-          title={video.title || "Event video"}
-          className="h-full w-full"
-          loading="lazy"
-          allow="autoplay; fullscreen; picture-in-picture"
-          allowFullScreen
-        />
-      </div>
-    );
-  }
+      <video
+        key={video.url}
+        src={video.url}
+        poster={video.poster || undefined}
+        controls
+        playsInline
+        preload="metadata"
+        className="aspect-video h-full w-full object-contain"
+        aria-label={video.alt || video.title || "Event video"}
+      >
+        Your browser does not support HTML5 video.
+      </video>
 
-  if (video.provider === "hosted") {
-    return (
-      <div className="overflow-hidden rounded-xl bg-black">
-        <video
-          src={video.videoId}
-          poster={video.poster || undefined}
-          controls
-          preload="metadata"
-          className="aspect-video h-full w-full"
-        >
-          Your browser does not support the video element.
-        </video>
-      </div>
-    );
-  }
-
-  return null;
+    </div>
+  );
 }
 
 /* =========================================================
@@ -260,7 +245,7 @@ export default function EventDetailPage() {
 
   if (loading) {
     return (
-      <main className="min-h-screen bg-background">
+      <main className="min-h-screen bg-background" style={pageTexture}>
         <div className="container mx-auto px-5 py-10 sm:px-6 sm:py-16">
           <div className="h-5 w-32 animate-pulse rounded-xl bg-muted" />
 
@@ -286,7 +271,7 @@ export default function EventDetailPage() {
 
   if (error || !item) {
     return (
-      <main className="min-h-screen bg-background">
+      <main className="min-h-screen bg-background" style={pageTexture}>
         <div className="container mx-auto px-5 py-16 text-center sm:px-6 sm:py-24">
           <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-xl bg-surface-subtle">
             <CalendarDays className="h-7 w-7 text-muted-foreground" />
@@ -352,7 +337,10 @@ export default function EventDetailPage() {
   ========================================================= */
 
   return (
-    <main className="min-h-screen min-w-0 overflow-x-hidden bg-background">
+    <main
+      className="min-h-screen min-w-0 overflow-x-hidden bg-background"
+      style={pageTexture}
+    >
       {/* =========================================================
           PAGE HERO BANNER
       ========================================================= */}
@@ -376,7 +364,7 @@ export default function EventDetailPage() {
           EVENT INTRO
       ========================================================= */}
 
-      <section className="border-b border-border bg-white py-7 sm:py-9">
+      <section className="border-b border-border py-7 sm:py-9">
         <div className="container mx-auto max-w-7xl px-5 sm:px-6">
           {/* Badges */}
 
@@ -570,47 +558,78 @@ export default function EventDetailPage() {
             )}
 
             {/* =====================================================
-                VIDEOS
-            ===================================================== */}
+    VIDEOS
+===================================================== */}
 
-            {item.videos && item.videos.length > 0 && (
-              <section className="mt-14 border-t border-border pt-10">
-                <div className="mb-6">
-                  <p className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-primary">
-                    <PlayCircle className="h-4 w-4" />
-                    Videos
+{item.videos && item.videos.length > 0 && (
+  <section className="mt-14 border-t border-border pt-10">
+
+    {/* Section Heading */}
+
+    <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
+
+      <div>
+        <p className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-primary">
+          <PlayCircle className="h-4 w-4" />
+          Videos
+        </p>
+
+        <h2 className="font-heading text-2xl font-semibold text-charcoal sm:text-3xl">
+          From the event
+        </h2>
+      </div>
+
+      <span className="text-sm text-muted-foreground">
+        {item.videos.length}{" "}
+        {item.videos.length === 1 ? "video" : "videos"}
+      </span>
+
+    </div>
+
+    {/* Video Grid */}
+
+    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+
+      {[...item.videos]
+        .sort(
+          (a, b) =>
+            (a.sortOrder || 0) - (b.sortOrder || 0),
+        )
+        .map((video, index) => (
+
+          <div
+            key={`${video.url}-${index}`}
+            className="min-w-0"
+          >
+
+            <VideoEmbed video={video} />
+
+            {(video.title || video.alt || video.caption) && (
+              <div className="mt-3">
+
+                <h3 className="font-heading text-base font-semibold text-charcoal">
+                  {video.title ||
+                    video.alt ||
+                    `Event Video ${index + 1}`}
+                </h3>
+
+                {video.caption && (
+                  <p className="mt-1 text-sm leading-6 text-muted-foreground">
+                    {video.caption}
                   </p>
+                )}
 
-                  <h2 className="font-heading text-2xl font-semibold text-charcoal sm:text-3xl">
-                    From the event
-                  </h2>
-                </div>
-
-                <div className="space-y-8">
-                  {item.videos.map((video, index) => (
-                    <div key={`${video.videoId}-${index}`}>
-                      <VideoEmbed video={video} />
-
-                      {(video.title || video.caption) && (
-                        <div className="mt-3">
-                          {video.title && (
-                            <h3 className="font-heading text-lg font-semibold text-charcoal">
-                              {video.title}
-                            </h3>
-                          )}
-
-                          {video.caption && (
-                            <p className="mt-1 text-sm leading-6 text-muted-foreground">
-                              {video.caption}
-                            </p>
-                          )}
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </section>
+              </div>
             )}
+
+          </div>
+
+        ))}
+
+    </div>
+
+  </section>
+)}
 
             {/* =====================================================
                 TAGS
@@ -677,7 +696,10 @@ export default function EventDetailPage() {
                 )}
 
                 {ev.city && (
-                  <DetailRow icon={<MapPin className="h-4 w-4" />} label="City">
+                  <DetailRow
+                    icon={<MapPin className="h-4 w-4" />}
+                    label="City"
+                  >
                     {ev.city}
                   </DetailRow>
                 )}
@@ -701,7 +723,10 @@ export default function EventDetailPage() {
                 )}
 
                 {ev.booth && (
-                  <DetailRow icon={<Users className="h-4 w-4" />} label="Booth">
+                  <DetailRow
+                    icon={<Users className="h-4 w-4" />}
+                    label="Booth"
+                  >
                     {ev.booth}
                   </DetailRow>
                 )}
@@ -749,7 +774,7 @@ export default function EventDetailPage() {
 
             {/* Contact CTA */}
 
-            <div className="mt-5 rounded-xl border border-primary/20 bg-primary/5 p-5">
+            <div className="mt-5 rounded-xl border border-primary/20 bg-primary/15 p-5">
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-primary-foreground">
                 <Users className="h-5 w-5" />
               </div>
@@ -759,8 +784,8 @@ export default function EventDetailPage() {
               </h3>
 
               <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                Interested in our thermoplastic engineering solutions or want to
-                connect with our team?
+                Interested in our thermoplastic engineering solutions or want
+                to connect with our team?
               </p>
 
               <Link
@@ -780,7 +805,7 @@ export default function EventDetailPage() {
       ========================================================= */}
 
       {item.related && item.related.length > 0 && (
-        <section className="border-t border-border bg-surface-subtle">
+        <section className="border-t border-border">
           <div className="container mx-auto max-w-7xl px-5 py-12 sm:px-6 sm:py-16">
             <div className="mb-7 flex flex-wrap items-end justify-between gap-4">
               <div>

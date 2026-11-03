@@ -38,7 +38,7 @@ export default function DocumentationCTA({
 
   return (
     <>
-      <section className="mt-6 overflow-hidden border border-[#279ECE]/15 bg-[#EDF8FD]">
+      <section className="mt-6 overflow-hidden border border-[#279ECE]/15 bg-[#EDF8FD] rounded-xl">
         <div className="grid grid-cols-1 lg:grid-cols-[59%_41%]">
           {/* LEFT */}
 
@@ -78,6 +78,7 @@ export default function DocumentationCTA({
               focus:ring-2
               focus:ring-[#279ECE]
               focus:ring-offset-2
+              rounded-xl
             "
             >
               <span>Get Product Brochure</span>

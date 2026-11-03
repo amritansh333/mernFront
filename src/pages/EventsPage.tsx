@@ -10,68 +10,278 @@ import {
   Search,
   Sparkles,
 } from "lucide-react";
-import PageHeroBanner from "@/components/hero-banner/PageHeroBanner";
-import manufacturingImage from "@/assets/csr-slider1.jpeg";
-import EventCard from "@/components/EventCard";
-import { fetchNewsEvents } from "@/lib/newsEventsApi";
 
-function formatDate(value?: string) {
+import PageHeroBanner from "@/components/hero-banner/PageHeroBanner";
+import EventCard from "@/components/EventCard";
+
+import manufacturingImage from "@/assets/csr-slider1.jpeg";
+
+import {
+  fetchNewsEvents,
+  type EventCard as EventCardType,
+} from "@/lib/newsEventsApi";
+
+/* =========================================================
+   PAGE BACKGROUND TEXTURE
+========================================================= */
+
+const pageTexture = {
+  backgroundColor: "#FFFFFF",
+  backgroundImage: `
+    radial-gradient(circle at 12px 12px, rgba(39, 158, 206, 0.055) 1px, transparent 1.5px),
+    linear-gradient(135deg, rgba(39, 158, 206, 0.025) 25%, transparent 25%),
+    linear-gradient(315deg, rgba(39, 158, 206, 0.025) 25%, transparent 25%)
+  `,
+  backgroundSize: "28px 28px, 56px 56px, 56px 56px",
+};
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function formatDate(value?: string): string | null {
   if (!value) return null;
 
   try {
-    return format(new Date(value), "dd MMM yyyy");
+    const date = new Date(value);
+
+    if (Number.isNaN(date.getTime())) {
+      return null;
+    }
+
+    return format(date, "dd MMM yyyy");
   } catch {
     return null;
   }
 }
 
+function getEventYear(item: EventCardType): number | null {
+  const dateValue = item.event?.startDate || item.publishedAt;
+
+  if (!dateValue) return null;
+
+  const date = new Date(dateValue);
+
+  if (Number.isNaN(date.getTime())) {
+    return null;
+  }
+
+  return date.getFullYear();
+}
+
+/* =========================================================
+   EVENT SKELETON
+========================================================= */
+
 function EventSkeleton() {
   return (
-    <div className="overflow-hidden border border-border bg-card">
+    <div
+      className="overflow-hidden rounded-xl border border-border bg-card"
+      aria-hidden="true"
+    >
       <div className="aspect-[16/10] animate-pulse bg-muted" />
 
       <div className="space-y-4 p-5 sm:p-6">
-        <div className="h-3 w-28 animate-pulse bg-muted" />
-        <div className="h-7 w-4/5 animate-pulse bg-muted" />
-        <div className="h-4 w-full animate-pulse bg-muted" />
-        <div className="h-4 w-3/4 animate-pulse bg-muted" />
+        <div className="h-3 w-28 animate-pulse rounded-xl bg-muted" />
+
+        <div className="h-7 w-4/5 animate-pulse rounded-xl bg-muted" />
+
+        <div className="h-4 w-full animate-pulse rounded-xl bg-muted" />
+
+        <div className="h-4 w-3/4 animate-pulse rounded-xl bg-muted" />
+
         <div className="flex gap-2 pt-3">
-          <div className="h-6 w-16 animate-pulse bg-muted" />
-          <div className="h-6 w-20 animate-pulse bg-muted" />
+          <div className="h-6 w-16 animate-pulse rounded-xl bg-muted" />
+
+          <div className="h-6 w-20 animate-pulse rounded-xl bg-muted" />
         </div>
       </div>
     </div>
   );
 }
 
+/* =========================================================
+   FEATURED EVENT
+========================================================= */
+
+function FeaturedEvent({
+  item,
+}: {
+  item: EventCardType;
+}) {
+  const startDate = formatDate(item.event?.startDate);
+  const endDate = formatDate(item.event?.endDate);
+
+  const location = item.event?.city
+    ? `${item.event.city}${
+        item.event.country ? `, ${item.event.country}` : ""
+      }`
+    : item.event?.location;
+
+  return (
+    <Link
+      to={`/events/${item.slug}`}
+      className="
+        group relative block overflow-hidden
+        rounded-xl border border-border bg-card shadow-sm
+        transition-all duration-500
+        hover:-translate-y-1 hover:shadow-2xl
+        focus:outline-none focus-visible:ring-2
+        focus-visible:ring-primary
+      "
+    >
+      <div className="grid lg:grid-cols-2">
+
+        {/* Image */}
+
+        <div className="relative aspect-[16/10] overflow-hidden lg:aspect-auto lg:min-h-[420px]">
+          {item.coverImage ? (
+            <img
+              src={item.coverImage}
+              alt={item.coverAlt || item.title}
+              loading="eager"
+              decoding="async"
+              className="
+                h-full w-full object-cover
+                transition-transform duration-700
+                group-hover:scale-105
+              "
+            />
+          ) : (
+            <div className="flex h-full min-h-[300px] items-center justify-center bg-muted">
+              <CalendarDays className="h-12 w-12 text-muted-foreground/40" />
+            </div>
+          )}
+
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent lg:bg-gradient-to-r" />
+
+          <div className="absolute left-5 top-5">
+            <span className="inline-flex items-center gap-2 rounded-xl bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground shadow-lg">
+              <Sparkles className="h-3.5 w-3.5" />
+              Featured
+            </span>
+          </div>
+        </div>
+
+        {/* Content */}
+
+        <div className="flex flex-col justify-center p-6 sm:p-8 lg:p-12">
+
+          <div className="mb-5 flex flex-wrap gap-3 text-sm text-muted-foreground">
+
+            {startDate && (
+              <span className="inline-flex items-center gap-2">
+                <CalendarDays className="h-4 w-4 text-primary" />
+
+                {startDate}
+
+                {endDate && ` – ${endDate}`}
+              </span>
+            )}
+
+            {location && (
+              <span className="inline-flex items-center gap-2">
+                <MapPin className="h-4 w-4 text-primary" />
+
+                {location}
+              </span>
+            )}
+
+          </div>
+
+          <h2
+            className="
+              font-heading text-3xl font-semibold leading-tight
+              text-charcoal transition-colors
+              group-hover:text-primary
+              sm:text-4xl
+            "
+          >
+            {item.title}
+          </h2>
+
+          {item.excerpt && (
+            <p className="mt-5 text-base leading-7 text-muted-foreground">
+              {item.excerpt}
+            </p>
+          )}
+
+          {(item.event?.venue || item.event?.booth) && (
+            <div className="mt-6 flex flex-wrap gap-2">
+
+              {item.event?.venue && (
+                <span className="rounded-xl px-3 py-2 text-sm text-muted-foreground">
+                  {item.event.venue}
+                </span>
+              )}
+
+              {item.event?.booth && (
+                <span className="rounded-xl bg-primary/10 px-3 py-2 text-sm font-semibold text-primary">
+                  Booth {item.event.booth}
+                </span>
+              )}
+
+            </div>
+          )}
+
+          <div className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-primary">
+            View event details
+
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </div>
+
+        </div>
+      </div>
+    </Link>
+  );
+}
+
+/* =========================================================
+   EVENTS PAGE
+========================================================= */
+
 export default function EventsPage() {
-  const [items, setItems] = useState<any[]>([]);
+  /* =====================================================
+     STATE
+  ===================================================== */
+
+  const [items, setItems] = useState<EventCardType[]>([]);
+
   const [loading, setLoading] = useState(true);
+
   const [error, setError] = useState<string | null>(null);
+
   const [search, setSearch] = useState("");
+
   const [selectedYear, setSelectedYear] = useState("All");
+
+  /* =====================================================
+     FETCH EVENTS
+  ===================================================== */
 
   useEffect(() => {
     let cancelled = false;
 
-    async function load() {
+    async function loadEvents() {
       try {
         setLoading(true);
         setError(null);
 
-        const { items } = await fetchNewsEvents({
+        const response = await fetchNewsEvents({
           type: "Event",
           limit: 12,
         });
 
         if (cancelled) return;
 
-        setItems(items || []);
+        setItems(response.items ?? []);
       } catch (err) {
-        console.error(err);
+        console.error("Failed to fetch events:", err);
 
         if (!cancelled) {
-          setError("Unable to load events. Please try again later.");
+          setError(
+            "Unable to load events. Please try again later.",
+          );
         }
       } finally {
         if (!cancelled) {
@@ -80,37 +290,38 @@ export default function EventsPage() {
       }
     }
 
-    void load();
+    void loadEvents();
 
     return () => {
       cancelled = true;
     };
   }, []);
 
+  /* =====================================================
+     AVAILABLE YEARS
+  ===================================================== */
+
   const years = useMemo(() => {
     const values = items
-      .map((item) => {
-        const date = item.event?.startDate || item.publishedAt;
-        if (!date) return null;
-
-        const year = new Date(date).getFullYear();
-        return Number.isNaN(year) ? null : year;
-      })
+      .map(getEventYear)
       .filter((year): year is number => year !== null);
 
     return [...new Set(values)].sort((a, b) => b - a);
   }, [items]);
 
+  /* =====================================================
+     FILTER EVENTS
+  ===================================================== */
+
   const filteredItems = useMemo(() => {
     const query = search.trim().toLowerCase();
 
     return items.filter((item) => {
-      const eventDate = item.event?.startDate || item.publishedAt;
+      const eventYear = getEventYear(item);
 
       const matchesYear =
         selectedYear === "All" ||
-        (eventDate &&
-          new Date(eventDate).getFullYear().toString() === selectedYear);
+        eventYear?.toString() === selectedYear;
 
       const searchable = [
         item.title,
@@ -118,37 +329,69 @@ export default function EventsPage() {
         item.event?.city,
         item.event?.country,
         item.event?.venue,
-        ...(item.tags || []),
+        ...(item.tags ?? []),
       ]
         .filter(Boolean)
         .join(" ")
         .toLowerCase();
 
-      const matchesSearch = !query || searchable.includes(query);
+      const matchesSearch =
+        !query || searchable.includes(query);
 
       return matchesYear && matchesSearch;
     });
   }, [items, search, selectedYear]);
 
-  const featuredEvent = items.find((item) => item.featured) || items[0] || null;
+  /* =====================================================
+     FEATURED EVENT
+  ===================================================== */
 
-  const remainingItems = filteredItems.filter(
-    (item) => item.id !== featuredEvent?.id,
-  );
+  const featuredEvent = useMemo(() => {
+    return (
+      filteredItems.find((item) => item.featured) ??
+      filteredItems[0] ??
+      null
+    );
+  }, [filteredItems]);
 
-  const featuredStartDate = formatDate(featuredEvent?.event?.startDate);
+  /* =====================================================
+     REMAINING EVENTS
+  ===================================================== */
 
-  const featuredEndDate = formatDate(featuredEvent?.event?.endDate);
+  const remainingItems = useMemo(() => {
+    if (!featuredEvent) return filteredItems;
 
-  const featuredLocation = featuredEvent?.event?.city
-    ? `${featuredEvent.event.city}${
-        featuredEvent.event.country ? `, ${featuredEvent.event.country}` : ""
-      }`
-    : featuredEvent?.event?.location;
+    return filteredItems.filter(
+      (item) => item.id !== featuredEvent.id,
+    );
+  }, [filteredItems, featuredEvent]);
+
+  /* =====================================================
+     RESET FILTERS
+  ===================================================== */
+
+  const hasActiveFilters =
+    search.trim().length > 0 || selectedYear !== "All";
+
+  function clearFilters() {
+    setSearch("");
+    setSelectedYear("All");
+  }
+
+  /* =====================================================
+     PAGE
+  ===================================================== */
 
   return (
-    <main className="pt-16">
-      {/* Hero */}
+    <main
+      className="min-h-screen bg-white pt-16"
+      style={pageTexture}
+    >
+
+      {/* =================================================
+          HERO
+      ================================================= */}
+
       <PageHeroBanner
         eyebrow="Updates"
         title="Events"
@@ -162,13 +405,19 @@ export default function EventsPage() {
         ]}
       />
 
-      {/* Featured event */}
+      {/* =================================================
+          FEATURED EVENT
+      ================================================= */}
+
       {!loading && !error && featuredEvent && (
         <section className="container mx-auto px-5 py-10 sm:px-6 sm:py-14">
+
           <div className="mb-6 flex items-center justify-between gap-4">
+
             <div>
               <div className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-primary">
                 <Sparkles className="h-4 w-4" />
+
                 Featured Event
               </div>
 
@@ -176,123 +425,38 @@ export default function EventsPage() {
                 Latest Highlight
               </h2>
             </div>
+
           </div>
 
-          <Link
-            to={`/events/${featuredEvent.slug}`}
-            className="
-              group relative block overflow-hidden
-              border border-border bg-card shadow-sm
-              transition-all duration-500 rounded-xl
-              hover:-translate-y-1 hover:shadow-2xl
-              focus:outline-none focus-visible:ring-2
-              focus-visible:ring-primary
-            "
-          >
-            <div className="grid lg:grid-cols-2">
-              <div className="relative aspect-[16/10] overflow-hidden lg:aspect-auto lg:min-h-[420px]">
-                {featuredEvent.coverImage ? (
-                  <img
-                    src={featuredEvent.coverImage}
-                    alt={featuredEvent.coverAlt || featuredEvent.title}
-                    className="
-                      h-full w-full object-cover
-                      transition-transform duration-700
-                      group-hover:scale-105
-                    "
-                  />
-                ) : (
-                  <div className="flex h-full min-h-[300px] items-center justify-center bg-muted">
-                    <CalendarDays className="h-12 w-12 text-muted-foreground/40" />
-                  </div>
-                )}
+          <FeaturedEvent item={featuredEvent} />
 
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent lg:bg-gradient-to-r" />
-
-                <div className="absolute left-5 top-5">
-                  <span className="inline-flex items-center gap-2 bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground shadow-lg rounded-xl">
-                    <Sparkles className="h-3.5 w-3.5" />
-                    Featured
-                  </span>
-                </div>
-              </div>
-
-              <div className="flex flex-col justify-center p-6 sm:p-8 lg:p-12">
-                <div className="mb-5 flex flex-wrap gap-3 text-sm text-muted-foreground">
-                  {featuredStartDate && (
-                    <span className="inline-flex items-center gap-2">
-                      <CalendarDays className="h-4 w-4 text-primary" />
-                      {featuredStartDate}
-                      {featuredEndDate && ` – ${featuredEndDate}`}
-                    </span>
-                  )}
-
-                  {featuredLocation && (
-                    <span className="inline-flex items-center gap-2">
-                      <MapPin className="h-4 w-4 text-primary" />
-                      {featuredLocation}
-                    </span>
-                  )}
-                </div>
-
-                <h2
-                  className="
-                    font-heading text-3xl font-semibold leading-tight
-                    text-charcoal transition-colors
-                    group-hover:text-primary
-                    sm:text-4xl
-                  "
-                >
-                  {featuredEvent.title}
-                </h2>
-
-                {featuredEvent.excerpt && (
-                  <p className="mt-5 text-base leading-7 text-muted-foreground">
-                    {featuredEvent.excerpt}
-                  </p>
-                )}
-
-                {(featuredEvent.event?.venue || featuredEvent.event?.booth) && (
-                  <div className="mt-6 flex flex-wrap gap-2">
-                    {featuredEvent.event?.venue && (
-                      <span className="bg-surface-subtle px-3 py-2 text-sm text-muted-foreground rounded-xl">
-                        {featuredEvent.event.venue}
-                      </span>
-                    )}
-
-                    {featuredEvent.event?.booth && (
-                      <span className="bg-primary/10 px-3 py-2 text-sm font-semibold text-primary rounded-xl">
-                        Booth {featuredEvent.event.booth}
-                      </span>
-                    )}
-                  </div>
-                )}
-
-                <div className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-primary">
-                  View event details
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </div>
-              </div>
-            </div>
-          </Link>
         </section>
       )}
 
-      {/* Filters */}
+      {/* =================================================
+          FILTERS
+      ================================================= */}
+
       <section className="container mx-auto px-5 pb-8 sm:px-6">
+
         <div
           className="
-            flex flex-col gap-3 border border-border
-            bg-card p-3 shadow-sm
-            sm:flex-row rounded-xl
+            flex flex-col gap-3 rounded-xl
+            border border-border bg-card p-3 shadow-sm
+            sm:flex-row
           "
         >
+
+          {/* Search */}
+
           <div className="relative flex-1">
+
             <Search
               className="
                 pointer-events-none absolute left-4 top-1/2
                 h-4 w-4 -translate-y-1/2 text-muted-foreground
               "
+              aria-hidden="true"
             />
 
             <input
@@ -300,31 +464,42 @@ export default function EventsPage() {
               value={search}
               onChange={(event) => setSearch(event.target.value)}
               placeholder="Search events, locations, exhibitions..."
+              aria-label="Search events"
               className="
-                h-11 w-full border border-transparent
+                h-11 w-full rounded-xl
+                border border-transparent
                 bg-surface-subtle pl-11 pr-4 text-sm
                 text-charcoal outline-none
                 transition-all
                 placeholder:text-muted-foreground
                 focus:border-primary/30 focus:ring-2
-                focus:ring-primary/10 rounded-xl
+                focus:ring-primary/10
               "
             />
+
           </div>
 
+          {/* Year Filter */}
+
           <div className="relative sm:w-44">
+
             <select
               value={selectedYear}
-              onChange={(event) => setSelectedYear(event.target.value)}
+              onChange={(event) =>
+                setSelectedYear(event.target.value)
+              }
+              aria-label="Filter events by year"
               className="
                 h-11 w-full appearance-none
-                border border-border bg-background
-                px-4 pr-10 text-sm text-charcoal outline-none
+                rounded-xl border border-border
+                bg-background px-4 pr-10
+                text-sm text-charcoal outline-none
                 transition-all
                 focus:border-primary
-                focus:ring-2 focus:ring-primary/10 rounded-xl
+                focus:ring-2 focus:ring-primary/10
               "
             >
+
               <option value="All">All years</option>
 
               {years.map((year) => (
@@ -332,6 +507,7 @@ export default function EventsPage() {
                   {year}
                 </option>
               ))}
+
             </select>
 
             <ChevronDown
@@ -339,14 +515,25 @@ export default function EventsPage() {
                 pointer-events-none absolute right-3 top-1/2
                 h-4 w-4 -translate-y-1/2 text-muted-foreground
               "
+              aria-hidden="true"
             />
+
           </div>
+
         </div>
+
       </section>
 
-      {/* Events */}
+      {/* =================================================
+          EVENTS LIST
+      ================================================= */}
+
       <section className="container mx-auto px-5 pb-16 sm:px-6 sm:pb-24">
+
+        {/* Section Heading */}
+
         <div className="mb-7 flex items-end justify-between gap-4">
+
           <div>
             <p className="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-primary">
               Explore
@@ -358,30 +545,55 @@ export default function EventsPage() {
           </div>
 
           {!loading && !error && (
-            <p className="hidden text-sm text-muted-foreground sm:block">
+            <p
+              className="hidden text-sm text-muted-foreground sm:block"
+              aria-live="polite"
+            >
               {filteredItems.length}{" "}
-              {filteredItems.length === 1 ? "event" : "events"}
+              {filteredItems.length === 1
+                ? "event"
+                : "events"}
             </p>
           )}
+
         </div>
 
+        {/* Loading */}
+
         {loading && (
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div
+            className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
+            aria-label="Loading events"
+            aria-busy="true"
+          >
             {Array.from({ length: 6 }).map((_, index) => (
               <EventSkeleton key={index} />
             ))}
           </div>
         )}
 
-        {error && (
-          <div className="border border-destructive/20 bg-destructive/5 p-8 text-center">
-            <p className="font-medium text-destructive">{error}</p>
+        {/* Error */}
+
+        {!loading && error && (
+          <div
+            className="
+              rounded-xl border border-destructive/20
+              bg-destructive/5 p-8 text-center
+            "
+            role="alert"
+          >
+            <p className="font-medium text-destructive">
+              {error}
+            </p>
           </div>
         )}
 
+        {/* Empty State */}
+
         {!loading && !error && filteredItems.length === 0 && (
-          <div className="border border-dashed border-border bg-card px-6 py-16 text-center">
-            <div className="mx-auto flex h-14 w-14 items-center justify-center bg-surface-subtle">
+          <div className="rounded-xl border border-dashed border-border bg-card px-6 py-16 text-center">
+
+            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-xl bg-surface-subtle">
               <Clock3 className="h-6 w-6 text-muted-foreground" />
             </div>
 
@@ -390,31 +602,35 @@ export default function EventsPage() {
             </h3>
 
             <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-muted-foreground">
-              Try changing your search or year filter to find other exhibitions
-              and industry events.
+              Try changing your search or year filter to find
+              other exhibitions and industry events.
             </p>
 
-            {(search || selectedYear !== "All") && (
+            {hasActiveFilters && (
               <button
                 type="button"
-                onClick={() => {
-                  setSearch("");
-                  setSelectedYear("All");
-                }}
+                onClick={clearFilters}
                 className="mt-5 text-sm font-semibold text-primary hover:underline"
               >
                 Clear filters
               </button>
             )}
+
           </div>
         )}
 
+        {/* Event Cards */}
+
         {!loading && !error && remainingItems.length > 0 && (
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+
             {remainingItems.map((item, index) => (
               <div
                 key={item.id}
-                className="animate-in fade-in slide-in-from-bottom-3 duration-500"
+                className="
+                  animate-in fade-in slide-in-from-bottom-3
+                  duration-500
+                "
                 style={{
                   animationDelay: `${Math.min(index * 70, 420)}ms`,
                   animationFillMode: "both",
@@ -423,9 +639,12 @@ export default function EventsPage() {
                 <EventCard item={item} />
               </div>
             ))}
+
           </div>
         )}
+
       </section>
+
     </main>
   );
 }

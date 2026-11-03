@@ -214,10 +214,10 @@ const industryData: Record<string, string[]> = {
 
 function MaterialUsesTable() {
   return (
-    <section className="border-t border-divider bg-background px-4 py-12 sm:px-6 lg:px-8 xl:px-10">
+    <section className="border-t border-divider px-4 py-12 sm:px-6 lg:px-8 xl:px-10">
       <div className="mx-auto max-w-[1400px]">
         <div className="mb-6">
-          <div className="mb-3 inline-flex items-center border border-[#A9D8EB] bg-[#F5FBFE] px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#258FC0]">
+          <div className="mb-3 inline-flex items-center border border-[#A9D8EB] bg-[#F5FBFE] px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#258FC0] rounded-xl">
             MATERIAL &amp; APPLICATIONS
           </div>
 
@@ -233,7 +233,7 @@ function MaterialUsesTable() {
 
         {/* Horizontal scrolling is intentional on small screens so the
             complete table remains readable without shrinking the text. */}
-        <div className="overflow-hidden rounded-lg border border-[#D9E4EA] bg-white shadow-sm">
+        <div className="overflow-hidden rounded-xl border border-[#D9E4EA] bg-white shadow-sm">
           <div className="overflow-x-auto">
             <table className="w-full min-w-[900px] border-collapse text-left">
               <thead>
@@ -418,10 +418,10 @@ const pcClearProductionProgram = [
 
 function PCClearProductionProgram() {
   return (
-    <section className="border-t border-divider bg-background px-4 py-12 sm:px-6 lg:px-8 xl:px-10">
+    <section className="border-t border-divider px-4 py-12 sm:px-6 lg:px-8 xl:px-10">
       <div className="mx-auto max-w-[1400px]">
         <div className="mb-6">
-          <div className="mb-3 inline-flex items-center border border-[#A9D8EB] bg-[#F5FBFE] px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#258FC0]">
+          <div className="mb-3 inline-flex items-center border border-[#A9D8EB] bg-[#F5FBFE] px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#258FC0] rounded-xl">
             PRODUCTION PROGRAM
           </div>
 
@@ -434,7 +434,7 @@ function PCClearProductionProgram() {
           </p>
         </div>
 
-        <div className="overflow-hidden rounded-lg border border-[#D9E4EA] bg-white shadow-sm">
+        <div className="overflow-hidden rounded-xl border border-[#D9E4EA] bg-white shadow-sm">
           <div className="overflow-x-auto">
             <table className="w-full min-w-[650px] border-collapse text-left">
               <thead>
@@ -636,10 +636,10 @@ const pcClearTechnicalData = [
 
 function PCClearTechnicalDataSheet() {
   return (
-    <section className="border-t border-divider bg-[#F7FAFC] px-4 py-12 sm:px-6 lg:px-8 xl:px-10">
+    <section className="border-t border-divider px-4 py-12 sm:px-6 lg:px-8 xl:px-10">
       <div className="mx-auto max-w-[1400px]">
         <div className="mb-6">
-          <div className="mb-3 inline-flex items-center border border-[#A9D8EB] bg-white px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#258FC0]">
+          <div className="mb-3 inline-flex items-center border border-[#A9D8EB] bg-primary/10 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#258FC0] rounded-xl">
             TECHNICAL DATA
           </div>
 
@@ -652,8 +652,8 @@ function PCClearTechnicalDataSheet() {
           </p>
         </div>
 
-        <div className="overflow-hidden rounded-lg border border-gray bg-white shadow-sm">
-          <div className="overflow-x-auto">
+        <div className="overflow-hidden rounded-xl border border-gray bg-white shadow-sm">
+          <div className="overflow-x-auto rounded-xl">
             <table className="w-full min-w-[900px] border-collapse text-left">
               <thead>
                 <tr className="bg-[#21678E] text-white">
@@ -734,10 +734,10 @@ function TechnicalSpecificationsTable() {
   const { headers, rows } = technicalSpecificationsTable;
 
   return (
-    <section className="border-t border-divider bg-[#F7FAFC] px-4 py-12 sm:px-6 lg:px-8 xl:px-10">
+    <section className="border-t border-divider px-4 py-12 sm:px-6 lg:px-8 xl:px-10">
       <div className="mx-auto max-w-[1400px]">
         <div className="mb-6">
-          <div className="mb-3 inline-flex items-center border border-[#A9D8EB] bg-white px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#258FC0]">
+          <div className="mb-3 inline-flex items-center border border-[#A9D8EB] bg-primary/10 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#258FC0] rounded-xl">
             TECHNICAL SPECIFICATIONS
           </div>
 
@@ -750,7 +750,7 @@ function TechnicalSpecificationsTable() {
           </p>
         </div>
 
-        <div className="overflow-hidden rounded-lg border border-[#D9E4EA] bg-white shadow-sm">
+        <div className="overflow-hidden rounded-xl border border-[#D9E4EA] bg-white shadow-sm">
           <div className="overflow-x-auto">
             <table className="w-full min-w-[1250px] border-collapse text-left">
               <thead>
@@ -930,8 +930,18 @@ export default function MachineComponentSubcategoryPage() {
     );
   }
 
+  const pageTexture = {
+    backgroundColor: "#FFFFFF",
+    backgroundImage: `
+      radial-gradient(circle at 12px 12px, rgba(39, 158, 206, 0.055) 1px, transparent 1.5px),
+      linear-gradient(135deg, rgba(39, 158, 206, 0.025) 25%, transparent 25%),
+      linear-gradient(315deg, rgba(39, 158, 206, 0.025) 25%, transparent 25%)
+    `,
+    backgroundSize: "28px 28px, 56px 56px, 56px 56px",
+  };
+
   return (
-    <main className="pt-16 bg-background">
+    <main className="min-h-screen bg-white pt-16" style={pageTexture}>
       <div className="flex min-h-[calc(100vh-4rem)]">
         <div className="hidden w-72 shrink-0 lg:block xl:w-80">
           <div className="sticky top-16 h-[calc(100vh-4rem)]">
@@ -947,7 +957,7 @@ export default function MachineComponentSubcategoryPage() {
         </div>
 
         <section className="min-w-0 flex-1">
-          <div className="sticky top-16 z-20 border-b border-divider bg-background px-4 py-3 lg:hidden">
+          <div className="sticky top-16 z-20 border-b border-divider px-4 py-3 lg:hidden">
             {/* ================= TABLET ================= */}
             <div className="hidden sm:flex items-center justify-between">
               {/* Explore */}
@@ -956,7 +966,7 @@ export default function MachineComponentSubcategoryPage() {
                 <SheetTrigger asChild>
                   <Button
                     variant="outline"
-                    className="h-11 px-5 whitespace-nowrap border-[#A9D8EB] hover:border-[#A9D8EB]"
+                    className="h-11 px-5 whitespace-nowrap border-[#A9D8EB] hover:border-[#A9D8EB] rounded-xl"
                   >
                     <Menu className="mr-2 h-4 w-4" />
                     Explore Our Range
@@ -989,7 +999,7 @@ export default function MachineComponentSubcategoryPage() {
                 <SheetTrigger asChild>
                   <Button
                     variant="outline"
-                    className="h-11 px-5 whitespace-nowrap border-[#A9D8EB] hover:border-[#A9D8EB]"
+                    className="h-11 px-5 whitespace-nowrap border-[#A9D8EB] hover:border-[#A9D8EB] rounded-xl"
                   >
                     <Search className="mr-2 h-4 w-4" />
                     Search Products
@@ -1032,6 +1042,7 @@ export default function MachineComponentSubcategoryPage() {
   px-2
   text-[13px]
   hover:border-[#A9D8EB]
+  rounded-xl
 "
                   >
                     <Menu className="mr-1 h-3 w-3" />
@@ -1073,6 +1084,7 @@ export default function MachineComponentSubcategoryPage() {
   px-2
   text-[13px]
   hover:border-[#A9D8EB]
+  rounded-xl
 "
                   >
                     <Search className="mr-1 h-3 w-3" />
@@ -1116,6 +1128,7 @@ export default function MachineComponentSubcategoryPage() {
               justify-center
               border-[#A9D8EB]
               hover:border-[#A9D8EB]
+              rounded-xl
             "
                   >
                     <Menu className="mr-1 h-3 w-3" />
@@ -1157,6 +1170,7 @@ export default function MachineComponentSubcategoryPage() {
   px-2
   text-[13px]
   hover:border-[#A9D8EB]
+  rounded-xl
 "
                   >
                     <Search className="h-1 w-1" />

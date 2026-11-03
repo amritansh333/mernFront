@@ -188,8 +188,18 @@ export default function ProductsPage() {
 
     fetchCategories();
   }, []);
+  const pageTexture = {
+    backgroundColor: "#FFFFFF",
+    backgroundImage: `
+      radial-gradient(circle at 12px 12px, rgba(39, 158, 206, 0.055) 1px, transparent 1.5px),
+      linear-gradient(135deg, rgba(39, 158, 206, 0.025) 25%, transparent 25%),
+      linear-gradient(315deg, rgba(39, 158, 206, 0.025) 25%, transparent 25%)
+    `,
+    backgroundSize: "28px 28px, 56px 56px, 56px 56px",
+  };
+
   return (
-    <div className="pt-16">
+    <div className="min-h-screen bg-white pt-16" style={pageTexture}>
       {/* Page header */}
       {/* ABOUT US HEADER */}
 
@@ -259,7 +269,7 @@ export default function ProductsPage() {
       </section>
 
       {/* Brand quick links */}
-      <section className="py-14 bg-surface-subtle border-t border-divider">
+      <section className="py-14 border-t border-divider">
         <div className="container max-w-7xl mx-auto px-6">
           <div className="text-center mb-8">
             <p className="section-label mb-2">Browse by Brand</p>
@@ -272,7 +282,7 @@ export default function ProductsPage() {
               <Link
                 key={b.name}
                 to={b.href}
-                className="p-4 border border-border bg-card hover:border-primary hover:shadow-card group transition-all duration-200 text-center"
+                className="p-4 border border-primary bg-card hover:border-primary hover:shadow-card group transition-all duration-200 text-center rounded-xl"
               >
                 <div className="font-heading font-bold text-charcoal group-hover:text-primary text-sm transition-colors duration-200">
                   {b.name}
@@ -301,13 +311,13 @@ export default function ProductsPage() {
           <div className="flex gap-3 shrink-0">
             <Link
               to="/contact"
-              className="px-5 py-2.5 bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary-dark transition-colors duration-200 inline-flex items-center gap-2"
+              className="px-5 py-2.5 bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary-dark transition-colors duration-200 inline-flex items-center gap-2 rounded-lg"
             >
               Request Quote <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
               to="/tools/material-selector"
-              className="px-5 py-2.5 border border-border text-charcoal-light text-sm font-semibold hover:border-primary hover:text-primary transition-colors duration-200"
+              className="px-5 py-2.5 border border-primary text-charcoal-light text-sm font-semibold hover:border-primary hover:text-primary transition-colors duration-200 rounded-lg"
             >
               Material Selector
             </Link>

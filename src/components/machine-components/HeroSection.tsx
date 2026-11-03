@@ -248,8 +248,18 @@ export default function HeroSection({
 
   if (!title && !imageUrl) return null;
 
+  const pageTexture = {
+    backgroundColor: "#FFFFFF",
+    backgroundImage: `
+      radial-gradient(circle at 12px 12px, rgba(39, 158, 206, 0.055) 1px, transparent 1.5px),
+      linear-gradient(135deg, rgba(39, 158, 206, 0.025) 25%, transparent 25%),
+      linear-gradient(315deg, rgba(39, 158, 206, 0.025) 25%, transparent 25%)
+    `,
+    backgroundSize: "28px 28px, 56px 56px, 56px 56px",
+  };
+
   return (
-    <section className="border-b border-divider bg-[#F8FAFC]">
+    <section className="border-b border-divider bg-white" style={pageTexture}>
       {/* Breadcrumb - Full Width */}
       <div className="mx-auto max-w-7xl px-6 pt-2 pb-1 lg:px-10 lg:pt-6">
         <MachineBreadcrumbs />
@@ -307,7 +317,7 @@ export default function HeroSection({
                         text-center
                         text-[14px]
                         leading-7
-                        text-[#5C7696]
+                        text-[#2B3647]
                         sm:text-[15px]
                         lg:text-left
                         lg:text-[16px]
@@ -325,7 +335,7 @@ export default function HeroSection({
           {!!features.length && (
             <>
               <div className="mb-4 text-left">
-                <div className="inline-flex items-center gap-2 rounded-sm border border-[#279ECE]/20 bg-[#279ECE]/10 px-3 py-1.5">
+                <div className="inline-flex items-center gap-2 rounded-xl border border-[#279ECE]/20 bg-[#279ECE]/10 px-3 py-1.5">
                   <ShieldCheck className="h-3.5 w-3.5 text-[#276A96]" />
 
                   <span className="text-[10px] font-bold uppercase tracking-widest text-[#276A96]">
@@ -338,9 +348,9 @@ export default function HeroSection({
                 {features.map((feature, index) => (
                   <div
                     key={index}
-                    className="flex items-center gap-2 border border-[#276A96]/10 bg-white px-2 py-1.5 transition-all duration-200 hover:border-[#279ECE]/40 hover:shadow-md sm:p-2.5"
+                    className="flex items-center gap-2 border border-[#276A96]/10 bg-white px-2 py-1.5 transition-all duration-200 hover:border-[#279ECE]/40 hover:shadow-md sm:p-2.5 rounded-xl"
                   >
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center bg-[#279ECE]">
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center bg-[#279ECE] rounded-xl">
                       <CircleCheck className="h-4 w-4 text-white" />
                     </span>
 
@@ -355,7 +365,7 @@ export default function HeroSection({
                 <div className="mt-5 flex flex-wrap items-center gap-3">
                   <Link
                     to="/contact?tab=quote"
-                    className="inline-flex h-9 items-center justify-center gap-2 border border-[#279ECE] bg-[#279ECE] px-5 text-[13px] font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#1F7FA8] hover:shadow-md hover:shadow-[#279ECE]/20"
+                    className="inline-flex h-9 items-center justify-center gap-2 border border-[#279ECE] bg-[#279ECE] px-5 text-[13px] font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#1F7FA8] hover:shadow-md hover:shadow-[#279ECE]/20 rounded-lg"
                   >
                     <PenLine className="h-3.5 w-3.5" />
                     <span>Request a Quote</span>
@@ -363,7 +373,7 @@ export default function HeroSection({
 
                   <Link
                     to="/contact?tab=drawing"
-                    className="inline-flex h-9 items-center justify-center gap-2 border border-[#C7D9E6] bg-white px-5 text-[13px] font-semibold text-[#279ECE] transition-all duration-200 hover:-translate-y-0.5 hover:border-[#279ECE] hover:bg-[#F5FBFE] hover:text-[#279ECE]"
+                    className="inline-flex h-9 items-center justify-center gap-2 border border-[#C7D9E6] bg-white px-5 text-[13px] font-semibold text-[#279ECE] transition-all duration-200 hover:-translate-y-0.5 hover:border-[#279ECE] hover:bg-[#F5FBFE] hover:text-[#279ECE] rounded-lg"
                   >
                     <Upload className="h-3.5 w-3.5" />
                     <span>Send Your Drawing</span>
@@ -387,9 +397,9 @@ export default function HeroSection({
               }
             }}
           >
-            <div className="relative z-10 border border-[#276A96]/15 bg-white p-3 shadow-2xl">
+            <div className="relative z-10 border border-[#276A96]/15 bg-white p-3 shadow-2xl rounded-xl">
               {/* Main Image — same animation as ProductsPage.tsx */}
-              <div className="card-image product-gallery relative aspect-[4/3] overflow-hidden bg-[#F8FAFC]">
+              <div className="card-image product-gallery relative aspect-[4/3] overflow-hidden bg-[#F8FAFC] rounded-xl">
                 {galleryImages.map((src, index) => {
                   const isActive = index === activeIndex;
 
@@ -499,9 +509,9 @@ export default function HeroSection({
               )}
             </div>
 
-            <div className="absolute -bottom-3 -right-3 z-0 h-16 w-16 bg-[#279ECE]/10 sm:h-20 sm:w-20 lg:-bottom-5 lg:-right-5 lg:h-24 lg:w-24" />
+            <div className="absolute -bottom-3 -right-3 z-0 h-16 w-16 bg-[#279ECE]/10 sm:h-20 sm:w-20 lg:-bottom-5 lg:-right-5 lg:h-24 lg:w-24 rounded-xl" />
 
-            <div className="absolute -left-3 -top-3 z-0 h-14 w-14 border border-[#279ECE]/20 sm:h-16 sm:w-16 lg:-left-5 lg:-top-5 lg:h-20 lg:w-20" />
+            <div className="absolute -left-3 -top-3 z-0 h-14 w-14 border border-[#279ECE]/20 sm:h-16 sm:w-16 lg:-left-5 lg:-top-5 lg:h-20 lg:w-20 rounded-xl" />
           </div>
         </div>
       </div>

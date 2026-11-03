@@ -33,11 +33,20 @@ export default function SpecificationsSection({
   );
 
   if (!entries.length) return null;
+  const pageTexture = {
+    backgroundColor: "#FFFFFF",
+    backgroundImage: `
+      radial-gradient(circle at 12px 12px, rgba(39, 158, 206, 0.055) 1px, transparent 1.5px),
+      linear-gradient(135deg, rgba(39, 158, 206, 0.025) 25%, transparent 25%),
+      linear-gradient(315deg, rgba(39, 158, 206, 0.025) 25%, transparent 25%)
+    `,
+    backgroundSize: "28px 28px, 56px 56px, 56px 56px",
+  };
 
   return (
-    <section className="mb-4 px-6 py-6 lg:px-10">
+    <section className="mb-4 px-6 py-6 lg:px-10 bg-white" style={pageTexture}>
       {/* Badge */}
-      <div className="inline-flex items-center gap-2 rounded-sm border border-[#279ECE]/20 bg-[#279ECE]/10 px-3 py-1.5 mb-3">
+      <div className="inline-flex items-center gap-2 rounded-xl border border-[#279ECE]/20 bg-[#279ECE]/10 px-3 py-1.5 mb-3">
         <Layers className="h-3.5 w-3.5 text-[#276A96]" />
         <span className="text-[10px] font-bold uppercase tracking-widest text-[#276A96]">
           Specifications
@@ -50,7 +59,7 @@ export default function SpecificationsSection({
       </h2>
 
       {/* Table */}
-      <div className="overflow-hidden border border-[#276A96]/15 shadow-sm">
+      <div className="overflow-hidden border border-[#276A96]/15 shadow-sm rounded-xl">
         <table className="w-full border-collapse text-left">
           <thead>
             <tr className="bg-gradient-to-r from-[#276A96] to-[#1f5a80]">
