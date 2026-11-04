@@ -179,6 +179,12 @@ function getNavItems(
             {
               label: "Profiles",
               href: "/products/thermoplastics-machine-components/profiles",
+              children: [
+                {
+                  label: "Purple Profile",
+                  href: "/products/thermoplastics-machine-components/profiles/purple-profile",
+                }
+              ],
             },
             {
               label: "Vacuum Formed Plastic Parts",

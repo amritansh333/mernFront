@@ -38,7 +38,7 @@ export default function DocumentationCTA({
 
   return (
     <>
-      <section className="mt-6 overflow-hidden border border-[#279ECE]/15 bg-[#EDF8FD] rounded-xl">
+      <section className="mt-6 overflow-hidden border border-primary/50 bg-[#EDF8FD] rounded-xl">
         <div className="grid grid-cols-1 lg:grid-cols-[59%_41%]">
           {/* LEFT */}
 
@@ -90,7 +90,7 @@ export default function DocumentationCTA({
           {/* RIGHT */}
 
           <div className="border-t border-[#279ECE]/10 bg-white/45 p-5 lg:border-l lg:border-t-0 lg:p-6">
-            <p className="text-[14px] leading-8 text-[#5C7696]">
+            <p className="text-[14px] leading-8 text-[#000000]">
               Click{" "}
               <button
                 type="button"
