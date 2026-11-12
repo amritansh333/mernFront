@@ -1,7 +1,7 @@
 ﻿import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import { Menu, Search } from "lucide-react";
+import { Menu, Search, ShieldCheck } from "lucide-react";
 
 import MachineSidebar from "@/components/machine-components/MachineSidebar";
 import HeroSection from "@/components/machine-components/HeroSection";
@@ -34,6 +34,7 @@ import { getMachineComponentSubcategory } from "@/lib/machineComponentApi";
 
 import type {
   MachineComponentDownload,
+  MachineComponentMaterial,
   MachineComponentValue,
 } from "@/types/machineComponent";
 
@@ -66,6 +67,7 @@ interface SubcategoryPageData {
   downloads: MachineComponentDownload[];
 
   products: SubcategoryProduct[];
+  materials?: MachineComponentMaterial[];
 }
 
 // ============================================================
@@ -930,6 +932,10 @@ export default function MachineComponentSubcategoryPage() {
     );
   }
 
+  const materialNames = (subcategoryData.materials ?? [])
+  .map((material) => material.name?.trim() ?? "")
+  .filter(Boolean);
+
   const pageTexture = {
     backgroundColor: "#FFFFFF",
     backgroundImage: `
@@ -1208,8 +1214,22 @@ export default function MachineComponentSubcategoryPage() {
             imageSlug={subcategoryData.slug || subcategory}
             features={subcategoryData.technicalCharacteristics}
             downloads={subcategoryData.downloads}
+            materials={subcategoryData.materials ?? []}
             showActionButtons
           />
+
+          {materialNames.length > 0 && (
+  <div className="mx-auto max-w-7xl px-5 pb-4 lg:px-10">
+    <div className="inline-flex max-w-full items-center gap-2 rounded-xl border border-[#276A96]/20 bg-white px-3 py-2 shadow-sm">
+      <ShieldCheck className="h-3.5 w-3.5 shrink-0 text-[#279ECE]" />
+
+      <span className="text-[10px] font-bold uppercase tracking-wide text-[#276A96] sm:text-[11px]">
+        {materialNames.join(" · ")}
+      </span>
+    </div>
+  </div>
+)}
+
           <SpecificationsSection
             specifications={subcategoryData.specifications}
           />

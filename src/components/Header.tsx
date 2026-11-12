@@ -181,8 +181,8 @@ function getNavItems(
               href: "/products/thermoplastics-machine-components/profiles",
               children: [
                 {
-                  label: "Purple Profile",
-                  href: "/products/thermoplastics-machine-components/profiles/purple-profile",
+                  label: "Profiles",
+                  href: "/products/thermoplastics-machine-components/profiles/profile",
                 }
               ],
             },
@@ -205,19 +205,19 @@ function getNavItems(
               href: "/products/thermoplastics-machine-components/cutting-board",
               children: [
                 {
-                  label: "Polyrib Ripla",
+                  label: "Ripla",
                   href: "/products/thermoplastics-machine-components/cutting-board",
                 },
                 {
-                  label: "Polyrib Ripla HIH",
+                  label: "Ripla HIH",
                   href: "/products/thermoplastics-machine-components/vacuum-formed-plastic-parts/cutting-board",
                 },
                 {
-                  label: "Polyrib Ripla HIK",
+                  label: "Ripla HIK",
                   href: "/products/thermoplastics-machine-components/vacuum-formed-plastic-parts/cutting-board",
                 },
                 {
-                  label: "Polyrib Ripla HITECH",
+                  label: "Ripla HITECH",
                   href: "/products/thermoplastics-machine-components/vacuum-formed-plastic-parts/cutting-board",
                 },
               ],
@@ -227,11 +227,11 @@ function getNavItems(
               href: "/products/thermoplastics-machine-components/chopping-board",
               children: [
                 {
-                  label: "Polyrib Cutrite",
+                  label: "Cutrite",
                   href: "/products/thermoplastics-machine-components/chopping-board",
                 },
                 {
-                  label: "Polyrib Cutrite EMB",
+                  label: "Cutrite EMB",
                   href: "/products/thermoplastics-machine-components/chopping-board",
                 },
                 {
@@ -329,11 +329,11 @@ function getNavItems(
               ],
             },
             {
-              label: "Polymarino: Pads",
+              label: "Pads",
               href: "/products/thermoplastics-semi-finished-products/pads",
               children: [
                 {
-                  label: "Fascia Pads / Marine Fender Panels",
+                  label: "Fascia Pads / Marine Fender Pads",
                   href: "/products/thermoplastics-machine-components/pads",
                 }
               ],

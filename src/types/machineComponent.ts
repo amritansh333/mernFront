@@ -17,6 +17,13 @@ export interface MachineComponentHierarchy {
   product?: MachineComponentHierarchyNode;
 }
 
+export interface MachineComponentMaterial {
+  _id?: string;
+  id?: string;
+  name?: string;
+  slug?: string;
+}
+
 export interface MachineComponentProduct {
   hierarchy: MachineComponentHierarchy;
   _id?: string;
@@ -31,6 +38,7 @@ export interface MachineComponentProduct {
   machineComponentData?: MachineComponentDataDetails;
   seo?: MachineComponentSeo;
   downloads?: MachineComponentDownload[];
+  materials?: MachineComponentMaterial[];
 }
 
 export interface MachineComponentDataDetails {
@@ -64,6 +72,7 @@ export interface MachineComponentsData {
   sidebar?: MachineSidebarNode[];
   defaultProduct?: string;
   products?: Record<string, MachineComponentProduct>;
+  materials?: MachineComponentMaterial[];
   paths?: Record<string, string>;
   downloads?: MachineComponentDownload[];
   seo?: MachineComponentSeo;

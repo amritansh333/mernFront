@@ -13,8 +13,7 @@ import {
 } from "lucide-react";
 import MachineBreadcrumbs from "@/components/machine-components/MachineBreadcrumbs";
 import { resolveApiAssetUrl } from "@/lib/assetUrl";
-import type { MachineComponentDownload } from "@/types/machineComponent";
-
+import type { MachineComponentDownload, MachineComponentMaterial } from "@/types/machineComponent";
 interface HeroSectionProps {
   title?: string;
   description: string[];
@@ -22,12 +21,11 @@ interface HeroSectionProps {
   imageSlug?: string;
   features: string[];
   downloads: MachineComponentDownload[];
+  materials?: MachineComponentMaterial[];
   showActionButtons?: boolean;
 }
-
 const AUTOPLAY_INTERVAL = 1500;
 const MAX_IMAGE_COUNT = 1000;
-
 export default function HeroSection({
   title,
   description,
@@ -35,71 +33,63 @@ export default function HeroSection({
   imageSlug,
   features,
   downloads,
+  materials = [],
   showActionButtons = false,
 }: HeroSectionProps) {
   const imageUrl = resolveApiAssetUrl(image);
   const pdf = downloads[0];
-
+  const materialNames = useMemo(
+    () =>
+      materials
+        .map((material) => material.name?.trim() ?? "")
+        .filter((name): name is string => Boolean(name)),
+    [materials],
+  );
   const productSlug = useMemo(() => {
     if (imageSlug?.trim()) {
       return imageSlug.trim().toLowerCase();
     }
     const normalizedTitle = title?.trim().toLowerCase();
-
     if (normalizedTitle) {
       return normalizedTitle
         .replace(/[^a-z0-9]+/g, "-")
         .replace(/^-+|-+$/g, "");
     }
-
     const imagePath = image?.split("?")[0] ?? "";
     const filename = imagePath.split("/").pop() ?? "";
-
     return filename.replace(/\.[^.]+$/, "").toLowerCase();
   }, [imageSlug, title, image]);
-
   const imageExtension = useMemo(() => {
     const cleanPath = image?.split("?")[0] ?? "";
     const match = cleanPath.match(/\.(jpe?g|png|webp|avif|gif)$/i);
-
     return match?.[1]?.toLowerCase() ?? "jpeg";
   }, [image]);
-
   const [discoveredImages, setDiscoveredImages] = useState<string[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isZoomed, setIsZoomed] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
-
   const galleryImages = useMemo(() => {
     const images = discoveredImages.length
       ? discoveredImages
       : imageUrl
         ? [imageUrl]
         : [];
-
     return Array.from(new Set(images));
   }, [discoveredImages, imageUrl]);
-
   const activeImage = galleryImages[activeIndex] ?? imageUrl;
-
   const showPrevious = useCallback(() => {
     if (galleryImages.length < 2) return;
-
     setActiveIndex(
       (current) => (current - 1 + galleryImages.length) % galleryImages.length,
     );
   }, [galleryImages.length]);
-
   const showNext = useCallback(() => {
     if (galleryImages.length < 2) return;
-
     setActiveIndex((current) => (current + 1) % galleryImages.length);
   }, [galleryImages.length]);
-
   const closeZoom = useCallback(() => {
     setIsZoomed(false);
   }, []);
-
   // Discover numbered product images without requiring a backend change.
   //
   // Expected files:
@@ -114,19 +104,14 @@ export default function HeroSection({
       setDiscoveredImages(imageUrl ? [imageUrl] : []);
       return;
     }
-
     let cancelled = false;
     let consecutiveMisses = 0;
     let nextIndex = 1;
-
     const discovered: string[] = [];
-
     const directory = imageUrl.substring(0, imageUrl.lastIndexOf("/") + 1);
-
     const extensions = Array.from(
       new Set([imageExtension, "jpeg", "jpg", "png", "webp", "avif"]),
     );
-
     const scanNext = async () => {
       while (
         !cancelled &&
@@ -135,25 +120,19 @@ export default function HeroSection({
       ) {
         const currentIndex = nextIndex++;
         let foundImage: string | null = null;
-
         for (const extension of extensions) {
           if (cancelled) return;
-
           const candidate = resolveApiAssetUrl(
             `${directory}${productSlug}_${currentIndex}.${extension}`,
           );
-
           if (!candidate) continue;
-
           try {
             const exists = await new Promise<boolean>((resolve) => {
               const probe = new Image();
-
               probe.onload = () => resolve(true);
               probe.onerror = () => resolve(false);
               probe.src = candidate;
             });
-
             if (exists) {
               foundImage = candidate;
               break;
@@ -162,19 +141,15 @@ export default function HeroSection({
             // Continue checking supported extensions.
           }
         }
-
         if (cancelled) return;
-
         if (foundImage) {
           discovered.push(foundImage);
           consecutiveMisses = 0;
-
           setDiscoveredImages([...discovered]);
         } else {
           consecutiveMisses++;
         }
       }
-
       if (!cancelled) {
         setDiscoveredImages((current) => {
           const combined = Array.from(
@@ -183,51 +158,39 @@ export default function HeroSection({
               ...discovered,
             ]),
           );
-
           return combined;
         });
       }
     };
-
     // Include the original product image while numbered images are loading.
     setDiscoveredImages([imageUrl]);
     setActiveIndex(0);
-
     void scanNext();
-
     return () => {
       cancelled = true;
     };
   }, [productSlug, imageUrl, imageExtension]);
-
   // Keep the selected index valid if the available gallery changes.
   useEffect(() => {
     setActiveIndex((current) =>
       galleryImages.length ? Math.min(current, galleryImages.length - 1) : 0,
     );
   }, [galleryImages.length]);
-
   // Automatically advance every two seconds.
   useEffect(() => {
     if (isPaused || isZoomed || galleryImages.length < 2) {
       return;
     }
-
     const timer = window.setInterval(() => {
       setActiveIndex((current) => (current + 1) % galleryImages.length);
     }, AUTOPLAY_INTERVAL);
-
     return () => window.clearInterval(timer);
   }, [galleryImages.length, isPaused, isZoomed]);
-
   // Support Escape and arrow-key navigation in the zoomed view.
   useEffect(() => {
     if (!isZoomed) return;
-
     const previousOverflow = document.body.style.overflow;
-
     document.body.style.overflow = "hidden";
-
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         closeZoom();
@@ -237,17 +200,13 @@ export default function HeroSection({
         showNext();
       }
     };
-
     window.addEventListener("keydown", handleKeyDown);
-
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
       document.body.style.overflow = previousOverflow;
     };
   }, [isZoomed, closeZoom, showPrevious, showNext]);
-
   if (!title && !imageUrl) return null;
-
   const pageTexture = {
     backgroundColor: "#FFFFFF",
     backgroundImage: `
@@ -257,14 +216,12 @@ export default function HeroSection({
     `,
     backgroundSize: "28px 28px, 56px 56px, 56px 56px",
   };
-
   return (
     <section className="border-b border-divider bg-white" style={pageTexture}>
       {/* Breadcrumb - Full Width */}
       <div className="mx-auto max-w-7xl px-6 pt-2 pb-1 lg:px-10 lg:pt-6">
         <MachineBreadcrumbs />
       </div>
-
       {/* Main Content */}
       <div className="mx-auto flex max-w-7xl flex-col gap-4 px-5 pb-6 lg:flex-row lg:items-center lg:gap-16 lg:px-10 lg:pb-10">
         <div className="order-2 w-full text-center lg:order-1 lg:basis-[68%] lg:text-left">
@@ -284,7 +241,6 @@ export default function HeroSection({
               {title}
             </h1>
           )}
-
           {description.length > 0 && (
             <div
               className="
@@ -311,7 +267,6 @@ export default function HeroSection({
                     "
                   >
                     <CircleCheck className="mt-1 hidden h-4 w-4 shrink-0 text-[#279ECE] lg:block" />
-
                     <p
                       className="
                         text-center
@@ -331,19 +286,16 @@ export default function HeroSection({
               </div>
             </div>
           )}
-
           {!!features.length && (
             <>
               <div className="mb-4 text-left">
                 <div className="inline-flex items-center gap-2 rounded-xl border border-[#279ECE]/20 bg-[#279ECE]/10 px-3 py-1.5">
                   <ShieldCheck className="h-3.5 w-3.5 text-[#276A96]" />
-
                   <span className="text-[10px] font-bold uppercase tracking-widest text-[#276A96]">
                     Technical Characteristics
                   </span>
                 </div>
               </div>
-
               <div className="mb-4 grid grid-cols-1 gap-1 sm:grid-cols-2">
                 {features.map((feature, index) => (
                   <div
@@ -353,14 +305,12 @@ export default function HeroSection({
                     <span className="flex h-7 w-7 shrink-0 items-center justify-center bg-[#279ECE] rounded-xl">
                       <CircleCheck className="h-4 w-4 text-white" />
                     </span>
-
                     <span className="text-[11px] leading-5 font-medium text-[#1E293B] sm:text-sm">
                       {feature}
                     </span>
                   </div>
                 ))}
               </div>
-
               {showActionButtons && (
                 <div className="mt-5 flex flex-wrap items-center gap-3">
                   <Link
@@ -370,7 +320,6 @@ export default function HeroSection({
                     <PenLine className="h-3.5 w-3.5" />
                     <span>Request a Quote</span>
                   </Link>
-
                   <Link
                     to="/contact?tab=drawing"
                     className="inline-flex h-9 items-center justify-center gap-2 border border-[#C7D9E6] bg-white px-5 text-[13px] font-semibold text-[#279ECE] transition-all duration-200 hover:-translate-y-0.5 hover:border-[#279ECE] hover:bg-[#F5FBFE] hover:text-[#279ECE] rounded-lg"
@@ -383,7 +332,6 @@ export default function HeroSection({
             </>
           )}
         </div>
-
         {/* Product Image Gallery */}
         <div className="order-1 w-full lg:order-2 lg:basis-[40%]">
           <div
@@ -397,12 +345,22 @@ export default function HeroSection({
               }
             }}
           >
-            <div className="relative z-10 border border-[#276A96]/15 bg-white p-3 shadow-2xl rounded-xl">
+            <div className="relative z-10 border border-primary/70 bg-white p-3 shadow-2xl rounded-xl">
               {/* Main Image — same animation as ProductsPage.tsx */}
               <div className="card-image product-gallery relative aspect-[4/3] overflow-hidden bg-[#F8FAFC] rounded-xl">
+                {materialNames.length > 0 && (
+                  <div
+                    className="absolute left-2 top-2 z-30 flex max-w-[calc(100%-1rem)] items-center gap-1.5 rounded-xl border border-primary/50 bg-white/95 px-2 py-1.5 shadow-sm backdrop-blur-sm sm:left-3 sm:top-3 sm:gap-2 sm:px-3 sm:py-2"
+                    aria-label={`Materials: ${materialNames.join(", ")}`}
+                  >
+                    <ShieldCheck className="h-3 w-3 shrink-0 text-[#279ECE] sm:h-3.5 sm:w-3.5" />
+                    <span className="truncate text-[9px] font-bold uppercase tracking-wide text-[#276A96] sm:text-[10px] md:text-[11px]">
+                      {materialNames.join(" · ")}
+                    </span>
+                  </div>
+                )}
                 {galleryImages.map((src, index) => {
                   const isActive = index === activeIndex;
-
                   return (
                     <img
                       key={src}
@@ -422,7 +380,6 @@ export default function HeroSection({
                     />
                   );
                 })}
-
                 {/* Zoom overlay */}
                 <button
                   type="button"
@@ -434,7 +391,6 @@ export default function HeroSection({
                     <ZoomIn className="h-4 w-4" />
                   </span>
                 </button>
-
                 {/* Previous Arrow */}
                 {galleryImages.length > 1 && (
                   <button
@@ -446,7 +402,6 @@ export default function HeroSection({
                     <ChevronLeft className="h-5 w-5" />
                   </button>
                 )}
-
                 {/* Next Arrow */}
                 {galleryImages.length > 1 && (
                   <button
@@ -459,7 +414,6 @@ export default function HeroSection({
                   </button>
                 )}
               </div>
-
               {/* Image Indicators */}
               <div className="flex items-center justify-center gap-2 pt-4 pb-1">
                 {galleryImages.map((src, index) => (
@@ -477,7 +431,6 @@ export default function HeroSection({
                   />
                 ))}
               </div>
-
               {/* Thumbnail Strip */}
               {galleryImages.length > 1 && (
                 <div
@@ -508,14 +461,11 @@ export default function HeroSection({
                 </div>
               )}
             </div>
-
             <div className="absolute -bottom-3 -right-3 z-0 h-16 w-16 bg-[#279ECE]/10 sm:h-20 sm:w-20 lg:-bottom-5 lg:-right-5 lg:h-24 lg:w-24 rounded-xl" />
-
             <div className="absolute -left-3 -top-3 z-0 h-14 w-14 border border-[#279ECE]/20 sm:h-16 sm:w-16 lg:-left-5 lg:-top-5 lg:h-20 lg:w-20 rounded-xl" />
           </div>
         </div>
       </div>
-
       {/* Full-Screen Image Viewer */}
       {isZoomed && activeImage && (
         <div
@@ -533,7 +483,6 @@ export default function HeroSection({
           >
             <X className="h-6 w-6" />
           </button>
-
           {galleryImages.length > 1 && (
             <>
               <button
@@ -547,7 +496,6 @@ export default function HeroSection({
               >
                 <ChevronLeft className="h-7 w-7" />
               </button>
-
               <button
                 type="button"
                 onClick={(event) => {
@@ -561,14 +509,12 @@ export default function HeroSection({
               </button>
             </>
           )}
-
           <img
             src={activeImage}
             alt={`${title ?? "Product"} - enlarged image ${activeIndex + 1}`}
             onClick={(event) => event.stopPropagation()}
             className="max-h-[90vh] max-w-full animate-in fade-in zoom-in-95 object-contain duration-200"
           />
-
           <div className="absolute bottom-5 left-1/2 -translate-x-1/2 rounded-full bg-black/50 px-4 py-2 text-sm text-white">
             {activeIndex + 1} / {galleryImages.length}
             <span className="ml-3 hidden text-white/60 sm:inline">

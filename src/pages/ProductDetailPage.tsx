@@ -363,8 +363,28 @@ export default function ProductDetailPage() {
             ) : (
               images.length > 0 && (
                 <>
-                  <div className="product-gallery relative aspect-[4/3] overflow-hidden rounded-xl border border-[#E2EDF3] bg-white">
-                    {images.map((src, index) => {
+                  <div className="product-gallery relative aspect-[4/3] overflow-hidden rounded-xl border border-primary/70 bg-white">
+
+  {/* MATERIAL BADGE */}
+  {!!product?.materials?.length && (
+    <div
+      className="absolute left-3 top-3 z-30 flex max-w-[calc(100%-1.5rem)] items-center gap-2 rounded-xl border border-primary/50 bg-white/95 px-3 py-2 shadow-sm backdrop-blur-sm"
+      aria-label={`Materials: ${product.materials
+        .map((material) => material.name)
+        .join(", ")}`}
+    >
+      <ShieldCheck className="h-3.5 w-3.5 shrink-0 text-[#279ECE]" />
+
+      <span className="truncate text-[10px] font-bold uppercase tracking-wide text-[#276A96] sm:text-[11px]">
+        {product.materials
+          .map((material) => material.name?.trim())
+          .filter(Boolean)
+          .join(" · ")}
+      </span>
+    </div>
+  )}
+
+  {images.map((src, index) => {
                       const isActive = index === currentImage;
                       const imageUrl = src.startsWith("http")
                         ? src

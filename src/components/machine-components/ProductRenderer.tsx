@@ -172,16 +172,15 @@ export default function ProductRenderer({
         image={product?.image}
         features={normalizeStringList(product?.keyFeatures)}
         downloads={downloads}
+        materials={product.materials ?? []}
       />
 
-      {/* Landing page only */}
       {/* Landing page only */}
 
       <SpecificationsSection specifications={specifications} />
 
       <ApplicationsSection applications={applications} />
-
-      {/* Existing product logic - unchanged */}
+      
     </>
   );
 }
