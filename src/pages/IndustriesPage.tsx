@@ -363,7 +363,7 @@ export default function IndustriesPage() {
       {/* Featured Industries */}
       <section className="py-8">
         <div className="container max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:gap-5">
+          <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 sm:gap-3 md:gap-4 lg:gap-5">
             {FEATURED_INDUSTRIES.map((ind) => (
               <Link
                 key={ind.slug}
@@ -382,12 +382,12 @@ export default function IndustriesPage() {
 
                 {/* Industry Details */}
                 <div className="flex-1 p-3 sm:p-4 lg:p-5">
-                  <h2 className="flex items-center gap-2 font-heading text-sm sm:text-base lg:text-lg text-charcoal mb-1 sm:mb-2 group-hover:text-primary transition-colors duration-200">
+                  <h2 className="flex items-center gap-1.5 font-heading text-xs sm:text-sm lg:text-base text-charcoal mb-1 sm:mb-2 group-hover:text-primary transition-colors duration-200 min-w-0">
                     {(() => {
                       const Icon =
                         industryIcons[ind.slug as keyof typeof industryIcons];
                       return (
-                        <span className="inline-flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 shrink-0 rounded-lg bg-primary/10 text-primary">
+                        <span className="inline-flex items-center justify-center w-6 h-6 sm:w-7 sm:h-7 shrink-0 rounded-lg bg-primary/10 text-primary">
                           <Icon
                             className="w-4 h-4 sm:w-[18px] sm:h-[18px]"
                             strokeWidth={1.8}
@@ -396,10 +396,10 @@ export default function IndustriesPage() {
                         </span>
                       );
                     })()}
-                    <span>{ind.title}</span>
+                    <span className="min-w-0 break-words">{ind.title}</span>
                   </h2>
 
-                  <p className="text-muted-foreground text-[10px] sm:text-xs lg:text-sm mb-3 sm:mb-4 leading-relaxed">
+                  <p className="hidden sm:block text-muted-foreground text-xs lg:text-sm mb-3 sm:mb-4 leading-relaxed">
                     {ind.subtitle}
                   </p>
 
