@@ -55,7 +55,7 @@ const FEATURED_INDUSTRIES = [
   {
     slug: "aerospace",
     title: "Aerospace",
-    subtitle: "Precision materials for flight-critical performance.",
+    subtitle: "Reliable materials for demanding flight applications.",
     image: aerospaceImage,
     stats: [
       { v: "POLYRIB-H EXT", l: "Marine HDPE" },
@@ -66,7 +66,7 @@ const FEATURED_INDUSTRIES = [
   {
     slug: "agro-processing",
     title: "Agro-processing",
-    subtitle: "Durable polymers for continuous agricultural operations.",
+    subtitle: "Durable materials for agricultural operations.",
     image: agroProcessingImage,
     stats: [
       { v: "POLYRIB-H EXT", l: "Marine HDPE" },
@@ -77,7 +77,7 @@ const FEATURED_INDUSTRIES = [
   {
     slug: "automotive",
     title: "Automotive",
-    subtitle: "High-performance plastics for speed and automation.",
+    subtitle: "Reliable materials for automotive applications.",
     image: automotiveImage,
     stats: [
       { v: "KAYLON", l: "Gears & Bearings" },
@@ -99,7 +99,7 @@ const FEATURED_INDUSTRIES = [
   {
     slug: "cement",
     title: "Cement",
-    subtitle: "Wear-resistant plastics for abrasive environments",
+    subtitle: "Durable materials for demanding cement operations.",
     image: cementImage,
     stats: [
       { v: "POLYRIB-H EXT", l: "Marine HDPE" },
@@ -110,7 +110,7 @@ const FEATURED_INDUSTRIES = [
   {
     slug: "chemical",
     title: "Chemical",
-    subtitle: "Chemically resistant polymers for safe operations.",
+    subtitle: "Reliable materials for demanding chemical operations.",
     image: chemicalImage,
     stats: [
       { v: "POLYRIB P", l: "Chemical Tanks" },
@@ -121,7 +121,7 @@ const FEATURED_INDUSTRIES = [
   {
     slug: "food-beverage",
     title: "Food & Beverage",
-    subtitle: "Hygienic materials for clean processing.",
+    subtitle: "Hygienic materials for modern food processing.",
     image: foodBevImage,
     stats: [
       { v: "FDA", l: "21 CFR Compliant" },
@@ -132,7 +132,7 @@ const FEATURED_INDUSTRIES = [
   {
     slug: "heavy-equipment",
     title: "Heavy Equipment",
-    subtitle: "High-strength polymers for extreme loads.",
+    subtitle: "Strong materials for heavy equipments.",
     image: heavyEquipImage,
     stats: [
       { v: "POLYRIB-H EXT", l: "Marine HDPE" },
@@ -143,7 +143,7 @@ const FEATURED_INDUSTRIES = [
   {
     slug: "iron-steel",
     title: "Iron & Steel",
-    subtitle: "Plastics are built for heat and abrasion.",
+    subtitle: "Durable materials for demanding steel operations.",
     image: ironSteelImage,
     stats: [
       { v: "POLYRIB-H EXT", l: "Marine HDPE" },
@@ -154,8 +154,7 @@ const FEATURED_INDUSTRIES = [
   {
     slug: "leather",
     title: "Leather",
-    subtitle:
-      "High-performance polymers for demanding leather processing environments.",
+    subtitle: "Reliable materials for modern leather processing.",
     image: leatherImage,
     stats: [
       { v: "POLYRIB-H EXT", l: "Marine HDPE" },
@@ -166,7 +165,7 @@ const FEATURED_INDUSTRIES = [
   {
     slug: "marine",
     title: "Marine",
-    subtitle: "Corrosion-resistant plastics for marine conditions.",
+    subtitle: "Durable materials for marine applications.",
     image: marineImage,
     stats: [
       { v: "POLYRIB-H EXT", l: "Marine HDPE" },
@@ -177,7 +176,7 @@ const FEATURED_INDUSTRIES = [
   {
     slug: "material-handling",
     title: "Material Handling",
-    subtitle: "Low-friction solutions for efficient flow.",
+    subtitle: "Reliable materials for efficient material handling.",
     image: materialHandlingImage,
     stats: [
       { v: "POLYRIB-H EXT", l: "Marine HDPE" },
@@ -188,7 +187,7 @@ const FEATURED_INDUSTRIES = [
   {
     slug: "medical",
     title: "Medical",
-    subtitle: "Precision plastics for controlled environments.",
+    subtitle: "Precision materials for medical industry.",
     image: medicalImage,
     stats: [
       { v: "POLYRIB-V FG", l: "FDA Compliant" },
@@ -199,7 +198,7 @@ const FEATURED_INDUSTRIES = [
   {
     slug: "mining",
     title: "Mining",
-    subtitle: "Heavy-duty polymers for severe wear.",
+    subtitle: "Durable materials for demanding mining operations.",
     image: miningImage,
     stats: [
       { v: "POLYRIB V", l: "Chute Liners" },
@@ -210,7 +209,7 @@ const FEATURED_INDUSTRIES = [
   {
     slug: "oil-gas",
     title: "Oil & Gas",
-    subtitle: "Reliable materials for harsh environments.",
+    subtitle: "Reliable materials for oil and gas operations.",
     image: oilGasImage,
     stats: [
       { v: "POLYRIB-V-AS", l: "ATEX Rated" },
@@ -221,7 +220,7 @@ const FEATURED_INDUSTRIES = [
   {
     slug: "packaging",
     title: "Packaging",
-    subtitle: "Lightweight plastics for high-speed systems.",
+    subtitle: "Reliable materials for packaging operations.",
     image: packagingImage,
     stats: [
       { v: "POLYRIB-H EXT", l: "Marine HDPE" },
@@ -232,7 +231,7 @@ const FEATURED_INDUSTRIES = [
   {
     slug: "pulp-paper",
     title: "Pulp & Paper",
-    subtitle: "Moisture-resistant materials for continuous use.",
+    subtitle: "Durable materials for continuous paper production.",
     image: pulpPaperImage,
     stats: [
       { v: "POLYRIB-H EXT", l: "Marine HDPE" },
@@ -243,7 +242,7 @@ const FEATURED_INDUSTRIES = [
   {
     slug: "signage",
     title: "Signage",
-    subtitle: "High-quality plastics for lasting visibility.",
+    subtitle: "Durable materials for signage applications.",
     image: signageImage,
     stats: [
       { v: "POLYRIB-H EXT", l: "Marine HDPE" },
@@ -254,7 +253,7 @@ const FEATURED_INDUSTRIES = [
   {
     slug: "sports-recreation",
     title: "Sports & Recreation",
-    subtitle: "Tough, lightweight materials for performance.",
+    subtitle: "Strong materials for modern sports applications.",
     image: sportsRecreationImage,
     stats: [
       { v: "POLYRIB-H EXT", l: "Marine HDPE" },
@@ -265,7 +264,7 @@ const FEATURED_INDUSTRIES = [
   {
     slug: "transportation",
     title: "Transportation",
-    subtitle: "Engineered plastics for reliable mobility.",
+    subtitle: "Reliable materials for transport applications.",
     image: transportationImage,
     stats: [
       { v: "POLYRIB-H EXT", l: "Marine HDPE" },
@@ -276,7 +275,7 @@ const FEATURED_INDUSTRIES = [
   {
     slug: "water-waste-water",
     title: "Water & Waste Water",
-    subtitle: "Corrosion-resistant solutions for system longevity.",
+    subtitle: "Reliable materials for water treatment infrastructure.",
     image: waterWasteWaterImage,
     stats: [
       { v: "POLYRIB-H EXT", l: "Marine HDPE" },
@@ -334,6 +333,7 @@ const industryIcons = {
   "water-waste-water": Droplets,
 } as const;
 
+
 export default function IndustriesPage() {
   const ref = useScrollFade() as React.RefObject<HTMLElement>;
 
@@ -357,90 +357,115 @@ export default function IndustriesPage() {
         image={manufacturingImage}
         imageAlt="Khanna Polyrib manufacturing facility"
         imagePosition="center center"
-        breadcrumbs={[{ label: "Home", to: "/" }, { label: "Industries" }]}
+        breadcrumbs={[
+          { label: "Home", to: "/" },
+          { label: "Industries" },
+        ]}
       />
 
       {/* Featured Industries */}
-      <section className="py-8">
-        <div className="container max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 sm:gap-3 md:gap-4 lg:gap-5">
-            {FEATURED_INDUSTRIES.map((ind) => (
-              <Link
-                key={ind.slug}
-                to={`/industries/${ind.slug}`}
-                className="category-card flex flex-col overflow-hidden group min-w-0  border border-primary"
-              >
-                {/* Industry Image */}
-                <div className="card-image w-full aspect-[16/9] shrink-0 overflow-hidden">
-                  <img
-                    src={ind.image}
-                    alt={ind.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    loading="lazy"
-                  />
-                </div>
+      <section className="py-6 sm:py-8 lg:py-10">
+        <div className="container max-w-7xl mx-auto px-2 sm:px-4 lg:px-6">
 
-                {/* Industry Details */}
-                <div className="flex-1 p-3 sm:p-4 lg:p-5">
-                  <h2 className="flex items-center gap-1.5 font-heading text-xs sm:text-sm lg:text-base text-charcoal mb-1 sm:mb-2 group-hover:text-primary transition-colors duration-200 min-w-0">
-                    {(() => {
-                      const Icon =
-                        industryIcons[ind.slug as keyof typeof industryIcons];
-                      return (
-                        <span className="inline-flex items-center justify-center w-6 h-6 sm:w-7 sm:h-7 shrink-0 rounded-lg bg-primary/10 text-primary">
-                          <Icon
-                            className="w-4 h-4 sm:w-[18px] sm:h-[18px]"
-                            strokeWidth={1.8}
-                            aria-hidden="true"
-                          />
+          {/* 3 Columns on Mobile, 4 on Desktop */}
+          <div className="grid grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3 lg:gap-5">
+
+            {FEATURED_INDUSTRIES.map((ind) => {
+              const Icon =
+                industryIcons[ind.slug as keyof typeof industryIcons];
+
+              return (
+                <Link
+                  key={ind.slug}
+                  to={`/industries/${ind.slug}`}
+                  className="category-card group flex flex-col min-w-0 overflow-hidden rounded-xl sm:rounded-2xl border border-primary/70 bg-white !p-0 transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+                >
+                  {/* Industry Image - Edge to Edge, No White Gaps */}
+                  <div className="w-full shrink-0 overflow-hidden bg-white p-0 m-0 leading-[0]">
+                    <img
+                      src={ind.image}
+                      alt={ind.title}
+                      className="block w-full h-auto m-0 p-0 object-contain transition-transform duration-500 group-hover:scale-[1.02]"
+                      loading="lazy"
+                    />
+                  </div>
+
+                  {/* Industry Content */}
+                  <div className="flex flex-col flex-1 min-w-0 px-2 py-2 sm:px-3 sm:py-3 lg:px-4 lg:py-4">
+
+                    {/* Industry Heading */}
+                    <h2 className="flex items-center gap-1 sm:gap-1.5 font-heading text-[10px] sm:text-xs lg:text-sm font-bold text-charcoal leading-tight mb-1.5 sm:mb-2 group-hover:text-primary transition-colors duration-200 min-w-0">
+
+                      <span className="inline-flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 shrink-0 rounded-md bg-primary/10 text-primary">
+                        <Icon
+                          className="w-3 h-3 sm:w-3.5 sm:h-3.5"
+                          strokeWidth={1.8}
+                          aria-hidden="true"
+                        />
+                      </span>
+
+                      <span className="min-w-0 break-words">
+                        {ind.title}
+                      </span>
+                    </h2>
+
+                    {/* Industry Description */}
+                    <p className="text-muted-foreground text-[9px] sm:text-[10px] lg:text-xs leading-snug mb-2 sm:mb-3">
+                      {ind.subtitle}
+                    </p>
+
+                    {/* Product Details - Hidden on Mobile */}
+                    <div className="hidden sm:grid grid-cols-3 gap-1.5 lg:gap-2 mb-3">
+                      {ind.stats.map((s) => (
+                        <div key={s.l} className="min-w-0">
+
+                          <div className="font-heading font-semibold text-primary text-[9px] lg:text-[11px] leading-snug break-words">
+                            {s.v}
+                          </div>
+
+                          <div className="text-[9px] lg:text-[10px] text-muted-foreground leading-tight mt-0.5 break-words">
+                            {s.l}
+                          </div>
+
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Explore - Mobile / Explore Solutions - Larger Screens */}
+                    <div className="mt-auto pt-1">
+                      <div className="cta-link text-[9px] sm:text-[10px] lg:text-xs flex items-center gap-1">
+                        <span className="sm:hidden">Explore</span>
+                        <span className="hidden sm:inline">
+                          Explore Solutions
                         </span>
-                      );
-                    })()}
-                    <span className="min-w-0 break-words">{ind.title}</span>
-                  </h2>
-
-                  <p className="hidden sm:block text-muted-foreground text-xs lg:text-sm mb-3 sm:mb-4 leading-relaxed">
-                    {ind.subtitle}
-                  </p>
-
-                  {/* Product Stats - Hidden on mobile, visible on tablets and desktops */}
-                  <div className="hidden sm:grid grid-cols-3 gap-2 sm:gap-3 mb-3 sm:mb-4">
-                    {ind.stats.map((s) => (
-                      <div key={s.l} className="min-w-0">
-                        <div className="font-heading font-bold text-primary text-[10px] sm:text-xs lg:text-sm break-words">
-                          {s.v}
-                        </div>
-                        <div className="text-[9px] sm:text-[10px] lg:text-xs text-muted-foreground leading-tight">
-                          {s.l}
-                        </div>
+                        <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 explore-arrow shrink-0" />
                       </div>
-                    ))}
-                  </div>
+                    </div>
 
-                  {/* CTA */}
-                  <div className="cta-link text-[10px] sm:text-xs lg:text-sm flex items-center gap-1 flex-wrap">
-                    Explore Solutions
-                    <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 explore-arrow shrink-0" />
-                  </div>
+                    <div className="card-border-bottom mt-1.5 sm:mt-2" />
 
-                  <div className="card-border-bottom mt-1 sm:mt-1" />
-                </div>
-              </Link>
-            ))}
+                  </div>
+                </Link>
+              );
+            })}
+
           </div>
         </div>
       </section>
 
-      {/* Full industry list */}
-      <section className="py-12 bg-transparent border-t border-divider">
+      {/* Full Industry List */}
+      <section className="py-10 sm:py-12 bg-transparent border-t border-divider">
         <div className="container max-w-7xl mx-auto px-4 sm:px-6">
-          <p className="section-label mb-4">All Sectors</p>
+
+          <p className="section-label mb-4">
+            All Sectors
+          </p>
 
           <h2 className="font-heading text-2xl text-charcoal mb-6">
             Our full industry coverage
           </h2>
 
-          <div className="flex flex-wrap justify-center gap-2.5 sm:gap-3">
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
             {ALL_INDUSTRIES.map((ind, index) => {
               const Icon =
                 industryIcons[ind.slug as keyof typeof industryIcons];
@@ -449,7 +474,7 @@ export default function IndustriesPage() {
                 <Link
                   key={ind.slug}
                   to={`/industries/${ind.slug}`}
-                  className="group flex items-center gap-2 sm:gap-2.5 px-3 py-2 sm:px-4 sm:py-2.5 border border-border bg-card text-xs sm:text-sm font-medium text-charcoal-light transition-all duration-200 rounded-xl hover:border-primary hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary  border border-primary"
+                  className="group flex items-center gap-2 px-3 py-2 sm:px-4 sm:py-2.5 border border-primary bg-card text-xs sm:text-sm font-medium text-charcoal-light transition-all duration-200 rounded-xl hover:border-primary hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                   style={{ animationDelay: `${index * 35}ms` }}
                 >
                   <Icon
@@ -457,7 +482,10 @@ export default function IndustriesPage() {
                     strokeWidth={1.8}
                     aria-hidden="true"
                   />
-                  <span className="whitespace-nowrap">{ind.title}</span>
+
+                  <span className="whitespace-nowrap">
+                    {ind.title}
+                  </span>
                 </Link>
               );
             })}
@@ -470,8 +498,11 @@ export default function IndustriesPage() {
             </Link>{" "}
             for application guidance.
           </p>
+
         </div>
       </section>
     </div>
   );
 }
+
+
