@@ -226,10 +226,7 @@ export default function AboutPage() {
       </section>
 
       {/* EXPLORE FEATURES (MISSION & VALUES FROM PART B) */}
-      <section
-        ref={ref4}
-        className="fade-up py-8 border-b border-divider"
-      >
+      <section ref={ref4} className="fade-up py-8 border-b border-divider">
         <div className="container max-w-7xl mx-auto px-6 text-center">
           <p className="section-label mb-3">Explore Features</p>
           <h2 className="font-heading text-3xl text-charcoal mb-10">

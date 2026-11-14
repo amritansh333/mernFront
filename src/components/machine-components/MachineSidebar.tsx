@@ -107,7 +107,10 @@ export default function MachineSidebar({
   };
 
   return (
-    <aside className="flex h-full flex-col overflow-hidden border-r border-[#279ECE]/15 bg-white" style={pageTexture}>
+    <aside
+      className="flex h-full flex-col overflow-hidden border-r border-[#279ECE]/15 bg-white"
+      style={pageTexture}
+    >
       {/* ================= PREMIUM HEADER ================= */}
 
       <div

@@ -209,7 +209,7 @@ export default function BrandProductsPage() {
     load();
   }, [brandSlug]);
 
-const pageTexture = {
+  const pageTexture = {
     backgroundColor: "#FFFFFF",
     backgroundImage: `
       radial-gradient(circle at 12px 12px, rgba(39, 158, 206, 0.055) 1px, transparent 1.5px),

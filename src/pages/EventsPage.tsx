@@ -100,23 +100,16 @@ function EventSkeleton() {
   );
 }
 
-
 /* =========================================================
    EVENT HIGHLIGHT
 ========================================================= */
 
-function FeaturedEvent({
-  item,
-}: {
-  item: EventCardType;
-}) {
+function FeaturedEvent({ item }: { item: EventCardType }) {
   const startDate = formatDate(item.event?.startDate);
   const endDate = formatDate(item.event?.endDate);
 
   const location = item.event?.city
-    ? `${item.event.city}${
-        item.event.country ? `, ${item.event.country}` : ""
-      }`
+    ? `${item.event.city}${item.event.country ? `, ${item.event.country}` : ""}`
     : item.event?.location;
 
   return (
@@ -132,7 +125,6 @@ function FeaturedEvent({
       "
     >
       <div className="grid lg:grid-cols-2">
-
         {/* Image */}
 
         <div className="relative aspect-[16/9] overflow-hidden lg:aspect-auto lg:min-h-[300px]">
@@ -160,9 +152,7 @@ function FeaturedEvent({
         {/* Content */}
 
         <div className="flex flex-col justify-center p-5 sm:p-6 lg:p-8">
-
           <div className="mb-3 flex flex-wrap gap-3 text-xs sm:text-sm text-muted-foreground">
-
             {startDate && (
               <span className="inline-flex items-center gap-2">
                 <CalendarDays className="h-4 w-4 text-primary" />
@@ -180,7 +170,6 @@ function FeaturedEvent({
                 {location}
               </span>
             )}
-
           </div>
 
           <h2
@@ -202,7 +191,6 @@ function FeaturedEvent({
 
           {(item.event?.venue || item.event?.booth) && (
             <div className="mt-4 flex flex-wrap gap-2">
-
               {item.event?.venue && (
                 <span className="rounded-xl px-3 py-2 text-xs sm:text-sm text-muted-foreground">
                   {item.event.venue}
@@ -214,22 +202,18 @@ function FeaturedEvent({
                   Booth {item.event.booth}
                 </span>
               )}
-
             </div>
           )}
 
           <div className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary">
             View event details
-
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </div>
-
         </div>
       </div>
     </Link>
   );
 }
-
 
 /* =========================================================
    EVENTS PAGE
@@ -274,9 +258,7 @@ export default function EventsPage() {
         console.error("Failed to fetch events:", err);
 
         if (!cancelled) {
-          setError(
-            "Unable to load events. Please try again later.",
-          );
+          setError("Unable to load events. Please try again later.");
         }
       } finally {
         if (!cancelled) {
@@ -315,8 +297,7 @@ export default function EventsPage() {
       const eventYear = getEventYear(item);
 
       const matchesYear =
-        selectedYear === "All" ||
-        eventYear?.toString() === selectedYear;
+        selectedYear === "All" || eventYear?.toString() === selectedYear;
 
       const searchable = [
         item.title,
@@ -330,8 +311,7 @@ export default function EventsPage() {
         .join(" ")
         .toLowerCase();
 
-      const matchesSearch =
-        !query || searchable.includes(query);
+      const matchesSearch = !query || searchable.includes(query);
 
       return matchesYear && matchesSearch;
     });
@@ -343,9 +323,7 @@ export default function EventsPage() {
 
   const featuredEvent = useMemo(() => {
     return (
-      filteredItems.find((item) => item.featured) ??
-      filteredItems[0] ??
-      null
+      filteredItems.find((item) => item.featured) ?? filteredItems[0] ?? null
     );
   }, [filteredItems]);
 
@@ -356,17 +334,14 @@ export default function EventsPage() {
   const remainingItems = useMemo(() => {
     if (!featuredEvent) return filteredItems;
 
-    return filteredItems.filter(
-      (item) => item.id !== featuredEvent.id,
-    );
+    return filteredItems.filter((item) => item.id !== featuredEvent.id);
   }, [filteredItems, featuredEvent]);
 
   /* =====================================================
      RESET FILTERS
   ===================================================== */
 
-  const hasActiveFilters =
-    search.trim().length > 0 || selectedYear !== "All";
+  const hasActiveFilters = search.trim().length > 0 || selectedYear !== "All";
 
   function clearFilters() {
     setSearch("");
@@ -378,11 +353,7 @@ export default function EventsPage() {
   ===================================================== */
 
   return (
-    <main
-      className="min-h-screen bg-white pt-16"
-      style={pageTexture}
-    >
-
+    <main className="min-h-screen bg-white pt-16" style={pageTexture}>
       {/* =================================================
           HERO
       ================================================= */}
@@ -406,13 +377,10 @@ export default function EventsPage() {
 
       {!loading && !error && featuredEvent && (
         <section className="container mx-auto px-5 py-10 sm:px-6 sm:py-14">
-
           <div className="mb-6 flex items-center justify-between gap-4">
-
             <div>
               <div className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-primary">
                 <Sparkles className="h-4 w-4" />
-
                 NEW
               </div>
 
@@ -420,11 +388,9 @@ export default function EventsPage() {
                 Latest Highlight
               </h2>
             </div>
-
           </div>
 
           <FeaturedEvent item={featuredEvent} />
-
         </section>
       )}
 
@@ -433,7 +399,6 @@ export default function EventsPage() {
       ================================================= */}
 
       <section className="container mx-auto px-5 pb-8 sm:px-6">
-
         <div
           className="
             flex flex-col gap-3 rounded-xl
@@ -441,11 +406,9 @@ export default function EventsPage() {
             sm:flex-row
           "
         >
-
           {/* Search */}
 
           <div className="relative flex-1">
-
             <Search
               className="
                 pointer-events-none absolute left-4 top-1/2
@@ -471,18 +434,14 @@ export default function EventsPage() {
                 focus:ring-primary/10
               "
             />
-
           </div>
 
           {/* Year Filter */}
 
           <div className="relative sm:w-44">
-
             <select
               value={selectedYear}
-              onChange={(event) =>
-                setSelectedYear(event.target.value)
-              }
+              onChange={(event) => setSelectedYear(event.target.value)}
               aria-label="Filter events by year"
               className="
                 h-11 w-full appearance-none
@@ -494,7 +453,6 @@ export default function EventsPage() {
                 focus:ring-2 focus:ring-primary/10
               "
             >
-
               <option value="All">All years</option>
 
               {years.map((year) => (
@@ -502,7 +460,6 @@ export default function EventsPage() {
                   {year}
                 </option>
               ))}
-
             </select>
 
             <ChevronDown
@@ -512,11 +469,8 @@ export default function EventsPage() {
               "
               aria-hidden="true"
             />
-
           </div>
-
         </div>
-
       </section>
 
       {/* =================================================
@@ -524,11 +478,9 @@ export default function EventsPage() {
       ================================================= */}
 
       <section className="container mx-auto px-5 pb-16 sm:px-6 sm:pb-24">
-
         {/* Section Heading */}
 
         <div className="mb-7 flex items-end justify-between gap-4">
-
           <div>
             <p className="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-primary">
               Explore
@@ -545,12 +497,9 @@ export default function EventsPage() {
               aria-live="polite"
             >
               {filteredItems.length}{" "}
-              {filteredItems.length === 1
-                ? "event"
-                : "events"}
+              {filteredItems.length === 1 ? "event" : "events"}
             </p>
           )}
-
         </div>
 
         {/* Loading */}
@@ -577,9 +526,7 @@ export default function EventsPage() {
             "
             role="alert"
           >
-            <p className="font-medium text-destructive">
-              {error}
-            </p>
+            <p className="font-medium text-destructive">{error}</p>
           </div>
         )}
 
@@ -587,7 +534,6 @@ export default function EventsPage() {
 
         {!loading && !error && filteredItems.length === 0 && (
           <div className="rounded-xl border border-dashed border-border bg-card px-6 py-16 text-center">
-
             <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-xl bg-surface-subtle">
               <Clock3 className="h-6 w-6 text-muted-foreground" />
             </div>
@@ -597,8 +543,8 @@ export default function EventsPage() {
             </h3>
 
             <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-muted-foreground">
-              Try changing your search or year filter to find
-              other exhibitions and industry events.
+              Try changing your search or year filter to find other exhibitions
+              and industry events.
             </p>
 
             {hasActiveFilters && (
@@ -610,7 +556,6 @@ export default function EventsPage() {
                 Clear filters
               </button>
             )}
-
           </div>
         )}
 
@@ -618,7 +563,6 @@ export default function EventsPage() {
 
         {!loading && !error && remainingItems.length > 0 && (
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-
             {remainingItems.map((item, index) => (
               <div
                 key={item.id}
@@ -634,12 +578,9 @@ export default function EventsPage() {
                 <EventCard item={item} />
               </div>
             ))}
-
           </div>
         )}
-
       </section>
-
     </main>
   );
 }

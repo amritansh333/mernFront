@@ -801,8 +801,7 @@ export default function MaterialSelectorPage() {
         .map((mat) => {
           const selectedChemicals = chemIds.length ? chemIds : ["none"];
 
-          const maxScore =
-            3 * 5 + selectedChemicals.length * 2 * 5 + 2 * 5;
+          const maxScore = 3 * 5 + selectedChemicals.length * 2 * 5 + 2 * 5;
 
           const raw = scoreProduct(mat, tempId, chemIds, loadId);
 
@@ -877,18 +876,12 @@ export default function MaterialSelectorPage() {
                           : "border-divider text-muted-foreground"
                     }`}
                   >
-                    {s < step ? (
-                      <CheckCircle2 className="w-4 h-4" />
-                    ) : (
-                      s + 1
-                    )}
+                    {s < step ? <CheckCircle2 className="w-4 h-4" /> : s + 1}
                   </button>
 
                   <span
                     className={`text-xs sm:text-sm font-medium whitespace-nowrap ${
-                      s === step
-                        ? "text-charcoal"
-                        : "text-muted-foreground"
+                      s === step ? "text-charcoal" : "text-muted-foreground"
                     }`}
                   >
                     {
@@ -1456,8 +1449,8 @@ export default function MaterialSelectorPage() {
 
                 <p className="text-sm text-muted-foreground max-w-xl mx-auto mb-6">
                   Currently, none of the listed materials has a verified
-                  industry application mapping for {selectedIndustry?.abbr}.
-                  Our technical team can help identify a potentially suitable
+                  industry application mapping for {selectedIndustry?.abbr}. Our
+                  technical team can help identify a potentially suitable
                   material for your specific requirements.
                 </p>
 
@@ -1476,17 +1469,16 @@ export default function MaterialSelectorPage() {
 
             <div className="mt-8 sm:mt-10 p-4 sm:p-5 bg-surface-subtle border border-divider rounded-xl">
               <p className="text-xs text-muted-foreground leading-relaxed">
-                <strong className="text-charcoal">Disclaimer:</strong> This
-                tool provides general material guidance based on typical
-                property profiles and the industry applications supplied for
-                each product. Industry applicability is used to filter
+                <strong className="text-charcoal">Disclaimer:</strong> This tool
+                provides general material guidance based on typical property
+                profiles and the industry applications supplied for each
+                product. Industry applicability is used to filter
                 recommendations, while suitability scores are calculated from
-                temperature, chemical exposure and mechanical load
-                requirements. Scores are indicative only. Final material
-                selection should always be confirmed with our technical
-                engineering team, taking into account specific part geometry,
-                regulatory requirements, operating conditions and
-                application-specific testing.
+                temperature, chemical exposure and mechanical load requirements.
+                Scores are indicative only. Final material selection should
+                always be confirmed with our technical engineering team, taking
+                into account specific part geometry, regulatory requirements,
+                operating conditions and application-specific testing.
               </p>
             </div>
           </div>

@@ -130,7 +130,6 @@ function VideoEmbed({ video }: { video: EventVideo }) {
 
   return (
     <div className="group relative overflow-hidden rounded-xl border border-border bg-black shadow-sm transition-shadow duration-300 hover:shadow-lg">
-
       <video
         key={video.url}
         src={video.url}
@@ -143,7 +142,6 @@ function VideoEmbed({ video }: { video: EventVideo }) {
       >
         Your browser does not support HTML5 video.
       </video>
-
     </div>
   );
 }
@@ -561,75 +559,57 @@ export default function EventDetailPage() {
     VIDEOS
 ===================================================== */}
 
-{item.videos && item.videos.length > 0 && (
-  <section className="mt-14 border-t border-border pt-10">
+            {item.videos && item.videos.length > 0 && (
+              <section className="mt-14 border-t border-border pt-10">
+                {/* Section Heading */}
 
-    {/* Section Heading */}
+                <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
+                  <div>
+                    <p className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-primary">
+                      <PlayCircle className="h-4 w-4" />
+                      Videos
+                    </p>
 
-    <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
+                    <h2 className="font-heading text-2xl font-semibold text-charcoal sm:text-3xl">
+                      From the event
+                    </h2>
+                  </div>
 
-      <div>
-        <p className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-primary">
-          <PlayCircle className="h-4 w-4" />
-          Videos
-        </p>
+                  <span className="text-sm text-muted-foreground">
+                    {item.videos.length}{" "}
+                    {item.videos.length === 1 ? "video" : "videos"}
+                  </span>
+                </div>
 
-        <h2 className="font-heading text-2xl font-semibold text-charcoal sm:text-3xl">
-          From the event
-        </h2>
-      </div>
+                {/* Video Grid */}
 
-      <span className="text-sm text-muted-foreground">
-        {item.videos.length}{" "}
-        {item.videos.length === 1 ? "video" : "videos"}
-      </span>
+                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                  {[...item.videos]
+                    .sort((a, b) => (a.sortOrder || 0) - (b.sortOrder || 0))
+                    .map((video, index) => (
+                      <div key={`${video.url}-${index}`} className="min-w-0">
+                        <VideoEmbed video={video} />
 
-    </div>
+                        {(video.title || video.alt || video.caption) && (
+                          <div className="mt-3">
+                            <h3 className="font-heading text-base font-semibold text-charcoal">
+                              {video.title ||
+                                video.alt ||
+                                `Event Video ${index + 1}`}
+                            </h3>
 
-    {/* Video Grid */}
-
-    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-
-      {[...item.videos]
-        .sort(
-          (a, b) =>
-            (a.sortOrder || 0) - (b.sortOrder || 0),
-        )
-        .map((video, index) => (
-
-          <div
-            key={`${video.url}-${index}`}
-            className="min-w-0"
-          >
-
-            <VideoEmbed video={video} />
-
-            {(video.title || video.alt || video.caption) && (
-              <div className="mt-3">
-
-                <h3 className="font-heading text-base font-semibold text-charcoal">
-                  {video.title ||
-                    video.alt ||
-                    `Event Video ${index + 1}`}
-                </h3>
-
-                {video.caption && (
-                  <p className="mt-1 text-sm leading-6 text-muted-foreground">
-                    {video.caption}
-                  </p>
-                )}
-
-              </div>
+                            {video.caption && (
+                              <p className="mt-1 text-sm leading-6 text-muted-foreground">
+                                {video.caption}
+                              </p>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                </div>
+              </section>
             )}
-
-          </div>
-
-        ))}
-
-    </div>
-
-  </section>
-)}
 
             {/* =====================================================
                 TAGS
@@ -696,10 +676,7 @@ export default function EventDetailPage() {
                 )}
 
                 {ev.city && (
-                  <DetailRow
-                    icon={<MapPin className="h-4 w-4" />}
-                    label="City"
-                  >
+                  <DetailRow icon={<MapPin className="h-4 w-4" />} label="City">
                     {ev.city}
                   </DetailRow>
                 )}
@@ -723,10 +700,7 @@ export default function EventDetailPage() {
                 )}
 
                 {ev.booth && (
-                  <DetailRow
-                    icon={<Users className="h-4 w-4" />}
-                    label="Booth"
-                  >
+                  <DetailRow icon={<Users className="h-4 w-4" />} label="Booth">
                     {ev.booth}
                   </DetailRow>
                 )}
@@ -784,8 +758,8 @@ export default function EventDetailPage() {
               </h3>
 
               <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                Interested in our thermoplastic engineering solutions or want
-                to connect with our team?
+                Interested in our thermoplastic engineering solutions or want to
+                connect with our team?
               </p>
 
               <Link

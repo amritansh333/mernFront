@@ -13,7 +13,10 @@ import {
 } from "lucide-react";
 import MachineBreadcrumbs from "@/components/machine-components/MachineBreadcrumbs";
 import { resolveApiAssetUrl } from "@/lib/assetUrl";
-import type { MachineComponentDownload, MachineComponentMaterial } from "@/types/machineComponent";
+import type {
+  MachineComponentDownload,
+  MachineComponentMaterial,
+} from "@/types/machineComponent";
 interface HeroSectionProps {
   title?: string;
   description: string[];

@@ -183,7 +183,7 @@ function getNavItems(
                 {
                   label: "Profiles",
                   href: "/products/thermoplastics-machine-components/profiles/profile",
-                }
+                },
               ],
             },
             {
@@ -325,7 +325,7 @@ function getNavItems(
                 {
                   label: "CCN",
                   href: "/products/thermoplastics-machine-components/machined-plastic-parts/ccn",
-                }
+                },
               ],
             },
             {
@@ -335,7 +335,7 @@ function getNavItems(
                 {
                   label: "Fascia Pads / Marine Fender Pads",
                   href: "/products/thermoplastics-machine-components/pads",
-                }
+                },
               ],
             },
             {

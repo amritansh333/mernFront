@@ -1952,18 +1952,11 @@ const Index = () => {
         </div>
         <div className="relative container max-w-7xl mx-auto px-6 pb-20 pt-32">
           <div className="max-w-2xl">
-            
             {/* Hero Heading — Mask Reveal + Cyan Highlight Sweep */}
             <h1 className="hero-cyan-heading font-heading text-[32px] sm:text-[42px] lg:text-[48px] leading-tight mb-6">
-              <span className="block pt-12 sm:pt-8">
-                Best Engineering
-              </span>
-              <span className="block">
-                Thermoplastics Solutions
-              </span>
-              <span className="block">
-                Built For Performance
-              </span>
+              <span className="block pt-12 sm:pt-8">Best Engineering</span>
+              <span className="block">Thermoplastics Solutions</span>
+              <span className="block">Built For Performance</span>
             </h1>
             <div
               className="flex flex-col items-start sm:flex-row sm:items-center gap-2 sm:gap-3 animate-fade-in"

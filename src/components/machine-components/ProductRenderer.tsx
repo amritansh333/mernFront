@@ -180,7 +180,6 @@ export default function ProductRenderer({
       <SpecificationsSection specifications={specifications} />
 
       <ApplicationsSection applications={applications} />
-      
     </>
   );
 }

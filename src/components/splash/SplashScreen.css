@@ -63,16 +63,11 @@
 ========================================= */
 
 .splash-revealing .splash-shutter-top {
-  animation: cinematic-open-top
-    1200ms
-    cubic-bezier(0.76, 0, 0.24, 1)
-    forwards;
+  animation: cinematic-open-top 1200ms cubic-bezier(0.76, 0, 0.24, 1) forwards;
 }
 
 .splash-revealing .splash-shutter-bottom {
-  animation: cinematic-open-bottom
-    1200ms
-    cubic-bezier(0.76, 0, 0.24, 1)
+  animation: cinematic-open-bottom 1200ms cubic-bezier(0.76, 0, 0.24, 1)
     forwards;
 }
 
@@ -206,9 +201,8 @@
 
   transform: scale(1);
 
-  filter:
-    drop-shadow(0 0 10px rgba(39, 158, 206, 0.20))
-    drop-shadow(0 0 24px rgba(39, 158, 206, 0.10));
+  filter: drop-shadow(0 0 10px rgba(39, 158, 206, 0.2))
+    drop-shadow(0 0 24px rgba(39, 158, 206, 0.1));
 }
 
 /* =========================================

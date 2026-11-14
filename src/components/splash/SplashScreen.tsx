@@ -163,8 +163,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
             0.08 * Math.sin(angle * 5 + phase2) +
             0.06 * Math.cos(angle * 7 + phase3);
 
-          const randomRadius =
-            0.08 + Math.pow(Math.random(), 0.8) * 0.29;
+          const randomRadius = 0.08 + Math.pow(Math.random(), 0.8) * 0.29;
 
           const radius = randomRadius * organicShape;
 
@@ -172,12 +171,10 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
           const randomY = 1 + (Math.random() - 0.5) * 0.12;
 
           const startX =
-            centerX +
-            Math.cos(angle) * canvasWidth * 0.46 * radius * randomX;
+            centerX + Math.cos(angle) * canvasWidth * 0.46 * radius * randomX;
 
           const startY =
-            centerY +
-            Math.sin(angle) * canvasHeight * 0.46 * radius * randomY;
+            centerY + Math.sin(angle) * canvasHeight * 0.46 * radius * randomY;
 
           particles.push({
             x: x + offsetX,
@@ -202,10 +199,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
 
         const elapsed = currentTime - startTime;
 
-        const progress = Math.min(
-          elapsed / ANIMATION_DURATION,
-          1,
-        );
+        const progress = Math.min(elapsed / ANIMATION_DURATION, 1);
 
         const easedProgress = 1 - Math.pow(1 - progress, 3);
 
@@ -213,25 +207,17 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
 
         particles.forEach((particle) => {
           const currentX =
-            particle.startX +
-            (particle.x - particle.startX) * easedProgress;
+            particle.startX + (particle.x - particle.startX) * easedProgress;
 
           const currentY =
-            particle.startY +
-            (particle.y - particle.startY) * easedProgress;
+            particle.startY + (particle.y - particle.startY) * easedProgress;
 
           context.globalAlpha = particle.alpha;
           context.fillStyle = particle.color;
 
           context.beginPath();
 
-          context.arc(
-            currentX,
-            currentY,
-            particle.size,
-            0,
-            Math.PI * 2,
-          );
+          context.arc(currentX, currentY, particle.size, 0, Math.PI * 2);
 
           context.fill();
         });
@@ -282,9 +268,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
 
   return (
     <div
-      className={`polyrib-splash ${
-        revealing ? "splash-revealing" : ""
-      }`}
+      className={`polyrib-splash ${revealing ? "splash-revealing" : ""}`}
       aria-label="Loading POLYRIB"
       role="status"
     >
@@ -295,24 +279,18 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
 
       {/* Logo and particle animation */}
       <div
-        className={`splash-logo-wrapper ${
-          revealing ? "splash-logo-exit" : ""
-        }`}
+        className={`splash-logo-wrapper ${revealing ? "splash-logo-exit" : ""}`}
         aria-hidden={revealing}
       >
         <canvas
           ref={canvasRef}
-          className={`splash-particles ${
-            settled ? "particles-hidden" : ""
-          }`}
+          className={`splash-particles ${settled ? "particles-hidden" : ""}`}
         />
 
         <img
           src="/polyrib-logo.png"
           alt="POLYRIB"
-          className={`splash-logo ${
-            settled ? "logo-visible" : ""
-          }`}
+          className={`splash-logo ${settled ? "logo-visible" : ""}`}
         />
       </div>
     </div>

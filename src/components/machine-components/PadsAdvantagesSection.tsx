@@ -135,7 +135,10 @@ export default function PadsAdvantagesSection() {
   };
 
   return (
-    <section className="mb-4 border border-[#276A96]/10 bg-white px-6 py-6 sm:p-10" style={pageTexture}>
+    <section
+      className="mb-4 border border-[#276A96]/10 bg-white px-6 py-6 sm:p-10"
+      style={pageTexture}
+    >
       {/* Badge */}
       <div className="mb-3 inline-flex items-center gap-2 rounded-xl border border-[#279ECE]/20 bg-[#279ECE]/10 px-3 py-1.5">
         <FileUser className="h-3.5 w-3.5 text-[#276A96]" />

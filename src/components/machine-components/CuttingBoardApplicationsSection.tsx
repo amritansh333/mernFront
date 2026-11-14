@@ -140,7 +140,10 @@ export default function CuttingBoardApplicationsSection() {
   };
 
   return (
-    <section className="mb-4 border border-[#276A96]/10 bg-white px-6 py-6 sm:p-10" style={pageTexture}>
+    <section
+      className="mb-4 border border-[#276A96]/10 bg-white px-6 py-6 sm:p-10"
+      style={pageTexture}
+    >
       {/* ======================================================
           BADGE
           ====================================================== */}
