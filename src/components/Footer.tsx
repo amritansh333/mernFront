@@ -29,8 +29,8 @@ function getFooterLinks(
         href: "/products/thermoplastics-machine-components",
       },
       {
-        label: "Strips & Profiles",
-        href: "/products/thermoplastics-machine-components/strips-and-profiles",
+        label: "Strips",
+        href: "/products/thermoplastics-machine-components/strips",
       },
       {
         label: "Application Ready Sheets",
