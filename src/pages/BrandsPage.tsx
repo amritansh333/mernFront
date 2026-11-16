@@ -178,6 +178,7 @@ export default function BrandsPage() {
   // Convert slug to readable text
   const formatText = (slug?: string) => {
     if (!slug) return "";
+
     return slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
   };
 
@@ -198,14 +199,29 @@ export default function BrandsPage() {
     load();
   }, [subcategorySlug]);
 
+  // Use the first available brand image for the hero banner.
+  const heroImage = brands.find(
+    (brand) => brand.image && brand.image.trim() !== "",
+  )?.image;
+
+  const heroImageUrl = heroImage
+    ? heroImage.startsWith("http")
+      ? heroImage
+      : `${API_BASE_URL}${heroImage}`
+    : manufacturingImage;
+
   const pageTexture = {
     backgroundColor: "#FFFFFF",
     backgroundImage: `
-      radial-gradient(circle at 12px 12px, rgba(39, 158, 206, 0.055) 1px, transparent 1.5px),
-      linear-gradient(135deg, rgba(39, 158, 206, 0.025) 25%, transparent 25%),
-      linear-gradient(315deg, rgba(39, 158, 206, 0.025) 25%, transparent 25%)
-    `,
-    backgroundSize: "28px 28px, 56px 56px, 56px 56px",
+    linear-gradient(
+      90deg,
+      #FFFFFF 0%,
+      #FDFEFF 25%,
+      #F5FAFC 55%,
+      #EAF5F9 80%,
+      #E3F1F7 100%
+    )
+  `,
   };
 
   return (
@@ -218,8 +234,8 @@ export default function BrandsPage() {
       <PageHeroBanner
         eyebrow="Explore available brands under Sheets & Blocks category. Browse materials, specifications and product ranges offered by each brand."
         title={subcategory?.name || formatText(subcategorySlug) || "Products"}
-        image={manufacturingImage}
-        imageAlt="Khanna Polyrib manufacturing facility"
+        image={heroImageUrl}
+        imageAlt="Brand image"
         imagePosition="center center"
         breadcrumbs={[
           { label: "Home", to: "/" },

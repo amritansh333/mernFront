@@ -81,7 +81,6 @@ function SubcategoryImageCarousel({
       });
 
     const discoverImages = async () => {
-      // Preserve the main image and discover numbered variants.
       const results = await Promise.all(
         candidates.map(async (src) => ({
           src,
@@ -187,46 +186,88 @@ export default function SubcategoriesPage() {
   // Convert slug to readable text
   const formatText = (slug?: string) => {
     if (!slug) return "";
+
     return slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
   };
 
   useEffect(() => {
+    let cancelled = false;
+
     const load = async () => {
+      setLoading(true);
+      setSubcategories([]);
+
       try {
         const res = await api.get(`/subcategories/by-category/${categorySlug}`);
 
-        setSubcategories(res.data);
+        if (!cancelled) {
+          setSubcategories(res.data);
+        }
       } catch (err) {
-        console.error(err);
+        console.error("Failed to load subcategories:", err);
       } finally {
-        setLoading(false);
+        if (!cancelled) {
+          setLoading(false);
+        }
       }
     };
 
-    load();
+    if (categorySlug) {
+      void load();
+    }
+
+    return () => {
+      cancelled = true;
+    };
   }, [categorySlug]);
+
+  // Find the first subcategory that has an image.
+  // This image will be displayed in the hero banner.
+  const heroImage = useMemo(() => {
+    const firstSubcategoryWithImage = subcategories.find(
+      (sub) => sub.image && sub.image.trim() !== "",
+    );
+
+    return firstSubcategoryWithImage
+      ? `${API_BASE_URL}${firstSubcategoryWithImage.image}`
+      : manufacturingImage;
+  }, [subcategories]);
+
+  const heroImageAlt = useMemo(() => {
+    const firstSubcategoryWithImage = subcategories.find(
+      (sub) => sub.image && sub.image.trim() !== "",
+    );
+
+    return firstSubcategoryWithImage
+      ? `${firstSubcategoryWithImage.name} product image`
+      : "Khanna Polyrib manufacturing facility";
+  }, [subcategories]);
 
   const pageTexture = {
     backgroundColor: "#FFFFFF",
     backgroundImage: `
-      radial-gradient(circle at 12px 12px, rgba(39, 158, 206, 0.055) 1px, transparent 1.5px),
-      linear-gradient(135deg, rgba(39, 158, 206, 0.025) 25%, transparent 25%),
-      linear-gradient(315deg, rgba(39, 158, 206, 0.025) 25%, transparent 25%)
-    `,
-    backgroundSize: "28px 28px, 56px 56px, 56px 56px",
+    linear-gradient(
+      90deg,
+      #FFFFFF 0%,
+      #FDFEFF 25%,
+      #F5FAFC 55%,
+      #EAF5F9 80%,
+      #E3F1F7 100%
+    )
+  `,
   };
 
   return (
     <div className="min-h-screen bg-white pt-16" style={pageTexture}>
       {/* =====================================================
           REUSABLE PAGE HERO BANNER
-          DYNAMIC CATEGORY INFORMATION
+          DYNAMIC SUBCATEGORY IMAGE
       ===================================================== */}
       <PageHeroBanner
-        eyebrow="Browse all subcategories under Thermoplastics Semi Finished Products. Explore different product types and navigate deeper into available brands."
+        eyebrow="Explore different product types and discover the range of solutions available under this category."
         title={formatText(categorySlug) || "Products"}
-        image={manufacturingImage}
-        imageAlt="Khanna Polyrib manufacturing facility"
+        image={heroImage}
+        imageAlt={heroImageAlt}
         imagePosition="center center"
         breadcrumbs={[
           { label: "Home", to: "/" },
@@ -240,8 +281,7 @@ export default function SubcategoriesPage() {
       />
 
       {/* =====================================================
-          CARDS SECTION
-          EXISTING IMPLEMENTATION UNCHANGED
+          SUBCATEGORY CARDS SECTION
       ===================================================== */}
       <section className="py-14">
         <div className="container max-w-7xl mx-auto px-6">
@@ -301,6 +341,14 @@ export default function SubcategoriesPage() {
                   </Link>
                 ))}
           </div>
+
+          {!loading && subcategories.length === 0 && (
+            <div className="py-16 text-center">
+              <p className="text-muted-foreground text-sm">
+                No subcategories available in this category.
+              </p>
+            </div>
+          )}
         </div>
       </section>
     </div>

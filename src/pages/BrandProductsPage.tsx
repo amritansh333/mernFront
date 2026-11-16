@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
+
 import { Link, useParams } from "react-router-dom";
+
 import { ArrowRight } from "lucide-react";
+
 import type { Brand, Product } from "@/types/catalog";
+
 import api from "@/lib/api";
 
 import PageHeroBanner from "@/components/hero-banner/PageHeroBanner";
+
 import manufacturingImage from "@/assets/csr-slider1.jpeg";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "";
@@ -189,6 +194,7 @@ export default function BrandProductsPage() {
   // Convert slug to readable text
   const formatText = (slug?: string) => {
     if (!slug) return "";
+
     return slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
   };
 
@@ -209,20 +215,36 @@ export default function BrandProductsPage() {
     load();
   }, [brandSlug]);
 
+  // Use the first available product image for the hero banner.
+  const heroImage = products.find(
+    (product) => product.image && product.image.trim() !== "",
+  )?.image;
+
+  const heroImageUrl = heroImage
+    ? heroImage.startsWith("http")
+      ? heroImage
+      : `${API_BASE_URL}${heroImage}`
+    : manufacturingImage;
+
   const pageTexture = {
     backgroundColor: "#FFFFFF",
     backgroundImage: `
-      radial-gradient(circle at 12px 12px, rgba(39, 158, 206, 0.055) 1px, transparent 1.5px),
-      linear-gradient(135deg, rgba(39, 158, 206, 0.025) 25%, transparent 25%),
-      linear-gradient(315deg, rgba(39, 158, 206, 0.025) 25%, transparent 25%)
-    `,
-    backgroundSize: "28px 28px, 56px 56px, 56px 56px",
+    linear-gradient(
+      90deg,
+      #FFFFFF 0%,
+      #FDFEFF 25%,
+      #F5FAFC 55%,
+      #EAF5F9 80%,
+      #E3F1F7 100%
+    )
+  `,
   };
 
   return (
     <div className="min-h-screen bg-white pt-16" style={pageTexture}>
       {/* =====================================================
           REUSABLE PAGE HERO BANNER
+
           DYNAMIC CATEGORY, SUBCATEGORY AND BRAND INFORMATION
       ===================================================== */}
 
@@ -231,8 +253,8 @@ export default function BrandProductsPage() {
           "Explore all products under this brand. Browse detailed specifications, applications and available variants."
         }
         title={brand?.name || formatText(brandSlug) || "Products"}
-        image={manufacturingImage}
-        imageAlt="Khanna Polyrib manufacturing facility"
+        image={heroImageUrl}
+        imageAlt="Product image"
         imagePosition="center center"
         breadcrumbs={[
           { label: "Home", to: "/" },

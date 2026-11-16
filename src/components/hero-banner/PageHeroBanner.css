@@ -1,4 +1,6 @@
+
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&display=swap");
+
 /* =====================================================
    REUSABLE PAGE HERO BANNER
    POLYRIB RESPONSIVE GEOMETRIC HERO
@@ -6,7 +8,10 @@
 
 .page-hero-banner {
   --page-hero-height: clamp(190px, 18vw, 275px);
-  --page-hero-divider-width: clamp(55px, 5.5vw, 80px);
+
+  /* Divider narrowed by approximately 25% */
+  --page-hero-divider-width: clamp(20.5px, 2.0625vw, 30px);
+
   --page-hero-split: 54%;
 
   /* POLYRIB BRAND COLORS */
@@ -310,26 +315,27 @@
 
 /* =====================================================
    DIAGONAL TRIANGULAR DIVIDER
+   WIDTH REDUCED - ORIGINAL ANGLE AND ALIGNMENT KEPT
 ===================================================== */
 
 .page-hero-divider {
   position: absolute;
-
   top: 0;
 
-  left: calc(var(--page-hero-split) - var(--page-hero-divider-width) * 0.38);
+  left: calc(
+    var(--page-hero-split) - var(--page-hero-divider-width) * 0.38
+  );
 
   width: var(--page-hero-divider-width);
   height: 100%;
 
   z-index: 5;
-
   overflow: hidden;
   pointer-events: none;
 
   clip-path: polygon(38% 0, 100% 0, 62% 100%, 0 100%);
 
-  background: #2082ac;
+  background: #dceff4;
 }
 
 /* =====================================================
@@ -342,7 +348,7 @@
   position: absolute;
   inset: 0;
 
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cpath d='M0 0H64L32 32Z' fill='%23279ECE'/%3E%3Cpath d='M64 0V64L32 32Z' fill='%23176B91'/%3E%3Cpath d='M64 64H0L32 32Z' fill='%232082AC'/%3E%3Cpath d='M0 64V0L32 32Z' fill='%2355C4D9'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cpath d='M0 0H64L32 32Z' fill='%23d9edf4'/%3E%3Cpath d='M64 0V64L32 32Z' fill='%23c9e7ef'/%3E%3Cpath d='M64 64H0L32 32Z' fill='%23e5f4f7'/%3E%3Cpath d='M0 64V0L32 32Z' fill='%23d2ebf1'/%3E%3C/svg%3E");
 
   background-size: 48px 48px;
   background-position: center;
@@ -365,10 +371,9 @@
 
   background: linear-gradient(
     135deg,
-    rgba(255, 255, 255, 0.18) 0%,
-    transparent 35%,
-    rgba(10, 65, 105, 0.12) 75%,
-    transparent 100%
+    rgba(255, 255, 255, 0.22) 0%,
+    transparent 45%,
+    rgba(255, 255, 255, 0.12) 100%
   );
 
   opacity: 0.8;
@@ -382,7 +387,7 @@
 @media (max-width: 1024px) {
   .page-hero-banner {
     --page-hero-split: 52.5%;
-    --page-hero-divider-width: 65px;
+    --page-hero-divider-width: 24.5px;
 
     height: clamp(250px, 21vw, 310px);
 
@@ -436,7 +441,7 @@
 @media (max-width: 768px) and (min-width: 641px) {
   .page-hero-banner {
     --page-hero-split: 52%;
-    --page-hero-divider-width: 52px;
+    --page-hero-divider-width: 19.5px;
 
     height: clamp(190px, 27vw, 220px);
   }
@@ -481,7 +486,7 @@
 @media (max-width: 640px) {
   .page-hero-banner {
     --page-hero-split: 52%;
-    --page-hero-divider-width: 42px;
+    --page-hero-divider-width: 16px;
 
     --page-hero-image-position-mobile: 50% center;
 
@@ -563,7 +568,7 @@
 @media (max-width: 380px) {
   .page-hero-banner {
     --page-hero-split: 52%;
-    --page-hero-divider-width: 36px;
+    --page-hero-divider-width: 13.5px;
 
     --page-hero-image-position-mobile: 50% center;
 
@@ -630,7 +635,7 @@
 
 @media (max-width: 340px) {
   .page-hero-banner {
-    --page-hero-divider-width: 32px;
+    --page-hero-divider-width: 12px;
 
     --page-hero-image-position-mobile: 50% center;
   }
