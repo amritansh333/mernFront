@@ -13,6 +13,9 @@ import {
   X,
   Send,
   PenLine,
+  Search,
+  ChevronDown,
+  Check,
 } from "lucide-react";
 
 import PageHeroBanner from "@/components/hero-banner/PageHeroBanner";
@@ -20,6 +23,718 @@ import manufacturingImage from "@/assets/csr-slider1.jpeg";
 
 /* ─── Tab type ─── */
 type Tab = "quote" | "drawing";
+
+type ProductOptionType = "category" | "subcategory" | "brand" | "product";
+
+interface ProductOption {
+  name: string;
+  type: ProductOptionType;
+  children?: ProductOption[];
+}
+
+interface FlatProductOption {
+  name: string;
+  type: ProductOptionType;
+  path: string;
+  depth: number;
+}
+
+export const PRODUCT_OPTIONS: ProductOption[] = [
+  {
+    name: "Thermoplastics Semi-Finished Products",
+    type: "category",
+    children: [
+      {
+        name: "Sheets & Blocks",
+        type: "subcategory",
+        children: [
+          {
+            name: "Polyrib V",
+            type: "brand",
+            children: [
+              {
+                name: "POLYRIB-V005",
+                type: "product",
+              },
+              {
+                name: "POLYRIB-V030",
+                type: "product",
+              },
+              {
+                name: "POLYRIB-L-V",
+                type: "product",
+              },
+              {
+                name: "POLYRIB-V SUPERSLIDE",
+                type: "product",
+              },
+              {
+                name: "POLYRIB-V-AS",
+                type: "product",
+              },
+              {
+                name: "POLYRIB-V-FR",
+                type: "product",
+              },
+              {
+                name: "POLYRIB-V FG",
+                type: "product",
+              },
+              {
+                name: "POLYRIB-C",
+                type: "product",
+              },
+            ],
+          },
+          {
+            name: "PCClear",
+            type: "brand",
+            children: [
+              {
+                name: "PCClear Light",
+                type: "product",
+              },
+              {
+                name: "PCClear UV Light",
+                type: "product",
+              },
+              {
+                name: "PCClear Glaze",
+                type: "product",
+              },
+              {
+                name: "PCClear Glaze UV",
+                type: "product",
+              },
+              {
+                name: "PCClear Glaze Diamond",
+                type: "product",
+              },
+              {
+                name: "PCClear RIB",
+                type: "product",
+              },
+              {
+                name: "PCClear OPAL",
+                type: "product",
+              },
+            ],
+          },
+          {
+            name: "Polyrib P",
+            type: "brand",
+            children: [
+              {
+                name: "Polyrib PPX-260",
+                type: "product",
+              },
+              {
+                name: "Polyrib PPX-259",
+                type: "product",
+              },
+              {
+                name: "Polyrib HGX",
+                type: "product",
+              },
+              {
+                name: "Polyrib P Hitech",
+                type: "product",
+              },
+              {
+                name: "Polyrib Hitech GL",
+                type: "product",
+              },
+              {
+                name: "Polyrib PGX-266 GL",
+                type: "product",
+              },
+              {
+                name: "Polyrib Ripla HIH",
+                type: "product",
+              },
+              {
+                name: "Polyrib Ripla HIK",
+                type: "product",
+              },
+              {
+                name: "Polyrib Ripla Hitech",
+                type: "product",
+              },
+              {
+                name: "Polyrib P PPH CED",
+                type: "product",
+              },
+              {
+                name: "Polyrib PPX AS",
+                type: "product",
+              },
+              {
+                name: "Polyrib PPC CED",
+                type: "product",
+              },
+            ],
+          },
+          {
+            name: "Polyrib H",
+            type: "brand",
+            children: [
+              {
+                name: "POLYRIB H EXT",
+                type: "product",
+              },
+              {
+                name: "POLYRIB L-V001",
+                type: "product",
+              },
+              {
+                name: "POLYRIB H Play EMB UV",
+                type: "product",
+              },
+              {
+                name: "POLYRIB LD",
+                type: "product",
+              },
+              {
+                name: "POLYRIB HGX-267 EXT",
+                type: "product",
+              },
+              {
+                name: "POLYRIB H Cutrite EMB",
+                type: "product",
+              },
+              {
+                name: "POLYRIB H CED",
+                type: "product",
+              },
+            ],
+          },
+          {
+            name: "Hitech",
+            type: "brand",
+            children: [
+              {
+                name: "Polyrib P Hitech",
+                type: "product",
+              },
+              {
+                name: "Polyrib Ripla Hitech",
+                type: "product",
+              },
+              {
+                name: "Polyrib Hitech GL",
+                type: "product",
+              },
+            ],
+          },
+          {
+            name: "Arete",
+            type: "brand",
+            children: [
+              {
+                name: "Arete L-V Superslide",
+                type: "product",
+              },
+              {
+                name: "Arete L-V",
+                type: "product",
+              },
+              {
+                name: "Arete L-V030",
+                type: "product",
+              },
+              {
+                name: "Arete L-V005",
+                type: "product",
+              },
+              {
+                name: "Arete L-V001",
+                type: "product",
+              },
+            ],
+          },
+          {
+            name: "Polylimb",
+            type: "brand",
+            children: [
+              {
+                name: "Polylimb Ortho AL",
+                type: "product",
+              },
+              {
+                name: "Polylimb Ortho Reflex",
+                type: "product",
+              },
+              {
+                name: "Polylimb Ortho Flex",
+                type: "product",
+              },
+              {
+                name: "Polylimb Ortho Ultra Flex",
+                type: "product",
+              },
+              {
+                name: "Polylimb Ortho Flex 001",
+                type: "product",
+              },
+            ],
+          },
+          {
+            name: "Cutrite",
+            type: "brand",
+            children: [
+              {
+                name: "Polyrib Cutrite EMB",
+                type: "product",
+              },
+              {
+                name: "Cutrite L-CED",
+                type: "product",
+              },
+            ],
+          },
+          {
+            name: "Plascon V",
+            type: "brand",
+            children: [
+              {
+                name: "PLASCON V",
+                type: "product",
+              },
+              {
+                name: "PLASCON V PIGMENTED",
+                type: "product",
+              },
+              {
+                name: "PLASCON GB",
+                type: "product",
+              },
+              {
+                name: "POLYRIB MOS2",
+                type: "product",
+              },
+            ],
+          },
+          {
+            name: "Pakaylon",
+            type: "brand",
+            children: [
+              {
+                name: "Pakaylon Sheets",
+                type: "product",
+              },
+            ],
+          },
+          {
+            name: "Paketal",
+            type: "brand",
+            children: [
+              {
+                name: "Paketal Natural",
+                type: "product",
+              },
+              {
+                name: "Paketal Black",
+                type: "product",
+              },
+            ],
+          },
+          {
+            name: "Polyrib A",
+            type: "brand",
+            children: [
+              {
+                name: "POLYRIB A Embossed Glossy",
+                type: "product",
+              },
+              {
+                name: "POLYRIB A Embossed Matt",
+                type: "product",
+              },
+              {
+                name: "POLYRIB A / ASA Embossed & Plain",
+                type: "product",
+              },
+              {
+                name: "POLYRIB A Acrylic Embossed Asca",
+                type: "product",
+              },
+              {
+                name: "POLYRIB ASA Sheets",
+                type: "product",
+              },
+              {
+                name: "POLYRIB A Dual",
+                type: "product",
+              },
+              {
+                name: "POLYRIB A FR UV",
+                type: "product",
+              },
+              {
+                name: "POLYRIB A WR3D",
+                type: "product",
+              },
+              {
+                name: "POLYRIB A CED",
+                type: "product",
+              },
+            ],
+          },
+          {
+            name: "KBK PS",
+            type: "product",
+          },
+        ],
+      },
+      {
+        name: "Rods & Tubes",
+        type: "subcategory",
+        children: [
+          {
+            name: "Plascon V",
+            type: "brand",
+            children: [
+              {
+                name: "Plascon V Rod",
+                type: "product",
+              },
+              {
+                name: "Plascon V Superslide",
+                type: "product",
+              },
+            ],
+          },
+          {
+            name: "Pakaylon Rods",
+            type: "brand",
+            children: [
+              {
+                name: "Kaylon Rod",
+                type: "product",
+              },
+              {
+                name: "Kaylon Tube",
+                type: "product",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        name: "Coils & Rolls",
+        type: "subcategory",
+        children: [
+          {
+            name: "Dipra Addclear Rolls",
+            type: "brand",
+            children: [
+              {
+                name: "Dipra Addclear Embossed",
+                type: "product",
+              },
+              {
+                name: "Dipra Uviofast Addclear",
+                type: "product",
+              },
+              {
+                name: "Dipra Addclear Diamond",
+                type: "product",
+              },
+              {
+                name: "Dipra Addclear Badal",
+                type: "product",
+              },
+            ],
+          },
+          {
+            name: "HDGL",
+            type: "brand",
+            children: [],
+          },
+          {
+            name: "Hitech GL",
+            type: "product",
+            children: [
+              {
+                name: "Polyrib-HGX-266-Ext",
+                type: "product",
+              },
+            ],
+          },
+          {
+            name: "PCClear Rolls",
+            type: "brand",
+            children: [
+              {
+                name: "Pcclear Light",
+                type: "product",
+              },
+              {
+                name: "Pcclear UV Light",
+                type: "product",
+              },
+              {
+                name: "Pcclear Glaze",
+                type: "product",
+              },
+              {
+                name: "Pcclear Glaze UV",
+                type: "product",
+              },
+              {
+                name: "Pcclear Glaze Diamond",
+                type: "product",
+              },
+              {
+                name: "Pcclear Opal",
+                type: "product",
+              },
+            ],
+          },
+          {
+            name: "PPGL",
+            type: "brand",
+            children: [
+              {
+                name: "Polyrib-PGX-266",
+                type: "product",
+              },
+            ],
+          },
+          {
+            name: "Polyrib-H Rolls",
+            type: "product",
+            children: [],
+          },
+        ],
+      },
+      {
+        name: "Welding Rods",
+        type: "subcategory",
+        children: [
+          {
+            name: "Polyrib-H Welding Rods",
+            type: "product",
+          },
+          {
+            name: "Polyrib-P Welding Rods",
+            type: "product",
+          },
+        ],
+      },
+      {
+        name: "Custom-Sized Plastic Sheets",
+        type: "subcategory",
+        children: [],
+      },
+    ],
+  },
+  {
+    name: "Thermoplastics Engineered Products",
+    type: "category",
+    children: [
+      {
+        name: "Strips",
+        type: "subcategory",
+        children: [],
+      },
+      {
+        name: "Profiles",
+        type: "subcategory",
+        children: [],
+      },
+      {
+        name: "Vacuum Formed Plastic Parts",
+        type: "subcategory",
+        children: [
+          {
+            name: "PCClear Base Plate",
+            type: "product",
+          },
+          {
+            name: "PCClear Louvers",
+            type: "product",
+          },
+        ],
+      },
+      {
+        name: "Soft Cutting Board: Ripla",
+        type: "subcategory",
+        children: [
+          {
+            name: "Ripla",
+            type: "product",
+          },
+          {
+            name: "Ripla HIH",
+            type: "product",
+          },
+          {
+            name: "Ripla HIK",
+            type: "product",
+          },
+          {
+            name: "Ripla Hitech",
+            type: "product",
+          },
+        ],
+      },
+      {
+        name: "Chopping Board: Cutrite",
+        type: "subcategory",
+        children: [
+          {
+            name: "Cutrite",
+            type: "product",
+          },
+          {
+            name: "Cutrite EMB",
+            type: "product",
+          },
+          {
+            name: "Cutrite-L CED",
+            type: "product",
+          },
+        ],
+      },
+      {
+        name: "Application Ready Sheets",
+        type: "subcategory",
+        children: [
+          {
+            name: "Arete Liners",
+            type: "product",
+          },
+          {
+            name: "Polylimb",
+            type: "product",
+          },
+          {
+            name: "MASS (Manya Shuttering Sheets)",
+            type: "product",
+          },
+          {
+            name: "POCAPP",
+            type: "product",
+          },
+        ],
+      },
+      {
+        name: "Machined Plastic Parts",
+        type: "subcategory",
+        children: [
+          {
+            name: "P-LPG",
+            type: "product",
+          },
+          {
+            name: "Plascon Sealing Strips",
+            type: "product",
+          },
+          {
+            name: "Plamacon",
+            type: "product",
+          },
+          {
+            name: "Metering Bar Holders",
+            type: "product",
+          },
+          {
+            name: "Plagro",
+            type: "product",
+          },
+          {
+            name: "Solution For Headbox",
+            type: "product",
+          },
+          {
+            name: "Plasb",
+            type: "product",
+          },
+          {
+            name: "Polyrib Car Stopper",
+            type: "product",
+          },
+          {
+            name: "Spur Gears",
+            type: "product",
+          },
+          {
+            name: "P Vibrating Screen",
+            type: "product",
+          },
+          {
+            name: "Plabott",
+            type: "product",
+          },
+          {
+            name: "Placoss",
+            type: "product",
+          },
+          {
+            name: "Kaylon Gears",
+            type: "product",
+          },
+          {
+            name: "Plascon Former Bottom Lip",
+            type: "product",
+          },
+          {
+            name: "CCN",
+            type: "product",
+          },
+        ],
+      },
+      {
+        name: "Fascia Pads / Marine Fender Pads",
+        type: "subcategory",
+        children: [],
+      },
+      {
+        name: "POP (Polyrib Outrigger Pads)",
+        type: "subcategory",
+        children: [],
+      },
+    ],
+  },
+];
+
+const flattenProductOptions = (
+  options: ProductOption[],
+  parentPath = "",
+  depth = 0,
+): FlatProductOption[] => {
+  return options.flatMap((option) => {
+    const path = parentPath ? `${parentPath} › ${option.name}` : option.name;
+
+    const currentOption: FlatProductOption = {
+      name: option.name,
+      type: option.type,
+      path,
+      depth,
+    };
+
+    return [
+      currentOption,
+      ...flattenProductOptions(option.children ?? [], path, depth + 1),
+    ];
+  });
+};
+
+const ALL_PRODUCT_OPTIONS = flattenProductOptions(PRODUCT_OPTIONS);
+// Get all descendants of a selected category, subcategory or brand
+const getDescendantPaths = (path: string): string[] => {
+  return ALL_PRODUCT_OPTIONS.filter((option) =>
+    option.path.startsWith(`${path} › `),
+  ).map((option) => option.path);
+};
+
+// Get all parent paths of an option
+const getAncestorPaths = (path: string): string[] => {
+  return ALL_PRODUCT_OPTIONS.filter((option) =>
+    path.startsWith(`${option.path} › `),
+  ).map((option) => option.path);
+};
 
 export default function ContactPage() {
   const [activeTab, setActiveTab] = useState<Tab>("quote");
@@ -33,6 +748,56 @@ export default function ContactPage() {
     product: "",
     requirement: "",
   });
+
+  const [productSearch, setProductSearch] = useState("");
+  const [showProductOptions, setShowProductOptions] = useState(false);
+  const [selectedProducts, setSelectedProducts] = useState<string[]>([]);
+
+  const handleProductToggle = (product: FlatProductOption) => {
+    const descendantPaths = getDescendantPaths(product.path);
+
+    const affectedPaths = [product.path, ...descendantPaths];
+
+    const ancestorPaths = getAncestorPaths(product.path);
+
+    // Check whether this option and all its descendants are selected
+    const isFullySelected =
+      selectedProducts.includes(product.path) ||
+      (descendantPaths.length > 0 &&
+        descendantPaths.every((path) => selectedProducts.includes(path)));
+
+    let updatedProducts: string[];
+
+    if (isFullySelected) {
+      // Deselect this option, its descendants and selected ancestors
+      updatedProducts = selectedProducts.filter(
+        (path) =>
+          !affectedPaths.includes(path) && !ancestorPaths.includes(path),
+      );
+    } else {
+      // Select this option and all its descendants
+      // Remove selected ancestors so they can reflect partial selection correctly
+      updatedProducts = Array.from(
+        new Set([
+          ...selectedProducts.filter((path) => !ancestorPaths.includes(path)),
+          ...affectedPaths,
+        ]),
+      );
+    }
+
+    setSelectedProducts(updatedProducts);
+
+    setFormData((prev) => ({
+      ...prev,
+      product: updatedProducts.join(", "),
+    }));
+  };
+
+  const filteredProducts = ALL_PRODUCT_OPTIONS.filter((product) =>
+    `${product.name} ${product.path}`
+      .toLowerCase()
+      .includes(productSearch.trim().toLowerCase()),
+  );
 
   const [quoteSubmitted, setQuoteSubmitted] = useState(false);
 
@@ -485,13 +1250,13 @@ export default function ContactPage() {
           <br />
           24/168 Birhana Road
           <br />
-          Kanpur-208001, India
+          Kanpur-208001, Uttar Pradesh, India
           <br />
           <span className="text-sm font-medium text-primary">WORK</span>
           <br />
-          Plot. 191-193 Akrampur Industrial Estate
+          Plot 191-193, Akrampur Industrial Estate
           <br />
-          Unnao-209801, Uttar Pradesh
+          Unnao-209801, Uttar Pradesh, India
           <br />
         </>
       ),
@@ -500,7 +1265,29 @@ export default function ContactPage() {
     {
       icon: Phone,
       label: "Phone",
-      value: "0515-2970306",
+      value: (
+        <div className="flex flex-col gap-1">
+          <a
+            href="tel:05152970306"
+            className="text-sm font-medium text-charcoal hover:text-primary hover:underline transition-colors"
+            aria-label="Call 0515-2970306"
+          >
+            <span className="text-sm font-medium text-primary">
+              0515-2970306
+            </span>
+          </a>
+
+          <a
+            href="tel:+919936794816"
+            className="text-sm font-medium text-charcoal hover:text-primary hover:underline transition-colors"
+            aria-label="Call +91-99367-94816"
+          >
+            <span className="text-sm font-medium text-primary">
+              +91-9936794816
+            </span>
+          </a>
+        </div>
+      ),
     },
 
     {
@@ -511,7 +1298,9 @@ export default function ContactPage() {
           href="mailto:info@polyrib.com"
           className="text-sm font-medium text-charcoal hover:underline"
         >
-          info@polyrib.com
+          <span className="text-sm font-medium text-primary">
+            info@polyrib.com
+          </span>
         </a>
       ),
     },
@@ -568,6 +1357,9 @@ export default function ContactPage() {
           requirement: "",
         });
 
+        setSelectedProducts([]);
+        setProductSearch("");
+        setShowProductOptions(false);
         setQuoteSubmitted(true);
 
         return;
@@ -918,11 +1710,12 @@ export default function ContactPage() {
 
                     <div>
                       <label className="block text-xs font-semibold text-charcoal mb-1.5 uppercase tracking-wider">
-                        Email
+                        Email *
                       </label>
 
                       <input
                         type="email"
+                        required
                         value={formData.email}
                         onChange={(e) =>
                           setFormData({
@@ -963,34 +1756,198 @@ export default function ContactPage() {
                       Product / Material of Interest
                     </label>
 
-                    <select
-                      value={formData.product}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          product: e.target.value,
-                        })
-                      }
-                      className="w-full min-w-0 border border-border bg-background px-3 py-2.5 text-sm text-primary-light outline-none focus:border-primary transition-colors rounded-xl"
-                    >
-                      <option value="">Select a product category...</option>
+                    <div className="relative">
+                      {/* SEARCH INPUT */}
 
-                      <option>Semi-Finished Products — Rods & Tubes</option>
+                      <div className="relative flex items-center">
+                        <Search className="absolute left-3 w-4 h-4 text-primary pointer-events-none" />
 
-                      <option>Semi-Finished Products — Sheets</option>
+                        <input
+                          type="text"
+                          value={
+                            showProductOptions
+                              ? productSearch
+                              : selectedProducts
+                                  .map(
+                                    (path) =>
+                                      ALL_PRODUCT_OPTIONS.find(
+                                        (product) => product.path === path,
+                                      )?.name ?? path,
+                                  )
+                                  .join(", ")
+                          }
+                          onFocus={() => {
+                            setProductSearch("");
+                            setShowProductOptions(true);
+                          }}
+                          onChange={(e) => {
+                            setProductSearch(e.target.value);
+                            setShowProductOptions(true);
+                          }}
+                          onBlur={() => {
+                            setTimeout(() => setShowProductOptions(false), 150);
+                          }}
+                          placeholder="Search products, brands or categories..."
+                          className="w-full min-w-0 border border-border bg-background pl-10 pr-11 py-2.5 text-sm text-primary-light outline-none focus:border-primary transition-colors rounded-xl"
+                        />
 
-                      <option>Semi-Finished Products — Rolls</option>
+                        {/* DROPDOWN ARROW */}
 
-                      <option>Machine Components — Wear Strips</option>
+                        <button
+                          type="button"
+                          onMouseDown={(e) => e.preventDefault()}
+                          onClick={() => {
+                            if (!showProductOptions) {
+                              setProductSearch("");
+                            }
 
-                      <option>Machine Components — Guide Rails</option>
+                            setShowProductOptions(!showProductOptions);
+                          }}
+                          className="absolute right-3 flex items-center justify-center text-primary hover:text-primary-dark transition-colors"
+                          aria-label="Toggle product options"
+                          aria-expanded={showProductOptions}
+                        >
+                          <ChevronDown
+                            className={`w-4 h-4 transition-transform duration-200 ${
+                              showProductOptions ? "rotate-180" : ""
+                            }`}
+                          />
+                        </button>
+                      </div>
 
-                      <option>Machine Components — Chain Guides</option>
+                      {/* HIERARCHICAL PRODUCT OPTIONS */}
 
-                      <option>Custom Machined Components</option>
+                      {showProductOptions && (
+                        <div className="absolute z-30 mt-1 w-full max-h-80 overflow-y-auto border border-border bg-background rounded-xl shadow-lg">
+                          {filteredProducts.length > 0 ? (
+                            filteredProducts.map((product) => {
+                              const descendantPaths = getDescendantPaths(
+                                product.path,
+                              );
 
-                      <option>Other / Not sure</option>
-                    </select>
+                              const isSelected =
+                                selectedProducts.includes(product.path) ||
+                                (descendantPaths.length > 0 &&
+                                  descendantPaths.every((path) =>
+                                    selectedProducts.includes(path),
+                                  ));
+
+                              const isPartiallySelected =
+                                !isSelected &&
+                                descendantPaths.some((path) =>
+                                  selectedProducts.includes(path),
+                                );
+
+                              return (
+                                <button
+                                  key={product.path}
+                                  type="button"
+                                  onMouseDown={(e) => e.preventDefault()}
+                                  onClick={() => handleProductToggle(product)}
+                                  className={`w-full flex items-center gap-3 text-left pr-3 py-2.5 text-sm transition-colors ${
+                                    isSelected
+                                      ? "bg-primary/10 text-primary"
+                                      : "text-primary-light hover:bg-primary/5 hover:text-primary"
+                                  }`}
+                                  style={{
+                                    paddingLeft: `${12 + product.depth * 17}px`,
+                                  }}
+                                >
+                                  {/* CHECKBOX */}
+
+                                  <span
+                                    className={`w-4 h-4 shrink-0 border rounded flex items-center justify-center transition-colors rounded-xl ${
+                                      isSelected
+                                        ? "bg-primary border-primary"
+                                        : isPartiallySelected
+                                          ? "bg-primary/20 border-primary"
+                                          : "border-border"
+                                    }`}
+                                  >
+                                    {isSelected && (
+                                      <Check className="w-3 h-3 text-white" />
+                                    )}
+
+                                    {isPartiallySelected && (
+                                      <span className="text-primary text-xs font-bold leading-none">
+                                        −
+                                      </span>
+                                    )}
+                                  </span>
+
+                                  {/* NAME AND HIERARCHY */}
+
+                                  <span className="flex-1 min-w-0">
+                                    {/* Product / Category Name */}
+                                    <span className="block truncate font-medium">
+                                      {product.name}
+                                    </span>
+
+                                    {/* Hierarchy Path - Always Visible */}
+                                    {product.depth > 0 && (
+                                      <span className="block text-[10px] text-charcoal mt-0.5 truncate">
+                                        {product.path
+                                          .split(" › ")
+                                          .slice(0, -1)
+                                          .join(" › ")}
+                                      </span>
+                                    )}
+                                  </span>
+
+                                  {/* TYPE BADGE */}
+
+                                  <span className="shrink-0 text-[9px] tracking-wider text-muted-foreground border border-border rounded-xl px-1.5 py-0.5">
+                                    {product.type}
+                                  </span>
+                                </button>
+                              );
+                            })
+                          ) : (
+                            <div className="px-3 py-4 text-center">
+                              <Search className="w-5 h-5 text-muted-foreground mx-auto mb-2" />
+
+                              <p className="text-sm text-muted-foreground mb-2">
+                                No products found matching "{productSearch}".
+                              </p>
+
+                              <button
+                                type="button"
+                                onMouseDown={(e) => e.preventDefault()}
+                                onClick={() => setProductSearch("")}
+                                className="text-xs font-semibold text-primary hover:text-primary-dark hover:underline transition-colors"
+                              >
+                                Clear search and view all products
+                              </button>
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* SELECTED PRODUCTS COUNT */}
+
+                    {selectedProducts.length > 0 && (
+                      <div className="mt-2 flex flex-wrap items-center gap-2">
+                        <p className="text-xs text-muted-foreground">
+                          {selectedProducts.length} item
+                          {selectedProducts.length > 1 ? "s" : ""} selected
+                        </p>
+
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setSelectedProducts([]);
+                            setFormData({
+                              ...formData,
+                              product: "",
+                            });
+                          }}
+                          className="text-xs text-primary hover:underline font-medium"
+                        >
+                          Clear all
+                        </button>
+                      </div>
+                    )}
                   </div>
 
                   {/* REQUIREMENT */}
@@ -1017,18 +1974,18 @@ export default function ContactPage() {
 
                   {/* SUBMIT */}
 
-                  <div className="flex flex-col sm:flex-row sm:items-start gap-4 pt-2">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-4 pt-2">
                     <button
                       type="submit"
                       disabled={quoteSubmitting}
-                      className="w-full sm:w-auto justify-center px-7 py-3 bg-primary text-primary-foreground text-sm font-bold hover:bg-primary-dark disabled:opacity-40 disabled:cursor-not-allowed transition-colors duration-200 inline-flex items-center gap-2 rounded-xl"
+                      className="w-full sm:w-auto shrink-0 whitespace-nowrap justify-center px-7 py-3 bg-primary text-primary-foreground text-sm font-bold hover:bg-primary-dark disabled:opacity-40 disabled:cursor-not-allowed transition-colors duration-200 inline-flex items-center gap-2 rounded-xl"
                     >
                       {quoteSubmitting ? "Submitting..." : "Submit Enquiry"}
 
-                      <ArrowRight className="w-4 h-4" />
+                      <ArrowRight className="w-4 h-4 shrink-0" />
                     </button>
 
-                    <p className="text-sm text-muted-foreground leading-relaxed mt-0.5">
+                    <p className="flex-1 min-w-0 text-sm text-muted-foreground leading-relaxed sm:mt-0.5">
                       By submitting this form you agree to our Privacy Policy.
                       Your details will only be used to respond to your enquiry.
                     </p>
@@ -1145,11 +2102,12 @@ export default function ContactPage() {
 
                     <div>
                       <label className="block text-xs font-semibold text-charcoal mb-1.5 uppercase tracking-wider">
-                        Email
+                        Email *
                       </label>
 
                       <input
                         type="email"
+                        required
                         value={drawData.email}
                         onChange={(e) =>
                           setDrawData({

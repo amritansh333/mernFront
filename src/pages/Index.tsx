@@ -121,7 +121,7 @@ const allIndustries = [
   { abbr: "Pulp & Paper", slug: "pulp-paper" },
   { abbr: "Signage", slug: "signage" },
   { abbr: "Sports & Recreation", slug: "sports-recreation" },
-  { abbr: "Transportaion", slug: "transportation" },
+  { abbr: "Transportation", slug: "transportation" },
   { abbr: "Water & Waste Water", slug: "water-waste-water" },
 ];
 
@@ -153,13 +153,15 @@ const brandFamilies = [
   {
     abbr: "POLYRIB V",
     slug: "polyrib-v",
-    name: "UltraHigh Molecular Weight Polyethylene (UHMWPE)",
+    path: "/products/thermoplastics-semi-finished-products/sheets-blocks/polyrib-v",
+    name: "Ultra-High Molecular Weight Polyethylene (UHMWPE)",
     prop: "High Performance Thermoplastic Sheets for Industrial Applications",
     image: polyribV,
   },
   {
     abbr: "PCCLEAR",
     slug: "pcclear",
+    path: "/products/thermoplastics-semi-finished-products/sheets-blocks/pcclear",
     name: "Polycarbonate (PC)",
     prop: "Superior Sheets for Roofing, Glazing, Fabrication",
     image: pcclear,
@@ -167,6 +169,7 @@ const brandFamilies = [
   {
     abbr: "POLYRIB P",
     slug: "polyrib-p",
+    path: "/products/thermoplastics-semi-finished-products/sheets-blocks/polyrib-p",
     name: "Polypropylene (PP)",
     prop: "High Quality Crystalline Polymer for Chemical, Electroplating, Galvanizing Industry",
     image: polyribP,
@@ -174,6 +177,7 @@ const brandFamilies = [
   {
     abbr: "POLYRIB H",
     slug: "polyrib-h",
+    path: "/products/thermoplastics-semi-finished-products/sheets-blocks/polyrib-h",
     name: "High Density Polyethylene (HDPE)",
     prop: "Most widely used Thermoplastic for Commercial, Industrial and Food Contact Industry",
     image: polyribH,
@@ -181,6 +185,7 @@ const brandFamilies = [
   {
     abbr: "HITECH",
     slug: "hitech",
+    path: "/products/thermoplastics-semi-finished-products/sheets-blocks/hitech",
     name: "Polypropylene (PP), High Density Polyethylene (HDPE)",
     prop: "High Temperature and Chemical Resistant Polymer Sheets",
     image: hitech,
@@ -188,13 +193,15 @@ const brandFamilies = [
   {
     abbr: "ARETE",
     slug: "arete",
-    name: "UltraHigh Molecular Weight Polyethylene (UHMWPE) , High Density Polyethylene (HDPE)",
-    prop: "High Performance Thermoplastic Sheets for Lining Material for bulk solids",
+    path: "/products/thermoplastics-semi-finished-products/sheets-blocks/arete",
+    name: "Ultra-High Molecular Weight Polyethylene (UHMWPE), High Density Polyethylene (HDPE)",
+    prop: "High Performance Thermoplastic Sheets for High-performance lining sheets for bulk solids handling",
     image: arete,
   },
   {
     abbr: "RIPLA",
     slug: "ripla",
+    path: "/products/thermoplastics-machine-components/cutting-board",
     name: "Polypropylene (PP)",
     prop: "Impact Resistant Thermoplastics for High Quality Cutting Boards",
     image: ripla,
@@ -202,6 +209,7 @@ const brandFamilies = [
   {
     abbr: "DIPRA ADD CLEAR",
     slug: "dipra",
+    path: "/products/thermoplastics-semi-finished-products/coils-rolls/dipra-add-clear-rolls",
     name: "Polymer UV Sheets",
     prop: "High Quality Polymer UV sheets for Outdoor Applications",
     image: dipra,
@@ -209,6 +217,7 @@ const brandFamilies = [
   {
     abbr: "POLYLIMB",
     slug: "polylimb",
+    path: "/products/thermoplastics-semi-finished-products/sheets-blocks/polylimb",
     name: "Speciality Thermoplastic Sheets",
     prop: "Speciality Polymer Sheets for Orthotic and Prosthetic Applications",
     image: polylimb,
@@ -216,6 +225,7 @@ const brandFamilies = [
   {
     abbr: "CUTRITE",
     slug: "cutrite",
+    path: "/products/thermoplastics-machine-components/chopping-board",
     name: "Low Density Polyethylene (LDPE)",
     prop: "Durable and Flexible Thermoplastic for high impact chopping boards",
     image: cutrite,
@@ -223,15 +233,17 @@ const brandFamilies = [
   {
     abbr: "PLASCON V",
     slug: "plascon-v",
-    name: "UltraHigh Molecular Weight Polyethylene (UHMWPE) Components",
-    prop: "Thermoplastics with low coefficient friction and high abrasion resistance for Engineering Solutions",
+    path: "/products/thermoplastics-semi-finished-products/sheets-blocks/plascon-v",
+    name: "Ultra-High Molecular Weight Polyethylene (UHMWPE)",
+    prop: "Thermoplastics with low coefficient of friction and high abrasion resistance for Engineering Solutions",
     image: plasconV,
   },
   {
     abbr: "KAYLON",
     slug: "pakaylon",
+    path: "/products/thermoplastics-semi-finished-products/rods-tubes/pakaylon-rods",
     name: "Cast Nylon",
-    prop: "Partially Crystalline Polyamide for Precision Machining and Exceptional Wear Ressistance",
+    prop: "Partially Crystalline Polyamide for Precision Machining and Exceptional Wear Resistance",
     image: kaylon,
   },
 ];
@@ -992,7 +1004,7 @@ function MaterialsSection() {
                     itemClassName="polyrib-brand-card"
                   >
                     <Link
-                      to={`/products/thermoplastics-semi-finished-products/sheets-blocks/${m.slug}`}
+                      to={m.path}
                       className="category-card block group border border-border overflow-hidden rounded-xl"
                     >
                       {/* Brand image */}
@@ -1893,8 +1905,8 @@ const Index = () => {
 
   useEffect(() => {
     const lines = [
-      "Best Engineering",
-      "Thermoplastics Solutions",
+      "Engineering",
+      "Thermoplastic Solutions",
       "Built For Performance",
     ];
 
@@ -1958,8 +1970,8 @@ const Index = () => {
           <div className="max-w-2xl">
             {/* Hero Heading — Mask Reveal + Cyan Highlight Sweep */}
             <h1 className="hero-cyan-heading font-heading text-[32px] sm:text-[42px] lg:text-[48px] leading-tight mb-6">
-              <span className="block pt-12 sm:pt-8">Best Engineering</span>
-              <span className="block">Thermoplastics Solutions</span>
+              <span className="block pt-12 sm:pt-8">Engineering</span>
+              <span className="block">Thermoplastic Solutions</span>
               <span className="block">Built For Performance</span>
             </h1>
             <div
@@ -2045,7 +2057,7 @@ const Index = () => {
 
             <ProductCategoryCard
               title="Thermoplastic Engineered Products"
-              description="RIPLA cutting boards, CUTRITE chopping boards, ARETE composite liners, POLYLIMB Orthopaedic Sheets, Strips & Profiles, Vacuum Formed Parts and Precision Machined Plastic Components — all manufactured in Polyrib's proprietary grades."
+              description="RIPLA cutting boards, CUTRITE chopping boards, ARETE composite liners, POLYLIMB Orthopaedic Sheets, Strips, Profiles, Vacuum Formed Parts and Precision Machined Plastic Components — all manufactured in Polyrib's proprietary grades."
               href={machineComponents.rootPath}
               images={[
                 machineComponentsImage1,

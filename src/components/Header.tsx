@@ -388,8 +388,12 @@ function getNavItems(
         { label: "Blog & Gallery", href: "/blog" },
         { label: "Events", href: "/events" },
         { label: "Resources & Downloads", href: "/resources" },
-        { label: "Contact", href: "/contact?tab=quote" },
+        { label: "Send Your Drawing", href: "/contact?tab=drawing" },
       ],
+    },
+    {
+      label: "Contact",
+      href: "/contact?tab=quote",
     },
   ];
 }

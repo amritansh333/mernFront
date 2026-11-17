@@ -150,10 +150,9 @@ export default function AboutPage() {
     };
   }, []);
 
-  
-const pageTexture = {
-  backgroundColor: "#FFFFFF",
-  backgroundImage: `
+  const pageTexture = {
+    backgroundColor: "#FFFFFF",
+    backgroundImage: `
     linear-gradient(
       90deg,
       #FFFFFF 0%,
@@ -163,8 +162,7 @@ const pageTexture = {
       #E3F1F7 100%
     )
   `,
-};
-
+  };
 
   return (
     <div className="min-h-screen bg-white pt-16" style={pageTexture}>
@@ -205,25 +203,21 @@ const pageTexture = {
                   <strong className="text-primary">
                     Khanna Polyrib Pvt. Ltd.
                   </strong>{" "}
-                  is the manufacturer of superior engineering plastic solutions
-                  that can be used in the world market with{" "}
-                  <strong className="text-primary">ISO accredeation</strong>,
-                  which is founded on the good principles of polymer science and
-                  production best practices.
+                  manufactures engineering plastic solutions for Indian and
+                  global markets. Our{" "}
+                  <strong className="text-primary">ISO 9001:2015</strong>{" "}
+                  certified operations are built on sound polymer science and
+                  proven production practice.
                 </p>
                 <p>
-                  Having decades of experience in this industry, we combine
-                  technical invention, exploration of materials, and
-                  meticulousness in manufacturing into the creation of plastics
-                  that can be reliably worked within the most industrial
-                  requirements.
+                  With four decades in the industry, we combine material
+                  know-how and careful manufacturing to make plastics that
+                  perform reliably in demanding industrial applications.
                 </p>
                 <p>
-                  We are more than a manufacturing company. We also collaborate
-                  with industries to provide development-tailored materials with
-                  a precise performance that provides strength, uniformity, and
-                  sustainability in a wide range of uses that we have
-                  implemented.
+                  We work with customers to develop materials tailored to their
+                  application, delivering consistent strength, uniformity and
+                  long service life.
                 </p>
               </div>
             </div>
@@ -243,15 +237,15 @@ const pageTexture = {
             {[
               {
                 title: "Our Mission",
-                desc: "To deliver innovative, high-quality polymer solutions that empower modern infrastructure, driven by integrity, customer focus, sustainability, and continuous innovation—building lasting partnerships through reliability, performance, and responsible growth.",
+                desc: "To deliver innovative, high-quality polymer solutions that empower modern infrastructure, driven by integrity, customer focus, sustainability, and continuous innovation-building lasting partnerships through reliability, performance, and responsible growth.",
               },
               {
                 title: "Our Vision",
-                desc: "Our vision is to have Khanna Polyrib establish standards in the quality, application performance, and responsible polymer engineering in the global industries.",
+                desc: "To set the standard for quality, application performance and responsible polymer engineering in global industry.",
               },
               {
                 title: "Our Values",
-                desc: "We have values at Khanna Polyrib, which we apply to each and every product we make and to each and every relationship we form. Our engineering approach believes in integrity, constant quality, and continuous improvement.",
+                desc: "Integrity, consistent quality and continuous improvement guide every product we make and every relationship we build.",
               },
             ].map((item) => (
               <div

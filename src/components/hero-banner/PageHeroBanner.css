@@ -1,4 +1,3 @@
-
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&display=swap");
 
 /* =====================================================
@@ -9,10 +8,15 @@
 .page-hero-banner {
   --page-hero-height: clamp(190px, 18vw, 275px);
 
-  /* Divider narrowed by approximately 25% */
-  --page-hero-divider-width: clamp(20.5px, 2.0625vw, 30px);
-
   --page-hero-split: 54%;
+
+  /*
+    TRUE PARALLEL DIAGONAL DIVIDER
+
+    The divider is a parallelogram.
+    Both diagonal edges have exactly the same slope.
+  */
+  --page-hero-divider-width: 42px;
 
   /* POLYRIB BRAND COLORS */
   --hero-blue: #279ece;
@@ -21,7 +25,6 @@
   --hero-cyan: #55c4d9;
   --hero-cyan-light: #9adce5;
 
-  /* Consistent mobile image positioning */
   --page-hero-image-position-mobile: 50% center;
 
   position: relative;
@@ -36,7 +39,7 @@
   width: 100%;
   max-width: 1600px;
 
-  height: clamp(230px, 20vw, 290px);
+  height: var(--page-hero-height);
   min-height: 0;
 
   margin: 0 auto;
@@ -124,7 +127,6 @@
 
 /* =====================================================
    CONTENT
-   Consistent website/container alignment
 ===================================================== */
 
 .page-hero-content {
@@ -164,7 +166,6 @@
   color: var(--page-hero-accent);
 
   font-weight: 800;
-
   text-decoration: none;
 
   transition: opacity 200ms ease;
@@ -244,6 +245,8 @@
 
 /* =====================================================
    RIGHT IMAGE
+   FULL RECTANGULAR IMAGE
+   DIVIDER OVERLAYS IMAGE WITHOUT CLIPPING
 ===================================================== */
 
 .page-hero-image {
@@ -260,9 +263,13 @@
 
   overflow: hidden;
 
-  z-index: 1;
+  z-index: 2;
 
   background: #ffffff;
+
+  /* No independent clipping */
+  clip-path: none;
+  margin: 0;
 }
 
 .page-hero-image img {
@@ -278,9 +285,9 @@
 
   object-position: var(--page-hero-image-position, center center);
 
-  transition: transform 900ms cubic-bezier(0.2, 0.7, 0.3, 1);
-
   max-width: none;
+
+  transition: transform 900ms cubic-bezier(0.2, 0.7, 0.3, 1);
 }
 
 /* =====================================================
@@ -314,28 +321,53 @@
 }
 
 /* =====================================================
-   DIAGONAL TRIANGULAR DIVIDER
-   WIDTH REDUCED - ORIGINAL ANGLE AND ALIGNMENT KEPT
+   TRUE PARALLEL DIAGONAL DIVIDER
+
+   Both diagonal edges are parallel.
+
+   Top:
+   Divider shifts towards the right.
+
+   Bottom:
+   Divider shifts towards the left.
+
+   The divider overlaps both the brand and image
+   sections, so no gaps can appear.
 ===================================================== */
 
 .page-hero-divider {
   position: absolute;
-  top: 0;
 
-  left: calc(
-    var(--page-hero-split) - var(--page-hero-divider-width) * 0.38
-  );
+  top: 0;
+  bottom: 0;
+
+  /*
+    Center divider around the section split.
+    Half of its width overlaps each section.
+  */
+  left: calc(var(--page-hero-split) - var(--page-hero-divider-width) / 2);
 
   width: var(--page-hero-divider-width);
   height: 100%;
 
   z-index: 5;
+
   overflow: hidden;
   pointer-events: none;
 
-  clip-path: polygon(38% 0, 100% 0, 62% 100%, 0 100%);
+  /*
+    PARALLELOGRAM
 
-  background: #dceff4;
+    Top-left:     50%
+    Top-right:   100%
+    Bottom-right: 50%
+    Bottom-left:  0%
+
+    Both diagonal edges have identical slopes.
+  */
+  clip-path: polygon(50% 0, 100% 0, 50% 100%, 0 100%);
+
+  background: var(--page-hero-divider, #dceff4);
 }
 
 /* =====================================================
@@ -386,8 +418,8 @@
 
 @media (max-width: 1024px) {
   .page-hero-banner {
-    --page-hero-split: 52.5%;
-    --page-hero-divider-width: 24.5px;
+    --page-hero-split: 56%;
+    --page-hero-divider-width: 38px;
 
     height: clamp(250px, 21vw, 310px);
 
@@ -407,14 +439,12 @@
 
   .page-hero-breadcrumb {
     margin-bottom: 15px;
+
     font-size: 11px;
     font-weight: 800;
   }
 
-  .page-hero-breadcrumb a {
-    font-weight: 900;
-  }
-
+  .page-hero-breadcrumb a,
   .page-hero-current {
     font-weight: 900;
   }
@@ -427,10 +457,6 @@
     font-size: clamp(24px, 3.5vw, 34px);
     font-weight: 900;
   }
-
-  .page-hero-image img {
-    object-position: var(--page-hero-image-position, center center);
-  }
 }
 
 /* =====================================================
@@ -440,8 +466,8 @@
 
 @media (max-width: 768px) and (min-width: 641px) {
   .page-hero-banner {
-    --page-hero-split: 52%;
-    --page-hero-divider-width: 19.5px;
+    --page-hero-split: 56%;
+    --page-hero-divider-width: 30px;
 
     height: clamp(190px, 27vw, 220px);
   }
@@ -452,7 +478,9 @@
 
   .page-hero-breadcrumb {
     gap: 6px;
+
     margin-bottom: 12px;
+
     font-size: 10px;
     font-weight: 800;
   }
@@ -465,6 +493,7 @@
   .page-hero-eyebrow {
     font-size: 9px;
     font-weight: 900;
+
     margin-bottom: 7px;
   }
 
@@ -485,8 +514,8 @@
 
 @media (max-width: 640px) {
   .page-hero-banner {
-    --page-hero-split: 52%;
-    --page-hero-divider-width: 16px;
+    --page-hero-split: 56%;
+    --page-hero-divider-width: 24px;
 
     --page-hero-image-position-mobile: 50% center;
 
@@ -516,6 +545,7 @@
 
   .page-hero-breadcrumb {
     gap: 5px;
+
     margin-bottom: 13px;
 
     font-size: 9px;
@@ -532,6 +562,7 @@
 
     font-size: 8px;
     font-weight: 900;
+
     letter-spacing: 0.12em;
   }
 
@@ -540,6 +571,7 @@
 
     font-weight: 900;
     line-height: 1.15;
+
     letter-spacing: -0.035em;
   }
 
@@ -548,11 +580,6 @@
     height: 3px;
 
     margin-top: 11px;
-  }
-
-  .page-hero-image {
-    clip-path: none;
-    margin-left: 0;
   }
 
   .page-hero-image img {
@@ -567,8 +594,8 @@
 
 @media (max-width: 380px) {
   .page-hero-banner {
-    --page-hero-split: 52%;
-    --page-hero-divider-width: 13.5px;
+    --page-hero-split: 56%;
+    --page-hero-divider-width: 21px;
 
     --page-hero-image-position-mobile: 50% center;
 
@@ -590,7 +617,9 @@
   .page-hero-breadcrumb {
     font-size: 8px;
     font-weight: 800;
+
     gap: 4px;
+
     margin-bottom: 11px;
   }
 
@@ -612,15 +641,12 @@
   .page-hero-accent {
     width: 32px;
     height: 3px;
+
     margin-top: 9px;
   }
 
   .page-hero-divider::before {
     background-size: 25px 25px;
-  }
-
-  .page-hero-image {
-    clip-path: none;
   }
 
   .page-hero-image img {
@@ -635,7 +661,7 @@
 
 @media (max-width: 340px) {
   .page-hero-banner {
-    --page-hero-divider-width: 12px;
+    --page-hero-divider-width: 19px;
 
     --page-hero-image-position-mobile: 50% center;
   }

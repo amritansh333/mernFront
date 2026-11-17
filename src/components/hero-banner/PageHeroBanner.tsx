@@ -46,7 +46,7 @@ export default function PageHeroBanner({
   backgroundColor = "#f2fbf9",
   accentColor = "#2082ac",
   highlightColor = "#126d94",
-  dividerColor = "#2082ac",
+  dividerColor = "#dceff4",
   headingColor = "#172b37",
 
   height = "clamp(190px, 18vw, 275px)",
@@ -115,9 +115,6 @@ export default function PageHeroBanner({
         </div>
       </div>
 
-      {/* MIDDLE: ANGLED DIVIDER */}
-      <div className="page-hero-divider" aria-hidden="true" />
-
       {/* RIGHT: IMAGE */}
       <div className="page-hero-image">
         <img
@@ -130,6 +127,9 @@ export default function PageHeroBanner({
 
         <div className="page-hero-image-overlay" />
       </div>
+
+      {/* MIDDLE: DIAGONAL DIVIDER */}
+      <div className="page-hero-divider" aria-hidden="true" />
     </header>
   );
 }

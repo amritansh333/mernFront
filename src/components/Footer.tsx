@@ -42,7 +42,7 @@ function getFooterLinks(
       { label: "POLYRIB H (HDPE)", href: "/materials/hdpe" },
       { label: "POLYRIB P (PP)", href: "/materials/pp" },
       { label: "PCCLEAR (PC)", href: "/materials/pc" },
-      { label: "KAYLON (Nylon)", href: "/materials/pa6" },
+      { label: "KAYLON (Cast Nylon)", href: "/materials/pa6" },
       { label: "PAKETAL (Acetal)", href: "/materials/acetal" },
     ],
     Company: [
@@ -179,7 +179,13 @@ export function Footer() {
           </div>
           <div className="flex items-center gap-3">
             <Phone className="w-4 h-4 text-primary-light shrink-0" />
-            <span className="text-white/55 text-sm">0515-2970306</span>
+            <a
+              href="tel:05152970306"
+              className="text-white/55 text-sm hover:text-white transition-colors duration-200"
+              aria-label="Call 0515-2970306"
+            >
+              0515-2970306
+            </a>
           </div>
           <div className="flex items-center gap-3">
             <Mail className="w-4 h-4 text-primary-light shrink-0" />

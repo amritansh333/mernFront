@@ -76,7 +76,7 @@ export default function ProductRenderer({
       path: "/products/thermoplastics-machine-components/polyrib-strips",
       image: "/uploads/subcategories/strips-and-profiles.jpeg",
       description: [
-        "Precision engineered thermoplastic strips and profiles for industrial applications.",
+        "Precision engineered thermoplastic strips for industrial applications.",
       ],
     },
     {
@@ -85,16 +85,7 @@ export default function ProductRenderer({
       path: "/products/thermoplastics-machine-components/profiles",
       image: "/uploads/subcategories/strips-and-profiles.jpeg",
       description: [
-        "Precision engineered thermoplastic strips and profiles for industrial applications.",
-      ],
-    },
-    {
-      name: "Strips and Profiles",
-      slug: "strips-and-profiles",
-      path: "/products/thermoplastics-machine-components/strips-and-profiles",
-      image: "/uploads/subcategories/strips-and-profiles.jpeg",
-      description: [
-        "Precision engineered thermoplastic strips and profiles for industrial applications.",
+        "Precision engineered thermoplastic profiles for industrial applications.",
       ],
     },
     {
