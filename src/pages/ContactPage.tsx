@@ -752,30 +752,8 @@ export default function ContactPage() {
   const [productSearch, setProductSearch] = useState("");
   const [showProductOptions, setShowProductOptions] = useState(false);
   const [selectedProducts, setSelectedProducts] = useState<string[]>([]);
-  const productOptionsRef = useRef<HTMLDivElement>(null);
-  const lastToggledProductPathRef = useRef<string | null>(null);
-
-  useEffect(() => {
-    if (!showProductOptions || !lastToggledProductPathRef.current) return;
-
-    const selectedOption = Array.from(
-      productOptionsRef.current?.querySelectorAll<HTMLElement>(
-        "[data-product-path]",
-      ) ?? [],
-    ).find(
-      (option) =>
-        option.dataset.productPath === lastToggledProductPathRef.current,
-    );
-
-    selectedOption?.scrollIntoView({
-      behavior: "smooth",
-      block: "nearest",
-      inline: "nearest",
-    });
-  }, [selectedProducts, showProductOptions]);
 
   const handleProductToggle = (product: FlatProductOption) => {
-    lastToggledProductPathRef.current = product.path;
     const descendantPaths = getDescendantPaths(product.path);
 
     const affectedPaths = [product.path, ...descendantPaths];
@@ -1840,10 +1818,7 @@ export default function ContactPage() {
                       {/* HIERARCHICAL PRODUCT OPTIONS */}
 
                       {showProductOptions && (
-                        <div
-                          ref={productOptionsRef}
-                          className="absolute z-30 mt-1 w-full max-h-[55dvh] sm:max-h-80 overflow-y-auto overscroll-contain scroll-smooth border border-border bg-background rounded-xl shadow-lg"
-                        >
+                        <div className="absolute z-30 mt-1 w-full max-h-80 overflow-y-auto border border-border bg-background rounded-xl shadow-lg">
                           {filteredProducts.length > 0 ? (
                             filteredProducts.map((product) => {
                               const descendantPaths = getDescendantPaths(
@@ -1867,22 +1842,22 @@ export default function ContactPage() {
                                 <button
                                   key={product.path}
                                   type="button"
-                                  data-product-path={product.path}
                                   onMouseDown={(e) => e.preventDefault()}
                                   onClick={() => handleProductToggle(product)}
-                                  className={`w-full flex items-center gap-3 text-left pr-3 py-2.5 text-sm transition-colors ${
+
+                                  className={`w-full flex items-start gap-3 text-left pr-3 py-2.5 text-sm transition-colors border-b border-border last:border-b-0 ${
                                     isSelected
                                       ? "bg-primary/10 text-primary"
                                       : "text-primary-light hover:bg-primary/5 hover:text-primary"
                                   }`}
+
                                   style={{
                                     paddingLeft: `${12 + product.depth * 17}px`,
                                   }}
                                 >
                                   {/* CHECKBOX */}
-
                                   <span
-                                    className={`w-4 h-4 shrink-0 border rounded flex items-center justify-center transition-colors rounded-xl ${
+                                    className={`w-4 h-4 shrink-0 mt-0.5 border rounded flex items-center justify-center transition-colors rounded-xl ${
                                       isSelected
                                         ? "bg-primary border-primary"
                                         : isPartiallySelected
@@ -1902,16 +1877,15 @@ export default function ContactPage() {
                                   </span>
 
                                   {/* NAME AND HIERARCHY */}
-
                                   <span className="flex-1 min-w-0">
                                     {/* Product / Category Name */}
-                                    <span className="block truncate font-medium">
+                                    <span className="block font-medium whitespace-normal break-words">
                                       {product.name}
                                     </span>
 
-                                    {/* Hierarchy Path - Always Visible */}
+                                    {/* Hierarchy Path - Full Content Visible */}
                                     {product.depth > 0 && (
-                                      <span className="block text-[10px] text-charcoal mt-0.5 truncate">
+                                      <span className="block text-[10px] text-charcoal mt-0.5 whitespace-normal break-words">
                                         {product.path
                                           .split(" › ")
                                           .slice(0, -1)
@@ -1921,7 +1895,6 @@ export default function ContactPage() {
                                   </span>
 
                                   {/* TYPE BADGE */}
-
                                   <span className="shrink-0 text-[9px] tracking-wider text-muted-foreground border border-border rounded-xl px-1.5 py-0.5">
                                     {product.type}
                                   </span>
