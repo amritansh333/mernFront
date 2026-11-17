@@ -742,7 +742,7 @@ const INDUSTRY_DATA: Record<
     standards: ["ISO 9001:2015"],
   },
   "material-handling": {
-    title: "Materail Handling",
+    title: "Material Handling",
     subtitle: "Low-friction solutions for efficient flow.",
     image: materialHandlingImage,
     intro:
