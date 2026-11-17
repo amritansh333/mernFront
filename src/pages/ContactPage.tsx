@@ -16,6 +16,7 @@ import {
   Search,
   ChevronDown,
   Check,
+  MessageCircleQuestion
 } from "lucide-react";
 
 import PageHeroBanner from "@/components/hero-banner/PageHeroBanner";
@@ -1496,7 +1497,7 @@ export default function ContactPage() {
                 type="button"
                 onClick={() => handleTabChange("quote")}
                 aria-pressed={activeTab === "quote"}
-                className={`rounded-lg border border-primary ${tabButtonBase} ${
+                className={`rounded-xl border border-primary ${tabButtonBase} ${
                   activeTab === "quote" ? tabButtonActive : tabButtonInactive
                 }`}
               >
@@ -1517,7 +1518,7 @@ export default function ContactPage() {
                 type="button"
                 onClick={() => handleTabChange("drawing")}
                 aria-pressed={activeTab === "drawing"}
-                className={`rounded-lg ${tabButtonBase} ${
+                className={`rounded-xl ${tabButtonBase} ${
                   activeTab === "drawing" ? tabButtonActive : tabButtonInactive
                 }`}
               >
@@ -1555,7 +1556,7 @@ export default function ContactPage() {
               <div className="space-y-4">
                 {contactItems.map(({ icon: Icon, label, value }) => (
                   <div key={label} className="flex gap-3">
-                    <div className="w-9 h-9 bg-primary/10 flex items-center justify-center shrink-0 mt-0.5 rounded-xl">
+                    <div className="w-9 h-9 bg-primary/10 flex items-center justify-center shrink-0 mt-0.5 rounded-full">
                       <Icon className="w-4 h-4 text-primary" />
                     </div>
 
@@ -1655,9 +1656,23 @@ export default function ContactPage() {
                   onSubmit={handleQuoteSubmit}
                   className="border border-border p-5 sm:p-8 space-y-6 rounded-xl bg-white"
                 >
-                  <h2 className="font-heading text-xl text-charcoal">
-                    Enquiry Details
-                  </h2>
+                  <div className="flex items-start gap-3 mb-2">
+                    <div className="w-10 h-10 bg-primary/10 flex items-center justify-center shrink-0 rounded-full">
+                      <MessageCircleQuestion className="w-5 h-5 text-primary" />
+                    </div>
+
+                    <div className="min-w-0">
+                      <h2 className="font-heading text-xl text-charcoal">
+                        Enquiry Details
+                      </h2>
+
+                      <p className="text-xs text-muted-foreground mt-0.5">
+                        Share your contact information, select the product or material
+                        you're interested in, and describe your requirements. Our team
+                        will review your enquiry and get back to you with the right solution.
+                      </p>
+                    </div>
+                  </div>
 
                   {quoteError && (
                     <div className="rounded-sm border border-destructive/30 bg-destructive/10 px-4 py-3 text-sm text-destructive">
@@ -2040,7 +2055,7 @@ export default function ContactPage() {
                   {/* FORM HEADING */}
 
                   <div className="flex items-start gap-3 mb-2">
-                    <div className="w-10 h-10 bg-primary/10 flex items-center justify-center shrink-0 rounded-xl">
+                    <div className="w-10 h-10 bg-primary/10 flex items-center justify-center shrink-0 rounded-full">
                       <Send className="w-5 h-5 text-primary" />
                     </div>
 

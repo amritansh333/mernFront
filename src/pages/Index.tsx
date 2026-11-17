@@ -2105,7 +2105,7 @@ const Index = () => {
           <div className="polyrib-cta-button-wrapper flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               to="/contact?tab=quote"
-              className="inline-flex items-center gap-2 px-7 py-3 bg-primary-foreground text-primary text-sm font-bold hover:bg-surface-subtle transition-colors duration-200 rounded-lg"
+              className="inline-flex items-center gap-2 px-7 py-3 bg-primary-foreground text-primary text-sm font-bold hover:bg-surface-subtle transition-colors duration-200 rounded-xl"
             >
               Request a Quote <PenLine className="w-4 h-4" />
             </Link>
