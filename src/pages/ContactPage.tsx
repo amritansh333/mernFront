@@ -752,8 +752,30 @@ export default function ContactPage() {
   const [productSearch, setProductSearch] = useState("");
   const [showProductOptions, setShowProductOptions] = useState(false);
   const [selectedProducts, setSelectedProducts] = useState<string[]>([]);
+  const productOptionsRef = useRef<HTMLDivElement>(null);
+  const lastToggledProductPathRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (!showProductOptions || !lastToggledProductPathRef.current) return;
+
+    const selectedOption = Array.from(
+      productOptionsRef.current?.querySelectorAll<HTMLElement>(
+        "[data-product-path]",
+      ) ?? [],
+    ).find(
+      (option) =>
+        option.dataset.productPath === lastToggledProductPathRef.current,
+    );
+
+    selectedOption?.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+      inline: "nearest",
+    });
+  }, [selectedProducts, showProductOptions]);
 
   const handleProductToggle = (product: FlatProductOption) => {
+    lastToggledProductPathRef.current = product.path;
     const descendantPaths = getDescendantPaths(product.path);
 
     const affectedPaths = [product.path, ...descendantPaths];
@@ -1653,7 +1675,7 @@ export default function ContactPage() {
               ) : (
                 <form
                   onSubmit={handleQuoteSubmit}
-                  className="border border-border p-5 sm:p-8 space-y-6 rounded-xl bg-primary/5"
+                  className="border border-border p-5 sm:p-8 space-y-6 rounded-xl bg-white"
                 >
                   <h2 className="font-heading text-xl text-charcoal">
                     Enquiry Details
@@ -1818,7 +1840,10 @@ export default function ContactPage() {
                       {/* HIERARCHICAL PRODUCT OPTIONS */}
 
                       {showProductOptions && (
-                        <div className="absolute z-30 mt-1 w-full max-h-80 overflow-y-auto border border-border bg-background rounded-xl shadow-lg">
+                        <div
+                          ref={productOptionsRef}
+                          className="absolute z-30 mt-1 w-full max-h-[55dvh] sm:max-h-80 overflow-y-auto overscroll-contain scroll-smooth border border-border bg-background rounded-xl shadow-lg"
+                        >
                           {filteredProducts.length > 0 ? (
                             filteredProducts.map((product) => {
                               const descendantPaths = getDescendantPaths(
@@ -1842,6 +1867,7 @@ export default function ContactPage() {
                                 <button
                                   key={product.path}
                                   type="button"
+                                  data-product-path={product.path}
                                   onMouseDown={(e) => e.preventDefault()}
                                   onClick={() => handleProductToggle(product)}
                                   className={`w-full flex items-center gap-3 text-left pr-3 py-2.5 text-sm transition-colors ${
@@ -2036,7 +2062,7 @@ export default function ContactPage() {
               ) : (
                 <form
                   onSubmit={handleDrawSubmit}
-                  className="border border-border p-5 sm:p-8 space-y-6 rounded-xl bg-primary/5"
+                  className="border border-border p-5 sm:p-8 space-y-6 rounded-xl bg-white"
                 >
                   {/* FORM HEADING */}
 
