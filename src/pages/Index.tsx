@@ -1972,7 +1972,7 @@ const Index = () => {
             <h1 className="hero-cyan-heading font-heading text-[32px] sm:text-[42px] lg:text-[48px] leading-tight mb-6">
               <span className="block pt-12 sm:pt-8">Engineering</span>
               <span className="block">Thermoplastic Solutions</span>
-              <span className="block">Built For Performance</span>
+              <span className="block">Built for Performance</span>
             </h1>
             <div
               className="flex flex-col items-start sm:flex-row sm:items-center gap-2 sm:gap-3 animate-fade-in"
