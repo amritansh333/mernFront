@@ -413,28 +413,6 @@ export default function ProductDetailPage() {
                         />
                       );
                     })}
-
-                    {images.length > 1 && (
-                      <button
-                        type="button"
-                        onClick={prevImage}
-                        aria-label="Previous product image"
-                        className="absolute left-3 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-xl border border-[#DCEAF1] bg-white/95 text-[#0F2A3D] shadow-sm transition-all duration-200 hover:bg-[#279ECE] hover:text-white active:scale-95"
-                      >
-                        <ChevronLeft className="h-5 w-5" />
-                      </button>
-                    )}
-
-                    {images.length > 1 && (
-                      <button
-                        type="button"
-                        onClick={nextImage}
-                        aria-label="Next product image"
-                        className="absolute right-3 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-xl border border-[#DCEAF1] bg-white/95 text-[#0F2A3D] shadow-sm transition-all duration-200 hover:bg-[#279ECE] hover:text-white active:scale-95"
-                      >
-                        <ChevronRight className="h-5 w-5" />
-                      </button>
-                    )}
                   </div>
 
                   {images.length > 1 && (

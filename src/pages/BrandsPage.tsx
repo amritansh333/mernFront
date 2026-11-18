@@ -232,7 +232,7 @@ export default function BrandsPage() {
       ===================================================== */}
 
       <PageHeroBanner
-        eyebrow="Explore available brands under Sheets & Blocks category. Browse materials, specifications and product ranges offered by each brand."
+        eyebrow={`Explore available brands under ${subcategory?.name || formatText(subcategorySlug) || "this"} category. Browse materials, specifications and product ranges offered by this category.`}
         title={subcategory?.name || formatText(subcategorySlug) || "Products"}
         image={heroImageUrl}
         imageAlt="Brand image"

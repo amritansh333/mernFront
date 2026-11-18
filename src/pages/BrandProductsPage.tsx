@@ -249,9 +249,7 @@ export default function BrandProductsPage() {
       ===================================================== */}
 
       <PageHeroBanner
-        eyebrow={
-          "Explore all products under this brand. Browse detailed specifications, applications and available variants."
-        }
+        eyebrow={`Explore all products under ${brand?.name || formatText(brandSlug) || "this brand"} brand. Browse detailed specifications, applications and available variants offered by this brand.`}
         title={brand?.name || formatText(brandSlug) || "Products"}
         image={heroImageUrl}
         imageAlt="Product image"
