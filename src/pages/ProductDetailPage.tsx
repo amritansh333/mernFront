@@ -6,7 +6,7 @@ import {
   CheckCircle,
   PenLine,
   Download,
-  FileText,
+  PackageSearch,
   Factory,
   ShieldCheck,
   Layers,
@@ -19,6 +19,11 @@ import {
   Wrench,
   FlaskConical,
   Info,
+  PaintbrushVertical,
+  RulerDimensionLine,
+  BadgeCheck,
+  ChevronsRight,
+  FileText,
 } from "lucide-react";
 import type { Product } from "@/types/product";
 import type { Brand } from "@/types/catalog";
@@ -283,7 +288,7 @@ export default function ProductDetailPage() {
         <div className="container mx-auto grid max-w-7xl grid-cols-1 items-center gap-8 px-6 lg:grid-cols-2 lg:gap-12">
           {/* LEFT SIDE */}
 
-          <div className="min-w-0">
+          <div className="min-w-0 order-2 lg:order-1">
             {loading ? (
               <>
                 <div className="mb-6 space-y-4">
@@ -303,10 +308,10 @@ export default function ProductDetailPage() {
 
                 <div className="mb-7">
                   <div className="mb-4 flex items-center gap-2">
-                    <Info className="h-5 w-5 text-[#279ECE]" />
+                    <PackageSearch className="h-5 w-5 text-[#279ECE]" />
 
-                    <h2 className="font-heading text-lg font-bold text-charcoal">
-                      Product Overview
+                    <h2 className="font-heading text-xl font-bold text-charcoal">
+                      {product.name}
                     </h2>
                   </div>
 
@@ -318,7 +323,7 @@ export default function ProductDetailPage() {
                       <div key={i} className="flex items-start gap-3">
                         <FileText className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
 
-                        <p className="min-w-0 flex-1 text-[#2B3647]">{para}</p>
+                        <p className="min-w-0 flex-1 text-charcoal">{para}</p>
                       </div>
                     ))}
                   </div>
@@ -326,14 +331,13 @@ export default function ProductDetailPage() {
 
                 {/* ACTION BUTTONS */}
 
-                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                <div className="grid grid-cols-2 gap-2">
                   <Link
                     to="/contact"
-                    className="group inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl border border-[#279ECE] bg-gradient-to-r from-[#279ECE] to-[#1F7FA8] px-4 text-center text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md hover:shadow-[#279ECE]/15 active:translate-y-0"
+                    className="group inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl border border-[#279ECE] bg-gradient-to-r from-[#279ECE] to-[#1F7FA8] px-2 text-center text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md hover:shadow-[#279ECE]/15 active:translate-y-0"
                   >
                     <span>Request Quote</span>
-
-                    <PenLine className="h-4 w-4 transition-transform duration-300 group-hover:rotate-[-8deg]" />
+                    <PenLine className="h-4 w-4 shrink-0 transition-transform duration-300 group-hover:rotate-[-8deg]" />
                   </Link>
 
                   {product.pdfUrl ? (
@@ -341,14 +345,13 @@ export default function ProductDetailPage() {
                       href={`${BASE_URL}${product.pdfUrl}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl border border-[#279ECE] bg-white px-4 text-center text-sm font-semibold text-[#1F7FA8] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#F3FAFD] hover:shadow-sm active:translate-y-0"
+                      className="group inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl border border-[#279ECE] bg-white px-2 text-center text-sm font-semibold text-[#1F7FA8] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#F3FAFD] hover:shadow-sm active:translate-y-0"
                     >
                       <span>Download Datasheet</span>
-
-                      <Download className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-0.5" />
+                      <Download className="h-4 w-4 shrink-0 transition-transform duration-300 group-hover:translate-y-0.5" />
                     </a>
                   ) : (
-                    <div className="hidden sm:block" />
+                    <div />
                   )}
                 </div>
               </div>
@@ -357,7 +360,7 @@ export default function ProductDetailPage() {
 
           {/* RIGHT SIDE IMAGE SLIDER */}
 
-          <div className="relative min-w-0">
+          <div className="relative min-w-0 order-1 lg:order-2">
             {loading || (product?.image && images.length === 0) ? (
               <div className="relative aspect-[4/3] overflow-hidden rounded-xl border border-[#E2EDF3] bg-white">
                 <div className="h-full w-full animate-pulse bg-gray-100" />
@@ -374,7 +377,7 @@ export default function ProductDetailPage() {
                           .map((material) => material.name)
                           .join(", ")}`}
                       >
-                        <ShieldCheck className="h-3.5 w-3.5 shrink-0 text-[#279ECE]" />
+                        <FlaskConical className="h-3.5 w-3.5 shrink-0 text-[#279ECE]" />
 
                         <span className="truncate text-[10px] font-bold uppercase tracking-wide text-[#276A96] sm:text-[11px]">
                           {product.materials
@@ -454,6 +457,78 @@ export default function ProductDetailPage() {
                       ))}
                     </div>
                   )}
+                  {/* COLOR OPTIONS + THICKNESS RANGE */}
+                  {product?.specifications && (
+                    <div className="mt-4 grid grid-cols-2 gap-3">
+                      {/* COLOR OPTIONS */}
+                      {(() => {
+                        const colorEntry = Object.entries(
+                          product.specifications,
+                        ).find(
+                          ([key]) =>
+                            /colou?r.*options/i.test(key) ||
+                            /colour/i.test(key),
+                        );
+
+                        if (!colorEntry) return null;
+
+                        const colors = Array.isArray(colorEntry[1])
+                          ? colorEntry[1]
+                          : String(colorEntry[1]).split(",");
+
+                        return (
+                          <div className="flex min-w-0 items-center gap-2">
+                            <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full">
+                              <PaintbrushVertical className="h-4 w-4 text-[#279ECE]" />
+                            </div>
+
+                            <div className="min-w-0">
+                              <p className="text-[9px] font-bold uppercase tracking-wide text-[#527184] sm:text-[10px]">
+                                Color Options
+                              </p>
+
+                              <p className="break-words text-xs font-semibold text-[#276A96] sm:text-sm">
+                                {colors
+                                  .map((color) => String(color).trim())
+                                  .join(", ")}
+                              </p>
+                            </div>
+                          </div>
+                        );
+                      })()}
+
+                      {/* THICKNESS RANGE */}
+                      {(() => {
+                        const thicknessEntry = Object.entries(
+                          product.specifications,
+                        ).find(([key]) => /thickness/i.test(key));
+
+                        if (!thicknessEntry) return null;
+
+                        const thickness = Array.isArray(thicknessEntry[1])
+                          ? thicknessEntry[1].join(", ")
+                          : String(thicknessEntry[1]);
+
+                        return (
+                          <div className="flex min-w-0 items-center gap-2">
+                            <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full">
+                              <RulerDimensionLine className="h-4 w-4 text-[#279ECE]" />
+                            </div>
+
+                            <div className="min-w-0">
+                              <p className="text-[9px] font-bold uppercase tracking-wide text-[#527184] sm:text-[10px]">
+                                Thickness Range
+                              </p>
+
+                              <p className="break-words text-xs font-semibold text-[#276A96] sm:text-sm">
+                                {thickness}
+                              </p>
+                            </div>
+                          </div>
+                        );
+                      })()}
+                    </div>
+                  )}
                 </>
               )
             )}
@@ -468,7 +543,7 @@ export default function ProductDetailPage() {
           {/* TECHNICAL CHARACTERISTICS */}
 
           {loading ? (
-            <div>
+            <div className="order-2 lg:order-1">
               <div className="mb-3 h-4 w-28 animate-pulse rounded bg-gray-200" />
               <div className="mb-6 h-8 w-64 animate-pulse rounded bg-gray-200" />
 
@@ -483,7 +558,7 @@ export default function ProductDetailPage() {
             </div>
           ) : (
             product.keyFeatures?.length > 0 && (
-              <div>
+              <div className="order-2 lg:order-1">
                 <div className="mb-6">
                   <p className="section-label mb-2">KEY PROPERTIES</p>
 
@@ -496,20 +571,20 @@ export default function ProductDetailPage() {
                   </p>
                 </div>
 
-                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                <div className="grid grid-cols-2 gap-3">
                   {product.keyFeatures.map((feature: string, i: number) => {
                     const Icon = propertyIcons[i % propertyIcons.length];
 
                     return (
                       <div
                         key={i}
-                        className="group flex min-h-[76px] items-center justify-center gap-3 rounded-xl border border-primary bg-white px-4 py-4 text-center transition-all duration-200 hover:border-[#279ECE]/50 hover:bg-[#F8FCFE] active:scale-[0.99]"
+                        className="group flex min-h-[54px] w-full min-w-0 items-center justify-center gap-2 rounded-xl border border-[#279ECE] bg-white px-2 py-3 text-center transition-all duration-200 hover:border-[#1688B9] hover:bg-[#F3FAFD] active:scale-[0.98]"
                       >
-                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition-colors duration-200 group-hover:bg-[#DDF2FA]">
-                          <Icon className="h-5 w-5 text-[#279ECE]" />
+                        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl transition-colors duration-200 group-hover:bg-[#DDF2FA] sm:h-10 sm:w-10">
+                          <Icon className="h-4 w-4 text-[#279ECE] sm:h-5 sm:w-5" />
                         </div>
 
-                        <p className="min-w-0 text-center text-sm font-medium leading-relaxed text-charcoal">
+                        <p className="min-w-0 break-words text-center text-xs font-medium leading-relaxed text-charcoal sm:text-sm">
                           {feature}
                         </p>
                       </div>
@@ -523,7 +598,7 @@ export default function ProductDetailPage() {
           {/* PRODUCT DETAILS TABLE */}
 
           {loading ? (
-            <div>
+            <div className="order-1 lg:order-2">
               <div className="mb-4 h-4 w-36 animate-pulse rounded bg-gray-200" />
 
               <div className="overflow-hidden rounded-xl border border-[#DCE7ED] bg-white">
@@ -546,7 +621,7 @@ export default function ProductDetailPage() {
           ) : (
             product.specifications &&
             Object.keys(product.specifications).length > 0 && (
-              <div className="min-w-0">
+              <div className="min-w-0 order-1 lg:order-2">
                 <div className="mb-6">
                   <p className="section-label mb-2">PRODUCT DETAILS</p>
 
@@ -684,18 +759,25 @@ export default function ProductDetailPage() {
                 </p>
               </div>
 
-              <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+              <div className="grid grid-cols-2 gap-3 sm:gap-4">
                 {product.applications.map((area: string, i: number) => {
                   const Icon = applicationIcons[i % applicationIcons.length];
 
                   return (
                     <div
                       key={i}
-                      className="group inline-flex min-h-[54px] w-full items-center justify-center gap-3 rounded-xl border border-[#279ECE] bg-white px-5 py-3 text-center transition-all duration-200 hover:border-[#1688B9] hover:bg-[#F3FAFD] active:scale-[0.98] sm:w-auto sm:justify-start"
+                      className="group relative flex min-w-0 items-center gap-2 overflow-hidden rounded-2xl border border-primary bg-white p-3 transition-all duration-300 hover:-translate-y-1 hover:border-[#279ECE]/50 hover:shadow-md hover:shadow-[#279ECE]/10 sm:gap-3 sm:p-4"
                     >
-                      <Icon className="h-5 w-5 shrink-0 text-[#279ECE] transition-transform duration-200 group-hover:scale-105" />
+                      {/* Accent */}
+                      <div className="absolute bottom-0 left-0 top-0 w-1 bg-gradient-to-b from-[#279ECE] to-[#1F7FA8] opacity-70 transition-all duration-300 group-hover:w-1.5 group-hover:opacity-100" />
 
-                      <span className="text-sm font-medium text-[#334B5C] transition-colors duration-200 group-hover:text-[#147CA8]">
+                      {/* Smaller Icon */}
+                      <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-[#C9E8F5] bg-white shadow-sm sm:h-8 sm:w-8">
+                        <Icon className="h-3.5 w-3.5 text-[#279ECE] sm:h-4 sm:w-4" />
+                      </div>
+
+                      {/* Vertically Centered Text */}
+                      <span className="min-w-0 break-words text-xs font-semibold leading-relaxed text-charcoal transition-colors duration-300 group-hover:text-[#147CA8] sm:text-sm">
                         {area}
                       </span>
                     </div>

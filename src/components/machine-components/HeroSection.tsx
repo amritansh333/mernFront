@@ -3,11 +3,12 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   CircleCheck,
-  ShieldCheck,
+  FlaskConical,
   PenLine,
   Upload,
   ChevronLeft,
   ChevronRight,
+  ShieldCheck,
   X,
   ZoomIn,
 } from "lucide-react";
@@ -362,7 +363,7 @@ export default function HeroSection({
                     className="absolute left-2 top-2 z-30 flex max-w-[calc(100%-1rem)] items-center gap-1.5 rounded-xl border border-primary/50 bg-white/95 px-2 py-1.5 shadow-sm backdrop-blur-sm sm:left-3 sm:top-3 sm:gap-2 sm:px-3 sm:py-2"
                     aria-label={`Materials: ${materialNames.join(", ")}`}
                   >
-                    <ShieldCheck className="h-3 w-3 shrink-0 text-[#279ECE] sm:h-3.5 sm:w-3.5" />
+                    <FlaskConical className="h-3 w-3 shrink-0 text-[#279ECE] sm:h-3.5 sm:w-3.5" />
                     <span className="truncate text-[9px] font-bold uppercase tracking-wide text-[#276A96] sm:text-[10px] md:text-[11px]">
                       {materialNames.join(" · ")}
                     </span>
@@ -400,28 +401,6 @@ export default function HeroSection({
                     <ZoomIn className="h-4 w-4" />
                   </span>
                 </button>
-                {/* Previous Arrow */}
-                {galleryImages.length > 1 && (
-                  <button
-                    type="button"
-                    onClick={showPrevious}
-                    aria-label="Previous product image"
-                    className="absolute left-2 top-1/2 z-20 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-white/70 bg-white/90 text-[#0F2A3D] shadow-md transition-all duration-200 hover:scale-105 hover:bg-[#279ECE] hover:text-white"
-                  >
-                    <ChevronLeft className="h-5 w-5" />
-                  </button>
-                )}
-                {/* Next Arrow */}
-                {galleryImages.length > 1 && (
-                  <button
-                    type="button"
-                    onClick={showNext}
-                    aria-label="Next product image"
-                    className="absolute right-2 top-1/2 z-20 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-white/70 bg-white/90 text-[#0F2A3D] shadow-md transition-all duration-200 hover:scale-105 hover:bg-[#279ECE] hover:text-white"
-                  >
-                    <ChevronRight className="h-5 w-5" />
-                  </button>
-                )}
               </div>
               {/* Image Indicators */}
               <div className="flex items-center justify-center gap-2 pt-4 pb-1">

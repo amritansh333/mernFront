@@ -16,7 +16,7 @@ import {
   Search,
   ChevronDown,
   Check,
-  MessageCircleQuestion
+  MessageCircleQuestion,
 } from "lucide-react";
 
 import PageHeroBanner from "@/components/hero-banner/PageHeroBanner";
@@ -1667,9 +1667,10 @@ export default function ContactPage() {
                       </h2>
 
                       <p className="text-xs text-muted-foreground mt-0.5">
-                        Share your contact information, select the product or material
-                        you're interested in, and describe your requirements. Our team
-                        will review your enquiry and get back to you with the right solution.
+                        Share your contact information, select the product or
+                        material you're interested in, and describe your
+                        requirements. Our team will review your enquiry and get
+                        back to you with the right solution.
                       </p>
                     </div>
                   </div>
