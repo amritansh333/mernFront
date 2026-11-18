@@ -337,7 +337,7 @@ export default function MachineComponentsPage() {
         </div>
 
         <section className="min-w-0 flex-1">
-          <div className="sticky top-16 z-20 border-b border-divider px-4 py-3 lg:hidden">
+          <div className="sticky top-16 z-20 border-b border-divider px-4 py-3 lg:hidden backdrop-blur-md">
             {/* ================= TABLET ================= */}
             <div className="hidden sm:flex items-center justify-between">
               {/* Explore */}
@@ -490,7 +490,7 @@ export default function MachineComponentsPage() {
                   <Button
                     variant="outline"
                     className="
-  h-11
+    h-11
   flex-1
   min-w-0
   justify-center

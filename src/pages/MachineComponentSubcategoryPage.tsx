@@ -967,7 +967,7 @@ export default function MachineComponentSubcategoryPage() {
         </div>
 
         <section className="min-w-0 flex-1">
-          <div className="sticky top-16 z-20 border-b border-divider px-4 py-3 lg:hidden">
+          <div className="sticky top-16 z-20 border-b border-divider px-4 py-3 lg:hidden backdrop-blur-md">
             {/* ================= TABLET ================= */}
             <div className="hidden sm:flex items-center justify-between">
               {/* Explore */}
@@ -1135,6 +1135,7 @@ export default function MachineComponentSubcategoryPage() {
               h-8
               flex-1
               min-w-0
+              text-[13px]
               justify-center
               border-[#A9D8EB]
               hover:border-[#A9D8EB]
