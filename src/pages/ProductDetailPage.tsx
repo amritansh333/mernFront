@@ -371,20 +371,21 @@ export default function ProductDetailPage() {
                   <div className="product-gallery relative aspect-[4/3] overflow-hidden rounded-xl border border-primary/70 bg-white">
                     {/* MATERIAL BADGE */}
                     {!!product?.materials?.length && (
-                      <div
-                        className="absolute left-3 top-3 z-30 flex max-w-[calc(100%-1.5rem)] items-center gap-2 rounded-xl border border-primary/50 bg-white/95 px-3 py-2 shadow-sm backdrop-blur-sm"
-                        aria-label={`Materials: ${product.materials
-                          .map((material) => material.name)
-                          .join(", ")}`}
-                      >
-                        <FlaskConical className="h-3.5 w-3.5 shrink-0 text-[#279ECE]" />
+                      <div className="absolute left-3 top-3 z-30 flex max-w-[calc(100%-1.5rem)] flex-wrap items-center gap-2">
+                        {product.materials.map((material) => (
+                          <Link
+                            key={material._id}
+                            to={`/materials/${material.slug}`}
+                            className="inline-flex items-center gap-2 rounded-xl border border-primary/50 bg-white/95 px-3 py-2 shadow-sm backdrop-blur-sm transition-all duration-200 hover:border-primary hover:bg-primary/5 hover:shadow-md"
+                            aria-label={`View ${material.name} material`}
+                          >
+                            <FlaskConical className="h-3.5 w-3.5 shrink-0 text-[#279ECE]" />
 
-                        <span className="truncate text-[10px] font-bold uppercase tracking-wide text-[#276A96] sm:text-[11px]">
-                          {product.materials
-                            .map((material) => material.name?.trim())
-                            .filter(Boolean)
-                            .join(" · ")}
-                        </span>
+                            <span className="text-[10px] font-bold uppercase tracking-wide text-[#276A96] sm:text-[11px]">
+                              {material.name?.trim()}
+                            </span>
+                          </Link>
+                        ))}
                       </div>
                     )}
 

@@ -18,10 +18,10 @@ export interface MachineComponentHierarchy {
 }
 
 export interface MachineComponentMaterial {
-  _id?: string;
-  id?: string;
-  name?: string;
-  slug?: string;
+  _id: string;
+  id: string;
+  name: string;
+  slug: string;
 }
 
 export interface MachineComponentProduct {

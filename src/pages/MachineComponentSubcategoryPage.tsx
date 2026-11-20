@@ -1044,16 +1044,16 @@ export default function MachineComponentSubcategoryPage() {
                   <Button
                     variant="outline"
                     className="
-  h-8
-  flex-1
-  min-w-0
-  justify-center
-  border-[#A9D8EB]
-  px-2
-  text-[13px]
-  hover:border-[#A9D8EB]
-  rounded-xl
-"
+                      h-8
+                      flex-1
+                      min-w-0
+                      justify-center
+                      border-[#A9D8EB]
+                      px-2
+                      text-[13px]
+                      hover:border-[#A9D8EB]
+                      rounded-xl
+                    "
                   >
                     <Menu className="mr-1 h-3 w-3" />
                     Explore Our Range
@@ -1086,16 +1086,16 @@ export default function MachineComponentSubcategoryPage() {
                   <Button
                     variant="outline"
                     className="
-  h-8
-  flex-1
-  min-w-0
-  justify-center
-  border-[#A9D8EB]
-  px-2
-  text-[13px]
-  hover:border-[#A9D8EB]
-  rounded-xl
-"
+                      h-8
+                      flex-1
+                      min-w-0
+                      justify-center
+                      border-[#A9D8EB]
+                      px-2
+                      text-[13px]
+                      hover:border-[#A9D8EB]
+                      rounded-xl
+                    "
                   >
                     <Search className="mr-1 h-3 w-3" />
                     Search Products
@@ -1132,15 +1132,15 @@ export default function MachineComponentSubcategoryPage() {
                   <Button
                     variant="outline"
                     className="
-              h-8
-              flex-1
-              min-w-0
-              text-[13px]
-              justify-center
-              border-[#A9D8EB]
-              hover:border-[#A9D8EB]
-              rounded-xl
-            "
+                      h-8
+                      flex-1
+                      min-w-0
+                      text-[13px]
+                      justify-center
+                      border-[#A9D8EB]
+                      hover:border-[#A9D8EB]
+                      rounded-xl
+                    "
                   >
                     <Menu className="mr-1 h-3 w-3" />
                     Explore Our Range
@@ -1173,16 +1173,16 @@ export default function MachineComponentSubcategoryPage() {
                     variant="outline"
                     size="icon"
                     className="
-  h-8
-  flex-1
-  min-w-0
-  justify-center
-  border-[#A9D8EB]
-  px-2
-  text-[13px]
-  hover:border-[#A9D8EB]
-  rounded-xl
-"
+                      h-8
+                      flex-1
+                      min-w-0
+                      justify-center
+                      border-[#A9D8EB]
+                      px-2
+                      text-[13px]
+                      hover:border-[#A9D8EB]
+                      rounded-xl
+                    "
                   >
                     <Search className="h-1 w-1" />
                     Search
