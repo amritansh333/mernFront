@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import { ArrowRight, ChevronRight, FlaskConical } from "lucide-react";
+import { ArrowRight, ChevronRight, FlaskConical, ShoppingCart } from "lucide-react";
 import { useScrollFade } from "@/hooks/useScrollFade";
 import PageHeroBanner from "@/components/hero-banner/PageHeroBanner";
 import manufacturingImage from "@/assets/csr-slider1.jpeg";
@@ -166,8 +166,8 @@ export default function MaterialsPage() {
                     <span
                       className={`inline-flex items-center gap-1.5 text-[10px] px-2.5 py-1 font-bold border rounded-2xl ${m.colour}`}
                     >
-                      <FlaskConical className="w-3 h-3 shrink-0" />
-                      {m.base}
+                      <ShoppingCart className="w-3 h-3 shrink-0" />
+                      {m.brand}
                     </span>
 
                     <ChevronRight
@@ -180,10 +180,11 @@ export default function MaterialsPage() {
                   </div>
 
                   <h3 className="font-heading font-bold text-charcoal text-lg mb-1">
-                    {m.brand}
+                    {m.base}
                   </h3>
 
-                  <p className="text-xs text-primary font-semibold mb-2">
+                  <p className="inline-flex items-center gap-1.5 text-xs text-primary font-semibold mb-2">
+                    <FlaskConical className="w-3 h-3 shrink-0" />
                     {m.tagline}
                   </p>
 
