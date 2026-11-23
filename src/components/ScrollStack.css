@@ -21,13 +21,22 @@
 
 .scroll-stack__inner {
   position: relative;
+  width: 100%;
   min-width: 0;
   padding-inline: clamp(0px, 1%, 12px);
+  overflow: visible;
 }
 
 .scroll-stack__slot {
   position: sticky;
   min-width: 0;
+}
+
+.scroll-stack__end {
+  display: block;
+  width: 100%;
+  min-height: 0;
+  pointer-events: none;
 }
 
 .scroll-stack-card {
@@ -41,8 +50,7 @@
   color: #18181b;
   box-shadow:
     0 0 0 1px rgb(0 0 0 / 0.06),
-    0 -12px 40px -16px rgb(0 0 0 / 0.12),
-    0 24px 48px -24px rgb(0 0 0 / 0.18);
+    0 12px 30px -22px rgb(0 0 0 / 0.18);
   transform-origin: 50% 0;
   will-change: transform;
   backface-visibility: hidden;
@@ -58,19 +66,13 @@
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .scroll-stack-card {
-    will-change: auto;
-  }
-}
-
 /* ==========================================
-   POLYRIB BRAND PORTFOLIO — SECTION
+   BRAND PORTFOLIO SECTION
    ========================================== */
 
 .brand-portfolio-section {
   position: relative;
-  overflow: visible;
+  overflow: visible !important;
   isolation: auto;
 }
 
@@ -78,18 +80,21 @@
   position: relative;
   width: 100%;
   max-width: 1280px;
-  overflow: visible;
+  overflow: visible !important;
 }
 
-/* Desktop/tablet heading. */
+/* Sticky heading stays within the brand section. */
+
 .brand-portfolio-heading {
   position: sticky;
-  top: 72px;
-  z-index: 100;
+  top: 88px;
+  z-index: 40;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
+
   padding-top: 16px;
   padding-bottom: 20px;
 }
@@ -105,14 +110,15 @@
 }
 
 /* ==========================================
-   INDEPENDENT CARD COLUMNS
+   BRAND COLUMNS
    ========================================== */
 
 .polyrib-brand-columns {
+  position: relative;
   display: grid;
   align-items: stretch;
   width: 100%;
-  position: relative;
+  min-width: 0;
 }
 
 .polyrib-brand-columns-desktop {
@@ -131,7 +137,7 @@
 }
 
 /* ==========================================
-   SCROLLSTACK CONTAINER OVERRIDES
+   SCROLL STACK OVERRIDES
    ========================================== */
 
 .polyrib-brand-stack {
@@ -139,12 +145,12 @@
   width: 100%;
   height: auto;
   min-width: 0;
-  overflow: visible;
+  overflow: visible !important;
 }
 
 .polyrib-brand-stack.scroll-stack--window {
   height: auto;
-  overflow: visible;
+  overflow: visible !important;
 }
 
 .polyrib-brand-stack .scroll-stack__inner {
@@ -152,6 +158,7 @@
   width: 100%;
   min-width: 0;
   padding: 0;
+  overflow: visible !important;
 }
 
 .polyrib-brand-stack .scroll-stack__slot {
@@ -159,25 +166,30 @@
   min-width: 0;
 }
 
-/* Brand row wrapper is transparent; the actual Link is the card. */
+/* Transparent stack wrapper. */
+
 .polyrib-brand-stack .scroll-stack-card.polyrib-brand-card {
   position: relative;
   width: 100%;
   height: auto;
   min-height: 0;
   padding: 0;
+
   overflow: visible;
   border-radius: 0;
   background: transparent;
   color: inherit;
   box-shadow: none;
+
   transform-origin: center top;
   will-change: transform;
+
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
 
-/* Disable the React Bits black shade; keep brand cards white. */
+/* Remove stack shade for brand cards. */
+
 .polyrib-brand-stack .scroll-stack-card__shade {
   display: none !important;
   opacity: 0 !important;
@@ -185,17 +197,19 @@
 }
 
 /* ==========================================
-   EQUAL-SIZED BRAND CARDS
+   BRAND CARDS
    ========================================== */
 
 .polyrib-brand-stack .category-card {
   position: relative;
   display: flex;
   flex-direction: column;
+
   width: 100%;
   height: 310px;
   min-height: 310px;
   min-width: 0;
+
   box-sizing: border-box;
   overflow: hidden;
 
@@ -203,83 +217,74 @@
   border-radius: 14px;
 
   background: #fff;
-
-  /* Normal subtle blue border glow */
-  box-shadow:
-    0 0 0 1px rgba(39, 158, 206, 0.06),
-    0 3px 12px rgba(39, 158, 206, 0.09),
-    0 5px 18px rgba(32, 130, 172, 0.045);
+  box-shadow: none;
 
   transition:
-    box-shadow 300ms cubic-bezier(0.2, 0.7, 0.3, 1),
-    border-color 300ms ease;
+    border-color 220ms ease,
+    box-shadow 220ms ease;
 }
 
-/* ==========================================
-   BLUE GLOW — HOVER
-   ========================================== */
+/* Subtle hover without a strong glow. */
 
 @media (hover: hover) and (pointer: fine) {
   .polyrib-brand-stack .category-card:hover {
-    border-color: #72c5eb;
-
-    box-shadow:
-      0 0 0 1px rgba(39, 158, 206, 0.2),
-      0 0 10px rgba(39, 158, 206, 0.22),
-      0 5px 18px rgba(39, 158, 206, 0.16),
-      0 10px 28px rgba(32, 130, 172, 0.12);
+    border-color: #9bcde4;
+    box-shadow: 0 3px 10px rgb(32 130 172 / 0.06);
   }
 }
 
-/* Touch feedback */
-.polyrib-brand-stack .category-card:active {
-  border-color: #72c5eb;
+/* Touch feedback. */
 
-  box-shadow:
-    0 0 0 1px rgba(39, 158, 206, 0.22),
-    0 0 12px rgba(39, 158, 206, 0.28),
-    0 5px 18px rgba(32, 130, 172, 0.15);
+.polyrib-brand-stack .category-card:active {
+  border-color: #9bcde4;
+  box-shadow: none;
 }
 
-/* Keyboard accessibility */
+/* Keyboard accessibility. */
+
 .polyrib-brand-stack .category-card:focus-visible {
   outline: 2px solid #279ece;
   outline-offset: 3px;
-
-  box-shadow:
-    0 0 0 2px rgba(39, 158, 206, 0.16),
-    0 0 14px rgba(39, 158, 206, 0.25);
+  box-shadow: none;
 }
 
 /* ==========================================
-   BRAND LOGOS — LARGE, RESPONSIVE, UNCROPPED
+   BRAND LOGOS
    ========================================== */
 
 .polyrib-brand-stack .polyrib-brand-image {
   display: flex;
   align-items: center;
   justify-content: center;
+
   flex: 0 0 160px;
+
   width: 100%;
   height: 160px;
   min-height: 160px;
+
   padding: 4px;
   box-sizing: border-box;
   overflow: hidden;
+
   background: #fff;
 }
 
 .polyrib-brand-stack .polyrib-brand-image img {
   display: block;
   flex: 0 0 auto;
+
   width: 100%;
   height: 100%;
   max-width: 100%;
   max-height: 100%;
-  object-fit: contain;
-  object-position: center;
+
+  object-fit: contain !important;
+  object-position: center !important;
+
   transform: scale(1.38);
   transform-origin: center;
+
   transition: transform 300ms ease;
 }
 
@@ -290,13 +295,14 @@
 }
 
 /* ==========================================
-   CARD CONTENT ALIGNMENT
+   CARD CONTENT
    ========================================== */
 
 .polyrib-brand-stack .category-card > .p-4 {
   display: flex;
   flex-direction: column;
   flex: 1;
+
   min-height: 0;
   padding: 14px 15px;
 }
@@ -306,8 +312,10 @@
   align-items: center;
   justify-content: space-between;
   gap: 6px;
+
   min-height: 24px;
   margin: 0;
+
   line-height: 1.4;
   overflow-wrap: anywhere;
 }
@@ -316,22 +324,26 @@
   overflow-wrap: anywhere;
 }
 
-/* Brand description — maximum two lines */
+/* Brand description: maximum two lines. */
+
 .polyrib-brand-stack .category-card p.text-sm {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   line-clamp: 2;
+
   overflow: hidden;
   line-height: 1.45;
 }
 
-/* Brand properties — maximum two lines */
+/* Brand properties: maximum two lines. */
+
 .polyrib-brand-stack .category-card p.text-xs {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   line-clamp: 2;
+
   overflow: hidden;
   line-height: 1.4;
 }
@@ -345,6 +357,10 @@
    ========================================== */
 
 @media (min-width: 640px) and (max-width: 1023px) {
+  .brand-portfolio-heading {
+    top: 80px;
+  }
+
   .polyrib-brand-columns-desktop {
     gap: 16px;
   }
@@ -371,7 +387,7 @@
 }
 
 /* ==========================================
-   MOBILE — STICKY HEADING + TWO COLUMNS
+   MOBILE
    ========================================== */
 
 @media (max-width: 639px) {
@@ -383,32 +399,35 @@
 
   .brand-portfolio-section > .container {
     position: relative;
-    overflow: visible;
+    overflow: visible !important;
   }
 
   .brand-portfolio-heading {
     position: sticky !important;
-    top: 60px !important;
-    z-index: 9999 !important;
+    top: 64px !important;
+    z-index: 40 !important;
+
     display: flex !important;
     flex-direction: row !important;
     align-items: center !important;
     justify-content: space-between !important;
+
     gap: 10px;
     width: 100%;
+
     margin: 0;
     padding: 12px 0 14px;
-    background: #fff !important;
-    border-bottom: 1px solid #e5edf2;
   }
 
   .brand-portfolio-heading h2 {
     display: block !important;
     visibility: visible !important;
     opacity: 1 !important;
+
     flex: 1;
     min-width: 0;
     margin: 0;
+
     font-size: clamp(21px, 6vw, 27px);
     line-height: 1.2;
     color: #17212f;
@@ -418,8 +437,10 @@
     display: inline-flex !important;
     visibility: visible !important;
     opacity: 1 !important;
+
     flex-shrink: 0;
     align-items: center;
+
     margin: 0 !important;
     font-size: 12px;
     white-space: nowrap;
@@ -428,8 +449,10 @@
   .polyrib-brand-columns-mobile {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 12px;
+
     position: relative;
     z-index: 1;
+
     margin-top: 0;
   }
 
@@ -500,7 +523,7 @@
   }
 
   .brand-portfolio-heading {
-    top: 56px !important;
+    top: 60px !important;
     padding-top: 10px;
     padding-bottom: 12px;
   }
@@ -559,24 +582,4 @@
     animation: none !important;
     will-change: auto;
   }
-}
-
-/* ==========================================
-   FINAL LOGO-FIT SAFEGUARDS
-   ========================================== */
-
-.polyrib-brand-stack .polyrib-brand-image {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.polyrib-brand-stack .polyrib-brand-image img {
-  object-fit: contain !important;
-  object-position: center !important;
-  width: 100%;
-  height: 100%;
-  max-width: 100%;
-  max-height: 100%;
 }

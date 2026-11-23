@@ -1107,7 +1107,7 @@ export default function MachineComponentSubcategoryPage() {
                     <SheetTitle>Search Products</SheetTitle>
 
                     <SheetDescription>
-                      Search thermoplastics machine components.
+                      Search Thermoplastics Engineered Products.
                     </SheetDescription>
                   </SheetHeader>
 
@@ -1194,7 +1194,7 @@ export default function MachineComponentSubcategoryPage() {
                     <SheetTitle>Search Products</SheetTitle>
 
                     <SheetDescription>
-                      Search thermoplastics machine components.
+                      Search Thermoplastics Engineered Products.
                     </SheetDescription>
                   </SheetHeader>
 

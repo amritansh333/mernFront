@@ -25,7 +25,7 @@ import {
   Train,
   Droplets,
 } from "lucide-react";
-
+import LoadingState from "@/components/machine-components/LoadingState";
 import PageHeroBanner from "@/components/hero-banner/PageHeroBanner";
 import manufacturingImage from "@/assets/csr-slider1.jpeg";
 
@@ -165,6 +165,10 @@ export default function IndustriesPage() {
     };
   }, []);
 
+  if (isLoading) {
+    return <LoadingState />;
+  }
+
   const pageTexture = {
     backgroundColor: "#FFFFFF",
     backgroundImage: `
@@ -197,11 +201,7 @@ export default function IndustriesPage() {
         <div className="container max-w-7xl mx-auto px-2 sm:px-4 lg:px-6">
           {/* 3 Columns on Mobile, 4 on Desktop */}
           <div className="grid grid-cols-3 lg:grid-cols-4 auto-rows-fr items-stretch gap-2 sm:gap-3 lg:gap-5">
-            {isLoading ? (
-              <p className="col-span-full text-center text-sm text-muted-foreground py-8">
-                Loading industries...
-              </p>
-            ) : error ? (
+            {error ? (
               <p className="col-span-full text-center text-sm text-red-500 py-8">
                 {error}
               </p>

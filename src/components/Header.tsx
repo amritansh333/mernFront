@@ -351,11 +351,17 @@ function getNavItems(
       children: [
         { label: "Agro-Processing", href: "/industries/agro-processing" },
         { label: "Automotive", href: "/industries/automotive" },
-        { label: "Build & Construction", href: "/industries/build-construction" },
+        {
+          label: "Build & Construction",
+          href: "/industries/build-construction",
+        },
         { label: "Chemical", href: "/industries/chemical" },
         { label: "Food & Beverage", href: "/industries/food-beverage" },
         { label: "Material Handling", href: "/industries/material-handling" },
-        { label: "Medical & Pharmaceutical", href: "/industries/pharmaceutical"},
+        {
+          label: "Medical & Pharmaceutical",
+          href: "/industries/pharmaceutical",
+        },
         { label: "Mining", href: "/industries/mining" },
         { label: "Oil & Gas", href: "/industries/oil-gas" },
         { label: "Signage", href: "/industries/signage" },
@@ -370,7 +376,6 @@ function getNavItems(
         { label: "PC (Pcclear)", href: "/materials/pc" },
         { label: "PP (Polyrib P)", href: "/materials/pp" },
         { label: "HDPE (Polyrib H)", href: "/materials/hdpe" },
-        { label: "LDPE (Polyrib H)", href: "/materials/ldpe" },
         { label: "Nylon (Kaylon)", href: "/materials/pa6" },
         { label: "Acetal / POM (Paketal)", href: "/materials/acetal-pom" },
         { label: "ABS / ASA (Polyrib A)", href: "/materials/abs" },
@@ -910,10 +915,10 @@ export function Header() {
             ))}
 
             {/* Mobile CTA */}
-            <div className="pt-4">
+            <div className="pt-4 flex justify-center">
               <Link
                 to="/contact"
-                className="inline-flex w-full items-center justify-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#279ECE] to-[#1F7FA8] text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#279ECE]/30 rounded-xl border border-primary"
+                className="inline-flex w-fit items-center justify-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#279ECE] to-[#1F7FA8] text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#279ECE]/30 rounded-xl border border-primary whitespace-nowrap"
               >
                 <span>Request a Quote</span>
                 <ArrowRight className="h-4 w-4" />

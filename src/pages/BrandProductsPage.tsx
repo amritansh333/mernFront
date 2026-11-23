@@ -10,6 +10,8 @@ import api from "@/lib/api";
 
 import PageHeroBanner from "@/components/hero-banner/PageHeroBanner";
 
+import LoadingState from "@/components/machine-components/LoadingState";
+
 import manufacturingImage from "@/assets/csr-slider1.jpeg";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "";
@@ -60,13 +62,12 @@ function ProductImageCarousel({
         ? image
         : `${API_BASE_URL}${image}`;
 
-      const extensionMatch = image.match(/\.[^./?]+(?=([?#]|$))/);
+      const extensionMatch = image.match(/\.[^.]+(?=([?#]|$))/);
       const extension = extensionMatch?.[0] ?? ".jpeg";
 
       const cleanImagePath = image.split(/[?#]/)[0];
       const lastSlash = cleanImagePath.lastIndexOf("/");
       const directory = cleanImagePath.slice(0, lastSlash + 1);
-
       const filename = cleanImagePath.slice(lastSlash + 1);
       const baseSlug = filename.replace(/\.[^.]+$/, "");
 
@@ -215,6 +216,10 @@ export default function BrandProductsPage() {
     load();
   }, [brandSlug]);
 
+  if (loading) {
+    return <LoadingState />;
+  }
+
   // Use the first available product image for the hero banner.
   const heroImage = products.find(
     (product) => product.image && product.image.trim() !== "",
@@ -244,7 +249,6 @@ export default function BrandProductsPage() {
     <div className="min-h-screen bg-white pt-16" style={pageTexture}>
       {/* =====================================================
           REUSABLE PAGE HERO BANNER
-
           DYNAMIC CATEGORY, SUBCATEGORY AND BRAND INFORMATION
       ===================================================== */}
 
@@ -279,60 +283,36 @@ export default function BrandProductsPage() {
       <section className="py-14">
         <div className="container max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {loading
-              ? Array.from({ length: 6 }).map((_, index) => (
-                  <div
-                    key={index}
-                    className="product-card block animate-pulse rounded-xl overflow-hidden"
-                  >
-                    <div className="card-image aspect-[4/3] overflow-hidden bg-gray-200 rounded-t-xl" />
+            {products.map((product) => (
+              <Link
+                key={product._id}
+                to={`/products/${categorySlug}/${subcategorySlug}/${brandSlug}/${product.slug}`}
+                className="product-card block group rounded-xl overflow-hidden"
+              >
+                <ProductImageCarousel
+                  image={product.image}
+                  slug={product.slug}
+                  name={product.name}
+                />
 
-                    <div className="p-5">
-                      <div className="h-5 w-40 bg-gray-200 rounded mb-3" />
+                <div className="p-5">
+                  <h3 className="font-heading font-bold text-charcoal text-md mb-2 group-hover:text-primary transition-colors duration-200">
+                    {product.name}
+                  </h3>
 
-                      <div className="space-y-2 mb-4">
-                        <div className="h-3 w-full bg-gray-200 rounded" />
-                        <div className="h-3 w-5/6 bg-gray-200 rounded" />
-                      </div>
+                  <p className="text-xs text-muted-foreground mb-4 line-clamp-2">
+                    {product.description?.[0] || "No description available"}
+                  </p>
 
-                      <div className="pt-3 border-t border-divider">
-                        <div className="h-3 w-32 bg-gray-200 rounded" />
-                      </div>
-
-                      <div className="card-border-bottom mt-3" />
-                    </div>
+                  <div className="cta-link text-xs pt-3 border-t border-divider">
+                    View Product Details{" "}
+                    <ArrowRight className="w-3.5 h-3.5 explore-arrow" />
                   </div>
-                ))
-              : products.map((product) => (
-                  <Link
-                    key={product._id}
-                    to={`/products/${categorySlug}/${subcategorySlug}/${brandSlug}/${product.slug}`}
-                    className="product-card block group rounded-xl overflow-hidden"
-                  >
-                    <ProductImageCarousel
-                      image={product.image}
-                      slug={product.slug}
-                      name={product.name}
-                    />
 
-                    <div className="p-5">
-                      <h3 className="font-heading font-bold text-charcoal text-md mb-2 group-hover:text-primary transition-colors duration-200">
-                        {product.name}
-                      </h3>
-
-                      <p className="text-xs text-muted-foreground mb-4 line-clamp-2">
-                        {product.description?.[0] || "No description available"}
-                      </p>
-
-                      <div className="cta-link text-xs pt-3 border-t border-divider">
-                        View Product Details{" "}
-                        <ArrowRight className="w-3.5 h-3.5 explore-arrow" />
-                      </div>
-
-                      <div className="card-border-bottom mt-3" />
-                    </div>
-                  </Link>
-                ))}
+                  <div className="card-border-bottom mt-3" />
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>

@@ -27,7 +27,7 @@ import {
   Train,
   Droplets,
 } from "lucide-react";
-
+import LoadingState from "@/components/machine-components/LoadingState";
 import type { LucideIcon } from "lucide-react";
 import PageHeroBanner from "@/components/hero-banner/PageHeroBanner";
 
@@ -230,16 +230,7 @@ export default function IndustryDetailPage() {
   };
 
   if (isLoading) {
-    return (
-      <div
-        className="min-h-screen bg-white pt-16 flex items-center justify-center"
-        style={pageTexture}
-      >
-        <p className="text-sm text-muted-foreground">
-          Loading industry details...
-        </p>
-      </div>
-    );
+    return <LoadingState />;
   }
 
   if (error) {

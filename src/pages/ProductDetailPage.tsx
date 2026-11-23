@@ -24,12 +24,14 @@ import {
   BadgeCheck,
   ChevronsRight,
   FileText,
+  ShoppingCart,
 } from "lucide-react";
 import type { Product } from "@/types/product";
 import type { Brand } from "@/types/catalog";
 import api from "@/lib/api";
 
 import PageHeroBanner from "@/components/hero-banner/PageHeroBanner";
+import LoadingState from "@/components/machine-components/LoadingState";
 import manufacturingImage from "@/assets/csr-slider1.jpeg";
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "";
@@ -226,6 +228,11 @@ export default function ProductDetailPage() {
     return () => window.clearInterval(interval);
   }, [images.length, reduceMotion]);
 
+  // Shared loading state — keep this after all Hooks.
+  if (loading) {
+    return <LoadingState />;
+  }
+
   if (!loading && !product) {
     return <Navigate to="/products" replace />;
   }
@@ -308,7 +315,7 @@ export default function ProductDetailPage() {
 
                 <div className="mb-7">
                   <div className="mb-4 flex items-center gap-2">
-                    <PackageSearch className="h-5 w-5 text-[#279ECE]" />
+                    <ShoppingCart className="h-5 w-5 text-[#279ECE]" />
 
                     <h2 className="font-heading text-xl font-bold text-charcoal">
                       {product.name}
@@ -436,6 +443,7 @@ export default function ProductDetailPage() {
                       ))}
                     </div>
                   )}
+
                   {/* COLOR OPTIONS + THICKNESS RANGE */}
                   {product?.specifications && (
                     <div className="mt-4 grid grid-cols-2 gap-3">

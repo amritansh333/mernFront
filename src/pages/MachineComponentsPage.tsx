@@ -465,7 +465,7 @@ export default function MachineComponentsPage() {
                     <SheetTitle>Search Products</SheetTitle>
 
                     <SheetDescription>
-                      Search thermoplastics machine components.
+                      Search Thermoplastics Engineered Products.
                     </SheetDescription>
                   </SheetHeader>
 
@@ -536,7 +536,7 @@ export default function MachineComponentsPage() {
                     <SheetTitle>Search Products</SheetTitle>
 
                     <SheetDescription>
-                      Search thermoplastics machine components.
+                      Search Thermoplastics Engineered Products.
                     </SheetDescription>
                   </SheetHeader>
 

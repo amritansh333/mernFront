@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import { ArrowRight, ChevronRight, FlaskConical, ShoppingCart } from "lucide-react";
+import {
+  ArrowRight,
+  ChevronRight,
+  FlaskConical,
+  ShoppingCart,
+} from "lucide-react";
 import { useScrollFade } from "@/hooks/useScrollFade";
 import PageHeroBanner from "@/components/hero-banner/PageHeroBanner";
-import manufacturingImage from "@/assets/csr-slider1.jpeg";
-
+import manufacturingImage from "@/assets/polymer-materials.jpeg";
+import LoadingState from "@/components/machine-components/LoadingState";
 interface Material {
   _id: string;
   brand: string;
@@ -57,6 +62,7 @@ export default function MaterialsPage() {
 
   const [selected, setSelected] = useState<string | null>(null);
   const [materials, setMaterials] = useState<Material[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -97,8 +103,11 @@ export default function MaterialsPage() {
         if (error instanceof Error && error.name === "AbortError") {
           return;
         }
-
         console.error("Error fetching materials:", error);
+      } finally {
+        if (!controller.signal.aborted) {
+          setIsLoading(false);
+        }
       }
     };
 
@@ -113,7 +122,12 @@ export default function MaterialsPage() {
     setSelected(slug ?? null);
   }, [slug]);
 
+  // Always call hooks before conditional returns
   const ref = useScrollFade() as React.RefObject<HTMLElement>;
+
+  if (isLoading) {
+    return <LoadingState />;
+  }
 
   const pageTexture = {
     backgroundColor: "#FFFFFF",
@@ -156,10 +170,10 @@ export default function MaterialsPage() {
                 {/* CARD */}
                 <button
                   onClick={() => setSelected(isSelected ? null : m.slug)}
-                  className={`text-left p-5 border-2 transition-all duration-200 rounded-xl ${
+                  className={`group text-left p-5 border-2 transition-all duration-200 rounded-xl ${
                     isSelected
                       ? "border-primary bg-primary/5 shadow-card"
-                      : "border-border bg-card hover:border-primary/40"
+                      : "border-border bg-card hover:border-primary/40 active:border-primary/60"
                   }`}
                 >
                   <div className="flex items-start justify-between mb-2">
@@ -171,15 +185,21 @@ export default function MaterialsPage() {
                     </span>
 
                     <ChevronRight
-                      className={`w-4 h-4 transition-transform duration-200 ${
+                      className={`w-4 h-4 transition-all duration-200 ${
                         isSelected
                           ? "rotate-90 text-primary"
-                          : "text-muted-foreground"
+                          : "text-muted-foreground group-hover:text-primary group-active:text-primary"
                       }`}
                     />
                   </div>
 
-                  <h3 className="font-heading font-bold text-charcoal text-lg mb-1">
+                  <h3
+                    className={`font-heading font-bold text-lg mb-1 transition-colors duration-200 ${
+                      isSelected
+                        ? "text-primary"
+                        : "text-charcoal group-hover:text-primary group-active:text-primary"
+                    }`}
+                  >
                     {m.base}
                   </h3>
 

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import type { Category } from "@/types/catalog";
 import PageHeroBanner from "@/components/hero-banner/PageHeroBanner";
+import LoadingState from "@/components/machine-components/LoadingState";
 import manufacturingImage from "@/assets/csr-slider1.jpeg";
 // Semi-finished product gallery
 import semiFinishedImage1 from "@/assets/semi-finished-products_1.jpeg";
@@ -188,6 +189,10 @@ export default function ProductsPage() {
 
     fetchCategories();
   }, []);
+
+  if (loading) {
+    return <LoadingState />;
+  }
 
   const pageTexture = {
     backgroundColor: "#FFFFFF",
