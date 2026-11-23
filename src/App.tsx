@@ -13,7 +13,7 @@ import { MachineComponentsDataProvider } from "@/contexts/MachineComponentsDataC
 
 import ScrollToTop from "@/components/ScrollToTop";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
-import CallButton from "@/components/CallButton";
+import FloatingCTA from "@/components/FloatingCTA";
 import { CookieConsentManager } from "@/components/cookie-consent";
 import ScrollProgressBar from "@/components/ScrollProgressBar";
 
@@ -36,6 +36,9 @@ import ResourcesPage from "@/pages/ResourcesPage";
 
 import ProductExperienceRouter from "@/pages/ProductExperienceRouter";
 import NotFound from "@/pages/NotFound";
+
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsAndConditions from "./pages/TermsAndConditions";
 
 function AppContent() {
   const location = useLocation();
@@ -123,9 +126,15 @@ function AppContent() {
 
           {/* 404 */}
           <Route path="*" element={<NotFound />} />
+
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route
+            path="/terms-and-conditions"
+            element={<TermsAndConditions />}
+          />
         </Routes>
 
-        <CallButton />
+        <FloatingCTA />
         <ScrollToTopButton />
         <CookieConsentManager />
 

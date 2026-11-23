@@ -325,14 +325,14 @@ export default function HeroSection({
                 <div className="mt-5 flex flex-wrap items-center gap-3">
                   <Link
                     to="/contact?tab=quote"
-                    className="inline-flex h-9 items-center justify-center gap-2 border border-[#279ECE] bg-[#279ECE] px-5 text-[13px] font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#1F7FA8] hover:shadow-md hover:shadow-[#279ECE]/20 rounded-lg"
+                    className="inline-flex h-9 items-center justify-center gap-2 border border-[#279ECE] bg-[#279ECE] px-5 text-[13px] font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#1F7FA8] hover:shadow-md hover:shadow-[#279ECE]/20 rounded-xl"
                   >
                     <PenLine className="h-3.5 w-3.5" />
                     <span>Request a Quote</span>
                   </Link>
                   <Link
                     to="/contact?tab=drawing"
-                    className="inline-flex h-9 items-center justify-center gap-2 border border-[#C7D9E6] bg-white px-5 text-[13px] font-semibold text-[#279ECE] transition-all duration-200 hover:-translate-y-0.5 hover:border-[#279ECE] hover:bg-[#F5FBFE] hover:text-[#279ECE] rounded-lg"
+                    className="inline-flex h-9 items-center justify-center gap-2 border border-[#C7D9E6] bg-white px-5 text-[13px] font-semibold text-[#279ECE] transition-all duration-200 hover:-translate-y-0.5 hover:border-[#279ECE] hover:bg-[#F5FBFE] hover:text-[#279ECE] rounded-xl"
                   >
                     <Upload className="h-3.5 w-3.5" />
                     <span>Send Your Drawing</span>
@@ -358,15 +358,26 @@ export default function HeroSection({
             <div className="relative z-10 border border-primary/70 bg-white p-3 shadow-2xl rounded-xl">
               {/* Main Image — same animation as ProductsPage.tsx */}
               <div className="card-image product-gallery relative aspect-[4/3] overflow-hidden bg-[#F8FAFC] rounded-xl">
-                {materialNames.length > 0 && (
+                {materials.length > 0 && (
                   <div
-                    className="absolute left-2 top-2 z-30 flex max-w-[calc(100%-1rem)] items-center gap-1.5 rounded-xl border border-primary/50 bg-white/95 px-2 py-1.5 shadow-sm backdrop-blur-sm sm:left-3 sm:top-3 sm:gap-2 sm:px-3 sm:py-2"
+                    className="absolute left-2 top-2 z-30 flex max-w-[calc(100%-1rem)] flex-wrap items-center gap-1.5 sm:left-3 sm:top-3 sm:gap-2"
                     aria-label={`Materials: ${materialNames.join(", ")}`}
                   >
-                    <FlaskConical className="h-3 w-3 shrink-0 text-[#279ECE] sm:h-3.5 sm:w-3.5" />
-                    <span className="truncate text-[9px] font-bold uppercase tracking-wide text-[#276A96] sm:text-[10px] md:text-[11px]">
-                      {materialNames.join(" · ")}
-                    </span>
+                    {materials.map((material) => (
+                      <Link
+                        key={material._id}
+                        to={`/materials/${material.slug}`}
+                        onClick={(event) => event.stopPropagation()}
+                        className="inline-flex items-center gap-1.5 rounded-xl border border-primary/50 bg-white/95 px-2 py-1.5 shadow-sm backdrop-blur-sm transition-all duration-200 hover:border-[#279ECE] hover:bg-[#F0F9FD] hover:shadow-md sm:gap-2 sm:px-3 sm:py-2"
+                        aria-label={`View ${material.name} material`}
+                      >
+                        <FlaskConical className="h-3 w-3 shrink-0 text-[#279ECE] sm:h-3.5 sm:w-3.5" />
+
+                        <span className="text-[9px] font-bold uppercase tracking-wide text-[#276A96] sm:text-[10px] md:text-[11px]">
+                          {material.name?.trim()}
+                        </span>
+                      </Link>
+                    ))}
                   </div>
                 )}
                 {galleryImages.map((src, index) => {

@@ -1,0 +1,519 @@
+/* =====================================
+   FLOATING CTA CONTAINER
+===================================== */
+
+.floating-cta {
+  position: fixed;
+  right: 0;
+  bottom: clamp(110px, 17vh, 155px);
+  z-index: 9998;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* =====================================
+   PRIMARY TOGGLE
+===================================== */
+
+.floating-cta__toggle {
+  position: relative;
+  isolation: isolate;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 38px;
+  height: 48px;
+  padding: 0;
+
+  border: 1px solid hsl(var(--primary) / 0.35);
+  border-right: 0;
+  border-radius: 10px 0 0 10px;
+
+  background: hsl(var(--primary));
+  color: #ffffff;
+
+  cursor: pointer;
+
+  box-shadow: -3px 3px 12px rgba(15, 23, 42, 0.14);
+
+  transition:
+    width 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+/* Single white inset outline */
+
+.floating-cta__toggle::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+
+  inset: 4px;
+
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  border-right: 0;
+  border-radius: 7px 0 0 7px;
+
+  pointer-events: none;
+}
+
+/* Hover */
+
+.floating-cta__toggle:hover {
+  width: 42px;
+  background: hsl(var(--primary) / 0.92);
+
+  box-shadow: -4px 3px 15px rgba(15, 23, 42, 0.18);
+}
+
+.floating-cta__toggle:focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 3px;
+}
+
+/* =====================================
+   MENU ICON AND CROSS
+===================================== */
+
+.floating-cta__icon {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.floating-cta__icon svg {
+  position: absolute;
+
+  width: 18px;
+  height: 18px;
+
+  stroke-width: 2.2;
+
+  transition:
+    transform 0.3s ease,
+    opacity 0.2s ease;
+}
+
+/* Default hamburger */
+
+.floating-cta__menu-icon {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+/* Hidden cross */
+
+.floating-cta__close-icon {
+  opacity: 0;
+  transform: rotate(-90deg) scale(0.5);
+}
+
+/* Open state */
+
+.floating-cta__icon.is-open .floating-cta__menu-icon {
+  opacity: 0;
+  transform: rotate(90deg) scale(0.5);
+}
+
+.floating-cta__icon.is-open .floating-cta__close-icon {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+/* =====================================
+   EXPANDED PANEL
+===================================== */
+
+.floating-cta__panel {
+  position: absolute;
+  right: 48px;
+  bottom: 0;
+
+  width: 300px;
+  padding: 17px;
+
+  border: 1px solid hsl(var(--primary));
+  border-radius: 18px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 12px 35px rgba(15, 23, 42, 0.13),
+    0 3px 10px rgba(15, 23, 42, 0.04);
+
+  transform: translateX(12px) scale(0.97);
+  transform-origin: right bottom;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease,
+    visibility 0.25s ease;
+}
+
+.floating-cta--open .floating-cta__panel {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(0) scale(1);
+}
+
+/* =====================================
+   PANEL HEADER
+===================================== */
+
+.floating-cta__header {
+  padding: 0 2px 13px;
+  border-bottom: 1px solid #edf1f5;
+}
+
+.floating-cta__heading {
+  margin: 0;
+
+  color: #142337;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.floating-cta__subheading {
+  margin: 4px 0 0;
+
+  color: #64748b;
+  font-size: 11px;
+}
+
+/* =====================================
+   ACTION OPTIONS
+===================================== */
+
+.floating-cta__options {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  margin-top: 10px;
+}
+
+.floating-cta__option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  width: 100%;
+  padding: 10px 7px;
+
+  border: 1px solid transparent;
+  border-radius: 12px;
+
+  background: hsl(var(--primary) / 0.07);
+
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.floating-cta__option:hover {
+  background: hsl(var(--primary) / 0.12);
+  transform: translateX(2px);
+}
+
+.floating-cta__option:focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 3px;
+}
+
+/* Circular option icons */
+
+.floating-cta__option-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: hsl(var(--primary) / 0.09);
+  color: hsl(var(--primary));
+}
+
+.floating-cta__option-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 3px;
+
+  min-width: 0;
+}
+
+.floating-cta__option-title {
+  color: #172b42;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.floating-cta__option-description {
+  color: #718096;
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+/* Option arrow */
+
+.floating-cta__option-arrow {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+
+  color: #2056a2;
+
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease;
+}
+
+.floating-cta__option:hover .floating-cta__option-arrow {
+  color: hsl(var(--primary));
+  transform: translateX(2px);
+}
+
+/* =====================================
+   WHATSAPP CTA OPTION
+===================================== */
+
+.floating-cta__option--whatsapp {
+  background: rgba(22, 163, 74, 0.07);
+  text-decoration: none;
+}
+
+.floating-cta__option--whatsapp .floating-cta__option-icon {
+  background: rgba(22, 163, 74, 0.09);
+  color: #16a34a;
+}
+
+.floating-cta__option--whatsapp .floating-cta__option-title {
+  color: #15803d;
+}
+
+.floating-cta__option--whatsapp .floating-cta__option-arrow {
+  color: #16a34a;
+}
+
+.floating-cta__option--whatsapp:hover {
+  background: rgba(22, 163, 74, 0.12);
+  border-color: transparent;
+}
+
+.floating-cta__option--whatsapp:hover .floating-cta__option-icon {
+  background: rgba(22, 163, 74, 0.14);
+}
+
+.floating-cta__option--whatsapp:hover .floating-cta__option-arrow {
+  color: #15803d;
+}
+
+/* =====================================
+   LARGE TABLET
+===================================== */
+
+@media (max-width: 1024px) {
+  .floating-cta {
+    bottom: 110px;
+  }
+
+  .floating-cta__toggle {
+    width: 35px;
+    height: 44px;
+  }
+
+  .floating-cta__toggle:hover {
+    width: 38px;
+  }
+
+  .floating-cta__panel {
+    right: 45px;
+  }
+}
+
+/* =====================================
+   MOBILE
+===================================== */
+
+@media (max-width: 767px) {
+  .floating-cta {
+    bottom: calc(95px + env(safe-area-inset-bottom));
+  }
+
+  .floating-cta__toggle {
+    width: 32px;
+    height: 42px;
+
+    border-radius: 8px 0 0 8px;
+  }
+
+  .floating-cta__toggle:hover {
+    width: 32px;
+  }
+
+  /* Single outline with consistent spacing */
+
+  .floating-cta__toggle::before {
+    inset: 4px;
+    border-radius: 6px 0 0 6px;
+  }
+
+  .floating-cta__icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .floating-cta__icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .floating-cta__panel {
+    right: 40px;
+
+    width: min(290px, calc(100vw - 54px));
+    padding: 14px;
+
+    border-radius: 16px;
+  }
+
+  .floating-cta__heading {
+    font-size: 14px;
+  }
+
+  .floating-cta__subheading {
+    font-size: 11px;
+  }
+
+  .floating-cta__option {
+    gap: 8px;
+    padding: 9px 5px;
+  }
+
+  .floating-cta__option-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .floating-cta__option-icon svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .floating-cta__option-title {
+    font-size: 12px;
+  }
+
+  .floating-cta__option-description {
+    font-size: 10px;
+  }
+}
+
+/* =====================================
+   SMALL MOBILE
+===================================== */
+
+@media (max-width: 380px) {
+  .floating-cta__toggle {
+    width: 30px;
+    height: 40px;
+  }
+
+  .floating-cta__toggle:hover {
+    width: 30px;
+  }
+
+  .floating-cta__panel {
+    right: 36px;
+
+    width: calc(100vw - 48px);
+    padding: 12px;
+  }
+
+  .floating-cta__heading {
+    font-size: 13px;
+  }
+
+  .floating-cta__option {
+    gap: 7px;
+    padding: 8px 4px;
+  }
+
+  .floating-cta__option-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .floating-cta__option-title {
+    font-size: 11px;
+  }
+
+  .floating-cta__option-description {
+    font-size: 9px;
+  }
+}
+
+/* =====================================
+   EXTRA SMALL SCREENS
+===================================== */
+
+@media (max-width: 320px) {
+  .floating-cta__panel {
+    right: 34px;
+    width: calc(100vw - 44px);
+    padding: 10px;
+  }
+
+  .floating-cta__option {
+    gap: 6px;
+  }
+
+  .floating-cta__option-icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .floating-cta__option-description {
+    font-size: 8px;
+  }
+}
+
+/* =====================================
+   REDUCED MOTION
+===================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-cta *,
+  .floating-cta *::before,
+  .floating-cta *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

@@ -24,12 +24,14 @@ import {
   BadgeCheck,
   ChevronsRight,
   FileText,
+  ShoppingCart,
 } from "lucide-react";
 import type { Product } from "@/types/product";
 import type { Brand } from "@/types/catalog";
 import api from "@/lib/api";
 
 import PageHeroBanner from "@/components/hero-banner/PageHeroBanner";
+import LoadingState from "@/components/machine-components/LoadingState";
 import manufacturingImage from "@/assets/csr-slider1.jpeg";
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "";
@@ -226,6 +228,11 @@ export default function ProductDetailPage() {
     return () => window.clearInterval(interval);
   }, [images.length, reduceMotion]);
 
+  // Shared loading state — keep this after all Hooks.
+  if (loading) {
+    return <LoadingState />;
+  }
+
   if (!loading && !product) {
     return <Navigate to="/products" replace />;
   }
@@ -308,7 +315,7 @@ export default function ProductDetailPage() {
 
                 <div className="mb-7">
                   <div className="mb-4 flex items-center gap-2">
-                    <PackageSearch className="h-5 w-5 text-[#279ECE]" />
+                    <ShoppingCart className="h-5 w-5 text-[#279ECE]" />
 
                     <h2 className="font-heading text-xl font-bold text-charcoal">
                       {product.name}
@@ -371,20 +378,21 @@ export default function ProductDetailPage() {
                   <div className="product-gallery relative aspect-[4/3] overflow-hidden rounded-xl border border-primary/70 bg-white">
                     {/* MATERIAL BADGE */}
                     {!!product?.materials?.length && (
-                      <div
-                        className="absolute left-3 top-3 z-30 flex max-w-[calc(100%-1.5rem)] items-center gap-2 rounded-xl border border-primary/50 bg-white/95 px-3 py-2 shadow-sm backdrop-blur-sm"
-                        aria-label={`Materials: ${product.materials
-                          .map((material) => material.name)
-                          .join(", ")}`}
-                      >
-                        <FlaskConical className="h-3.5 w-3.5 shrink-0 text-[#279ECE]" />
+                      <div className="absolute left-3 top-3 z-30 flex max-w-[calc(100%-1.5rem)] flex-wrap items-center gap-2">
+                        {product.materials.map((material) => (
+                          <Link
+                            key={material._id}
+                            to={`/materials/${material.slug}`}
+                            className="inline-flex items-center gap-2 rounded-xl border border-primary/50 bg-white/95 px-3 py-2 shadow-sm backdrop-blur-sm transition-all duration-200 hover:border-primary hover:bg-primary/5 hover:shadow-md"
+                            aria-label={`View ${material.name} material`}
+                          >
+                            <FlaskConical className="h-3.5 w-3.5 shrink-0 text-[#279ECE]" />
 
-                        <span className="truncate text-[10px] font-bold uppercase tracking-wide text-[#276A96] sm:text-[11px]">
-                          {product.materials
-                            .map((material) => material.name?.trim())
-                            .filter(Boolean)
-                            .join(" · ")}
-                        </span>
+                            <span className="text-[10px] font-bold uppercase tracking-wide text-[#276A96] sm:text-[11px]">
+                              {material.name?.trim()}
+                            </span>
+                          </Link>
+                        ))}
                       </div>
                     )}
 
@@ -435,6 +443,7 @@ export default function ProductDetailPage() {
                       ))}
                     </div>
                   )}
+
                   {/* COLOR OPTIONS + THICKNESS RANGE */}
                   {product?.specifications && (
                     <div className="mt-4 grid grid-cols-2 gap-3">

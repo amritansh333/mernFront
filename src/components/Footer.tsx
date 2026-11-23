@@ -36,14 +36,20 @@ function getFooterLinks(
         label: "Application Ready Sheets",
         href: "/products/thermoplastics-machine-components/application-ready-sheets",
       },
+      {
+        label: "Machined Plastic Parts",
+        href: "/products/thermoplastics-machine-components/machined-plastic-parts",
+      },
     ],
     Materials: [
-      { label: "POLYRIB V (UHMW PE)", href: "/materials/uhmwpe" },
-      { label: "POLYRIB H (HDPE)", href: "/materials/hdpe" },
-      { label: "POLYRIB P (PP)", href: "/materials/pp" },
-      { label: "PCCLEAR (PC)", href: "/materials/pc" },
-      { label: "KAYLON (Cast Nylon)", href: "/materials/pa6" },
-      { label: "PAKETAL (Acetal)", href: "/materials/acetal" },
+      { label: "UHMW PE (Polyrib V)", href: "/materials/uhmwpe" },
+      { label: "PC (Pcclear)", href: "/materials/pc" },
+      { label: "PP (Polyrib P)", href: "/materials/pp" },
+      { label: "HDPE (Polyrib H)", href: "/materials/hdpe" },
+      { label: "Nylon (Kaylon)", href: "/materials/pa6" },
+      { label: "Acetal / POM (Paketal)", href: "/materials/acetal-pom" },
+      { label: "ABS / ASA (Polyrib A)", href: "/materials/abs" },
+      { label: "HI-PS (KBK PS)", href: "/materials/hi-ps" },
     ],
     Company: [
       { label: "About Us", href: "/about" },
@@ -65,15 +71,42 @@ function getFooterLinks(
 }
 
 const brands = [
-  "POLYRIB V",
-  "POLYRIB H",
-  "POLYRIB P",
-  "PCCLEAR",
-  "KAYLON",
-  "PAKETAL",
-  "POLYRIB A",
-  "DIPRA",
-  "PLASCON",
+  {
+    label: "POLYRIB V",
+    href: "/products/thermoplastics-semi-finished-products/sheets-blocks/polyrib-v",
+  },
+  {
+    label: "POLYRIB H",
+    href: "/products/thermoplastics-semi-finished-products/sheets-blocks/polyrib-h",
+  },
+  {
+    label: "POLYRIB P",
+    href: "/products/thermoplastics-semi-finished-products/sheets-blocks/polyrib-p",
+  },
+  {
+    label: "PCCLEAR",
+    href: "/products/thermoplastics-semi-finished-products/sheets-blocks/pcclear",
+  },
+  {
+    label: "KAYLON",
+    href: "/products/thermoplastics-semi-finished-products/sheets-blocks/pakaylon",
+  },
+  {
+    label: "PAKETAL",
+    href: "/products/thermoplastics-semi-finished-products/sheets-blocks/paketal",
+  },
+  {
+    label: "POLYRIB A",
+    href: "/products/thermoplastics-semi-finished-products/sheets-blocks/polyrib-a",
+  },
+  {
+    label: "DIPRA",
+    href: "/products/thermoplastics-semi-finished-products/coils-rolls/dipra-add-clear-rolls",
+  },
+  {
+    label: "PLASCON",
+    href: "/products/thermoplastics-semi-finished-products/sheets-blocks/plascon-v",
+  },
 ];
 
 export function Footer() {
@@ -136,13 +169,14 @@ export function Footer() {
 
             {/* Brands */}
             <div className="flex flex-wrap gap-1.5">
-              {brands.map((b) => (
-                <span
-                  key={b}
-                  className="text-[10px] font-semibold px-2 py-0.5 bg-white/10 text-white/60 tracking-wider"
+              {brands.map((brand) => (
+                <Link
+                  key={brand.label}
+                  to={brand.href}
+                  className="text-[10px] font-semibold px-2 py-0.5 bg-white/10 text-white/60 tracking-wider hover:bg-white/20 hover:text-white transition-colors duration-200 rounded-xl"
                 >
-                  {b}
-                </span>
+                  {brand.label}
+                </Link>
               ))}
             </div>
           </div>
@@ -205,13 +239,20 @@ export function Footer() {
             reserved.
           </p>
           <div className="flex flex-col sm:flex-row items-center gap-4 text-xs text-white/35">
-            <div className="flex gap-4">
-              <a href="#" className="hover:text-white/70 transition-colors">
+            <div className="flex flex-wrap justify-center sm:justify-start gap-x-4 gap-y-2">
+              <Link
+                to="/privacy-policy"
+                className="hover:text-white/70 transition-colors"
+              >
                 Privacy Policy
-              </a>
-              <a href="#" className="hover:text-white/70 transition-colors">
+              </Link>
+
+              <Link
+                to="/terms-and-conditions"
+                className="hover:text-white/70 transition-colors"
+              >
                 Terms & Conditions
-              </a>
+              </Link>
             </div>
             <Globe className="w-4 h-4 text-primary-light shrink-0" />
             <a

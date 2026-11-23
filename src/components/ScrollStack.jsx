@@ -38,13 +38,12 @@ const scrollsInside = (node, stop, delta) => {
       continue;
     }
 
-    if (
+    const canScroll =
       delta > 0
         ? element.scrollTop + element.clientHeight < element.scrollHeight - 1
-        : element.scrollTop > 0
-    ) {
-      return true;
-    }
+        : element.scrollTop > 0;
+
+    if (canScroll) return true;
   }
 
   return false;
@@ -53,7 +52,6 @@ const scrollsInside = (node, stop, delta) => {
 export const ScrollStackItem = ({ children, itemClassName = "", style }) => (
   <div className={`scroll-stack-card ${itemClassName}`.trim()} style={style}>
     {children}
-
     <span className="scroll-stack-card__shade" aria-hidden="true" />
   </div>
 );
@@ -70,7 +68,7 @@ const ScrollStack = ({
   blurAmount = 0,
   tiltAmount = 0,
   rotationAmount = 0,
-  holdDistance = 200,
+  holdDistance = 0,
   smoothScroll = true,
   snap = false,
   useWindowScroll = false,
@@ -85,6 +83,8 @@ const ScrollStack = ({
 
   const items = Children.toArray(children);
 
+  // Keep the latest props available to the scroll effect
+  // without recreating all event listeners on every render.
   useLayoutEffect(() => {
     settingsRef.current = {
       itemDistance,
@@ -130,17 +130,20 @@ const ScrollStack = ({
     let current = 0;
     let goal = 0;
     let written = 0;
-    let last = 0;
+    let lastFrameTime = 0;
 
     let points = [];
-    let reach = 0;
+    let snapReach = 0;
 
     const readScroll = () => (windowed ? window.scrollY : root.scrollTop);
 
     const maxScroll = () =>
       windowed
-        ? document.documentElement.scrollHeight - window.innerHeight
-        : root.scrollHeight - root.clientHeight;
+        ? Math.max(
+            0,
+            document.documentElement.scrollHeight - window.innerHeight,
+          )
+        : Math.max(0, root.scrollHeight - root.clientHeight);
 
     const writeScroll = (value) => {
       written = value;
@@ -167,6 +170,12 @@ const ScrollStack = ({
       return true;
     };
 
+    const schedule = () => {
+      if (!frame) {
+        frame = requestAnimationFrame(update);
+      }
+    };
+
     const update = () => {
       frame = 0;
 
@@ -189,27 +198,28 @@ const ScrollStack = ({
       const offset = settings.itemStackDistance;
 
       const heights = slots.map((slot) => slot.offsetHeight);
-
       const tops = slots.map((slot) => slot.getBoundingClientRect().top);
 
-      const lastPin = stackTop + (slots.length - 1) * offset;
+      const lastIndex = slots.length - 1;
+      const lastHeight = heights[lastIndex];
+      const lastPin = stackTop + lastIndex * offset;
+
+      // Give the final card enough trailing space to release
+      // naturally from its sticky position.
+      const releaseSpace = Math.max(0, viewHeight - lastPin - lastHeight);
+
+      const endHeight = Math.max(0, settings.holdDistance) + releaseSpace;
 
       const padTop = windowed ? 0 : stackTop;
 
-      const endHeight =
-        settings.holdDistance +
-        (windowed
-          ? 0
-          : Math.max(0, viewHeight - lastPin - heights[heights.length - 1]));
-
-      let moved = write("padTop", padTop, (value) => {
+      let layoutChanged = write("padTop", padTop, (value) => {
         inner.style.paddingTop = `${value}px`;
       });
 
-      moved =
+      layoutChanged =
         write("endHeight", endHeight, (value) => {
           end.style.height = `${value}px`;
-        }) || moved;
+        }) || layoutChanged;
 
       let flow =
         inner.getBoundingClientRect().top - viewTop + readScroll() + padTop;
@@ -222,10 +232,12 @@ const ScrollStack = ({
         return point;
       });
 
-      reach = Math.max(40, (heights[0] + settings.itemDistance - offset) / 2);
+      snapReach = Math.max(
+        40,
+        (heights[0] + settings.itemDistance - offset) / 2,
+      );
 
       const depths = slots.map(() => 0);
-
       let lastCover = 0;
 
       for (let j = 1; j < slots.length; j++) {
@@ -264,7 +276,6 @@ const ScrollStack = ({
         const turn = lean * settings.rotationAmount * (index % 2 ? -1 : 1);
 
         const blur = depth * settings.blurAmount;
-
         const dim = 1 - Math.pow(1 - dimStep, depth);
 
         const transform =
@@ -301,25 +312,47 @@ const ScrollStack = ({
         }
       }
 
-      if (moved) schedule();
+      // Recalculate after changing the stack's layout dimensions.
+      if (layoutChanged) schedule();
     };
 
-    const schedule = () => {
-      if (!frame) {
-        frame = requestAnimationFrame(update);
+    const settle = () => {
+      rest = 0;
+
+      const settings = settingsRef.current;
+
+      if (!settings?.snap || gliding || pressed || !points.length) {
+        return;
+      }
+
+      const now = readScroll();
+
+      const nearest = points.reduce((best, point) =>
+        Math.abs(point - now) < Math.abs(best - now) ? point : best,
+      );
+
+      const distance = Math.abs(nearest - now);
+
+      if (distance > 1 && distance < snapReach) {
+        glideTo(nearest);
       }
     };
 
+    const settleSoon = () => {
+      window.clearTimeout(rest);
+      rest = window.setTimeout(settle, 140);
+    };
+
     const step = (now) => {
-      const dt = Math.min(0.05, (now - last) / 1000);
+      const dt = Math.min(0.05, (now - lastFrameTime) / 1000);
 
-      last = now;
+      lastFrameTime = now;
 
+      // Stop the animation if another scroll action takes control.
       if (Math.abs(readScroll() - written) > 2) {
         gliding = false;
         glide = 0;
         settleSoon();
-
         return;
       }
 
@@ -335,7 +368,6 @@ const ScrollStack = ({
         gliding = false;
         glide = 0;
         settleSoon();
-
         return;
       }
 
@@ -346,6 +378,7 @@ const ScrollStack = ({
       goal = Math.min(Math.max(value, 0), maxScroll());
 
       if (motion.matches) {
+        gliding = false;
         writeScroll(goal);
         return;
       }
@@ -355,35 +388,9 @@ const ScrollStack = ({
       gliding = true;
       current = readScroll();
       written = current;
-      last = performance.now();
+      lastFrameTime = performance.now();
 
       glide = requestAnimationFrame(step);
-    };
-
-    const settle = () => {
-      rest = 0;
-
-      if (!settingsRef.current?.snap || gliding || pressed || !points.length) {
-        return;
-      }
-
-      const now = readScroll();
-
-      const nearest = points.reduce((best, point) =>
-        Math.abs(point - now) < Math.abs(best - now) ? point : best,
-      );
-
-      const gap = Math.abs(nearest - now);
-
-      if (gap > 1 && gap < reach) {
-        glideTo(nearest);
-      }
-    };
-
-    const settleSoon = () => {
-      window.clearTimeout(rest);
-
-      rest = window.setTimeout(settle, 140);
     };
 
     const onScroll = () => {
@@ -433,7 +440,6 @@ const ScrollStack = ({
       event.preventDefault();
 
       window.clearTimeout(rest);
-
       glideTo(base + delta);
     };
 
@@ -446,7 +452,6 @@ const ScrollStack = ({
       if (!pressed) return;
 
       pressed = false;
-
       settleSoon();
     };
 
@@ -495,10 +500,11 @@ const ScrollStack = ({
 
       window.removeEventListener("pointerup", onRelease);
       window.removeEventListener("pointercancel", onRelease);
-
       window.removeEventListener("resize", schedule);
 
-      scheduleRef.current = null;
+      if (scheduleRef.current === schedule) {
+        scheduleRef.current = null;
+      }
     };
   }, [useWindowScroll]);
 

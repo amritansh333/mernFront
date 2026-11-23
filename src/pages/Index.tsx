@@ -50,6 +50,7 @@ import {
   Dumbbell,
   Train,
   Droplets,
+  ShoppingCart,
 } from "lucide-react";
 import { useScrollFade } from "@/hooks/useScrollFade";
 import { useMachineComponentRouting } from "@/lib/product-experience/useMachineComponentRouting";
@@ -989,14 +990,14 @@ function MaterialsSection() {
                 snap={false}
                 itemDistance={isMobile ? 105 : 145}
                 itemStackDistance={isMobile ? 14 : 22}
-                stackPosition={isMobile ? 145 : 145}
+                stackPosition={isMobile ? 125 : 145}
                 itemScale={isMobile ? 0.025 : 0.035}
                 baseScale={isMobile ? 0.92 : 0.88}
                 dimAmount={0}
                 blurAmount={0}
                 tiltAmount={0}
                 rotationAmount={0}
-                holdDistance={isMobile ? 70 : 110}
+                holdDistance={0}
               >
                 {brands.map((m) => (
                   <ScrollStackItem
@@ -1178,6 +1179,8 @@ function PolymersSection() {
       base: "PE / UHMW PE",
       slug: "uhmwpe",
       colour: "bg-blue-50 text-blue-700 border-blue-200",
+      cardBorder: "border-blue-200",
+      cardHoverBorder: "hover:border-blue-400",
       tagline: "Ultra-High Molecular Weight Polyethylene",
       desc: "Self-lubricating, exceptional abrasion resistance, high impact strength. Widely used in conveyor liners, wear strips, and food processing equipment.",
     },
@@ -1186,6 +1189,8 @@ function PolymersSection() {
       base: "PC",
       slug: "pc",
       colour: "bg-sky-50 text-sky-700 border-sky-200",
+      cardBorder: "border-sky-200",
+      cardHoverBorder: "hover:border-sky-400",
       tagline: "Polycarbonate",
       desc: "High-clarity PC sheets with outstanding impact strength. Available in transparent, embossed, shaded, and UV-stabilised variants.",
     },
@@ -1194,6 +1199,8 @@ function PolymersSection() {
       base: "PP",
       slug: "pp",
       colour: "bg-orange-50 text-orange-700 border-orange-200",
+      cardBorder: "border-orange-200",
+      cardHoverBorder: "hover:border-orange-400",
       tagline: "Polypropylene",
       desc: "High-impact and chemical-resistant PP sheets for acid and chemical tanks, galvanising, anodising, and food processing.",
     },
@@ -1202,6 +1209,8 @@ function PolymersSection() {
       base: "HDPE",
       slug: "hdpe",
       colour: "bg-green-50 text-green-700 border-green-200",
+      cardBorder: "border-green-200",
+      cardHoverBorder: "hover:border-green-400",
       tagline: "High-Density Polyethylene",
       desc: "Tough, corrosion-resistant HDPE sheets for chemical tanks, crate partitions, fabrication, and structural applications.",
     },
@@ -1210,6 +1219,8 @@ function PolymersSection() {
       base: "CAST NYLON (PA6)",
       slug: "pa6",
       colour: "bg-purple-50 text-purple-700 border-purple-200",
+      cardBorder: "border-purple-200",
+      cardHoverBorder: "hover:border-purple-400",
       tagline: "Cast Nylon / Polyamide 6",
       desc: "Oil-filled, MoS₂-filled, and heat-stabilised cast nylon for gears, bearings, wear pads, and high-strength engineering components.",
     },
@@ -1218,6 +1229,8 @@ function PolymersSection() {
       base: "ACETAL / POM",
       slug: "acetal",
       colour: "bg-red-50 text-red-700 border-red-200",
+      cardBorder: "border-red-200",
+      cardHoverBorder: "hover:border-red-400",
       tagline: "Acetal / Polyoxymethylene",
       desc: "Excellent machinability, dimensional stability, and low friction for precision gears, cams, bearings, and industrial components.",
     },
@@ -1226,7 +1239,10 @@ function PolymersSection() {
       base: "ABS / ASA",
       slug: "abs",
       colour: "bg-yellow-50 text-yellow-700 border-yellow-200",
-      tagline: "ABS & ASA Sheets",
+      cardBorder: "border-yellow-200",
+      cardHoverBorder: "hover:border-yellow-400",
+      tagline:
+        "Acrylonitrile Butadiene Styrene / Acrylonitrile Styrene Acrylate",
       desc: "Automotive-grade ABS and ASA sheets for interior and exterior trim, display systems, and rapid prototyping.",
     },
     {
@@ -1234,7 +1250,9 @@ function PolymersSection() {
       base: "UHMWPE ENGINEERING",
       slug: "pe",
       colour: "bg-teal-50 text-teal-700 border-teal-200",
-      tagline: "Engineering Polymer Grades",
+      cardBorder: "border-teal-200",
+      cardHoverBorder: "hover:border-teal-400",
+      tagline: "Polyethylene / Ultra-High Molecular Weight Polyethylene",
       desc: "Specialised engineering polymers designed for CNC-machined components, industrial sliders, wear parts, and demanding sliding applications.",
     },
   ];
@@ -1362,10 +1380,9 @@ function PolymersSection() {
               <Link
                 key={m.slug}
                 to={`/materials/${m.slug}`}
-                className={`material-family-card group block text-left p-5 border-2 border-border bg-card transition-all duration-300 rounded-xl ${
+                className={`group block text-left p-5 border ${m.cardBorder} ${m.cardHoverBorder} bg-card rounded-xl transition-colors duration-200 ${
                   isVisible ? "material-family-card-visible" : ""
                 }`}
-                data-material-glow={m.slug}
                 style={
                   {
                     "--material-index": index,
@@ -1375,21 +1392,23 @@ function PolymersSection() {
                 {/* Material badge and chevron */}
                 <div className="flex items-start justify-between mb-2">
                   <span
-                    className={`text-[10px] px-2.5 py-1 font-bold border ${m.colour}`}
+                    className={`inline-flex items-center gap-1.5 text-[10px] px-2.5 py-1 font-bold border ${m.colour} rounded-xl`}
                   >
-                    {m.base}
+                    <ShoppingCart className="w-3 h-3 shrink-0" />
+                    {m.brand}
                   </span>
 
-                  <ChevronRight className="w-4 h-4 text-muted-foreground transition-transform duration-200 group-hover:translate-x-1 group-hover:text-primary" />
+                  <ChevronRight className="w-4 h-4 text-muted-foreground transition-all duration-200 group-hover:translate-x-1 group-hover:text-primary" />
                 </div>
 
                 {/* Brand */}
-                <h3 className="font-heading font-bold text-charcoal text-lg mb-1 group-hover:text-primary transition-colors duration-200">
-                  {m.brand}
+                <h3 className="font-heading font-bold text-charcoal text-lg mb-1 transition-colors duration-200 group-hover:text-primary">
+                  {m.base}
                 </h3>
 
                 {/* Tagline */}
-                <p className="text-xs text-primary font-semibold mb-2">
+                <p className="inline-flex items-center gap-1.5 text-xs text-primary font-semibold mb-2">
+                  <FlaskConical className="w-3 h-3 shrink-0" />
                   {m.tagline}
                 </p>
 
@@ -1467,7 +1486,7 @@ function IndustriesSection() {
                 style={
                   {
                     "--industry-index": index,
-                    "--industry-delay": `${180 + index * 150}ms`,
+                    "--industry-delay": `${180 + index * 80}ms`,
                   } as React.CSSProperties
                 }
               >

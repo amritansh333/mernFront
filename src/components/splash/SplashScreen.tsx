@@ -15,9 +15,9 @@ interface SplashScreenProps {
   onComplete: () => void;
 }
 
-const ANIMATION_DURATION = 1600;
-const LOGO_HOLD_DURATION = 350;
-const SHUTTER_DURATION = 1200;
+const ANIMATION_DURATION = 600;
+const LOGO_HOLD_DURATION = 300;
+const SHUTTER_DURATION = 700;
 
 export default function SplashScreen({ onComplete }: SplashScreenProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);

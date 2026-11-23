@@ -5,6 +5,7 @@ import type { Brand, SubCategory } from "@/types/catalog";
 import api from "@/lib/api";
 
 import PageHeroBanner from "@/components/hero-banner/PageHeroBanner";
+import LoadingState from "@/components/machine-components/LoadingState";
 import manufacturingImage from "@/assets/csr-slider1.jpeg";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "";
@@ -199,6 +200,10 @@ export default function BrandsPage() {
     load();
   }, [subcategorySlug]);
 
+  if (loading) {
+    return <LoadingState />;
+  }
+
   // Use the first available brand image for the hero banner.
   const heroImage = brands.find(
     (brand) => brand.image && brand.image.trim() !== "",
@@ -258,60 +263,36 @@ export default function BrandsPage() {
       <section className="py-14">
         <div className="container max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {loading
-              ? Array.from({ length: 6 }).map((_, index) => (
-                  <div
-                    key={index}
-                    className="product-card block animate-pulse rounded-xl overflow-hidden"
-                  >
-                    <div className="card-image aspect-[4/3] overflow-hidden bg-gray-200 rounded-t-xl" />
+            {brands.map((brand) => (
+              <Link
+                key={brand._id}
+                to={`/products/${categorySlug}/${subcategorySlug}/${brand.slug}`}
+                className="product-card block group rounded-xl overflow-hidden"
+              >
+                <BrandImageCarousel
+                  image={brand.image}
+                  slug={brand.slug}
+                  name={brand.name}
+                />
 
-                    <div className="p-5">
-                      <div className="h-5 w-40 bg-gray-200 rounded mb-3" />
+                <div className="p-5">
+                  <h3 className="font-heading font-bold text-charcoal text-md mb-2 group-hover:text-primary transition-colors duration-200">
+                    {brand.name}
+                  </h3>
 
-                      <div className="space-y-2 mb-4">
-                        <div className="h-3 w-full bg-gray-200 rounded" />
-                        <div className="h-3 w-5/6 bg-gray-200 rounded" />
-                      </div>
+                  <p className="text-xs text-muted-foreground mb-4 line-clamp-2">
+                    {brand.description?.[0] || "No description available"}
+                  </p>
 
-                      <div className="pt-3 border-t border-divider">
-                        <div className="h-3 w-32 bg-gray-200 rounded" />
-                      </div>
-
-                      <div className="card-border-bottom mt-3" />
-                    </div>
+                  <div className="cta-link text-xs pt-3 border-t border-divider">
+                    View Products{" "}
+                    <ArrowRight className="w-3.5 h-3.5 explore-arrow" />
                   </div>
-                ))
-              : brands.map((brand) => (
-                  <Link
-                    key={brand._id}
-                    to={`/products/${categorySlug}/${subcategorySlug}/${brand.slug}`}
-                    className="product-card block group rounded-xl overflow-hidden"
-                  >
-                    <BrandImageCarousel
-                      image={brand.image}
-                      slug={brand.slug}
-                      name={brand.name}
-                    />
 
-                    <div className="p-5">
-                      <h3 className="font-heading font-bold text-charcoal text-md mb-2 group-hover:text-primary transition-colors duration-200">
-                        {brand.name}
-                      </h3>
-
-                      <p className="text-xs text-muted-foreground mb-4 line-clamp-2">
-                        {brand.description?.[0] || "No description available"}
-                      </p>
-
-                      <div className="cta-link text-xs pt-3 border-t border-divider">
-                        View Products{" "}
-                        <ArrowRight className="w-3.5 h-3.5 explore-arrow" />
-                      </div>
-
-                      <div className="card-border-bottom mt-3" />
-                    </div>
-                  </Link>
-                ))}
+                  <div className="card-border-bottom mt-3" />
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>

@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import api from "@/lib/api";
 import type { SubCategory } from "@/types/catalog";
-
+import LoadingState from "@/components/machine-components/LoadingState";
 import PageHeroBanner from "@/components/hero-banner/PageHeroBanner";
 import manufacturingImage from "@/assets/csr-slider1.jpeg";
 
@@ -214,6 +214,8 @@ export default function SubcategoriesPage() {
 
     if (categorySlug) {
       void load();
+    } else {
+      setLoading(false);
     }
 
     return () => {
@@ -242,6 +244,10 @@ export default function SubcategoriesPage() {
       ? `${firstSubcategoryWithImage.name} product image`
       : "Khanna Polyrib manufacturing facility";
   }, [subcategories]);
+
+  if (loading) {
+    return <LoadingState />;
+  }
 
   const pageTexture = {
     backgroundColor: "#FFFFFF",
@@ -286,60 +292,36 @@ export default function SubcategoriesPage() {
       <section className="py-14">
         <div className="container max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {loading
-              ? Array.from({ length: 6 }).map((_, index) => (
-                  <div
-                    key={index}
-                    className="product-card block animate-pulse rounded-xl overflow-hidden"
-                  >
-                    <div className="card-image aspect-[4/3] overflow-hidden bg-gray-200 rounded-t-xl" />
+            {subcategories.map((sub) => (
+              <Link
+                key={sub._id}
+                to={`/products/${categorySlug}/${sub.slug}`}
+                className="product-card block group rounded-xl overflow-hidden"
+              >
+                <SubcategoryImageCarousel
+                  image={sub.image}
+                  slug={sub.slug}
+                  name={sub.name}
+                />
 
-                    <div className="p-5">
-                      <div className="h-5 w-40 bg-gray-200 rounded mb-3" />
+                <div className="p-5">
+                  <h3 className="font-heading font-bold text-charcoal text-md mb-2 group-hover:text-primary transition-colors duration-200">
+                    {sub.name}
+                  </h3>
 
-                      <div className="space-y-2 mb-4">
-                        <div className="h-3 w-full bg-gray-200 rounded" />
-                        <div className="h-3 w-5/6 bg-gray-200 rounded" />
-                      </div>
+                  <p className="text-xs text-muted-foreground mb-4 line-clamp-2">
+                    {sub.description?.[0] || "No description available"}
+                  </p>
 
-                      <div className="pt-3 border-t border-divider">
-                        <div className="h-3 w-32 bg-gray-200 rounded" />
-                      </div>
-
-                      <div className="card-border-bottom mt-3" />
-                    </div>
+                  <div className="cta-link text-xs pt-3 border-t border-divider">
+                    View Brands{" "}
+                    <ArrowRight className="w-3.5 h-3.5 explore-arrow" />
                   </div>
-                ))
-              : subcategories.map((sub) => (
-                  <Link
-                    key={sub._id}
-                    to={`/products/${categorySlug}/${sub.slug}`}
-                    className="product-card block group rounded-xl overflow-hidden"
-                  >
-                    <SubcategoryImageCarousel
-                      image={sub.image}
-                      slug={sub.slug}
-                      name={sub.name}
-                    />
 
-                    <div className="p-5">
-                      <h3 className="font-heading font-bold text-charcoal text-md mb-2 group-hover:text-primary transition-colors duration-200">
-                        {sub.name}
-                      </h3>
-
-                      <p className="text-xs text-muted-foreground mb-4 line-clamp-2">
-                        {sub.description?.[0] || "No description available"}
-                      </p>
-
-                      <div className="cta-link text-xs pt-3 border-t border-divider">
-                        View Brands{" "}
-                        <ArrowRight className="w-3.5 h-3.5 explore-arrow" />
-                      </div>
-
-                      <div className="card-border-bottom mt-3" />
-                    </div>
-                  </Link>
-                ))}
+                  <div className="card-border-bottom mt-3" />
+                </div>
+              </Link>
+            ))}
           </div>
 
           {!loading && subcategories.length === 0 && (

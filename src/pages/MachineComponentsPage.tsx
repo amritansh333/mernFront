@@ -410,14 +410,14 @@ export default function MachineComponentsPage() {
                   <Button
                     variant="outline"
                     className="
-  h-11
-  flex-1
-  min-w-0
-  justify-center
-  border-[#A9D8EB]
-  hover:border-[#A9D8EB]
-  rounded-xl
-"
+                      h-11
+                      flex-1
+                      min-w-0
+                      justify-center
+                      border-[#A9D8EB]
+                      hover:border-[#A9D8EB]
+                      rounded-xl
+                  "
                   >
                     <Menu className="mr-2 h-4 w-4" />
                     Explore Our Range
@@ -446,14 +446,14 @@ export default function MachineComponentsPage() {
                   <Button
                     variant="outline"
                     className="
-  h-11
-  flex-1
-  min-w-0
-  justify-center
-  border-[#A9D8EB]
-  hover:border-[#A9D8EB]
-  rounded-xl
-"
+                      h-11
+                      flex-1
+                      min-w-0
+                      justify-center
+                      border-[#A9D8EB]
+                      hover:border-[#A9D8EB]
+                      rounded-xl
+                    "
                   >
                     <Search className="mr-2 h-4 w-4" />
                     Search Products
@@ -465,7 +465,7 @@ export default function MachineComponentsPage() {
                     <SheetTitle>Search Products</SheetTitle>
 
                     <SheetDescription>
-                      Search thermoplastics machine components.
+                      Search Thermoplastics Engineered Products.
                     </SheetDescription>
                   </SheetHeader>
 
@@ -490,14 +490,14 @@ export default function MachineComponentsPage() {
                   <Button
                     variant="outline"
                     className="
-    h-11
-  flex-1
-  min-w-0
-  justify-center
-  border-[#A9D8EB]
-  hover:border-[#A9D8EB]
-  rounded-xl
-"
+                      h-11
+                      flex-1
+                      min-w-0
+                      justify-center
+                      border-[#A9D8EB]
+                      hover:border-[#A9D8EB]
+                      rounded-xl
+                    "
                   >
                     <Menu className="mr-2 h-4 w-4" />
                     Explore Our Range
@@ -536,7 +536,7 @@ export default function MachineComponentsPage() {
                     <SheetTitle>Search Products</SheetTitle>
 
                     <SheetDescription>
-                      Search thermoplastics machine components.
+                      Search Thermoplastics Engineered Products.
                     </SheetDescription>
                   </SheetHeader>
 
