@@ -1,13 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import {
-  ClipboardList,
   FileUp,
   Menu,
   MessageCircle,
   X,
   ChevronRight,
   PenLine,
-  Pen,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import "./FloatingCTA.css";
@@ -80,9 +78,15 @@ export default function FloatingCTA() {
   // Hide when brochure modal is open.
   useEffect(() => {
     const updateModalState = () => {
-      setIsBrochureModalOpen(
-        document.body.hasAttribute("data-brochure-modal-open"),
+      const isModalOpen = document.body.hasAttribute(
+        "data-brochure-modal-open",
       );
+
+      setIsBrochureModalOpen(isModalOpen);
+
+      if (isModalOpen) {
+        setIsOpen(false);
+      }
     };
 
     updateModalState();
@@ -109,6 +113,7 @@ export default function FloatingCTA() {
       className={`floating-cta ${isOpen ? "floating-cta--open" : ""}`}
     >
       {/* EXPANDED CTA PANEL */}
+
       <div
         className="floating-cta__panel"
         aria-hidden={!isOpen}
@@ -116,6 +121,7 @@ export default function FloatingCTA() {
       >
         <div className="floating-cta__header">
           <p className="floating-cta__heading">How can we help?</p>
+
           <p className="floating-cta__subheading">
             Choose an option to get started
           </p>
@@ -178,6 +184,7 @@ export default function FloatingCTA() {
       </div>
 
       {/* COMPACT MENU / CLOSE BUTTON */}
+
       <button
         type="button"
         className="floating-cta__toggle"
@@ -185,7 +192,9 @@ export default function FloatingCTA() {
         aria-label={isOpen ? "Close contact options" : "Open contact options"}
         aria-expanded={isOpen}
       >
-        <span className={`floating-cta__icon ${isOpen ? "is-open" : ""}`}>
+        <span
+          className={`floating-cta__icon ${isOpen ? "is-open" : ""}`}
+        >
           <Menu className="floating-cta__menu-icon" />
           <X className="floating-cta__close-icon" />
         </span>

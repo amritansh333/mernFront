@@ -17,6 +17,13 @@ import {
   ChevronDown,
   Check,
   MessageCircleQuestion,
+  Users,
+  Factory,
+  Building2,
+  Folder,
+  FolderOpen,
+  Plus,
+  Minus,
 } from "lucide-react";
 
 import PageHeroBanner from "@/components/hero-banner/PageHeroBanner";
@@ -739,6 +746,7 @@ const getAncestorPaths = (path: string): string[] => {
 
 export default function ContactPage() {
   const [activeTab, setActiveTab] = useState<Tab>("quote");
+  const [activeContactFolder, setActiveContactFolder] = useState<string | null>(null);
 
   /* Quote form */
   const [formData, setFormData] = useState({
@@ -1237,82 +1245,6 @@ export default function ContactPage() {
      CONTACT INFORMATION
   ===================================================== */
 
-  const contactItems = [
-    {
-      icon: MapPin,
-      label: "Address",
-      value: (
-        <>
-          Khanna Polyrib Pvt. Ltd.
-          <br />
-          <span className="text-sm font-medium text-primary">
-            KANPUR HEAD OFFICE
-          </span>
-          <br />
-          24/168 Birhana Road
-          <br />
-          Kanpur-208001, Uttar Pradesh, India
-          <br />
-          <span className="text-sm font-medium text-primary">WORK</span>
-          <br />
-          Plot 191-193, Akrampur Industrial Estate
-          <br />
-          Unnao-209801, Uttar Pradesh, India
-          <br />
-        </>
-      ),
-    },
-
-    {
-      icon: Phone,
-      label: "Phone",
-      value: (
-        <div className="flex flex-col gap-1">
-          <a
-            href="tel:05152970306"
-            className="text-sm font-medium text-charcoal hover:text-primary hover:underline transition-colors"
-            aria-label="Call 0515-2970306"
-          >
-            <span className="text-sm font-medium text-primary">
-              0515-2970306
-            </span>
-          </a>
-
-          <a
-            href="tel:+919936794816"
-            className="text-sm font-medium text-charcoal hover:text-primary hover:underline transition-colors"
-            aria-label="Call +91-99367-94816"
-          >
-            <span className="text-sm font-medium text-primary">
-              +91-9936794816
-            </span>
-          </a>
-        </div>
-      ),
-    },
-
-    {
-      icon: Mail,
-      label: "Email",
-      value: (
-        <a
-          href="mailto:info@polyrib.com"
-          className="text-sm font-medium text-charcoal hover:underline"
-        >
-          <span className="text-sm font-medium text-primary">
-            info@polyrib.com
-          </span>
-        </a>
-      ),
-    },
-
-    {
-      icon: Clock,
-      label: "Office Hours",
-      value: "Mon–Sat: 09:00–18:00 IST",
-    },
-  ];
-
   /* =====================================================
      QUOTE FORM SUBMISSION
   ===================================================== */
@@ -1451,6 +1383,7 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-white pt-16" style={pageTexture}>
+      <style>{`@keyframes folderReveal { from { opacity: 0; transform: translateY(12px) scale(.985); } to { opacity: 1; transform: translateY(0) scale(1); } }`}</style>
       {/* =================================================
           CONTACT PAGE HERO BANNER
       ================================================= */}
@@ -1541,84 +1474,641 @@ export default function ContactPage() {
           CONTACT INFORMATION + FORMS
       ================================================= */}
 
-      <div className="container max-w-7xl mx-auto px-5 sm:px-6 py-10 sm:py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
-          {/* =============================================
-              LEFT SIDEBAR
-          ============================================= */}
+      <div className="contact-page-background container max-w-7xl mx-auto px-5 sm:px-6 py-10 sm:py-16">
+        {/* =================================================
+    CONTACT FOLDER INTERACTION
+================================================= */}
 
-          <div className="space-y-8">
-            {/* CONTACT INFORMATION */}
+<section
+  className="contact-folder-section mb-10 sm:mb-14"
+  aria-label="Contact information folders"
+>
+  <div className="mb-4">
+    <p className="section-label">Contact Information</p>
+  </div>
 
-            <div>
-              <p className="section-label mb-4">Contact Information</p>
+  {(() => {
+    const folders = [
+      {
+        id: "corporate",
+        title: "Corporate Office",
+        subtitle: "Kanpur · Corporate Office",
+        eyebrow: "Head Office",
+        tone: "corporate",
+      },
+      {
+        id: "works",
+        title: "Works",
+        subtitle: "Unnao · Manufacturing",
+        eyebrow: "Manufacturing",
+        tone: "works",
+      },
+      {
+        id: "associate",
+        title: "Associate Concerns",
+        subtitle: "KBK Plascon",
+        eyebrow: "Associate Concern",
+        tone: "associate",
+      },
+      {
+        id: "distributor",
+        title: "Distributors",
+        subtitle: "Regional contacts",
+        eyebrow: "Regional Network",
+        tone: "distributor",
+      },
+    ];
 
-              <div className="space-y-4">
-                {contactItems.map(({ icon: Icon, label, value }) => (
-                  <div key={label} className="flex gap-3">
-                    <div className="w-9 h-9 bg-primary/10 flex items-center justify-center shrink-0 mt-0.5 rounded-full">
-                      <Icon className="w-4 h-4 text-primary" />
+    const activeFolder = folders.find(
+      (folder) => folder.id === activeContactFolder
+    );
+
+    const contactPanel = activeFolder ? (
+      <div className="contact-folder-panel-wrapper contact-folder-panel-wrapper--open">
+            <div
+              key={activeFolder.id}
+              id={`contact-folder-content-${activeFolder.id}`}
+              className={`contact-folder-panel contact-folder-panel--${activeFolder.tone}`}
+              role="region"
+              aria-label={`${activeFolder.title} contact details`}
+            >
+              {/* PANEL HEADER */}
+              <div className="contact-folder-panel-header">
+                <div className="contact-folder-panel-heading">
+                  <div className="contact-folder-panel-icon">
+                    <FolderOpen />
+                  </div>
+
+                  <div className="min-w-0">
+                    
+
+                    <h3 className="contact-folder-panel-title">
+                      {activeFolder.title}
+                    </h3>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setActiveContactFolder(null)}
+                  className="contact-folder-close"
+                  aria-label="Close selected contact folder"
+                >
+                  <Minus />
+                  <span>Close</span>
+                </button>
+              </div>
+
+              {/* CORPORATE OFFICE */}
+              {activeContactFolder === "corporate" && (
+                <div className="contact-folder-content">
+                  <div className="contact-details-list">
+                    <div className="contact-detail-row">
+                      <MapPin className="contact-detail-icon" />
+
+                      <p>
+                        24/186, Birhana Road,
+                        <br />
+                        Kanpur – 208001, Uttar Pradesh
+                      </p>
                     </div>
 
-                    <div className="min-w-0">
-                      <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-0.5">
-                        {label}
-                      </div>
+                    <a
+                      href="tel:05124056299"
+                      className="contact-detail-link"
+                    >
+                      <Phone className="contact-detail-icon" />
+                      <span>0512-4056299</span>
+                    </a>
+                  </div>
+                </div>
+              )}
 
-                      <div className="text-sm text-charcoal whitespace-pre-line break-words">
-                        {value}
-                      </div>
+              {/* WORKS */}
+              {activeContactFolder === "works" && (
+                <div className="contact-folder-content">
+                  <div className="contact-details-list">
+                    <div className="contact-detail-row">
+                      <MapPin className="contact-detail-icon" />
+
+                      <p>
+                        191, Akrampur Industrial Estate,
+                        <br />
+                        Unnao – 209862, Uttar Pradesh, India
+                      </p>
+                    </div>
+
+                    <div className="contact-phone-group">
+                      {[
+                        "0515-3505329",
+                        "9936794816",
+                        "9936794805",
+                        "9936794868",
+                      ].map((number) => (
+                        <a
+                          key={number}
+                          href={`tel:${number.replace(/[^0-9+]/g, "")}`}
+                          className="contact-detail-link"
+                        >
+                          <Phone className="contact-detail-icon" />
+                          <span>{number}</span>
+                        </a>
+                      ))}
                     </div>
                   </div>
-                ))}
-              </div>
+                </div>
+              )}
+
+              {/* ASSOCIATE CONCERN */}
+              {activeContactFolder === "associate" && (
+                <div className="contact-folder-content">
+                  <div className="contact-details-list">
+                    <div className="contact-detail-row">
+                      <MapPin className="contact-detail-icon" />
+
+                      <p>
+                        53, Akrampur Industrial Estate,
+                        <br />
+                        Unnao – 209862, Uttar Pradesh, India
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* DISTRIBUTOR NETWORK */}
+              {activeContactFolder === "distributor" && (
+                <div className="contact-folder-content contact-folder-content--distributors">
+
+                  {/* DELHI */}
+                  <article className="distributor-region">
+                    <div className="distributor-region-heading">
+                      <span className="distributor-region-marker">
+                        <MapPin />
+                      </span>
+
+                      <h4>Delhi – Okhla</h4>
+                    </div>
+
+                    <p className="distributor-company">
+                      KBK Polymers Pvt. Ltd.
+                    </p>
+
+                    <p className="distributor-address">
+                      A-107, DDA Complex, Okhla Industrial Area Phase 2
+                    </p>
+
+                    <div className="distributor-links">
+                      <a
+                        href="tel:+911126384242"
+                        className="contact-detail-link"
+                      >
+                        <Phone className="contact-detail-icon" />
+                        <span>+91 11 26384242 / 4343</span>
+                      </a>
+
+                      <a
+                        href="tel:+919871199895"
+                        className="contact-detail-link"
+                      >
+                        <Phone className="contact-detail-icon" />
+                        <span>+91 9871199895</span>
+                      </a>
+
+                      <a
+                        href="mailto:polyrib@rediffmail.com"
+                        className="contact-detail-link"
+                      >
+                        <Mail className="contact-detail-icon" />
+                        <span>polyrib@rediffmail.com</span>
+                      </a>
+                    </div>
+                  </article>
+
+                  {/* MAHARASHTRA */}
+                  <article className="distributor-region">
+                    <div className="distributor-region-heading">
+                      <span className="distributor-region-marker">
+                        <MapPin />
+                      </span>
+
+                      <h4>Maharashtra – Bhiwandi</h4>
+                    </div>
+
+                    <p className="distributor-company">
+                      KBK Polymers Pvt. Ltd.
+                    </p>
+
+                    <p className="distributor-address">
+                      B-37, 38 Paresh Complex, Village Kalher,
+                      <br />
+                      Bhiwandi – 421302, Maharashtra
+                    </p>
+
+                    <div className="distributor-links">
+                      <a
+                        href="tel:02522276225"
+                        className="contact-detail-link"
+                      >
+                        <Phone className="contact-detail-icon" />
+                        <span>02522-276225</span>
+                      </a>
+
+                      <a
+                        href="tel:+917738066056"
+                        className="contact-detail-link"
+                      >
+                        <Phone className="contact-detail-icon" />
+                        <span>+91 7738060656</span>
+                      </a>
+
+                      <a
+                        href="mailto:kbk_sachin@polyrib.com"
+                        className="contact-detail-link"
+                      >
+                        <Mail className="contact-detail-icon" />
+                        <span>kbk_sachin@polyrib.com</span>
+                      </a>
+                    </div>
+                  </article>
+
+                  {/* GUJARAT */}
+                  <article className="distributor-region">
+                    <div className="distributor-region-heading">
+                      <span className="distributor-region-marker">
+                        <MapPin />
+                      </span>
+
+                      <h4>Gujarat – Ahmedabad</h4>
+                    </div>
+
+                    <p className="distributor-company">
+                      KBK Polymers Pvt. Ltd.
+                    </p>
+
+                    <p className="distributor-address">
+                      National Bobin Compound, 239 Pushkar Industrial Estate,
+                      <br />
+                      Opp. Macons Factory, PH1 DIDC Vatwa,
+                      <br />
+                      Ahmedabad – 382445, Gujarat, India
+                    </p>
+
+                    <div className="distributor-links">
+                      {["9936794816", "9651999807"].map((number) => (
+                        <a
+                          key={number}
+                          href={`tel:${number}`}
+                          className="contact-detail-link"
+                        >
+                          <Phone className="contact-detail-icon" />
+                          <span>{number}</span>
+                        </a>
+                      ))}
+
+                      <a
+                        href="mailto:kbk_pk@polyrib.com"
+                        className="contact-detail-link"
+                      >
+                        <Mail className="contact-detail-icon" />
+                        <span>kbk_pk@polyrib.com</span>
+                      </a>
+                    </div>
+                  </article>
+
+                  {/* CENTRAL CONTACT */}
+                  <article className="distributor-region distributor-region--central">
+                    <div className="distributor-region-heading">
+                      <span className="distributor-region-marker">
+                        <Mail />
+                      </span>
+
+                      <h4>Central Contact</h4>
+                    </div>
+
+                    <div className="distributor-links">
+                      <a
+                        href="mailto:info@polyrib.com"
+                        className="contact-detail-link"
+                      >
+                        <Mail className="contact-detail-icon" />
+                        <span>info@polyrib.com</span>
+                      </a>
+
+                      <a
+                        href="https://www.polyrib.com"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="contact-detail-link"
+                      >
+                        <ArrowRight className="contact-detail-icon" />
+                        <span>www.polyrib.com</span>
+                      </a>
+                    </div>
+                  </article>
+                </div>
+              )}
+
+              
             </div>
+      </div>
+    ) : null;
 
-            {/* TECHNICAL TEAM */}
+    return (
+      <>
+        {/* FOLDER CARDS + RESPONSIVE CONTACT PANEL */}
+<div className="contact-folder-grid">
+  {folders.map((folder, index) => {
+    const isActive = activeContactFolder === folder.id;
 
-            <div className="border border-primary p-5 rounded-xl bg-primary/5">
-              <p className="section-label mb-3">Technical Team</p>
+    return (
+      <React.Fragment key={folder.id}>
+        <button
+          type="button"
+          onClick={() =>
+            setActiveContactFolder((current) =>
+              current === folder.id ? null : folder.id
+            )
+          }
+          aria-expanded={isActive}
+          aria-controls={`contact-folder-content-${folder.id}`}
+          aria-label={`${isActive ? "Close" : "Open"} ${
+            folder.title
+          } contact folder`}
+          className={`contact-folder-card contact-folder-card--${folder.tone} ${
+            isActive ? "contact-folder-card--active" : ""
+          }`}
+        >
+          <svg
+  className="contact-folder-shape"
+  viewBox="0 0 400 260"
+  preserveAspectRatio="none"
+  xmlns="http://www.w3.org/2000/svg"
+  aria-hidden="true"
+>
+  <defs>
+    {/* Folder surface: light Polyrib blue on the left, fading to white on the right */}
+    <linearGradient
+      id={`folder-background-gradient-${folder.id}`}
+      x1="0%"
+      y1="0%"
+      x2="100%"
+      y2="0%"
+    >
+      <stop offset="0%" stopColor="#E3F1F7" />
+      <stop offset="20%" stopColor="#EAF5F9" />
+      <stop offset="45%" stopColor="#F5FAFC" />
+      <stop offset="75%" stopColor="#FDFEFF" />
+      <stop offset="100%" stopColor="#FFFFFF" />
+    </linearGradient>
 
-              <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                Need expert guidance on material selection, machining
-                specifications, or application requirements?
-              </p>
+    {/* Restrained industrial drafting pattern: fine traces and precision nodes */}
+    <pattern
+      id={`folder-technical-pattern-${folder.id}`}
+      width="72"
+      height="72"
+      patternUnits="userSpaceOnUse"
+    >
+      <g
+        fill="none"
+        stroke="#279ECE"
+        strokeWidth="0.85"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        opacity="0.13"
+      >
+        <path d="M8 18 H27 L35 10 H58" />
+        <path d="M20 54 H39 L47 46 H68" />
+        <path d="M8 18 V34 H18" />
+        <path d="M58 10 V26 H68" />
+      </g>
 
-              <a
-                href="mailto:info@polyrib.com"
-                className="text-sm font-medium text-primary hover:underline"
-              >
-                info@polyrib.com
-              </a>
-            </div>
+      <g fill="#279ECE" opacity="0.17">
+        <circle cx="8" cy="18" r="1.5" />
+        <circle cx="35" cy="10" r="1.5" />
+        <circle cx="58" cy="10" r="1.5" />
+        <circle cx="20" cy="54" r="1.5" />
+        <circle cx="47" cy="46" r="1.5" />
+        <circle cx="68" cy="46" r="1.5" />
+      </g>
+    </pattern>
 
-            {/* WHY POLYRIB */}
+    {/* Fade the detail toward the text so the folder label stays clear */}
+    <linearGradient
+      id={`folder-pattern-fade-${folder.id}`}
+      x1="0"
+      y1="0"
+      x2="0"
+      y2="1"
+    >
+      <stop offset="0%" stopColor="white" stopOpacity="0.9" />
+      <stop offset="42%" stopColor="white" stopOpacity="0.55" />
+      <stop offset="72%" stopColor="white" stopOpacity="0.12" />
+      <stop offset="100%" stopColor="white" stopOpacity="0" />
+    </linearGradient>
 
-            <div className="bg-primary p-5 text-primary-foreground rounded-xl">
-              <h4 className="font-heading text-white font-semibold mb-2">
-                Why engineers choose Polyrib
-              </h4>
+    <mask
+      id={`folder-pattern-mask-${folder.id}`}
+      maskUnits="userSpaceOnUse"
+      x="0"
+      y="0"
+      width="400"
+      height="260"
+    >
+      <rect
+        width="400"
+        height="260"
+        fill={`url(#folder-pattern-fade-${folder.id})`}
+      />
+    </mask>
+  </defs>
 
-              <ul className="space-y-2">
-                {[
-                  "Application-driven material selection",
-                  "Precision machining to your drawings",
-                  "Custom & batch manufacturing",
-                  "ISO 9001 certified quality assurance",
-                  "Technical datasheets for all materials",
-                ].map((p) => (
-                  <li
-                    key={p}
-                    className="flex items-start gap-2 text-primary-foreground/80 text-xs"
-                  >
-                    <CheckCircle2 className="w-3.5 h-3.5 mt-0.5 shrink-0 text-white" />
+  {/* Main white folder */}
+  <path
+    className="contact-folder-shape-fill"
+    style={{ fill: `url(#folder-background-gradient-${folder.id})` }}
+    d="
+      M 16 20
+      Q 16 8 28 8
+      L 132 8
+      Q 142 8 148 16
+      L 164 36
+      Q 170 42 178 42
+      L 372 42
+      Q 384 42 384 54
+      L 384 236
+      Q 384 248 372 248
+      L 28 248
+      Q 16 248 16 236
+      Z
+    "
+  />
 
-                    {p}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
+  {/* Subtle technical pattern, clipped to the folder silhouette */}
+  <path
+    d="
+      M 16 20
+      Q 16 8 28 8
+      L 132 8
+      Q 142 8 148 16
+      L 164 36
+      Q 170 42 178 42
+      L 372 42
+      Q 384 42 384 54
+      L 384 236
+      Q 384 248 372 248
+      L 28 248
+      Q 16 248 16 236
+      Z
+    "
+    fill={`url(#folder-technical-pattern-${folder.id})`}
+    mask={`url(#folder-pattern-mask-${folder.id})`}
+    pointerEvents="none"
+  />
+
+  {/* Folder outline */}
+  <path
+    className="contact-folder-shape-stroke"
+    d="
+      M 16 20
+      Q 16 8 28 8
+      L 132 8
+      Q 142 8 148 16
+      L 164 36
+      Q 170 42 178 42
+      L 372 42
+      Q 384 42 384 54
+      L 384 236
+      Q 384 248 372 248
+      L 28 248
+      Q 16 248 16 236
+      Z
+    "
+  />
+</svg>
+
+          {/* FOLDER CONTENT */}
+          <span className="contact-folder-inner">
+            <span className="contact-folder-info">
+              <span className="contact-folder-title">
+                {folder.title}
+              </span>
+
+              <span className="contact-folder-subtitle">
+                {folder.subtitle}
+              </span>
+            </span>
+
+            <span className="contact-folder-action">
+              {isActive ? <Minus /> : <Plus />}
+            </span>
+          </span>
+        </button>
+
+        {/* Reserve the second column when the active card is in column one.
+            This makes the panel start on the very next row instead of allowing
+            the next folder to sit beside the selected folder. */}
+        {isActive && index % 2 === 0 && (
+          <span
+            className="contact-folder-grid-spacer"
+            aria-hidden="true"
+          />
+        )}
+
+        {/* Insert the one active panel directly after its selected folder */}
+        {isActive && contactPanel}
+      </React.Fragment>
+    );
+  })}
+</div>
+
+      </>
+    );
+  })()}
+</section>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-stretch">
+          {/* =============================================
+    LEFT SIDEBAR — CONTACT & VALUE CARDS
+============================================= */}
+
+<aside className="quote-sidebar">
+
+  {/* TECHNICAL TEAM */}
+  <div className="quote-sidebar-card quote-technical-card">
+
+    <div className="quote-card-topline">
+      <span className="quote-card-icon">
+        <Mail className="w-5 h-5" />
+      </span>
+
+      <span className="section-label">Technical Team</span>
+    </div>
+
+    <h3 className="quote-card-title">
+      Need technical assistance?
+    </h3>
+
+    <p className="quote-card-description">
+      Get expert guidance on material selection, machining
+      specifications, or application requirements from our
+      technical team.
+    </p>
+
+    <a
+      href="mailto:info@polyrib.com"
+      className="quote-email-link"
+    >
+      <span>info@polyrib.com</span>
+      <ArrowRight className="w-4 h-4" />
+    </a>
+
+    <span className="quote-card-watermark" aria-hidden="true">
+      <Mail />
+    </span>
+  </div>
+
+  {/* WHY POLYRIB */}
+  <div className="quote-sidebar-card quote-why-card">
+
+    <div className="quote-why-heading">
+      <span className="quote-why-icon">
+        <CheckCircle2 className="w-5 h-5" />
+      </span>
+
+      <div>
+        <span className="quote-why-eyebrow">
+          The Polyrib Advantage
+        </span>
+
+        <h3 className="quote-why-title">
+          Why engineers choose Polyrib
+        </h3>
+      </div>
+    </div>
+
+    <ul className="quote-benefit-list">
+      {[
+        "Application-driven material selection",
+        "Precision machining to your drawings",
+        "Custom & batch manufacturing",
+        "ISO 9001 certified quality assurance",
+        "Technical datasheets for all materials",
+      ].map((item) => (
+        <li key={item}>
+          <span className="quote-benefit-check">
+            <CheckCircle2 />
+          </span>
+
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
+
+    <span className="quote-why-decoration" aria-hidden="true" />
+  </div>
+
+</aside>
 
           {/* =============================================
               RIGHT: FORMS

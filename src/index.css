@@ -84,7 +84,7 @@
   h3,
   h4,
   h5 {
-    font-family: "Barlow", system-ui, sans-serif;
+    font-family: "DM Sans", system-ui, sans-serif;
     font-weight: 700;
     letter-spacing: -0.02em;
     color: hsl(var(--charcoal));
@@ -2145,7 +2145,7 @@
   max-width: 760px;
   margin: 0;
 
-  color: #ffffff;
+  color: #161f2d;
   font-size: clamp(25px, 3vw, 38px);
   font-weight: 700;
   line-height: 1.08;
@@ -4059,3 +4059,2317 @@
   animation-play-state: paused !important;
   transition: none !important;
 }
+
+/* =========================================================
+
+   CONTACT FOLDER SECTION
+
+\========================================================= */
+
+.contact-folder-section {
+  position: relative;
+
+  width: 100%;
+
+  isolation: isolate;
+}
+
+/* =========================================================
+
+   FOLDER GRID
+
+\========================================================= */
+
+.contact-folder-grid {
+  display: grid;
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 18px;
+
+  align-items: stretch;
+
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .contact-folder-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+
+    gap: 20px;
+  }
+}
+
+/* =========================================================
+
+   FOLDER CARD
+
+\========================================================= */
+
+.contact-folder-card {
+  position: relative;
+
+  display: block;
+
+  isolation: isolate;
+
+  width: 100%;
+
+  min-width: 0;
+
+  aspect-ratio: 400 / 260;
+
+  padding: 0;
+
+  border: 0;
+
+  border-radius: 0;
+
+  background: transparent;
+
+  color: inherit;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  -webkit-tap-highlight-color: transparent;
+
+  transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* =========================================================
+
+   SVG FOLDER SHAPE
+
+\========================================================= */
+
+.contact-folder-shape {
+  position: absolute;
+
+  inset: 0;
+
+  display: block;
+
+  width: 100%;
+
+  height: 100%;
+
+  z-index: -1;
+
+  overflow: visible;
+
+  pointer-events: none;
+
+  filter: drop-shadow(0 3px 5px rgba(15, 80, 110, 0.035))
+    drop-shadow(0 7px 14px rgba(15, 80, 110, 0.025));
+
+  transition:
+    filter 300ms ease,
+    transform 350ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.contact-folder-shape-fill {
+  fill: #ffffff;
+
+  transition: fill 300ms ease;
+}
+
+.contact-folder-shape-stroke {
+  fill: none;
+
+  stroke: rgba(39, 158, 206, 0.22);
+
+  stroke-width: 1.5;
+
+  stroke-linejoin: round;
+
+  stroke-linecap: round;
+
+  vector-effect: non-scaling-stroke;
+
+  transition:
+    stroke 300ms ease,
+    stroke-width 300ms ease;
+}
+
+.contact-folder-card--corporate .contact-folder-shape-fill,
+.contact-folder-card--works .contact-folder-shape-fill,
+.contact-folder-card--associate .contact-folder-shape-fill,
+.contact-folder-card--distributor .contact-folder-shape-fill {
+  fill: #ffffff;
+}
+
+/* =========================================================
+
+   FOLDER INNER LAYOUT
+
+\========================================================= */
+
+.contact-folder-inner {
+  position: absolute;
+
+  inset: 0;
+
+  display: block;
+
+  min-width: 0;
+
+  width: 100%;
+
+  height: 100%;
+}
+
+/* =========================================================
+
+   FOLDER TEXT
+
+   Same inset from left and bottom folder boundaries
+
+\========================================================= */
+
+.contact-folder-info {
+  position: absolute;
+
+  left: 8%;
+
+  bottom: 8%;
+
+  display: flex;
+
+  flex-direction: column;
+
+  min-width: 0;
+
+  max-width: 68%;
+
+  padding: 0;
+
+  margin: 0;
+}
+
+.contact-folder-title {
+  display: block;
+
+  font-family: var(--font-heading, inherit);
+
+  font-size: clamp(12px, 1.05vw, 15px);
+
+  font-weight: 700;
+
+  line-height: 1.35;
+
+  color: #172b3d;
+
+  overflow-wrap: anywhere;
+}
+
+.contact-folder-subtitle {
+  display: block;
+
+  margin-top: 4px;
+
+  font-size: clamp(10px, 0.85vw, 12px);
+
+  line-height: 1.4;
+
+  color: #64748b;
+
+  overflow-wrap: anywhere;
+}
+
+/* =========================================================
+
+   PLUS / MINUS BUTTON
+
+   Same right and bottom inset as folder text
+
+\========================================================= */
+
+.contact-folder-action {
+  position: absolute;
+
+  right: 8%;
+
+  bottom: 8%;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 34px;
+
+  height: 34px;
+
+  border-radius: 50%;
+
+  color: #ffffff;
+
+  background: #279ece;
+
+  box-shadow: 0 3px 8px rgba(39, 158, 206, 0.2);
+
+  transition:
+    transform 250ms ease,
+    background 250ms ease,
+    box-shadow 250ms ease;
+}
+
+.contact-folder-action svg {
+  width: 14px;
+
+  height: 14px;
+
+  stroke-width: 1.8;
+}
+
+/* =========================================================
+
+   HOVER / FOCUS
+
+\========================================================= */
+
+@media (hover: hover) and (pointer: fine) {
+  .contact-folder-card:hover {
+    transform: translateY(-3px);
+  }
+
+  .contact-folder-card:hover .contact-folder-shape {
+    filter: drop-shadow(0 5px 8px rgba(15, 80, 110, 0.075))
+      drop-shadow(0 10px 18px rgba(15, 80, 110, 0.055));
+  }
+
+  .contact-folder-card:hover .contact-folder-shape-stroke {
+    stroke: rgba(39, 158, 206, 0.55);
+
+    stroke-width: 2;
+  }
+
+  .contact-folder-card:hover .contact-folder-action {
+    background: #2082ac;
+
+    box-shadow: 0 5px 12px rgba(39, 158, 206, 0.25);
+  }
+}
+
+.contact-folder-card:focus-visible {
+  outline: none;
+}
+
+.contact-folder-card:focus-visible .contact-folder-shape-stroke {
+  stroke: #279ece;
+
+  stroke-width: 3;
+}
+
+/* =========================================================
+
+   ACTIVE FOLDER
+
+\========================================================= */
+
+.contact-folder-card--active {
+  transform: translateY(-2px);
+}
+
+.contact-folder-card--active .contact-folder-shape-stroke {
+  stroke: rgba(39, 158, 206, 0.8);
+
+  stroke-width: 2.2;
+}
+
+.contact-folder-card--active .contact-folder-action {
+  background: #176b91;
+}
+
+/* =========================================================
+
+   PANEL OPEN / CLOSE ANIMATION
+
+\========================================================= */
+
+.contact-folder-panel-wrapper {
+  display: grid;
+
+  grid-template-rows: 0fr;
+
+  width: 100%;
+
+  opacity: 0;
+
+  margin-top: 0;
+
+  transform: translateY(-8px);
+
+  pointer-events: none;
+
+  transition:
+    grid-template-rows 450ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 300ms ease,
+    transform 400ms cubic-bezier(0.22, 1, 0.36, 1),
+    margin-top 400ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.contact-folder-panel-wrapper--open {
+  grid-template-rows: 1fr;
+
+  opacity: 1;
+
+  margin-top: 24px;
+
+  transform: translateY(0);
+
+  pointer-events: auto;
+}
+
+.contact-folder-panel-wrapper > \* {
+  min-height: 0;
+}
+
+/* =========================================================
+
+   MAIN CONTACT PANEL
+
+   Width is determined by selected folder type
+
+\========================================================= */
+
+.contact-folder-panel {
+  display: flex;
+
+  flex-direction: column;
+
+  width: min(100%, var(--contact-panel-width, 560px));
+
+  min-width: 0;
+
+  margin-inline: auto;
+
+  overflow: hidden;
+
+  border: 1px solid #80c4e0;
+
+  border-radius: 18px;
+
+  background: rgba(255, 255, 255, 0.97);
+
+  box-shadow: 0 8px 30px rgba(15, 80, 110, 0.045);
+
+  animation: contactPanelReveal 450ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Individual panel widths */
+
+.contact-folder-panel--corporate {
+  --contact-panel-width: 500px;
+}
+
+.contact-folder-panel--works {
+  --contact-panel-width: 570px;
+}
+
+.contact-folder-panel--associate {
+  --contact-panel-width: 500px;
+}
+
+.contact-folder-panel--distributor {
+  --contact-panel-width: 920px;
+}
+
+@keyframes contactPanelReveal {
+  from {
+    opacity: 0;
+
+    transform: translateY(12px) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* =========================================================
+
+   PANEL HEADER
+
+\========================================================= */
+
+.contact-folder-panel-header {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 12px;
+
+  min-width: 0;
+
+  padding: 16px 20px;
+
+  border-bottom: 1px solid rgba(39, 158, 206, 0.1);
+
+  background: linear-gradient(
+    110deg,
+    rgba(39, 158, 206, 0.08),
+    rgba(85, 196, 217, 0.045),
+    rgba(255, 255, 255, 0.85)
+  );
+}
+
+.contact-folder-panel-heading {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  min-width: 0;
+}
+
+.contact-folder-panel-icon {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  width: 36px;
+
+  height: 36px;
+
+  border-radius: 50%;
+
+  color: #279ece;
+
+  background: rgba(39, 158, 206, 0.1);
+}
+
+.contact-folder-panel-icon svg {
+  width: 17px;
+
+  height: 17px;
+
+  stroke-width: 1.8;
+}
+
+.contact-folder-panel-eyebrow {
+  display: block;
+
+  margin-bottom: 3px;
+
+  font-size: 9px;
+
+  font-weight: 800;
+
+  letter-spacing: 0.14em;
+
+  text-transform: uppercase;
+
+  color: #279ece;
+}
+
+.contact-folder-panel-title {
+  margin: 0;
+
+  font-family: var(--font-heading, inherit);
+
+  font-size: 16px;
+
+  font-weight: 700;
+
+  line-height: 1.4;
+
+  color: #172b3d;
+
+  overflow-wrap: anywhere;
+}
+
+/* =========================================================
+
+   CLOSE BUTTON
+
+\========================================================= */
+
+.contact-folder-close {
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 5px;
+
+  flex-shrink: 0;
+
+  min-height: 31px;
+
+  padding: 5px 11px;
+
+  border: 1px solid rgba(148, 163, 184, 0.25);
+
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.85);
+
+  color: #64748b;
+
+  font-size: 10px;
+
+  font-weight: 700;
+
+  transition:
+    color 200ms ease,
+    border-color 200ms ease,
+    background 200ms ease,
+    transform 200ms ease;
+}
+
+.contact-folder-close svg {
+  width: 12px;
+
+  height: 12px;
+
+  stroke-width: 1.8;
+}
+
+.contact-folder-close:hover {
+  color: #279ece;
+
+  border-color: rgba(39, 158, 206, 0.4);
+
+  background: #ffffff;
+}
+
+.contact-folder-close:active {
+  transform: scale(0.96);
+}
+
+.contact-folder-close:focus-visible {
+  outline: 2px solid #279ece;
+
+  outline-offset: 3px;
+}
+
+/* =========================================================
+
+   CONTACT CONTENT
+
+   No separate company information card
+
+\========================================================= */
+
+.contact-folder-content {
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  width: 100%;
+
+  min-width: 0;
+
+  padding: 25px 30px;
+
+  margin-inline: auto;
+}
+
+.contact-details-list {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: flex-start;
+
+  gap: 15px;
+
+  width: 100%;
+
+  min-width: 0;
+}
+
+.contact-detail-row {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 10px;
+
+  min-width: 0;
+}
+
+.contact-detail-row p {
+  min-width: 0;
+
+  margin: 0;
+
+  font-size: 12px;
+
+  line-height: 1.75;
+
+  color: #475569;
+
+  overflow-wrap: anywhere;
+}
+
+.contact-detail-icon {
+  flex-shrink: 0;
+
+  width: 14px;
+
+  height: 14px;
+
+  margin-top: 3px;
+
+  color: #279ece;
+
+  stroke-width: 1.9;
+}
+
+.contact-detail-link {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 9px;
+
+  min-width: 0;
+
+  width: fit-content;
+
+  max-width: 100%;
+
+  color: #2082ac;
+
+  font-size: 12px;
+
+  font-weight: 650;
+
+  line-height: 1.65;
+
+  text-decoration: none;
+
+  overflow-wrap: anywhere;
+
+  transition: color 180ms ease;
+}
+
+.contact-detail-link span {
+  min-width: 0;
+
+  overflow-wrap: anywhere;
+}
+
+.contact-detail-link:hover {
+  color: #176b91;
+}
+
+.contact-detail-link:focus-visible {
+  outline: 2px solid #279ece;
+
+  outline-offset: 3px;
+
+  border-radius: 3px;
+}
+
+/* =========================================================
+
+   WORKS PHONE NUMBERS
+
+\========================================================= */
+
+.contact-phone-group {
+  display: flex;
+
+  flex-direction: row;
+
+  flex-wrap: wrap;
+
+  align-items: center;
+
+  column-gap: 22px;
+
+  row-gap: 10px;
+
+  padding-top: 12px;
+
+  width: 100%;
+
+  min-width: 0;
+}
+
+.contact-phone-group .contact-detail-link {
+  display: inline-flex;
+
+  align-items: center;
+
+  width: fit-content;
+
+  white-space: nowrap;
+}
+
+/* =========================================================
+
+   DISTRIBUTOR NETWORK
+
+   Wider card because it has four contact blocks
+
+\========================================================= */
+
+.contact-folder-content--distributors {
+  display: grid;
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  align-items: stretch;
+
+  align-content: center;
+
+  width: 100%;
+
+  min-width: 0;
+
+  padding: 12px 20px;
+
+  margin-inline: auto;
+}
+
+.distributor-region {
+  min-width: 0;
+
+  padding: 18px 20px;
+
+  border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.distributor-region:nth-child(odd) {
+  border-right: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.distributor-region-heading {
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  margin-bottom: 10px;
+}
+
+.distributor-region-marker {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  width: 28px;
+
+  height: 28px;
+
+  border-radius: 50%;
+
+  color: #279ece;
+
+  background: rgba(39, 158, 206, 0.09);
+}
+
+.distributor-region-marker svg {
+  width: 14px;
+
+  height: 14px;
+
+  stroke-width: 1.8;
+}
+
+.distributor-region-heading h4 {
+  margin: 0;
+
+  font-size: 12px;
+
+  font-weight: 750;
+
+  line-height: 1.45;
+
+  color: #172b3d;
+}
+
+.distributor-company {
+  margin: 0 0 4px;
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  color: #334155;
+}
+
+.distributor-address {
+  margin: 0;
+
+  font-size: 11px;
+
+  line-height: 1.7;
+
+  color: #64748b;
+
+  overflow-wrap: anywhere;
+}
+
+.distributor-links {
+  display: flex;
+
+  flex-direction: row;
+
+  flex-wrap: wrap;
+
+  align-items: center;
+
+  column-gap: 20px;
+
+  row-gap: 10px;
+
+  margin-top: 12px;
+
+  min-width: 0;
+}
+
+/* Keep each phone number and email together */
+
+.distributor-links .contact-detail-link {
+  display: inline-flex;
+
+  align-items: center;
+
+  width: fit-content;
+
+  max-width: 100%;
+
+  white-space: nowrap;
+}
+
+/* Mobile */
+
+@media (max-width: 639px) {
+  .distributor-links {
+    column-gap: 14px;
+
+    row-gap: 10px;
+  }
+
+  .distributor-links .contact-detail-link {
+    font-size: 11px;
+  }
+}
+
+/* Very small screens */
+
+@media (max-width: 380px) {
+  .distributor-links {
+    column-gap: 10px;
+
+    row-gap: 9px;
+  }
+
+  .distributor-links .contact-detail-link {
+    font-size: 10px;
+  }
+}
+
+.distributor-region--central {
+  background: #ffffff;
+}
+
+/* =========================================================
+
+   OFFICE HOURS
+
+\========================================================= */
+
+.contact-office-hours {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 12px 20px;
+
+  border-top: 1px solid rgba(148, 163, 184, 0.12);
+
+  background: rgba(248, 250, 252, 0.75);
+}
+
+.contact-office-hours-icon {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  width: 31px;
+
+  height: 31px;
+
+  border-radius: 9px;
+
+  color: #279ece;
+
+  background: rgba(39, 158, 206, 0.1);
+}
+
+.contact-office-hours-icon svg {
+  width: 15px;
+
+  height: 15px;
+}
+
+.contact-office-hours-label {
+  margin: 0 0 3px;
+
+  font-size: 9px;
+
+  font-weight: 800;
+
+  letter-spacing: 0.12em;
+
+  text-transform: uppercase;
+
+  color: #64748b;
+}
+
+.contact-office-hours-value {
+  margin: 0;
+
+  font-size: 11px;
+
+  font-weight: 650;
+
+  color: #334155;
+}
+
+/* =========================================================
+
+   TABLET
+
+\========================================================= */
+
+@media (max-width: 1023px) {
+  .contact-folder-grid {
+    gap: 14px;
+  }
+
+  .contact-folder-info {
+    left: 8%;
+
+    bottom: 8%;
+  }
+
+  .contact-folder-action {
+    right: 8%;
+
+    bottom: 8%;
+
+    width: 32px;
+
+    height: 32px;
+  }
+
+  .contact-folder-panel--corporate {
+    --contact-panel-width: 480px;
+  }
+
+  .contact-folder-panel--works {
+    --contact-panel-width: 540px;
+  }
+
+  .contact-folder-panel--associate {
+    --contact-panel-width: 480px;
+  }
+
+  .contact-folder-panel--distributor {
+    --contact-panel-width: 820px;
+  }
+}
+
+/* =========================================================
+
+   MOBILE
+
+\========================================================= */
+
+@media (max-width: 639px) {
+  .contact-folder-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 12px;
+  }
+
+  .contact-folder-info {
+    left: 8%;
+
+    bottom: 8%;
+
+    max-width: 66%;
+  }
+
+  .contact-folder-title {
+    font-size: 12px;
+
+    line-height: 1.3;
+  }
+
+  .contact-folder-subtitle {
+    margin-top: 4px;
+
+    font-size: 10px;
+  }
+
+  .contact-folder-action {
+    right: 8%;
+
+    bottom: 8%;
+
+    width: 29px;
+
+    height: 29px;
+  }
+
+  .contact-folder-action svg {
+    width: 12px;
+
+    height: 12px;
+  }
+
+  .contact-folder-panel-wrapper--open {
+    margin-top: 17px;
+  }
+
+  /* Every panel uses the available mobile width */
+
+  .contact-folder-panel,
+  .contact-folder-panel--corporate,
+  .contact-folder-panel--works,
+  .contact-folder-panel--associate,
+  .contact-folder-panel--distributor {
+    width: 100%;
+
+    max-width: 100%;
+  }
+
+  .contact-folder-panel {
+    border-radius: 15px;
+  }
+
+  .contact-folder-panel-header {
+    padding: 13px 14px;
+
+    gap: 8px;
+  }
+
+  .contact-folder-panel-icon {
+    width: 33px;
+
+    height: 33px;
+  }
+
+  .contact-folder-panel-title {
+    font-size: 14px;
+  }
+
+  .contact-folder-close {
+    min-height: 29px;
+
+    padding: 5px 9px;
+
+    font-size: 10px;
+  }
+
+  .contact-folder-content {
+    padding: 22px 20px;
+  }
+
+  .contact-details-list {
+    gap: 13px;
+  }
+
+  /* Distributor becomes one centered column */
+
+  .contact-folder-content--distributors {
+    grid-template-columns: minmax(0, 1fr);
+
+    padding: 8px 14px;
+  }
+
+  .distributor-region {
+    padding: 16px 8px;
+
+    border-right: 0 !important;
+
+    border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+  }
+
+  .distributor-region:last-child {
+    border-bottom: 0;
+  }
+
+  .contact-office-hours {
+    padding: 11px 14px;
+  }
+}
+
+/* =========================================================
+
+   VERY SMALL MOBILE
+
+\========================================================= */
+
+@media (max-width: 380px) {
+  .contact-folder-grid {
+    gap: 9px;
+  }
+
+  .contact-folder-title {
+    font-size: 11px;
+  }
+
+  .contact-folder-subtitle {
+    font-size: 9px;
+  }
+
+  .contact-folder-action {
+    width: 27px;
+
+    height: 27px;
+  }
+
+  .contact-folder-panel-header {
+    padding: 11px 12px;
+  }
+
+  .contact-folder-panel-title {
+    font-size: 13px;
+  }
+
+  .contact-folder-content {
+    padding: 18px 14px;
+  }
+
+  .contact-folder-content--distributors {
+    padding: 6px 12px;
+  }
+
+  .distributor-region {
+    padding: 14px 5px;
+  }
+
+  .contact-office-hours {
+    padding: 10px 12px;
+  }
+}
+
+/* =========================================================
+
+   EXTRA NARROW SCREENS
+
+\========================================================= */
+
+@media (max-width: 340px) {
+  .contact-folder-grid {
+    grid-template-columns: minmax(0, 1fr);
+
+    gap: 12px;
+  }
+
+  .contact-folder-title {
+    font-size: 13px;
+  }
+
+  .contact-folder-subtitle {
+    font-size: 10px;
+  }
+}
+
+/* =========================================================
+
+   REDUCED MOTION
+
+\========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-folder-card,
+  .contact-folder-shape,
+  .contact-folder-shape-fill,
+  .contact-folder-shape-stroke,
+  .contact-folder-action,
+  .contact-folder-panel-wrapper,
+  .contact-folder-panel,
+  .contact-folder-close,
+  .contact-detail-link {
+    transition: none !important;
+
+    animation: none !important;
+  }
+}
+
+/* =========================================================
+
+   RESPONSIVE CONTACT PANEL POSITIONING
+
+   Desktop: panel below all folders.
+
+   Tablet/mobile: panel immediately after active folder.
+
+\========================================================= */
+
+/* Desktop: preserve the existing four-folder layout */
+
+@media (min-width: 1024px) {
+  .contact-folder-card {
+    order: 1;
+  }
+
+  .contact-folder-panel-wrapper {
+    order: 2;
+
+    grid-column: 1 / -1;
+
+    width: 100%;
+
+    min-width: 0;
+  }
+}
+
+/* Tablet and below: insert panel after selected folder */
+
+@media (max-width: 1023px) {
+  .contact-folder-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    align-items: start;
+
+    grid-auto-flow: row;
+
+    gap: 14px;
+  }
+
+  .contact-folder-card,
+  .contact-folder-panel-wrapper {
+    order: initial;
+  }
+
+  .contact-folder-panel-wrapper {
+    grid-column: 1 / -1;
+
+    width: 100%;
+
+    min-width: 0;
+
+    margin-top: 0;
+  }
+
+  .contact-folder-panel-wrapper--open {
+    margin-top: 8px;
+  }
+
+  .contact-folder-panel {
+    width: min(100%, var(--contact-panel-width, 560px));
+
+    margin-inline: auto;
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 639px) {
+  .contact-folder-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 12px;
+  }
+
+  .contact-folder-panel-wrapper--open {
+    margin-top: 5px;
+  }
+
+  .contact-folder-panel {
+    width: 100%;
+
+    max-width: 100%;
+  }
+}
+
+/* Very narrow mobile */
+
+@media (max-width: 340px) {
+  .contact-folder-grid {
+    grid-template-columns: minmax(0, 1fr);
+
+    gap: 12px;
+  }
+
+  .contact-folder-panel-wrapper {
+    grid-column: 1 / -1;
+  }
+}
+
+/* =========================================================
+   CONTACT FOLDER PANEL — RESPONSIVE GRID PLACEMENT
+   The panel is a direct grid item inserted immediately after
+   the selected folder. Desktop keeps all four folders first.
+========================================================= */
+
+.contact-folder-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  grid-auto-flow: row;
+  width: 100%;
+  min-width: 0;
+  gap: 18px;
+}
+
+/* A spacer is used only when the active folder occupies column one.
+   It reserves column two so the contact panel starts on the next row. */
+.contact-folder-grid-spacer {
+  display: none;
+}
+
+/* The panel must participate in the outer grid as one full-width item.
+   Do not use an inner 0fr/1fr grid animation here: it can collapse the
+   panel's intrinsic height and produce misplaced/empty grid rows. */
+.contact-folder-panel-wrapper {
+  display: block;
+  grid-column: 1 / -1;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  margin: 10px 0 8px;
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+  overflow: visible;
+  transition:
+    opacity 220ms ease,
+    margin 220ms ease;
+}
+
+.contact-folder-panel-wrapper--open {
+  display: block;
+  grid-column: 1 / -1;
+  opacity: 1;
+  margin: 10px 0 8px;
+  transform: none;
+  pointer-events: auto;
+}
+
+.contact-folder-panel-wrapper > .contact-folder-panel {
+  min-height: 0;
+}
+
+/* Desktop: all four cards stay on the first row, panel follows them. */
+@media (min-width: 1024px) {
+  .contact-folder-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .contact-folder-card {
+    order: 1;
+  }
+
+  .contact-folder-grid-spacer {
+    display: none;
+  }
+
+  .contact-folder-panel-wrapper {
+    order: 2;
+    grid-column: 1 / -1;
+  }
+}
+
+/* Tablet: panel is placed directly after the selected card.
+   Remaining cards naturally flow below the full-width panel. */
+@media (min-width: 640px) and (max-width: 1023px) {
+  .contact-folder-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .contact-folder-card,
+  .contact-folder-panel-wrapper {
+    order: 0;
+  }
+
+  .contact-folder-grid-spacer {
+    display: block;
+    width: 100%;
+    height: 1px;
+    min-height: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .contact-folder-panel-wrapper,
+  .contact-folder-panel-wrapper--open {
+    grid-column: 1 / -1;
+    margin: 8px 0 6px;
+  }
+
+  .contact-folder-panel {
+    width: min(100%, var(--contact-panel-width, 560px));
+    max-width: 100%;
+    margin-inline: auto;
+  }
+}
+
+/* Mobile: preserve the two-column folder cards and insert the panel
+   between the selected card and the remaining cards. */
+@media (max-width: 639px) {
+  .contact-folder-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .contact-folder-card,
+  .contact-folder-panel-wrapper {
+    order: 0;
+  }
+
+  .contact-folder-panel-wrapper,
+  .contact-folder-panel-wrapper--open {
+    grid-column: 1 / -1;
+    width: 100%;
+    margin: 6px 0 5px;
+  }
+
+  .contact-folder-panel,
+  .contact-folder-panel--corporate,
+  .contact-folder-panel--works,
+  .contact-folder-panel--associate,
+  .contact-folder-panel--distributor {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    margin-inline: auto;
+  }
+}
+
+/* Narrow phones: one card per row, with panel immediately after it. */
+@media (max-width: 340px) {
+  .contact-folder-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .contact-folder-grid-spacer {
+    display: none;
+  }
+
+  .contact-folder-panel-wrapper,
+  .contact-folder-panel-wrapper--open {
+    grid-column: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-folder-panel-wrapper,
+  .contact-folder-panel-wrapper--open {
+    transition: none !important;
+  }
+}
+
+/* =========================================================
+   PRECISE FOLDER CONTENT ALIGNMENT
+   Equal visual spacing from the actual SVG boundaries
+========================================================= */
+
+.contact-folder-card {
+  container-type: inline-size;
+}
+
+/* Shared responsive spacing */
+.contact-folder-inner {
+  --folder-edge-gap: clamp(10px, 3.5cqi, 28px);
+}
+
+/* Folder title and subtitle */
+.contact-folder-info {
+  position: absolute;
+
+  /* SVG left boundary: 16 / 400 = 4% */
+  left: calc(4% + var(--folder-edge-gap));
+
+  /* SVG bottom boundary: 248 / 260 = 95.38% */
+  bottom: calc(4.62% + var(--folder-edge-gap));
+
+  display: flex;
+  flex-direction: column;
+
+  min-width: 0;
+
+  max-width: calc(100% - (2 * (4% + var(--folder-edge-gap))) - 48px);
+
+  padding: 0;
+  margin: 0;
+}
+
+/* Plus / minus button */
+.contact-folder-action {
+  position: absolute;
+
+  /* SVG right boundary: 384 / 400 = 96% */
+  right: calc(4% + var(--folder-edge-gap));
+
+  /* Same actual bottom spacing as the text */
+  bottom: calc(4.62% + var(--folder-edge-gap));
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+}
+
+/* Keep the same spacing on tablet */
+@media (max-width: 1023px) {
+  .contact-folder-info,
+  .contact-folder-action {
+    bottom: calc(4.62% + var(--folder-edge-gap));
+  }
+
+  .contact-folder-info {
+    left: calc(4% + var(--folder-edge-gap));
+  }
+
+  .contact-folder-action {
+    right: calc(4% + var(--folder-edge-gap));
+  }
+}
+
+/* Mobile */
+@media (max-width: 639px) {
+  .contact-folder-info {
+    left: calc(4% + var(--folder-edge-gap));
+    bottom: calc(4.62% + var(--folder-edge-gap));
+  }
+
+  .contact-folder-action {
+    right: calc(4% + var(--folder-edge-gap));
+    bottom: calc(4.62% + var(--folder-edge-gap));
+  }
+}
+
+/* Very small mobile */
+@media (max-width: 380px) {
+  .contact-folder-info {
+    left: calc(4% + var(--folder-edge-gap));
+    bottom: calc(4.62% + var(--folder-edge-gap));
+  }
+
+  .contact-folder-action {
+    right: calc(4% + var(--folder-edge-gap));
+    bottom: calc(4.62% + var(--folder-edge-gap));
+  }
+}
+
+/* =========================================================
+   INDUSTRIAL POLYMER FOLDER PATTERN
+========================================================= */
+
+.contact-folder-shape {
+  overflow: visible;
+}
+
+/* Keep the main folder white */
+.contact-folder-shape-fill {
+  fill: #ffffff;
+}
+
+/* Keep pattern independent of card content */
+.contact-folder-shape
+  path:not(.contact-folder-shape-fill):not(.contact-folder-shape-stroke) {
+  pointer-events: none;
+}
+
+/* Subtle pattern on hover */
+.contact-folder-card .contact-folder-shape {
+  transition:
+    filter 300ms ease,
+    transform 350ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .contact-folder-card:hover .contact-folder-shape {
+    filter: drop-shadow(0 5px 9px rgba(15, 80, 110, 0.07))
+      drop-shadow(0 10px 18px rgba(15, 80, 110, 0.04));
+  }
+}
+
+/* Active folder outline */
+.contact-folder-card--active .contact-folder-shape-stroke {
+  stroke: rgba(39, 158, 206, 0.8);
+  stroke-width: 2;
+}
+
+/* Preserve pattern proportions on smaller screens */
+@media (max-width: 1023px) {
+  .contact-folder-shape {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@media (max-width: 639px) {
+  .contact-folder-shape {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-folder-shape {
+    transition: none !important;
+  }
+}
+
+/* =========================================================
+   QUOTE SIDEBAR
+========================================================= */
+
+.quote-sidebar {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  gap: 24px;
+
+  width: 100%;
+  max-width: 390px;
+
+  height: 100%;
+
+  margin-inline: auto;
+  padding-block: 12px;
+
+  min-width: 0;
+}
+
+/* =========================================================
+   SHARED CARD
+========================================================= */
+
+.quote-sidebar-card {
+  position: relative;
+  isolation: isolate;
+
+  width: 100%;
+  min-width: 0;
+
+  overflow: hidden;
+
+  border-radius: 16px;
+
+  transition:
+    transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 300ms ease,
+    border-color 300ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .quote-sidebar-card:hover {
+    transform: translateY(-3px);
+  }
+}
+
+/* =========================================================
+   TECHNICAL TEAM CARD
+========================================================= */
+
+.quote-technical-card {
+  padding: 25px;
+
+  border: 1px solid rgba(39, 158, 206, 0.35);
+
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.98),
+    rgba(235, 248, 253, 0.94)
+  );
+
+  box-shadow:
+    0 5px 18px rgba(15, 80, 110, 0.035),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.quote-technical-card::before {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 55px;
+  height: 3px;
+
+  background: #279ece;
+
+  border-radius: 0 0 4px 0;
+}
+
+.quote-card-topline {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+  align-items: center;
+
+  gap: 11px;
+
+  margin-bottom: 20px;
+}
+
+.quote-card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  width: 40px;
+  height: 40px;
+
+  border-radius: 50%;
+
+  color: #279ece;
+
+  background: rgba(39, 158, 206, 0.1);
+
+  border: 1px solid rgba(39, 158, 206, 0.12);
+}
+
+.quote-card-topline .section-label {
+  margin: 0;
+
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+
+  color: #2082ac;
+}
+
+.quote-card-title {
+  position: relative;
+  z-index: 1;
+
+  margin: 0 0 10px;
+
+  font-family: var(--font-heading, inherit);
+
+  font-size: 19px;
+  font-weight: 750;
+  line-height: 1.35;
+
+  color: #172b3d;
+}
+
+.quote-card-description {
+  position: relative;
+  z-index: 1;
+
+  max-width: 310px;
+
+  margin: 0;
+
+  font-size: 13px;
+  line-height: 1.8;
+
+  color: #64748b;
+}
+
+.quote-email-link {
+  position: relative;
+  z-index: 1;
+
+  display: inline-flex;
+  align-items: center;
+
+  gap: 9px;
+
+  width: fit-content;
+
+  margin-top: 20px;
+
+  color: #2082ac;
+
+  font-size: 13px;
+  font-weight: 750;
+
+  text-decoration: none;
+
+  transition:
+    color 200ms ease,
+    gap 200ms ease;
+}
+
+.quote-email-link:hover {
+  color: #176b91;
+  gap: 13px;
+}
+
+.quote-email-link:focus-visible {
+  outline: 2px solid #279ece;
+  outline-offset: 4px;
+  border-radius: 3px;
+}
+
+/* Decorative watermark */
+
+.quote-card-watermark {
+  position: absolute;
+
+  right: -20px;
+  bottom: -27px;
+
+  z-index: 0;
+
+  color: rgba(39, 158, 206, 0.055);
+
+  pointer-events: none;
+}
+
+.quote-card-watermark svg {
+  width: 115px;
+  height: 115px;
+
+  stroke-width: 1;
+}
+
+/* =========================================================
+   WHY POLYRIB CARD
+========================================================= */
+
+.quote-why-card {
+  padding: 24px;
+
+  color: #ffffff;
+
+  background: linear-gradient(135deg, #279ece 0%, #208bb9 55%, #176b91 100%);
+
+  border: 1px solid rgba(39, 158, 206, 0.35);
+
+  box-shadow: 0 8px 22px rgba(23, 107, 145, 0.13);
+}
+
+.quote-why-card::before {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  width: 100px;
+  height: 100px;
+
+  border-radius: 0 0 0 100%;
+
+  background: rgba(255, 255, 255, 0.075);
+
+  pointer-events: none;
+}
+
+.quote-why-heading {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  margin-bottom: 21px;
+}
+
+.quote-why-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  width: 42px;
+  height: 42px;
+
+  border-radius: 50%;
+
+  color: #ffffff;
+
+  background: rgba(255, 255, 255, 0.15);
+
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.quote-why-eyebrow {
+  display: block;
+
+  margin-bottom: 4px;
+
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.quote-why-title {
+  margin: 0;
+
+  font-family: var(--font-heading, inherit);
+
+  font-size: 16px;
+  font-weight: 750;
+  line-height: 1.4;
+
+  color: #ffffff;
+}
+
+/* Benefits */
+
+.quote-benefit-list {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 13px;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.quote-benefit-list li {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 10px;
+
+  min-width: 0;
+
+  color: rgba(255, 255, 255, 0.91);
+
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.55;
+}
+
+.quote-benefit-check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  width: 17px;
+  height: 17px;
+
+  margin-top: 1px;
+
+  color: #ffffff;
+}
+
+.quote-benefit-check svg {
+  width: 15px;
+  height: 15px;
+
+  stroke-width: 2;
+}
+
+/* Decorative background detail */
+
+.quote-why-decoration {
+  position: absolute;
+
+  right: -45px;
+  bottom: -65px;
+
+  width: 170px;
+  height: 170px;
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+
+  pointer-events: none;
+}
+
+.quote-why-decoration::before,
+.quote-why-decoration::after {
+  content: "";
+
+  position: absolute;
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+}
+
+.quote-why-decoration::before {
+  inset: 17px;
+}
+
+.quote-why-decoration::after {
+  inset: 35px;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+/* Large screens */
+@media (min-width: 1280px) {
+  .quote-sidebar {
+    gap: 28px;
+    max-width: 390px;
+  }
+
+  .quote-technical-card {
+    padding: 27px;
+  }
+
+  .quote-why-card {
+    padding: 26px;
+  }
+}
+
+/* Tablet */
+@media (max-width: 1023px) {
+  .quote-sidebar {
+    max-width: 100%;
+
+    height: auto;
+
+    gap: 18px;
+
+    padding-block: 0;
+  }
+
+  .quote-technical-card,
+  .quote-why-card {
+    padding: 22px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 639px) {
+  .quote-sidebar {
+    width: 100%;
+    max-width: 100%;
+
+    gap: 15px;
+  }
+
+  .quote-technical-card,
+  .quote-why-card {
+    padding: 19px;
+    border-radius: 14px;
+  }
+
+  .quote-card-topline {
+    margin-bottom: 15px;
+  }
+
+  .quote-card-title {
+    font-size: 17px;
+  }
+
+  .quote-card-description {
+    font-size: 12px;
+    line-height: 1.75;
+  }
+
+  .quote-email-link {
+    margin-top: 15px;
+    font-size: 12px;
+  }
+
+  .quote-why-heading {
+    margin-bottom: 17px;
+  }
+
+  .quote-why-title {
+    font-size: 15px;
+  }
+
+  .quote-benefit-list {
+    gap: 11px;
+  }
+
+  .quote-benefit-list li {
+    font-size: 11px;
+  }
+}
+
+/* Small mobile */
+@media (max-width: 380px) {
+  .quote-technical-card,
+  .quote-why-card {
+    padding: 16px;
+  }
+
+  .quote-card-icon,
+  .quote-why-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .quote-card-title {
+    font-size: 16px;
+  }
+
+  .quote-benefit-list {
+    gap: 10px;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .quote-sidebar-card,
+  .quote-email-link {
+    transition: none !important;
+  }
+}
+
+
+/* =========================================================
+   CONTACT PAGE — WHITE TO SKY-BLUE INDUSTRIAL BACKGROUND
+   Full-bleed backdrop behind the existing contact content.
+   Uses a quiet technical dot/grid texture, not a busy motif.
+========================================================= */
+
+.contact-page-background {
+  position: relative;
+  z-index: 0;
+  isolation: isolate;
+}
+
+/* Full viewport-width gradient */
+.contact-page-background::before {
+  content: "";
+  position: absolute;
+  z-index: -2;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      ellipse at 88% 18%,
+      rgba(117, 201, 231, 0.13) 0%,
+      rgba(117, 201, 231, 0) 38%
+    ),
+    linear-gradient(
+      118deg,
+      #ffffff 0%,
+      #f9fdff 36%,
+      #f0f9fc 68%,
+      #e5f4f9 100%
+    );
+}
+
+/* Very subtle precision-engineering texture over the gradient */
+.contact-page-background::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  pointer-events: none;
+
+  background-image:
+    radial-gradient(
+      circle,
+      rgba(39, 158, 206, 0.14) 0.8px,
+      transparent 1.1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(39, 158, 206, 0.025) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      rgba(39, 158, 206, 0.025) 1px,
+      transparent 1px
+    );
+
+  background-size:
+    28px 28px,
+    56px 56px,
+    56px 56px;
+
+  background-position:
+    0 0,
+    0 0,
+    0 0;
+
+  opacity: 0.48;
+
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 0.75) 7%,
+    #000 22%,
+    #000 82%,
+    transparent 100%
+  );
+
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 0.75) 7%,
+    #000 22%,
+    #000 82%,
+    transparent 100%
+  );
+}
+
+/* The folder's internal pattern is intentionally restrained */
+.contact-folder-shape-fill {
+  fill: #ffffff;
+}
+
+.contact-folder-card .contact-folder-shape {
+  background: transparent;
+}
+
+@media (max-width: 639px) {
+  .contact-page-background::after {
+    background-size:
+      32px 32px,
+      64px 64px,
+      64px 64px;
+    opacity: 0.38;
+  }
+}
+
