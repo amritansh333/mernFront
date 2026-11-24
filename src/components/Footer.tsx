@@ -56,7 +56,7 @@ function getFooterLinks(
       { label: "Industries", href: "/industries" },
       { label: "CSR & Sustainability", href: "/csr" },
       { label: "Careers", href: "/careers" },
-      { label: "Blog & Gallery", href: "/blog" },
+      { label: "Blogs", href: "/blog" },
       { label: "Events", href: "/events" },
       { label: "Resources & Downloads", href: "/resources" },
     ],

@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import {
-  ArrowRight,
-  ChevronRight,
-  FlaskConical,
-  ShoppingCart,
-} from "lucide-react";
+import { ArrowRight, ChevronRight, FlaskConical, Package } from "lucide-react";
 import { useScrollFade } from "@/hooks/useScrollFade";
 import PageHeroBanner from "@/components/hero-banner/PageHeroBanner";
 import manufacturingImage from "@/assets/polymer-materials.jpeg";
@@ -180,7 +175,7 @@ export default function MaterialsPage() {
                     <span
                       className={`inline-flex items-center gap-1.5 text-[10px] px-2.5 py-1 font-bold border rounded-2xl ${m.colour}`}
                     >
-                      <ShoppingCart className="w-3 h-3 shrink-0" />
+                      <Package className="w-3 h-3 shrink-0" />
                       {m.brand}
                     </span>
 

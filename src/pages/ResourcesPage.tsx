@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Download, FileText, Package } from "lucide-react";
 import PageHeroBanner from "@/components/hero-banner/PageHeroBanner";
-import manufacturingImage from "@/assets/csr-slider1.jpeg";
+import resourcesHeroImage from "@/assets/resources-hero-banner.jpeg";
 
 /* ─── Catalog / Brochure cards ────────────────────────── */
 const CATALOGS = [
@@ -154,7 +154,7 @@ export default function ResourcesPage() {
         eyebrow="Downloadable Resources"
         title="Catalogues"
         highlight="& Resources"
-        image={manufacturingImage}
+        image={resourcesHeroImage}
         imageAlt="Khanna Polyrib manufacturing facility"
         imagePosition="center center"
         breadcrumbs={[

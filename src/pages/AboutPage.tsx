@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { CheckCircle2, MapPin, Building2, Plus } from "lucide-react";
 import PageHeroBanner from "@/components/hero-banner/PageHeroBanner";
-import manufacturingImage from "@/assets/csr-slider1.jpeg";
+import AboutUsImage from "@/assets/about-us-hero-banner.jpeg";
 import aboutVideo from "@/assets/about-us.mp4";
 import { useScrollFade } from "@/hooks/useScrollFade";
 
@@ -172,7 +172,7 @@ export default function AboutPage() {
         eyebrow="Our Company"
         title="Welcome to"
         highlight="Khanna Group"
-        image={manufacturingImage}
+        image={AboutUsImage}
         imageAlt="Khanna Polyrib manufacturing facility"
         imagePosition="center center"
         breadcrumbs={[{ label: "Home", to: "/" }, { label: "About Us" }]}
@@ -181,17 +181,40 @@ export default function AboutPage() {
       {/* OUR FOUNDATION (FROM PART B) */}
       <section className="py-8 border-b border-divider">
         <div className="container max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-start">
-            <div className="group relative border border-primary/40 overflow-hidden rounded-2xl">
-              <video
-                ref={videoRef}
-                src={aboutVideo}
-                muted
-                loop
-                playsInline
-                className="w-full h-73 object-cover transition-all duration-500 ease-in-out opacity-90 group-hover:opacity-100 transition-transform [transition-duration:8000ms] ease-linear group-hover:scale-105"
-              />
-            </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
+            <div className="relative group csr-slider-wrapper">
+  {/* Decorative top-left geometric pattern */}
+  <div className="csr-decoration csr-decoration-top-left">
+    <div className="csr-decoration-inner" />
+  </div>
+
+  {/* Decorative bottom-right geometric pattern */}
+  <div className="csr-decoration csr-decoration-bottom-right">
+    <div className="csr-decoration-inner" />
+  </div>
+
+  {/* Video container */}
+  <div className="relative border border-primary/90 overflow-hidden rounded-xl shadow-sm">
+    <video
+      ref={videoRef}
+      src={aboutVideo}
+      muted
+      loop
+      playsInline
+      className="
+        w-full
+        h-73
+        object-cover
+        opacity-90
+        transition-all
+        duration-500
+        ease-in-out
+        group-hover:opacity-100
+        group-hover:scale-[1.02]
+      "
+    />
+  </div>
+</div>
 
             <div>
               <p className="section-label mb-3">Our Foundation</p>
@@ -226,42 +249,101 @@ export default function AboutPage() {
       </section>
 
       {/* EXPLORE FEATURES (MISSION & VALUES FROM PART B) */}
-      <section ref={ref4} className="fade-up py-8 border-b border-divider">
-        <div className="container max-w-7xl mx-auto px-6 text-center">
-          <p className="section-label mb-3">Explore Features</p>
-          <h2 className="font-heading text-3xl text-charcoal mb-10">
-            Our Mission & Values
-          </h2>
+<section ref={ref4} className="fade-up py-12 border-b border-divider">
+  <div className="container max-w-7xl mx-auto px-6">
+    <div className="text-center mb-12">
+      <p className="section-label mb-3">Explore Features</p>
 
-          <div className="grid md:grid-cols-3 gap-6 text-left">
-            {[
-              {
-                title: "Our Mission",
-                desc: "To deliver innovative, high-quality polymer solutions that empower modern infrastructure, driven by integrity, customer focus, sustainability, and continuous innovation-building lasting partnerships through reliability, performance, and responsible growth.",
-              },
-              {
-                title: "Our Vision",
-                desc: "To set the standard for quality, application performance and responsible polymer engineering in global industry.",
-              },
-              {
-                title: "Our Values",
-                desc: "Integrity, consistent quality and continuous improvement guide every product we make and every relationship we build.",
-              },
-            ].map((item) => (
-              <div
-                key={item.title}
-                className="border border-primary/60 bg-card p-8 transition-all duration-300 hover:bg-primary hover:text-white hover:shadow-lg group rounded-xl"
-              >
-                <Plus className="w-6 h-6 mb-4 text-primary group-hover:text-white transition-colors" />
-                <h3 className="font-heading text-lg mb-3">{item.title}</h3>
-                <p className="text-sm leading-relaxed opacity-80 group-hover:opacity-100">
-                  {item.desc}
-                </p>
+      <h2 className="font-heading text-3xl text-charcoal">
+        Our Mission & Values
+      </h2>
+    </div>
+
+    <div className="grid md:grid-cols-3 gap-5 text-left items-stretch">
+      {[
+        {
+          number: "01",
+          title: "Our Mission",
+          sub: "Material Expertise",
+          desc: "To deliver innovative, high-quality polymer solutions that empower modern infrastructure, driven by integrity, customer focus, sustainability, and continuous innovation—building lasting partnerships through reliability, performance, and responsible growth.",
+          label: "TECHNICAL KNOW-HOW",
+        },
+        {
+          number: "02",
+          title: "Our Vision",
+          sub: "Quality in Every Detail",
+          desc: "To set the standard for quality, application performance and responsible polymer engineering in global industry.",
+          label: "QUALITY FOCUS",
+        },
+        {
+          number: "03",
+          title: "Our Values",
+          sub: "Application-Driven Solutions",
+          desc: "Integrity, consistent quality and continuous improvement guide every product we make and every relationship we build.",
+          label: "CUSTOMER APPLICATIONS",
+        },
+      ].map((item) => (
+        <div
+          key={item.title}
+          className="group relative flex flex-col h-full overflow-hidden border border-primary/50 bg-card transition-all duration-300 hover:border-primary/50 hover:-translate-y-1 hover:bg-primary/3 hover:shadow-[0_8px_24px_rgba(39,158,206,0.08)] rounded-xl"
+        >
+          {/* Subtle technical background pattern */}
+          <div
+            className="absolute inset-0 pointer-events-none opacity-[0.035]"
+            style={{
+              backgroundImage: `
+                linear-gradient(#279ECE 1px, transparent 1px),
+                linear-gradient(90deg, #279ECE 1px, transparent 1px)
+              `,
+              backgroundSize: "32px 32px",
+            }}
+          />
+
+          {/* Top accent */}
+          <div className="absolute top-0 left-0 w-12 h-[3px] bg-primary transition-all duration-300 group-hover:w-full" />
+
+          <div className="relative flex flex-col flex-1 p-7 sm:p-8">
+            {/* Number + Decorative line */}
+            <div className="flex items-center gap-3 mb-8">
+              <span className="font-mono text-sm font-semibold tracking-wider text-primary">
+                {item.number}
+              </span>
+
+              <div className="h-px flex-1 bg-divider transition-colors duration-300 group-hover:bg-primary/30" />
+
+              <span className="text-[10px] font-medium tracking-[0.18em] text-muted-foreground">
+                {item.sub}
+              </span>
+            </div>
+
+            {/* Heading */}
+            <h3 className="font-heading text-xl text-charcoal mb-4 transition-colors duration-300 group-hover:text-primary">
+              {item.title}
+            </h3>
+
+            {/* Description */}
+            <p className="text-sm leading-7 text-muted-foreground">
+              {item.desc}
+            </p>
+
+            {/* Bottom marker - pushed to the bottom */}
+            <div className="mt-auto pt-8 flex items-center justify-between">
+              <div className="flex gap-1">
+                <span className="w-1.5 h-1.5 bg-primary/70" />
+                <span className="w-1.5 h-1.5 bg-primary/30" />
+                <span className="w-1.5 h-1.5 bg-primary/15" />
               </div>
-            ))}
+
+              <span className="font-mono text-[10px] tracking-widest text-muted-foreground/60">
+                {item.label}
+              </span>
+            </div>
           </div>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
 
       {/* ========================= */}
       {/* BELOW THIS: EXACT PART A */}
@@ -270,96 +352,115 @@ export default function AboutPage() {
 
       {/* GROUP STRUCTURE */}
       <section ref={ref1} className="fade-up py-8 border-b border-divider">
-        {" "}
-        <div className="container max-w-7xl mx-auto px-6">
-          <div className="text-center mb-8">
-            <p className="section-label mb-3">Group Structure</p>
-            <h2 className="font-heading text-3xl text-charcoal">
-              Three Companies, One Group
-            </h2>
-            <p className="text-muted-foreground text-sm mt-3 max-w-xl mx-auto">
-              Each entity within the Khanna Group serves a distinct function —
-              together covering manufacturing, fabrication, and distribution of
-              engineering thermoplastics across India and beyond.
-            </p>
-          </div>
+  <div className="container max-w-7xl mx-auto px-6">
+    <div className="text-center mb-8">
+      <p className="section-label mb-3">Group Structure</p>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {groupCompanies.map((co) => (
-              <div
-                key={co.name}
-                className="border border-primary/60 hover:border-primary/40 transition-colors duration-200 flex flex-col"
-              >
-                <div className="h-1 bg-primary" />
-                <div className="p-6 flex flex-col flex-1">
-                  <div className="flex items-start gap-3 mb-4">
-                    <div className="w-10 h-10 bg-primary/10 flex items-center justify-center shrink-0">
-                      <Building2 className="w-5 h-5 text-primary" />
-                    </div>
-                    <div>
-                      <span className="text-[10px] font-semibold tracking-wider text-primary uppercase">
-                        {co.short}
-                      </span>
-                      <h3 className="font-heading font-semibold text-charcoal text-lg leading-snug">
-                        {co.name}
-                      </h3>
-                    </div>
-                  </div>
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                    {co.desc}
-                  </p>
-                  <ul className="space-y-1.5 mt-auto">
-                    {co.focus.map((f) => (
-                      <li
-                        key={f}
-                        className="flex items-start gap-2 text-sm text-charcoal-light"
-                      >
-                        <CheckCircle2 className="w-3.5 h-3.5 text-primary mt-0.5 shrink-0" />
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            ))}
+      <h2 className="font-heading text-3xl text-charcoal">
+        Three Companies, One Group
+      </h2>
+
+      <p className="text-muted-foreground text-sm mt-3 max-w-xl mx-auto">
+        Each entity within the Khanna Group serves a distinct function —
+        together covering manufacturing, fabrication, and distribution of
+        engineering thermoplastics across India and beyond.
+      </p>
+    </div>
+
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      {groupCompanies.map((co) => (
+        <div
+          key={co.name}
+          className="group relative flex flex-col h-full overflow-hidden border border-primary/50 bg-card transition-all duration-300 hover:border-primary/50 hover:-translate-y-1 hover:bg-primary/3 hover:shadow-[0_8px_24px_rgba(39,158,206,0.08)] rounded-xl"
+        >
+          {/* Top accent */}
+          <div className="absolute top-0 left-0 w-12 h-[3px] bg-primary transition-all duration-300 group-hover:w-full" />
+
+          <div className="relative flex flex-col flex-1 p-6 sm:p-8">
+            <div className="flex items-center gap-3 mb-4">
+  <div className="w-10 h-10 bg-primary/10 flex items-center justify-center shrink-0 rounded-full">
+    <Building2 className="w-5 h-5 text-primary" />
+  </div>
+
+  <div>
+    <span className="text-[10px] font-semibold tracking-wider text-primary uppercase">
+      {co.short}
+    </span>
+
+    <h3 className="font-heading font-semibold text-charcoal text-lg leading-snug">
+      {co.name}
+    </h3>
+  </div>
+</div>
+
+            <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+              {co.desc}
+            </p>
+
+            <ul className="space-y-1.5 mt-auto">
+              {co.focus.map((f) => (
+                <li
+                  key={f}
+                  className="flex items-start gap-2 text-sm text-charcoal-light"
+                >
+                  <CheckCircle2 className="w-3.5 h-3.5 text-primary mt-0.5 shrink-0" />
+                  {f}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
 
       {/* OUR LOCATIONS */}
       <section className="py-8 border-b border-divider">
-        <div className="container max-w-7xl mx-auto px-6">
-          <div className="text-center mb-8">
-            <p className="section-label mb-3">Our Locations</p>
-            <h2 className="font-heading text-3xl text-charcoal">
-              Manufacturing & Distribution Network
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {locations.map((loc) => (
-              <div
-                key={loc.city}
-                className="flex gap-4 p-5 bg-card border border-primary/60 hover:border-primary/30 transition-colors duration-200 rounded-xl"
-              >
-                <div className="w-10 h-10 bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
-                  <MapPin className="w-5 h-5 text-primary" />
-                </div>
-                <div>
-                  <span className="text-[10px] font-semibold tracking-wider uppercase text-primary">
-                    {loc.type}
-                  </span>
-                  <div className="font-heading font-semibold text-charcoal text-lg mb-1">
-                    {loc.city}
-                  </div>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {loc.detail}
-                  </p>
-                </div>
-              </div>
-            ))}
+  <div className="container max-w-7xl mx-auto px-6">
+    <div className="text-center mb-8">
+      <p className="section-label mb-3">Our Locations</p>
+
+      <h2 className="font-heading text-3xl text-charcoal">
+        Manufacturing & Distribution Network
+      </h2>
+    </div>
+
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+      {locations.map((loc) => (
+        <div
+          key={loc.city}
+          className="group relative flex h-full overflow-hidden border border-primary/50 bg-card transition-all duration-300 hover:border-primary/50 hover:-translate-y-1 hover:bg-primary/3 hover:shadow-[0_8px_24px_rgba(39,158,206,0.08)] rounded-xl"
+        >
+          {/* Top accent */}
+          <div className="absolute top-0 left-0 w-12 h-[3px] bg-primary transition-all duration-300 group-hover:w-full" />
+
+          <div className="relative flex items-start gap-4 p-6 sm:p-7 w-full">
+            {/* Location Icon */}
+            <div className="w-11 h-11 bg-primary/10 flex items-center justify-center shrink-0 rounded-full transition-colors duration-300 group-hover:bg-primary/15">
+              <MapPin className="w-5 h-5 text-primary" />
+            </div>
+
+            {/* Content */}
+            <div className="min-w-0 flex-1">
+              <span className="text-[10px] font-semibold tracking-[0.15em] uppercase text-primary">
+                {loc.type}
+              </span>
+
+              <h3 className="font-heading font-semibold text-charcoal text-lg mt-1 mb-2 transition-colors duration-300 group-hover:text-primary">
+                {loc.city}
+              </h3>
+
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                {loc.detail}
+              </p>
+            </div>
           </div>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
     </div>
   );
 }

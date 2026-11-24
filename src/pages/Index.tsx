@@ -40,7 +40,6 @@ import {
   Hammer,
   Shirt,
   Anchor,
-  Package,
   HeartPulse,
   Mountain,
   Fuel,
@@ -50,7 +49,7 @@ import {
   Dumbbell,
   Train,
   Droplets,
-  ShoppingCart,
+  Package,
 } from "lucide-react";
 import { useScrollFade } from "@/hooks/useScrollFade";
 import { useMachineComponentRouting } from "@/lib/product-experience/useMachineComponentRouting";
@@ -620,10 +619,10 @@ function WhyUsStackCard({
             <Icon size={23} strokeWidth={1.8} aria-hidden="true" />
           </div>
 
-          <div className="why-us-card-copy">
+          <motion.div className="why-us-card-copy">
             <h3 className="font-heading">{title}</h3>
             <p>{desc}</p>
-          </div>
+          </motion.div>
         </div>
 
         {/* Bottom line */}
@@ -1394,7 +1393,7 @@ function PolymersSection() {
                   <span
                     className={`inline-flex items-center gap-1.5 text-[10px] px-2.5 py-1 font-bold border ${m.colour} rounded-xl`}
                   >
-                    <ShoppingCart className="w-3 h-3 shrink-0" />
+                    <Package className="w-3 h-3 shrink-0" />
                     {m.brand}
                   </span>
 

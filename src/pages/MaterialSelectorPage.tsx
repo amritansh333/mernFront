@@ -53,7 +53,7 @@ import {
 } from "lucide-react";
 
 import PageHeroBanner from "@/components/hero-banner/PageHeroBanner";
-import manufacturingImage from "@/assets/csr-slider1.jpeg";
+import materialSelectorImage from "@/assets/material-selector-hero-banner.jpeg";
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -849,7 +849,7 @@ export default function MaterialSelectorPage() {
         eyebrow="Answer four questions about your application requirements and we'll rank the most suitable thermoplastic materials for your specific use case."
         title="Material"
         highlight="Selector"
-        image={manufacturingImage}
+        image={materialSelectorImage}
         imageAlt="Khanna Polyrib manufacturing facility"
         imagePosition="center center"
         breadcrumbs={[
@@ -872,7 +872,7 @@ export default function MaterialSelectorPage() {
                     onClick={() => {
                       if (s < step) setStep(s);
                     }}
-                    className={`w-8 h-8 shrink-0 flex items-center justify-center text-sm font-bold border-2 transition-all duration-200 rounded-xl ${
+                    className={`w-8 h-8 shrink-0 flex items-center justify-center text-sm font-bold border-2 transition-all duration-200 rounded-full ${
                       s === step
                         ? "bg-primary border-primary text-primary-foreground"
                         : s < step
@@ -910,7 +910,7 @@ export default function MaterialSelectorPage() {
             {step === 0 && (
               <div className="animate-fade-in">
                 <div className="flex items-center gap-3 mb-4 sm:mb-6">
-                  <div className="w-10 h-10 flex items-center justify-center rounded-xl bg-primary/10 text-primary shrink-0">
+                  <div className="w-10 h-10 flex items-center justify-center rounded-full bg-primary/10 text-primary shrink-0">
                     <Thermometer className="w-5 h-5" />
                   </div>
 
@@ -941,7 +941,7 @@ export default function MaterialSelectorPage() {
                         <div className="flex items-start justify-between mb-3 gap-2">
                           <div className="flex items-center gap-3 min-w-0">
                             <div
-                              className={`w-10 h-10 flex items-center justify-center rounded-xl shrink-0 ${
+                              className={`w-10 h-10 flex items-center justify-center rounded-full shrink-0 ${
                                 tempId === t.id
                                   ? "bg-primary text-primary-foreground"
                                   : "bg-surface-subtle text-primary"
@@ -979,7 +979,7 @@ export default function MaterialSelectorPage() {
             {step === 1 && (
               <div className="animate-fade-in">
                 <div className="flex items-center gap-3 mb-4 sm:mb-6">
-                  <div className="w-10 h-10 flex items-center justify-center rounded-xl bg-primary/10 text-primary shrink-0">
+                  <div className="w-10 h-10 flex items-center justify-center rounded-full bg-primary/10 text-primary shrink-0">
                     <Beaker className="w-5 h-5" />
                   </div>
 
@@ -1010,7 +1010,7 @@ export default function MaterialSelectorPage() {
                       >
                         <div className="flex items-center justify-between mb-3 gap-2">
                           <div
-                            className={`w-10 h-10 flex items-center justify-center rounded-xl ${
+                            className={`w-10 h-10 flex items-center justify-center rounded-full ${
                               isSelected
                                 ? "bg-primary text-primary-foreground"
                                 : "bg-surface-subtle text-primary"
@@ -1044,7 +1044,7 @@ export default function MaterialSelectorPage() {
             {step === 2 && (
               <div className="animate-fade-in">
                 <div className="flex items-center gap-3 mb-4 sm:mb-6">
-                  <div className="w-10 h-10 flex items-center justify-center rounded-xl bg-primary/10 text-primary shrink-0">
+                  <div className="w-10 h-10 flex items-center justify-center rounded-full bg-primary/10 text-primary shrink-0">
                     <Zap className="w-5 h-5" />
                   </div>
 
@@ -1076,7 +1076,7 @@ export default function MaterialSelectorPage() {
                         <div className="flex items-start justify-between mb-3 gap-2">
                           <div className="flex items-center gap-3 min-w-0">
                             <div
-                              className={`w-10 h-10 flex items-center justify-center rounded-xl shrink-0 ${
+                              className={`w-10 h-10 flex items-center justify-center rounded-full shrink-0 ${
                                 isSelected
                                   ? "bg-primary text-primary-foreground"
                                   : "bg-surface-subtle text-primary"
@@ -1110,7 +1110,7 @@ export default function MaterialSelectorPage() {
             {step === 3 && (
               <div className="animate-fade-in">
                 <div className="flex items-center gap-3 mb-4 sm:mb-6">
-                  <div className="w-10 h-10 flex items-center justify-center rounded-xl bg-primary/10 text-primary shrink-0">
+                  <div className="w-10 h-10 flex items-center justify-center rounded-full bg-primary/10 text-primary shrink-0">
                     <Factory className="w-5 h-5" />
                   </div>
 
@@ -1143,7 +1143,7 @@ export default function MaterialSelectorPage() {
                         <div className="flex items-start justify-between mb-3 gap-2">
                           <div className="flex items-center gap-3 min-w-0">
                             <div
-                              className={`w-10 h-10 flex items-center justify-center rounded-xl shrink-0 ${
+                              className={`w-10 h-10 flex items-center justify-center rounded-full shrink-0 ${
                                 isSelected
                                   ? "bg-primary text-primary-foreground"
                                   : "bg-surface-subtle text-primary"
@@ -1206,7 +1206,7 @@ export default function MaterialSelectorPage() {
                   <button
                     onClick={() => canProceed && setStep(step + 1)}
                     disabled={!canProceed}
-                    className={`inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 text-sm font-semibold transition-colors duration-200 rounded-lg ${
+                    className={`inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 text-sm font-semibold transition-colors duration-200 rounded-xl ${
                       canProceed
                         ? "bg-primary text-primary-foreground hover:bg-primary-dark"
                         : "bg-muted text-muted-foreground cursor-not-allowed"
@@ -1221,7 +1221,7 @@ export default function MaterialSelectorPage() {
                       if (canProceed) setShowResults(true);
                     }}
                     disabled={!canProceed}
-                    className={`inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 text-sm font-semibold transition-colors duration-200 rounded-lg ${
+                    className={`inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 text-sm font-semibold transition-colors duration-200 rounded-xl ${
                       canProceed
                         ? "bg-primary text-primary-foreground hover:bg-primary-dark"
                         : "bg-muted text-muted-foreground cursor-not-allowed"
@@ -1309,7 +1309,7 @@ export default function MaterialSelectorPage() {
                       <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
                         <div className="flex items-start gap-3 sm:gap-4 min-w-0">
                           <div
-                            className={`w-8 h-8 flex items-center justify-center font-heading font-bold text-sm shrink-0 rounded-xl ${
+                            className={`w-8 h-8 flex items-center justify-center font-heading font-bold text-sm shrink-0 rounded-full ${
                               i === 0
                                 ? "bg-primary text-primary-foreground"
                                 : "bg-surface-subtle text-charcoal-light border border-divider"
@@ -1429,7 +1429,7 @@ export default function MaterialSelectorPage() {
 
                         <Link
                           to="/contact"
-                          className="text-xs px-4 py-1.5 bg-primary text-primary-foreground font-semibold hover:bg-primary-dark transition-colors duration-200 inline-flex items-center gap-1.5 rounded-lg"
+                          className="text-xs px-4 py-1.5 bg-primary text-primary-foreground font-semibold hover:bg-primary-dark transition-colors duration-200 inline-flex items-center gap-1.5 rounded-xl"
                         >
                           Request Quote
                           <ArrowRight className="w-3 h-3" />

@@ -27,7 +27,7 @@ import {
 } from "lucide-react";
 
 import PageHeroBanner from "@/components/hero-banner/PageHeroBanner";
-import manufacturingImage from "@/assets/csr-slider1.jpeg";
+import ContactUsImage from "@/assets/contact-us.jpeg";
 
 /* ─── Tab type ─── */
 type Tab = "quote" | "drawing";
@@ -1392,8 +1392,8 @@ export default function ContactPage() {
         eyebrow="Get in Touch"
         title="Contact"
         highlight="Us"
-        image={manufacturingImage}
-        imageAlt="Khanna Polyrib manufacturing facility"
+        image={ContactUsImage}
+        imageAlt="Contact Us"
         imagePosition="center center"
         breadcrumbs={[{ label: "Home", to: "/" }, { label: "Contact" }]}
       />
@@ -1424,48 +1424,54 @@ export default function ContactPage() {
             {/* RIGHT: ACTION BUTTONS */}
 
             <div className="grid grid-cols-1 min-[420px]:grid-cols-2 gap-3 w-full lg:w-auto lg:min-w-[440px]">
-              {/* REQUEST A QUOTE */}
+  {/* REQUEST A QUOTE */}
+  <button
+    type="button"
+    onClick={() => handleTabChange("quote")}
+    aria-pressed={activeTab === "quote"}
+    className={`rounded-xl border border-primary w-full min-w-0 ${
+      tabButtonBase
+    } ${
+      activeTab === "quote" ? tabButtonActive : tabButtonInactive
+    }`}
+  >
+    <PenLine className="w-4 h-4 shrink-0" />
 
-              <button
-                type="button"
-                onClick={() => handleTabChange("quote")}
-                aria-pressed={activeTab === "quote"}
-                className={`rounded-xl border border-primary ${tabButtonBase} ${
-                  activeTab === "quote" ? tabButtonActive : tabButtonInactive
-                }`}
-              >
-                <PenLine className="w-4 h-4 shrink-0" />
+    <span className="min-w-0 whitespace-nowrap text-center">
+      Request a Quote
+    </span>
 
-                <span>Request a Quote</span>
+    <ArrowRight
+      className={`w-4 h-4 shrink-0 transition-transform duration-200 ${
+        activeTab === "quote" ? "translate-x-0.5" : ""
+      }`}
+    />
+  </button>
 
-                <ArrowRight
-                  className={`w-4 h-4 shrink-0 transition-transform duration-200 ${
-                    activeTab === "quote" ? "translate-x-0.5" : ""
-                  }`}
-                />
-              </button>
+  {/* SEND YOUR DRAWING */}
+  <button
+    type="button"
+    onClick={() => handleTabChange("drawing")}
+    aria-pressed={activeTab === "drawing"}
+    className={`rounded-xl w-full min-w-0 ${
+      tabButtonBase
+    } ${
+      activeTab === "drawing" ? tabButtonActive : tabButtonInactive
+    }`}
+  >
+    <Upload className="w-4 h-4 shrink-0" />
 
-              {/* SEND YOUR DRAWING */}
+    <span className="min-w-0 whitespace-nowrap text-center">
+      Send Your Drawing
+    </span>
 
-              <button
-                type="button"
-                onClick={() => handleTabChange("drawing")}
-                aria-pressed={activeTab === "drawing"}
-                className={`rounded-xl ${tabButtonBase} ${
-                  activeTab === "drawing" ? tabButtonActive : tabButtonInactive
-                }`}
-              >
-                <Upload className="w-4 h-4 shrink-0" />
-
-                <span>Send Your Drawing</span>
-
-                <ArrowRight
-                  className={`w-4 h-4 shrink-0 transition-transform duration-200 ${
-                    activeTab === "drawing" ? "translate-x-0.5" : ""
-                  }`}
-                />
-              </button>
-            </div>
+    <ArrowRight
+      className={`w-4 h-4 shrink-0 transition-transform duration-200 ${
+        activeTab === "drawing" ? "translate-x-0.5" : ""
+      }`}
+    />
+  </button>
+</div>
           </div>
         </div>
       </section>
@@ -1847,7 +1853,7 @@ export default function ContactPage() {
   aria-hidden="true"
 >
   <defs>
-    {/* Folder surface: light Polyrib blue on the left, fading to white on the right */}
+    {/* Folder surface: slightly darker Polyrib blue on the left, fading to white on the right */}
     <linearGradient
       id={`folder-background-gradient-${folder.id}`}
       x1="0%"
@@ -1855,10 +1861,10 @@ export default function ContactPage() {
       x2="100%"
       y2="0%"
     >
-      <stop offset="0%" stopColor="#E3F1F7" />
-      <stop offset="20%" stopColor="#EAF5F9" />
-      <stop offset="45%" stopColor="#F5FAFC" />
-      <stop offset="75%" stopColor="#FDFEFF" />
+      <stop offset="0%" stopColor="#C5E3F0" />
+      <stop offset="20%" stopColor="#D3EAF4" />
+      <stop offset="45%" stopColor="#E6F2F8" />
+      <stop offset="75%" stopColor="#F5FAFC" />
       <stop offset="100%" stopColor="#FFFFFF" />
     </linearGradient>
 
@@ -1923,7 +1929,7 @@ export default function ContactPage() {
     </mask>
   </defs>
 
-  {/* Main white folder */}
+  {/* Main folder */}
   <path
     className="contact-folder-shape-fill"
     style={{ fill: `url(#folder-background-gradient-${folder.id})` }}

@@ -156,6 +156,24 @@ export default function BlogDetailPage() {
       {/* =========================================================
           BLOG DETAIL HERO
       ========================================================= */}
+      <PageHeroBanner
+  className="blog-detail-hero"
+  eyebrow={post.category || "Knowledge & Updates"}
+  title={post.title}
+  image={
+    post.galleryImages?.length
+      ? post.galleryImages[0]
+      : post.image || manufacturingImage
+  }
+  imageAlt={`${post.title} hero banner`}
+  imagePosition="center center"
+  height="auto"
+  breadcrumbs={[
+    { label: "Home", to: "/" },
+    { label: "Blogs", to: "/blog" },
+    { label: post.title },
+  ]}
+/>
 
       <style>{`
         /* Blog detail banner - scoped styles only */
@@ -284,21 +302,6 @@ export default function BlogDetailPage() {
         }
       `}</style>
 
-      <PageHeroBanner
-        className="blog-detail-hero"
-        eyebrow={post.category || "Knowledge & Updates"}
-        title={post.title}
-        image={manufacturingImage}
-        imageAlt="Khanna Polyrib manufacturing facility"
-        imagePosition="center center"
-        height="auto"
-        breadcrumbs={[
-          { label: "Home", to: "/" },
-          { label: "Blog & Gallery", to: "/blog" },
-          { label: post.title },
-        ]}
-      />
-
       {/* =========================================================
           ARTICLE AREA
       ========================================================= */}
@@ -379,7 +382,7 @@ export default function BlogDetailPage() {
 
             <section className="mt-8 sm:mt-10 border border-primary/20 bg-primary/[0.045] p-5 sm:p-7 rounded-xl">
               <div className="flex items-center gap-3">
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center bg-primary text-white rounded-xl">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center bg-primary text-white rounded-full">
                   <CheckCircle2 className="h-4.5 w-4.5" />
                 </span>
 
@@ -414,7 +417,7 @@ export default function BlogDetailPage() {
               {post.sections.map((section, index) => (
                 <section key={section.heading} className="min-w-0">
                   <div className="mb-4 flex items-start gap-3">
-                    <span className="mt-1 flex h-7 w-7 shrink-0 items-center justify-center border border-primary/30 bg-primary/5 text-[10px] font-bold text-primary rounded-xl">
+                    <span className="mt-1 flex h-7 w-7 shrink-0 items-center justify-center border border-primary/30 bg-primary/5 text-[10px] font-bold text-primary rounded-full">
                       {String(index + 1).padStart(2, "0")}
                     </span>
 
@@ -589,7 +592,7 @@ export default function BlogDetailPage() {
                 <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-primary/10" />
 
                 <div className="relative">
-                  <span className="flex h-10 w-10 items-center justify-center bg-primary text-white rounded-xl">
+                  <span className="flex h-10 w-10 items-center justify-center bg-primary text-white rounded-full">
                     {isGallery ? (
                       <Camera className="h-5 w-5" />
                     ) : (

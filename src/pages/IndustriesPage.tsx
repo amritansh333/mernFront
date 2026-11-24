@@ -27,7 +27,7 @@ import {
 } from "lucide-react";
 import LoadingState from "@/components/machine-components/LoadingState";
 import PageHeroBanner from "@/components/hero-banner/PageHeroBanner";
-import manufacturingImage from "@/assets/csr-slider1.jpeg";
+import industryImage from "@/assets/industryHeroBanner.jpeg";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL?.replace(/\/+$/, "");
 
@@ -190,8 +190,8 @@ export default function IndustriesPage() {
         eyebrow="Polyrib thermoplastic materials are trusted across 20+ industries worldwide - from food processing and automotive to mining, oil & gas, and medical device manufacturing."
         title="Industries"
         highlight="We Serve"
-        image={manufacturingImage}
-        imageAlt="Khanna Polyrib manufacturing facility"
+        image={industryImage}
+        imageAlt="Multiple Industries Served by Khanna Polyrib"
         imagePosition="center center"
         breadcrumbs={[{ label: "Home", to: "/" }, { label: "Industries" }]}
       />

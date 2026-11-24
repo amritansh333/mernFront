@@ -12,6 +12,7 @@ import {
   ExternalLink,
   Globe2,
   Image as ImageIcon,
+  Info,
   MapPin,
   Maximize2,
   Navigation,
@@ -56,14 +57,18 @@ type EventDetailWithRelated = NewsEventDetail & {
 ========================================================= */
 
 const pageTexture = {
-  backgroundColor: "#FFFFFF",
-  backgroundImage: `
-    radial-gradient(circle at 12px 12px, rgba(39, 158, 206, 0.055) 1px, transparent 1.5px),
-    linear-gradient(135deg, rgba(39, 158, 206, 0.025) 25%, transparent 25%),
-    linear-gradient(315deg, rgba(39, 158, 206, 0.025) 25%, transparent 25%)
+    backgroundColor: "#FFFFFF",
+    backgroundImage: `
+    linear-gradient(
+      90deg,
+      #FFFFFF 0%,
+      #FDFEFF 25%,
+      #F5FAFC 55%,
+      #EAF5F9 80%,
+      #E3F1F7 100%
+    )
   `,
-  backgroundSize: "28px 28px, 56px 56px, 56px 56px",
-};
+  };
 
 /* =========================================================
    HELPERS
@@ -104,7 +109,7 @@ function DetailRow({
 }) {
   return (
     <div className="flex gap-3">
-      <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+      <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
         {icon}
       </div>
 
@@ -426,7 +431,7 @@ export default function EventDetailPage() {
                 {longStartDate && (
                   <div className="rounded-xl border border-border bg-card p-5">
                     <div className="flex items-start gap-3">
-                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
                         <CalendarDays className="h-5 w-5" />
                       </div>
 
@@ -446,7 +451,7 @@ export default function EventDetailPage() {
                 {location && (
                   <div className="rounded-xl border border-border bg-card p-5">
                     <div className="flex items-start gap-3">
-                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
                         <MapPin className="h-5 w-5" />
                       </div>
 
@@ -634,143 +639,168 @@ export default function EventDetailPage() {
           </div>
 
           {/* =====================================================
-              SIDEBAR
-          ===================================================== */}
+    SIDEBAR
+===================================================== */}
 
-          <aside className="min-w-0 lg:sticky lg:top-24">
-            {/* Event details card */}
+<aside className="min-w-0 lg:sticky lg:top-24">
+  {/* Event Details Card */}
 
-            <div className="overflow-hidden rounded-xl border border-border bg-card shadow-sm">
-              <div className="border-b border-border bg-surface-subtle px-5 py-4">
-                <h2 className="font-heading text-lg font-semibold text-charcoal">
-                  Event Details
-                </h2>
-              </div>
+  <div className="overflow-hidden rounded-2xl border border-border/70 bg-card shadow-[0_8px_30px_rgba(15,35,55,0.06)]">
+    {/* Header */}
+    <div className="relative border-b border-border/70 bg-gradient-to-r from-primary/5 via-surface-subtle to-primary/5 px-5 py-4">
+      <div className="absolute left-0 top-0 h-full w-1 bg-primary" />
 
-              <dl className="space-y-5 p-5">
-                {ev.startDate && (
-                  <DetailRow
-                    icon={<CalendarDays className="h-4 w-4" />}
-                    label="Start date"
-                  >
-                    {formatLongDate(ev.startDate)}
-                  </DetailRow>
-                )}
+      <div className="flex items-center gap-3">
+        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/10 text-primary">
+          <Info className="h-4 w-4" />
+        </div>
 
-                {ev.endDate && (
-                  <DetailRow
-                    icon={<CalendarDays className="h-4 w-4" />}
-                    label="End date"
-                  >
-                    {formatLongDate(ev.endDate)}
-                  </DetailRow>
-                )}
+        <div>
+          <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-primary">
+            Event information
+          </p>
+          <h2 className="mt-0.5 font-heading text-lg font-semibold text-charcoal">
+            Event Details
+          </h2>
+        </div>
+      </div>
+    </div>
 
-                {ev.location && (
-                  <DetailRow
-                    icon={<Navigation className="h-4 w-4" />}
-                    label="Location"
-                  >
-                    {ev.location}
-                  </DetailRow>
-                )}
+    {/* Details */}
+    <dl className="space-y-4 p-5">
+      {ev.startDate && (
+        <DetailRow
+          icon={<CalendarDays className="h-4 w-4" />}
+          label="Start date"
+        >
+          {formatLongDate(ev.startDate)}
+        </DetailRow>
+      )}
 
-                {ev.city && (
-                  <DetailRow icon={<MapPin className="h-4 w-4" />} label="City">
-                    {ev.city}
-                  </DetailRow>
-                )}
+      {ev.endDate && (
+        <DetailRow
+          icon={<CalendarDays className="h-4 w-4" />}
+          label="End date"
+        >
+          {formatLongDate(ev.endDate)}
+        </DetailRow>
+      )}
 
-                {ev.country && (
-                  <DetailRow
-                    icon={<Globe2 className="h-4 w-4" />}
-                    label="Country"
-                  >
-                    {ev.country}
-                  </DetailRow>
-                )}
+      {ev.location && (
+        <DetailRow
+          icon={<Navigation className="h-4 w-4" />}
+          label="Location"
+        >
+          {ev.location}
+        </DetailRow>
+      )}
 
-                {ev.venue && (
-                  <DetailRow
-                    icon={<MapPin className="h-4 w-4" />}
-                    label="Venue"
-                  >
-                    {ev.venue}
-                  </DetailRow>
-                )}
+      {ev.city && (
+        <DetailRow icon={<MapPin className="h-4 w-4" />} label="City">
+          {ev.city}
+        </DetailRow>
+      )}
 
-                {ev.booth && (
-                  <DetailRow icon={<Users className="h-4 w-4" />} label="Booth">
-                    {ev.booth}
-                  </DetailRow>
-                )}
+      {ev.country && (
+        <DetailRow
+          icon={<Globe2 className="h-4 w-4" />}
+          label="Country"
+        >
+          {ev.country}
+        </DetailRow>
+      )}
 
-                {item.publishedAt && (
-                  <DetailRow
-                    icon={<Clock3 className="h-4 w-4" />}
-                    label="Published"
-                  >
-                    {formatLongDate(item.publishedAt)}
-                  </DetailRow>
-                )}
-              </dl>
+      {ev.venue && (
+        <DetailRow
+          icon={<MapPin className="h-4 w-4" />}
+          label="Venue"
+        >
+          {ev.venue}
+        </DetailRow>
+      )}
 
-              {(ev.registrationUrl || ev.eventWebsite) && (
-                <div className="space-y-3 border-t border-border p-5">
-                  {ev.registrationUrl && (
-                    <a
-                      href={ev.registrationUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground transition-all hover:-translate-y-0.5 hover:shadow-lg"
-                    >
-                      <Ticket className="h-4 w-4" />
-                      Register for event
-                      <ExternalLink className="h-3.5 w-3.5" />
-                    </a>
-                  )}
+      {ev.booth && (
+        <DetailRow icon={<Users className="h-4 w-4" />} label="Booth">
+          {ev.booth}
+        </DetailRow>
+      )}
 
-                  {ev.eventWebsite && (
-                    <a
-                      href={ev.eventWebsite}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex w-full items-center justify-center gap-2 rounded-xl border border-border bg-background px-4 py-3 text-sm font-semibold text-charcoal transition-all hover:border-primary/30 hover:text-primary"
-                    >
-                      <Globe2 className="h-4 w-4" />
-                      Visit event website
-                      <ExternalLink className="h-3.5 w-3.5" />
-                    </a>
-                  )}
-                </div>
-              )}
-            </div>
+      {item.publishedAt && (
+        <DetailRow
+          icon={<Clock3 className="h-4 w-4" />}
+          label="Published"
+        >
+          {formatLongDate(item.publishedAt)}
+        </DetailRow>
+      )}
+    </dl>
 
-            {/* Contact CTA */}
+    {/* Actions */}
+    {(ev.registrationUrl || ev.eventWebsite) && (
+      <div className="space-y-2.5 border-t border-border/70 bg-surface-subtle/50 p-4">
+        {ev.registrationUrl && (
+          <a
+            href={ev.registrationUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
+          >
+            <Ticket className="h-4 w-4" />
+            Register for event
+            <ExternalLink className="h-3.5 w-3.5 opacity-70 transition-transform group-hover:translate-x-0.5" />
+          </a>
+        )}
 
-            <div className="mt-5 rounded-xl border border-primary/20 bg-primary/15 p-5">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-primary-foreground">
-                <Users className="h-5 w-5" />
-              </div>
+        {ev.eventWebsite && (
+          <a
+            href={ev.eventWebsite}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex w-full items-center justify-center gap-2 rounded-xl border border-border bg-primary/80 px-4 py-3 text-sm font-medium text-white transition-all duration-300 hover:border-primary/40 hover:bg-primary hover:text-white"
+          >
+            <Globe2 className="h-4 w-4" />
+            Visit event website
+            <ExternalLink className="h-3.5 w-3.5 text-white transition-transform group-hover:translate-x-0.5 group-hover:text-white" />
+          </a>
+        )}
+      </div>
+    )}
+  </div>
 
-              <h3 className="mt-4 font-heading text-lg font-semibold text-charcoal">
-                Meet Khanna Polyrib
-              </h3>
+  {/* Meet Khanna Polyrib CTA */}
 
-              <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                Interested in our thermoplastic engineering solutions or want to
-                connect with our team?
-              </p>
+  <div className="group relative mt-5 overflow-hidden rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/10 via-primary/5 to-card p-5 shadow-[0_4px_20px_rgba(15,35,55,0.04)] transition-all duration-300 hover:border-primary/30 hover:shadow-[0_8px_30px_rgba(39,158,206,0.12)]">
+    {/* Decorative element */}
+    <div className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-primary/10 blur-2xl transition-all duration-500 group-hover:bg-primary/20" />
 
-              <Link
-                to="/contact"
-                className="mt-4 inline-flex items-center gap-2 rounded-xl text-sm font-semibold text-primary hover:underline"
-              >
-                Contact our team
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            </div>
-          </aside>
+    <div className="relative">
+      <div className="flex h-11 w-11 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-md shadow-primary/20">
+        <Users className="h-5 w-5" />
+      </div>
+
+      <p className="mt-4 text-[10px] font-semibold uppercase tracking-[0.16em] text-primary">
+        Let's connect
+      </p>
+
+      <h3 className="mt-1 font-heading text-lg font-semibold leading-snug text-charcoal">
+        Meet Khanna Polyrib
+      </h3>
+
+      <p className="mt-2 text-sm leading-6 text-muted-foreground">
+        Explore our engineering plastic solutions or connect with our team to
+        discuss your application requirements.
+      </p>
+
+      <Link
+        to="/contact"
+        className="mt-4 inline-flex items-center gap-2 rounded-xl bg-primary/80 px-3.5 py-2.5 text-sm font-semibold text-[#ffffff] transition-all duration-300 hover:bg-primary hover:text-primary-foreground"
+      >
+        Contact our team
+        <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+      </Link>
+    </div>
+  </div>
+</aside>
         </div>
       </section>
 

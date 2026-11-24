@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Camera, Calendar } from "lucide-react";
 import PageHeroBanner from "@/components/hero-banner/PageHeroBanner";
-import manufacturingImage from "@/assets/csr-slider1.jpeg";
+import BlogHeroImage from "@/assets/blog-hero-banner.jpeg";
 import { useScrollFade } from "@/hooks/useScrollFade";
 import { getBlogPosts } from "@/lib/blogApi";
 import type { BlogPost, PostType } from "@/lib/blogApi";
@@ -108,14 +108,16 @@ export default function BlogPage() {
           HERO
       ========================================================= */}
       <PageHeroBanner
-        eyebrow="Knowledge & Updates"
-        title="Blogs"
-        highlight="& Gallery"
-        image={manufacturingImage}
-        imageAlt="Khanna Polyrib manufacturing facility"
-        imagePosition="center center"
-        breadcrumbs={[{ label: "Home", to: "/" }, { label: "Blogs & Gallery" }]}
-      />
+  eyebrow="Knowledge & Updates"
+  title="Blogs"
+  image={BlogHeroImage}
+  imageAlt="Blog Hero Banner"
+  imagePosition="center center"
+  breadcrumbs={[
+    { label: "Home", to: "/" },
+    { label: "Blogs" },
+  ]}
+/>
 
       {/* =========================================================
           CONTENT

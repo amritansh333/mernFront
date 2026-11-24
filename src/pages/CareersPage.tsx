@@ -21,7 +21,7 @@ import {
 
 import PageHeroBanner from "@/components/hero-banner/PageHeroBanner";
 
-import manufacturingImage from "@/assets/csr-slider1.jpeg";
+import careersImage from "@/assets/careers.jpeg";
 import whatsappBg from "@/assets/whatsapp-bg.png";
 import whatsappLogo from "@/assets/whatsapp-logo.svg";
 
@@ -553,7 +553,7 @@ export default function CareersPage() {
 
         highlight="At Polyrib"
 
-        image={manufacturingImage}
+        image={careersImage}
 
         imageAlt="Khanna Polyrib manufacturing facility"
 

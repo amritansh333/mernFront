@@ -396,7 +396,7 @@ function getNavItems(
         { label: "About Us", href: "/about" },
         { label: "CSR & Sustainability", href: "/csr" },
         { label: "Careers", href: "/careers" },
-        { label: "Blog & Gallery", href: "/blog" },
+        { label: "Blogs", href: "/blog" },
         { label: "Events", href: "/events" },
         { label: "Resources & Downloads", href: "/resources" },
         { label: "Send Your Drawing", href: "/contact?tab=drawing" },

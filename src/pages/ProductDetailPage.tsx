@@ -12,7 +12,6 @@ import {
   Layers,
   Zap,
   Settings,
-  Package,
   Boxes,
   Building2,
   Truck,
@@ -24,7 +23,7 @@ import {
   BadgeCheck,
   ChevronsRight,
   FileText,
-  ShoppingCart,
+  Package,
 } from "lucide-react";
 import type { Product } from "@/types/product";
 import type { Brand } from "@/types/catalog";
@@ -315,7 +314,7 @@ export default function ProductDetailPage() {
 
                 <div className="mb-7">
                   <div className="mb-4 flex items-center gap-2">
-                    <ShoppingCart className="h-5 w-5 text-[#279ECE]" />
+                    <Package className="h-5 w-5 text-[#279ECE]" />
 
                     <h2 className="font-heading text-xl font-bold text-charcoal">
                       {product.name}

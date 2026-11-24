@@ -4178,7 +4178,7 @@
 .contact-folder-shape-stroke {
   fill: none;
 
-  stroke: rgba(39, 158, 206, 0.22);
+  stroke: #88D4EF;
 
   stroke-width: 1.5;
 
@@ -6373,3 +6373,131 @@
   }
 }
 
+
+/* =========================================
+   CSR SLIDER DECORATIVE GEOMETRIC PATTERNS
+========================================= */
+
+.csr-slider-wrapper {
+  isolation: isolate;
+}
+
+/* Main slider */
+.csr-slider {
+  z-index: 2;
+  position: relative;
+  background: #f5fbfd;
+}
+
+/* Decorative shapes */
+.csr-decoration {
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.7;
+}
+
+/* TOP LEFT */
+.csr-decoration-top-left {
+  width: 110px;
+  height: 110px;
+  top: -24px;
+  left: -22px;
+
+  border: 1px solid rgba(39, 158, 206, 0.18);
+  border-radius: 24px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(39, 158, 206, 0.08),
+      rgba(39, 158, 206, 0.02)
+    );
+}
+
+/* Inner geometric accent */
+.csr-decoration-top-left .csr-decoration-inner {
+  position: absolute;
+  inset: 18px;
+
+  border: 1px solid rgba(39, 158, 206, 0.16);
+  border-radius: 18px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(39, 158, 206, 0.06),
+      transparent
+    );
+}
+
+/* BOTTOM RIGHT */
+.csr-decoration-bottom-right {
+  width: 130px;
+  height: 130px;
+  bottom: -24px;
+  right: -22px;
+
+  border-radius: 24px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(39, 158, 206, 0.10),
+      rgba(32, 130, 172, 0.04)
+    );
+
+  border: 1px solid rgba(39, 158, 206, 0.15);
+}
+
+/* Inner shape */
+.csr-decoration-bottom-right .csr-decoration-inner {
+  position: absolute;
+  inset: 18px;
+
+  border-radius: 20px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(39, 158, 206, 0.08),
+      transparent
+    );
+
+  border: 1px solid rgba(39, 158, 206, 0.12);
+}
+
+/* Keep decorations subtle */
+@media (max-width: 768px) {
+  .csr-decoration-top-left {
+    width: 75px;
+    height: 75px;
+    top: -15px;
+    left: -10px;
+  }
+
+  .csr-decoration-bottom-right {
+    width: 90px;
+    height: 90px;
+    bottom: -15px;
+    right: -10px;
+  }
+
+  .csr-decoration-top-left .csr-decoration-inner,
+  .csr-decoration-bottom-right .csr-decoration-inner {
+    inset: 12px;
+  }
+}
+
+
+/* Slight zoom only on the active image when hovering the slider */
+.csr-slider-wrapper:hover .csr-slide-active {
+  transform: translateX(0) scale(1.035) !important;
+}
+
+/* Keep the active image's normal position outside hover */
+.csr-slide-active {
+  transform: translateX(0) scale(1) !important;
+  transition:
+    transform 600ms ease-in-out;
+}
