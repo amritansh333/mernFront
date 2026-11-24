@@ -1223,18 +1223,6 @@ export default function MachineComponentSubcategoryPage() {
             showActionButtons
           />
 
-          {materialNames.length > 0 && (
-            <div className="mx-auto max-w-7xl px-5 pb-4 lg:px-10">
-              <div className="inline-flex max-w-full items-center gap-2 rounded-xl border border-[#276A96]/20 bg-white px-3 py-2 shadow-sm">
-                <ShieldCheck className="h-3.5 w-3.5 shrink-0 text-[#279ECE]" />
-
-                <span className="text-[10px] font-bold uppercase tracking-wide text-[#276A96] sm:text-[11px]">
-                  {materialNames.join(" · ")}
-                </span>
-              </div>
-            </div>
-          )}
-
           <SpecificationsSection
             specifications={subcategoryData.specifications}
           />
