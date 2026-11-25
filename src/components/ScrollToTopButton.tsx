@@ -1,29 +1,58 @@
 import { useEffect, useState } from "react";
 import { ArrowUp } from "lucide-react";
+import { useLocation } from "react-router-dom";
 
 const ScrollToTopButton: React.FC = () => {
   const [scrollProgress, setScrollProgress] = useState<number>(0);
   const [visible, setVisible] = useState<boolean>(false);
 
+  const location = useLocation();
+
+  // Product detail pages:
+  // /products/category/subcategory/brand/product-slug
+  const isProductDetail = /^\/products\/[^/]+\/[^/]+\/[^/]+\/[^/]+$/.test(
+    location.pathname,
+  );
+
+  // Machine component subcategory pages:
+  // /products/thermoplastics-machine-components/strips
+  // /products/thermoplastics-machine-components/profiles
+  // /products/thermoplastics-machine-components/cutting-board
+  const isMachineComponentSubcategory =
+    /^\/products\/thermoplastics-machine-components\/[^/]+$/.test(
+      location.pathname,
+    );
+
+  // Raise the Scroll-to-Top button on pages that have sticky CTAs
+  const hasStickyProductCTAs =
+    isProductDetail || isMachineComponentSubcategory;
+
   useEffect(() => {
     const handleScroll = (): void => {
       const scrollTop = window.scrollY;
+
       const docHeight =
         document.documentElement.scrollHeight -
         document.documentElement.clientHeight;
 
-      const progress = (scrollTop / docHeight) * 100;
-      setScrollProgress(progress);
+      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
 
+      setScrollProgress(progress);
       setVisible(scrollTop > 300);
     };
 
-    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const scrollToTop = (): void => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   const radius = 22;
@@ -32,9 +61,16 @@ const ScrollToTopButton: React.FC = () => {
 
   return (
     <button
+      type="button"
       onClick={scrollToTop}
+      aria-label="Scroll to top"
       className={`
-        fixed bottom-6 right-6 z-50
+        fixed z-[50]
+        ${
+          hasStickyProductCTAs
+            ? "bottom-[calc(8.25rem+env(safe-area-inset-bottom))] right-6"
+            : "bottom-6 right-6"
+        }
         w-14 h-14 rounded-full
         flex items-center justify-center
         bg-primary text-white
@@ -45,7 +81,10 @@ const ScrollToTopButton: React.FC = () => {
       `}
     >
       {/* SVG Progress Ring */}
-      <svg className="absolute w-full h-full -rotate-90">
+      <svg
+        className="absolute w-full h-full -rotate-90"
+        viewBox="0 0 56 56"
+      >
         <circle
           cx="28"
           cy="28"
@@ -54,6 +93,7 @@ const ScrollToTopButton: React.FC = () => {
           strokeWidth="3"
           fill="transparent"
         />
+
         <circle
           cx="28"
           cy="28"
@@ -64,11 +104,12 @@ const ScrollToTopButton: React.FC = () => {
           strokeDasharray={circumference}
           strokeDashoffset={offset}
           strokeLinecap="round"
-          style={{ transition: "stroke-dashoffset 0.2s linear" }}
+          style={{
+            transition: "stroke-dashoffset 0.2s linear",
+          }}
         />
       </svg>
 
-      {/* Arrow Icon */}
       <ArrowUp size={20} className="relative z-10" />
     </button>
   );

@@ -1,7 +1,6 @@
 ﻿import { useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useLocation } from "react-router-dom";
-import { Menu, Search, ShieldCheck } from "lucide-react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Menu, Search, ShieldCheck, PenLine, Download } from "lucide-react";
 
 import MachineSidebar from "@/components/machine-components/MachineSidebar";
 import HeroSection from "@/components/machine-components/HeroSection";
@@ -16,7 +15,7 @@ import type { BrochureProductContext } from "@/components/brochure/types";
 import CuttingBoardApplicationsSection from "@/components/machine-components/CuttingBoardApplicationsSection";
 import PadsAdvantagesSection from "@/components/machine-components/PadsAdvantagesSection";
 import IndustriesSection from "@/components/machine-components/IndustriesSection";
-
+import useFooterAwareSticky from "@/hooks/useFooterAwareSticky";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -37,6 +36,15 @@ import type {
   MachineComponentMaterial,
   MachineComponentValue,
 } from "@/types/machineComponent";
+
+const WHATSAPP_NUMBER = "919936794816";
+
+const WHATSAPP_MESSAGE =
+  "Hello Polyrib Team, I would like to know more about your products and services.";
+
+const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+  WHATSAPP_MESSAGE,
+)}`;
 
 interface SubcategoryProduct {
   name: string;
@@ -887,6 +895,8 @@ export default function MachineComponentSubcategoryPage() {
       currentRoute: `${location.pathname}${location.search}${location.hash}`,
     });
 
+  const { bottomOffset: footerBottomOffset, visible: stickyCtasVisible } = useFooterAwareSticky();
+
   useEffect(() => {
     if (!subcategory) return;
 
@@ -951,7 +961,7 @@ export default function MachineComponentSubcategoryPage() {
   };
 
   return (
-    <main className="min-h-screen bg-white pt-16" style={pageTexture}>
+    <main className="min-h-screen bg-white pt-16 pb-24" style={pageTexture}>
       <div className="flex min-h-[calc(100vh-4rem)]">
         <div className="hidden w-72 shrink-0 lg:block xl:w-80">
           <div className="sticky top-16 h-[calc(100vh-4rem)]">
@@ -1212,7 +1222,8 @@ export default function MachineComponentSubcategoryPage() {
             </div>
           </div>
 
-          <HeroSection
+          <div id="downloads" className="scroll-mt-24">
+            <HeroSection
             title={subcategoryData.heroTitle || subcategoryData.name}
             description={subcategoryData.description}
             image={subcategoryData.image}
@@ -1221,7 +1232,8 @@ export default function MachineComponentSubcategoryPage() {
             downloads={subcategoryData.downloads}
             materials={subcategoryData.materials ?? []}
             showActionButtons
-          />
+            />
+          </div>
 
           <SpecificationsSection
             specifications={subcategoryData.specifications}
@@ -1321,6 +1333,66 @@ export default function MachineComponentSubcategoryPage() {
             )
           }
         </section>
+      </div>
+
+      {/* ---------------- STICKY MACHINE COMPONENT CTAs ---------------- */}
+      <div
+  className="fixed inset-x-0 z-[60] border-t border-white/30 px-3 pb-[calc(env(safe-area-inset-bottom)+0.65rem)] pt-3 shadow-[0_-8px_28px_rgba(31,127,168,0.12)] backdrop-blur-md transition-[bottom] duration-200"
+  style={{
+    bottom: footerBottomOffset,
+    opacity: stickyCtasVisible ? 1 : 0,
+    pointerEvents: stickyCtasVisible ? "auto" : "none",
+    visibility: stickyCtasVisible ? "visible" : "hidden",
+  }}
+  role="region"
+  aria-label="Product actions"
+>
+        <div className="mx-auto grid w-full max-w-7xl grid-cols-3 gap-2 sm:gap-3">
+          {/* Request Quote */}
+          <Link
+            to="/contact"
+            className="group inline-flex h-12 w-full items-center justify-center gap-1.5 rounded-xl border border-[#279ECE] bg-gradient-to-r from-[#279ECE] to-[#1F7FA8] px-2 text-center text-xs font-semibold text-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md hover:shadow-[#279ECE]/20 active:scale-[0.99] sm:text-sm"
+          >
+            <span>Request a Quote</span>
+            <PenLine className="h-4 w-4 shrink-0 transition-transform duration-300 group-hover:rotate-[-8deg]" />
+          </Link>
+
+          {/* Datasheet / Downloads */}
+          <a
+            href="#downloads"
+            onClick={(event) => {
+              event.preventDefault();
+              document.getElementById("downloads")?.scrollIntoView({
+                behavior: "smooth",
+                block: "center",
+              });
+            }}
+            className="group inline-flex h-12 w-full items-center justify-center gap-1.5 rounded-xl border border-[#279ECE] bg-white/80 px-2 text-center text-xs font-semibold text-[#1F7FA8] shadow-sm backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-white hover:shadow-md active:scale-[0.99] sm:text-sm"
+          >
+            <span>Download Datasheet</span>
+            <Download className="h-4 w-4 shrink-0 transition-transform duration-300 group-hover:translate-y-0.5" />
+          </a>
+
+          {/* Chat on WhatsApp */}
+          <a
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Chat with Polyrib on WhatsApp"
+            className="group inline-flex h-12 w-full items-center justify-center gap-1.5 rounded-xl border border-[#25D366] bg-gradient-to-r from-[#25D366] to-[#128C7E] px-2 text-center text-xs font-semibold text-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md hover:shadow-[#25D366]/25 active:scale-[0.99] sm:text-sm"
+          >
+            <span>Chat on WhatsApp</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="h-4 w-4 shrink-0 transition-transform duration-300 group-hover:scale-110"
+              aria-hidden="true"
+            >
+              <path d="M20.52 3.48A11.8 11.8 0 0 0 12.1 0C5.55.0.22 5.32.22 11.88c0 2.1.55 4.15 1.6 5.96L0 24l6.34-1.66a11.85 11.85 0 0 0 5.75 1.47h.01c6.55 0 11.88-5.33 11.88-11.89 0-3.17-1.24-6.15-3.46-8.44ZM12.1 21.78a9.88 9.88 0 0 1-5.03-1.37l-.36-.22-3.76.98 1-3.66-.24-.38a9.85 9.85 0 0 1-1.51-5.25c0-5.45 4.44-9.89 9.9-9.89 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.9 7c0 5.46-4.44 9.89-9.9 9.89Zm5.43-7.4c-.3-.15-1.77-.87-2.04-.97-.28-.1-.48-.15-.68.15-.2.3-.77.97-.94 1.17-.17.2-.35.23-.65.08-.3-.15-1.27-.47-2.42-1.5-.9-.8-1.5-1.8-1.67-2.1-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2 0-.38-.05-.52-.15-.15-.65-1.56-.89-2.14-.1-.58-.5-.5-.52-.5h-.45c-.2 0-.52.08-.8.38-.28.3-1.05 1.02-1.05 2.5s1.08 2.9 1.23 3.1c.15.2 2.12 3.23 5.13 4.53.72.31 1.28.5 1.72.64.72.23 1.38.2 1.9.12.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.08-.12-.27-.2-.57-.35Z" />
+            </svg>
+          </a>
+        </div>
       </div>
     </main>
   );
