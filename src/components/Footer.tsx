@@ -70,12 +70,12 @@ const brands = [
     href: "/products/thermoplastics-semi-finished-products/sheets-blocks/polyrib-v",
   },
   {
-    label: "POLYRIB H",
-    href: "/products/thermoplastics-semi-finished-products/sheets-blocks/polyrib-h",
+    label: "CUTRITE",
+    href: "/products/thermoplastics-machine-components/chopping-board",
   },
   {
-    label: "POLYRIB P",
-    href: "/products/thermoplastics-semi-finished-products/sheets-blocks/polyrib-p",
+    label: "RIPLA",
+    href: "/products/thermoplastics-machine-components/cutting-board",
   },
   {
     label: "PCCLEAR",
