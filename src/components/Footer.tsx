@@ -66,24 +66,48 @@ function getFooterLinks(
 
 const brands = [
   {
-    label: "POLYRIB V",
-    href: "/products/thermoplastics-semi-finished-products/sheets-blocks/polyrib-v",
+    label: "RIPLA",
+    href: "/products/thermoplastics-machine-components/cutting-board",
   },
   {
     label: "CUTRITE",
     href: "/products/thermoplastics-machine-components/chopping-board",
   },
   {
-    label: "RIPLA",
-    href: "/products/thermoplastics-machine-components/cutting-board",
-  },
-  {
     label: "PCCLEAR",
     href: "/products/thermoplastics-semi-finished-products/sheets-blocks/pcclear",
   },
   {
+    label: "KBK-PS",
+    href: "/products/thermoplastics-semi-finished-products/sheets-blocks/kbk-ps",
+  },
+  {
     label: "KAYLON",
     href: "/products/thermoplastics-semi-finished-products/sheets-blocks/pakaylon",
+  },
+  {
+    label: "PAKETAL",
+    href: "/products/thermoplastics-semi-finished-products/sheets-blocks/paketal",
+  },
+  {
+    label: "POLYRIB A",
+    href: "/products/thermoplastics-semi-finished-products/sheets-blocks/polyrib-a",
+  },
+  {
+    label: "DIPRA",
+    href: "/products/thermoplastics-semi-finished-products/coils-rolls/dipra-add-clear-rolls",
+  },
+  {
+    label: "PLASCON",
+    href: "/products/thermoplastics-semi-finished-products/sheets-blocks/plascon-v",
+  },
+  {
+    label: "HITECH",
+    href: "/products/thermoplastics-semi-finished-products/sheets-blocks/hitech",
+  },
+  {
+    label: "ARETE LINERS",
+    href: "/products/thermoplastics-machine-components/application-ready-sheets/arete-liners",
   },
 ];
 
@@ -175,15 +199,15 @@ export function Footer() {
               </div>
             </Link>
 
-            <p className="text-white/60 text-xs sm:text-sm leading-relaxed mb-3 max-w-lg">
-              India's leading manufacturer of engineering thermoplastic
-              semi-finished products and machine components. Trusted across 20+
+            <p className="text-white text-xs sm:text-sm leading-relaxed mb-3 max-w-lg">
+              India's leading manufacturer of engineering Thermoplastic
+              Semi-Finished Products and Thermoplastic Engineered Products. Trusted across 20+
               industries worldwide.
             </p>
 
             {/* Brands */}
             <div className="w-full">
-              <p className="text-[10px] uppercase tracking-[0.16em] font-semibold text-white/40 mb-2">
+              <p className="text-[10px] uppercase tracking-[0.16em] font-semibold text-white/70 mb-2">
                 Our Brands
               </p>
 
@@ -199,8 +223,8 @@ export function Footer() {
                       px-2 py-1
                       bg-white/[0.06]
                       border border-white/[0.08]
-                      text-white/55
-                      rounded-md
+                      text-white
+                      rounded-xl
                       hover:bg-primary/20
                       hover:border-primary/40
                       hover:text-white
@@ -236,7 +260,7 @@ export function Footer() {
                     <Link
                       key={link.label}
                       to={link.href}
-                      className="block text-xs sm:text-sm text-white/50 hover:text-white transition-colors leading-relaxed"
+                      className="block text-xs sm:text-sm text-white/95 hover:text-white transition-colors leading-relaxed"
                     >
                       {link.label}
                     </Link>
@@ -259,7 +283,7 @@ export function Footer() {
                     <Link
                       key={link.label}
                       to={link.href}
-                      className="block text-xs sm:text-sm text-white/50 hover:text-white transition-colors leading-relaxed"
+                      className="block text-xs sm:text-sm text-white/95 hover:text-white transition-colors leading-relaxed"
                     >
                       {link.label}
                     </Link>
@@ -280,7 +304,7 @@ export function Footer() {
                 <Link
                   key={link.label}
                   to={link.href}
-                  className="group flex items-start gap-2 text-xs sm:text-sm text-white/55 hover:text-white transition-colors"
+                  className="group flex items-start gap-2 text-xs sm:text-sm text-white/95 hover:text-white transition-colors"
                 >
                   <span className="w-1 h-1 mt-1.5 rounded-full bg-primary-light/70 shrink-0 group-hover:bg-primary-light" />
                   <span className="leading-relaxed">{link.label}</span>
@@ -302,7 +326,7 @@ export function Footer() {
                   <li key={link.label}>
                     <Link
                       to={link.href}
-                      className="text-xs sm:text-sm text-white/55 hover:text-white transition-colors leading-relaxed"
+                      className="text-xs sm:text-sm text-white/95 hover:text-white transition-colors leading-relaxed"
                     >
                       {link.label}
                     </Link>
@@ -322,7 +346,7 @@ export function Footer() {
                   <li key={link.label}>
                     <Link
                       to={link.href}
-                      className="text-xs sm:text-sm text-white/55 hover:text-white transition-colors leading-relaxed"
+                      className="text-xs sm:text-sm text-white/95 hover:text-white transition-colors leading-relaxed"
                     >
                       {link.label}
                     </Link>
@@ -339,7 +363,7 @@ export function Footer() {
           <div className="flex items-start gap-2.5">
             <MapPin className="w-4 h-4 text-primary-light shrink-0 mt-0.5" />
 
-            <span className="text-white/55 text-xs sm:text-sm leading-relaxed">
+            <span className="text-white text-xs sm:text-sm leading-relaxed">
               24/168 Birhana Road, Kanpur-208001, India
             </span>
           </div>
@@ -352,7 +376,7 @@ export function Footer() {
 
               <a
                 href="tel:05152970306"
-                className="text-white/55 text-xs sm:text-sm hover:text-white transition-colors truncate"
+                className="text-white/95 text-xs sm:text-sm hover:text-white transition-colors truncate"
                 aria-label="Call 0515-2970306"
               >
                 0515-2970306
@@ -365,7 +389,7 @@ export function Footer() {
 
               <a
                 href="mailto:info@polyrib.com"
-                className="text-white/55 text-xs sm:text-sm hover:text-white transition-colors truncate"
+                className="text-white/95 text-xs sm:text-sm hover:text-white transition-colors truncate"
               >
                 info@polyrib.com
               </a>
@@ -378,7 +402,7 @@ export function Footer() {
           {/* DESIGN + COPYRIGHT */}
           <div className="flex flex-col-reverse sm:flex-row sm:items-center sm:justify-between gap-2">
             {/* COPYRIGHT */}
-            <p className="text-white/35 text-[10px] sm:text-xs text-center sm:text-left">
+            <p className="text-white/95 text-[10px] sm:text-xs text-center sm:text-left">
               © {new Date().getFullYear()} Khanna Polyrib Pvt. Ltd. All rights
               reserved.
             </p>
@@ -388,7 +412,7 @@ export function Footer() {
               href="https://www.vigyapanam.in"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-1 text-white/55 hover:text-primary-light transition-colors duration-200 text-[10px] sm:text-xs hover:underline"
+              className="inline-flex items-center justify-center gap-1 text-white/95 hover:text-primary-light transition-colors duration-200 text-[10px] sm:text-xs hover:underline"
             >
               <Globe className="w-3.5 h-3.5 text-primary-light shrink-0" />
               Designed & Developed by Vigyapanam Digi Solutions
@@ -397,7 +421,7 @@ export function Footer() {
           </div>
 
           {/* POLICY LINKS */}
-          <div className="flex items-center justify-center gap-4 text-[10px] sm:text-xs text-white/35">
+          <div className="flex items-center justify-center gap-4 text-[10px] sm:text-xs text-white/95">
             <Link
               to="/privacy-policy"
               className="hover:text-white/70 transition-colors"
